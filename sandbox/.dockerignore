@@ -1,0 +1,17 @@
+# This file tells Docker which files to skip when creating the image.
+
+# Ignore the git infrastructure.
+.git
+.idea
+# Ignore the mysql data files that the dev mysql server creates.
+sql/docker/mysql-data*
+# Ignore the terraform config files. They dont' belong in the image itself.
+terraform/*
+# Ignore mysql dump files that deployfish creates, which are added to the root folder,
+# but don't ignore any other .sql files in deeper folders.
+/*.sql
+# Ignore the docker-compose config files, as those have no use inside the container.
+docker-compose.*
+# Ignore the .docker-sync folder (only generated on Robert's dev machine)
+.docker-sync
+tags

@@ -1,0 +1,26 @@
+{% extends 'theme/base.html' %}
+{% load theme %}
+
+{% block title %}{% trans 'ADS DevOps' %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% sass_src 'core/css/core.scss' %}">
+  <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'wildewidgets/css/highlighting.css' %}">
+{% endblock %}
+
+{% block extra_header_js %}
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+  <script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/datetime-moment.js"></script>
+{% endblock %}
+
+{% block breadcrumbs %}
+  <nav aria-label="breadcrumb" class="ribbon__content__login__breadcrumbs">
+    <ol class="breadcrumb ribbon__content__login__breadcrumbs__breadcrumb">
+    {% block breadcrumb-items %}
+      {% breadcrumb 'Sphinx Hosting Demo' 'core:home' %}
+    {% endblock %}
+    </ol>
+  </nav>
+{% endblock %}

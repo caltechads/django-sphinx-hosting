@@ -1,0 +1,39 @@
+---
+version: "3.8"
+
+services:
+  demo:
+    image: sphinx_hosting_demo:latest
+    user: root
+    container_name: sphinx_hosting_demo
+    restart: always
+    hostname: sphinx_hosting_demo
+    ports:
+      - "443:443"
+    depends_on:
+      - mysql
+    volumes:
+      # Mounts the repo into the container, so that local changes will be picked
+      # up without rebuilding.
+      - .:/app
+      - ../sphinx_hosting:/ve/lib/python3.8/site-packages/sphinx_hosting
+
+  mysql:
+    image: mysql:8.0.23
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+    cap_add:
+      # removes error messages like: mbind: Operation not permitted
+      - SYS_NICE
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sql/docker/my.cnf:/etc/mysql/conf.d/dev.cnf
+      - ./sql/docker:/docker-entrypoint-initdb.d
+      - demo_data:/var/lib/mysql
+
+volumes:
+  # The Docker volume in which the database's files are stored. Works in tandem
+  # with the "demo_data:/var/lib/mysql" volume mount defined above.
+  demo_data:

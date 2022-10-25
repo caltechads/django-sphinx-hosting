@@ -1,0 +1,126 @@
+{% load static i18n sass_tags %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  {# As of June 2018, this is the most up-to-date "responsive design" viewport tag. #}
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    {% block title %}{% endblock %}
+  </title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ APPLE_TOUCH_ICON }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ FAVICON_32 }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ FAVICON_16 }}">
+  <link rel="manifest" href="{{ SITE_WEBMANIFIEST }}">
+  <link rel="shortcut icon" href="{{ FAVICON }}">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta6/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="{% static 'wildewidgets/css/table_extra.css' %}">
+  <link rel="stylesheet" href="{% sass_src 'wildewidgets/css/wildewidgets.scss' %}">
+  <link rel="stylesheet" href="{% sass_src 'theme/css/theme.scss' %}">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@tabler/core@1.0.0-beta6/dist/js/tabler.min.js"></script>
+  {% block extra_header_js %}
+    {# Override this in subtemplates to add additional javascript to the page. Remember to use defer. #}
+  {% endblock %}
+</head>
+
+<body class="{% block body_classes %}{% endblock %}">
+  <style>
+    @media only screen and (min-width: 1200px) {
+        #shifted_contents, .ribbon_bar {
+            margin-left: 15rem;
+        }
+    }
+  </style>
+
+  <div>
+    {% block main_menu %}
+      {{menu}}
+    {% endblock %}
+
+  <div class="visually-hidden visually-hidden-focusable">
+    <a href="#main-content-anchor">{% trans 'Skip to main content' %}</a>
+  </div>
+  <div class="ribbon_bar">
+    <div class="ribbon_bar__content container d-flex justify-content-between align-items-center">
+      <div class="ribbon_bar__content__breadcrumbs d-none d-md-block">
+        {% block breadcrumbs %}
+
+        {% endblock %}
+      </div>
+      {% block ribbon_bar_links %}
+      <ul class="ribbon_bar__content__links d-flex align-self-center">
+        <li>
+          {#<!--suppress HtmlUnknownTarget -->#}
+          <a title="Logout of your demo session." href="/auth/logout">
+            {% trans 'Logout' %}
+          </a>
+        </li>
+      </ul>
+      {% endblock %}
+    </div>
+  </div>
+  <div id="shifted_contents">
+    <div>
+      {% block secondary_menu %}
+        {{submenu}}
+      {% endblock %}
+    </div>
+    <div class="page">
+      <a id="main-content-anchor"></a>
+        <section class="page__content {% block content_classes %}{% endblock %} {% if container_size %}{{container_size}}{% else %}container{% endif %}">
+        {% block messages %}
+          <div class="messages d-flex-column pl-0">
+            {% for message in messages %}
+              <div class="messages__item alert alert-dismissible
+                {% if message.tags %}
+                  {% if message.tags == 'success' %}
+                    alert-success
+                  {% elif message.tags == 'warning' %}
+                    alert-warning
+                  {% elif message.tags == 'error' %}
+                    alert-danger
+                  {% else %}
+                    alert-info
+                  {% endif %}
+                {% endif %}
+              "><h4 class='alert-title'>{{ message }}</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endblock %}
+        {% block content %}
+          {# This block is where templates place their primary page content. #}
+        {% endblock %}
+      </section>
+    </div>
+
+    <footer class="footer {% block footer_classes %}{% endblock %}">
+      <div class="footer__content container d-flex flex-row align-items-stretch justify-content-between py-2">
+        <div class="footer__content__contact pr-4">
+            <div><a href="{{ ORGANIZATION_LINK }}">{{ ORGANIZATION_NAME }}</a></div>
+            <div>{{ ORGANIZATION_ADDRESS }}
+            <div>© {% now 'Y' %} {{ COPYRIGHT_ORGANIZATION }}</div>
+        </div>
+        <ul class="footer__content__links d-flex align-self-center">
+          {% for link in FOOTER_LINKS %}
+            <li><a href="{{ link.0 }}">{{ link.1 }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </footer>
+  </div>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS, as specified by the Bootstrap docs. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+  <script src="{% static 'theme/js/theme.js' %}"></script>
+  {% block extra_footer_js %}
+  {% endblock %}
+</body>
+</html>

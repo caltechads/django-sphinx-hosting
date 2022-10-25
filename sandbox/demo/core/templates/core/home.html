@@ -1,0 +1,20 @@
+{% extends 'theme/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans 'Sphinx Hosting Demo' %}{% endblock %}
+
+{% block content %}
+  <h2>Hello from Sphinx Hosting Demo</h2>
+
+  <p class="introduction">
+    {% if user.is_authenticated %}
+      You are logged in as {{user}}.
+    {% else %}
+      You are not logged in.
+    {% endif %}
+  </p>
+
+  <p>
+    {{ mydata }}
+  </p>
+{% endblock %}

@@ -1,0 +1,327 @@
+/* ===================================================================
+   Use these in your CSS via the SCSS mixin syntax.  Example:
+
+   @import "_mixins.scss";
+
+   .my_title {
+     @include serif-title();
+   }
+=================================================================== */
+
+
+
+@mixin orange-links() {
+  a, a:visited {
+    color:           $color-orange-accessible !important;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+@mixin black-links() {
+  a, a:visited {
+    color:           $color-black;
+    text-decoration: none;
+  }
+}
+
+/*
+  Turn a <ul> or <ol> into a set of all caps,
+  white links, horizontally oriented.  Usage:
+
+  .my-nav {
+    @include all-caps-horizontal-links();
+  }
+
+*/
+
+@mixin all-caps-horizontal-links() {
+  margin: 0;
+  font-size: 0.8em;
+  a, a:visited {
+    color: $color-white!important;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  li {
+    display: inline-block;
+    padding-left: 1.25em;
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+/*
+  Center something in the browser window, and make it
+  be @responsive_grid_w wide.  Usage:
+
+  .my-div {
+    @include page-width-centered();
+  }
+*/
+@mixin page-width-centered() {
+  width: $content_width;
+  margin: auto;
+}
+
+@mixin form-bold-labels() {
+  label {
+    font-weight: bold;
+  }
+}
+
+@mixin form-full-width-text-inputs() {
+  input[type=text],
+  input[type=url],
+  textarea
+  {
+    width: 100%;
+  }
+}
+
+
+@mixin form-inline-radios() {
+  .inline-radios {
+    padding: 0;
+    margin: 0;
+    li {
+      display: inline-block;
+      padding-left: 1.25em;
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+}
+
+@-webkit-keyframes highlight {
+  0%   { background-color: transparent; }
+  50%  { background-color: darken(#fff3cd, 20%); }
+  100% { background-color: transparent; }
+}
+
+@keyframes highlight {
+  0%   { background-color: transparent; }
+  50%  { background-color: darken(#fff3cd, 20%); }
+  100% { background-color: transparent; }
+}
+
+@mixin highlight-element() {
+  &.highlight {
+    animation-name: highlight;
+    animation-duration: 2s;
+    -webkit-animation-name: highlight;
+    -webkit-animation-duration: 2s;
+  }
+}
+
+@mixin section-menu () {
+    background-color: $color-ribbon;
+    .nav-item {
+        color: $color-ribbon-text;
+        font-size: 1.1em;
+        &:hover {
+          text-decoration: underline;
+        }
+    }
+
+    .nav-item.active {
+        font-weight: bold;
+        color: $color-white;
+    }
+}
+
+
+@mixin tab-pane() {
+    background-color: $color-tab;
+}
+
+@mixin tab-active-nav-link() {
+  .nav-link.active {
+    background-color: $color-tab;
+    border-bottom-color: $color-tab;
+  }
+}
+
+
+@mixin paragraph-font-sizes {
+    font-size: 1.6rem;
+    @include landscape-tablet-up {
+      font-size: 1.8rem;
+    }
+  }
+  //
+  // ====================
+  // Container Mixins
+  // ====================
+  @mixin width-1100-container {
+    max-width: $news-title-width;
+    margin: 0 auto;
+  }
+
+  @mixin clearfix {
+    &:before, &:after {
+      content: "";
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+  }
+
+  // Text style mixins
+  // -----------------
+
+  // The font-family for the whole site is Helvetica, so we don't need to define
+  // it here, instead we define it on <body> in _globals.scss
+
+  @mixin breadcrumbs {
+    &__breadcrumb {
+      background-color: transparent;
+      margin-bottom: 0;
+      padding-top: 0.8rem;
+      a, a:visited {
+        color: $color-white;
+        font-weight: bold !important;
+      }
+    }
+    .breadcrumb-item {
+      font-size: 0.9em;
+      color: $color-white;
+      &.active {
+        color: $color-white;
+      }
+    }
+    .breadcrumb-item + .breadcrumb-item::before {
+      color: $color-white;
+      content: '>';
+    }
+  }
+
+  @mixin font-very-light {
+    font-weight: 200;
+  }
+
+  @mixin font-light {
+    font-weight: 300;
+  }
+
+  @mixin font-medium {
+    font-weight: normal;
+  }
+
+  @mixin font-bold {
+    font-weight: bold;
+  }
+
+  @mixin heading1 {
+    @include serif-title();
+    color: $color-black-text;
+    font-size: 3.4rem;
+    line-height: 6rem;
+  }
+
+  @mixin heading2 {
+    @include serif-title();
+    color: $color-black-text;
+    font-size: 2.8rem;
+    line-height: 4.2rem;
+  }
+
+  @mixin heading3 {
+    color: $color-black-text;
+    font-size: 2.2rem;
+    line-height: 3.2rem;
+  }
+
+  @mixin heading4 {
+    color: $color-gray;
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    @include font-bold;
+  }
+
+  @mixin heading5 {
+    color: $color-gray;
+    @include paragraph-font-sizes;
+    line-height: 2.4rem;
+    @include font-bold;
+  }
+
+  @mixin heading6 {
+    color: $color-gray;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    @include font-bold;
+    text-transform: uppercase;
+    @include landscape-tablet-up {
+      font-size: 1.4rem;
+    }
+  }
+
+  @mixin paragraph {
+    @include paragraph-font-sizes;
+    color: $color-black-text;
+    line-height: 2.4rem;
+    margin-bottom: 2.4rem;
+
+    @include landscape-tablet-up {
+      line-height: 2.8rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+// Legacy Styles
+@mixin mobile-padding() {
+    padding-left: 10px;
+    padding-right: 10px;
+    @include desktop-up {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+@mixin portrait-tablet-up {
+    // Devices that are 768px+ wide.
+    @include media-breakpoint-up(md) {
+      @content;
+    }
+  }
+
+@mixin desktop-up {
+    // Devices that are 1440px+ wide.
+    @include media-breakpoint-up(xl) {
+      @content;
+    }
+  }
+
+@mixin landscape-phone-up {
+    // Devices that are 480px+ wide.
+    @include media-breakpoint-up(sm) {
+      @content;
+    }
+  }
+
+@mixin portrait-tablet-up {
+    // Devices that are 768px+ wide.
+    @include media-breakpoint-up(md) {
+      @content;
+    }
+  }
+
+@mixin landscape-tablet-up {
+    // Devices that are 1024px+ wide.
+    @include media-breakpoint-up(lg) {
+      @content;
+    }
+  }
+
+@mixin desktop-up {
+    // Devices that are 1440px+ wide.
+    @include media-breakpoint-up(xl) {
+      @content;
+    }
+  }
