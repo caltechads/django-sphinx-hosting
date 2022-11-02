@@ -1,7 +1,7 @@
-{% extends 'theme/base.html' %}
-{% load theme %}
+{% extends 'academy_theme/base.html' %}
+{% load academy_theme i18n static sass_tags %}
 
-{% block title %}{% trans 'ADS DevOps' %}{% endblock %}
+{% block title %}{% trans 'Sphinx Hosting Demo' %}{% endblock %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% sass_src 'core/css/core.scss' %}">
@@ -16,11 +16,9 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-  <nav aria-label="breadcrumb" class="ribbon__content__login__breadcrumbs">
-    <ol class="breadcrumb ribbon__content__login__breadcrumbs__breadcrumb">
-    {% block breadcrumb-items %}
-      {% breadcrumb 'Sphinx Hosting Demo' 'core:home' %}
-    {% endblock %}
-    </ol>
-  </nav>
+  <ol class="breadcrumb ribbon__content__login__breadcrumbs__breadcrumb">
+  {% block breadcrumb-items %}
+    {% breadcrumb 'Home' 'core:home' %}
+  {% endblock %}
+  </ol>
 {% endblock %}

@@ -10,7 +10,8 @@ django-extensions==3.2.0                      # https://github.com/django-extens
 django-xff==1.3.0                             # https://github.com/ferrix/xff/
 django-compressor==4.0                        # https://github.com/django-compressor/django-compressor
 django-crequest==2018.5.11                    # https://github.com/Alir3z4/django-crequest
-django-wildewidgets==0.13.46                  # https://github.com/caltechads/django-wildewidgets
+django-wildewidgets==0.13.49                  # https://github.com/caltechads/django-wildewidgets
+django-theme-academy==0.1.0                   # https://github.com/caltechads/django-theme-academy
 
 # Web server
 # ------------------------------------------------------------------------------

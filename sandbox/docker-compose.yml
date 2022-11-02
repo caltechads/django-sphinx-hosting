@@ -8,6 +8,9 @@ services:
     container_name: sphinx_hosting_demo
     restart: always
     hostname: sphinx_hosting_demo
+    environment:
+      - DEBUG=True
+      - DEVELOPMENT=True
     ports:
       - "443:443"
     depends_on:

@@ -4,16 +4,16 @@
 from typing import List, Tuple
 
 from django.templatetags.static import static
-from wildewidgets import VerticalDarkMenu
+
+from academy_theme.wildewidgets import AcademyThemeMainMenu
 
 
 #------------------------------------------------------
 # Menus
 #------------------------------------------------------
 
-class MainMenu(VerticalDarkMenu):
-    brand_image: str = static("core/images/logo.svg")
-    brand_image_width: str = "100%"
+class MainMenu(AcademyThemeMainMenu):
+    brand_image: str = static("core/images/logo3.png")
     brand_text: str = "Sphinx Hosting"
     items: List[Tuple[str, str]] = [
         ('Home', 'core:home'),

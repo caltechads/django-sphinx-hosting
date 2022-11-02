@@ -118,10 +118,10 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
     'sass_processor',
     'crispy_forms',
+    'academy_theme',
     'wildewidgets',
 ]
 LOCAL_APPS = [
-    'demo.theme',
     'demo.users',
     'demo.core',
 ]
@@ -216,7 +216,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                'demo.theme.context_processors.theme',
+                'academy_theme.context_processors.theme',
             ],
         },
     },
@@ -369,6 +369,25 @@ LOGGING = {
     },
 }
 logging.config.dictConfig(LOGGING)
+
+# django-theme-academy
+# ------------------------------------------------------------------------------
+ACADEMY_THEME_SETTINGS = {
+    # Header
+    'APPLE_TOUCH_ICON': 'core/images/apple-touch-icon.png',
+    'FAVICON_32': 'core/images/favicon-32x32.png',
+    'FAVICON_16': 'core/images/favicon-16x16.png',
+    'FAVICON': 'core/images/favicon.ico',
+    'SITE_WEBMANIFEST': 'core/images/site.webmanifest',
+
+    # Footer
+    'ORGANIZATION_LINK': 'https://github.com/caltechads/django-sphinx-hosting',
+    'ORGANIZATION_NAME': 'Sphinx Hosting',
+    'ORGANIZATION_ADDRESS': '123 Main Street, Everytown, ST',
+    'COPYRIGHT_ORGANIZATION': 'Sphinx Hosting',
+    'FOOTER_LINKS': []
+}
+
 
 # django-xff
 # ------------------------------------------------------------------------------
