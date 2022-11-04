@@ -1,0 +1,3 @@
+
+class VersionAlreadyExists(Exception):
+    pass

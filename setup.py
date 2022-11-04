@@ -8,8 +8,13 @@ setup(
     version="0.1.0",
     packages=find_packages(),
     include_package_data=True,
-    package_data={'ldap_faker': ["py.typed"]},
+    package_data={'sphinx_hosting': ["py.typed"]},
     install_requires=[
+        "django-theme-academy >= 0.1.0",
+        "django-wildewidgets >= 0.13.49",
+        "django-extensions >= 3.2.1",
+        "lxml >= 4.9.1",
+        "cssselect >= 1.2.0"
     ],
     author="Caltech IMSS ADS",
     author_email="cmalek@caltech.edu",
@@ -22,7 +27,6 @@ setup(
         'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
