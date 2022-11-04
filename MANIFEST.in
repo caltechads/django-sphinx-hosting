@@ -2,3 +2,5 @@ include MANIFEST.in
 include LICENSE.txt
 include README.md
 include sphinx_hosting/py.typed
+include sphinx_hosting/static
+include sphinx_hosting/templates
