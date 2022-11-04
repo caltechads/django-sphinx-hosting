@@ -120,6 +120,7 @@ THIRD_PARTY_APPS = [
     'crispy_forms',
     'academy_theme',
     'wildewidgets',
+    'sphinx_hosting'
 ]
 LOCAL_APPS = [
     'demo.users',

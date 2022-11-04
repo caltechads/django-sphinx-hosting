@@ -16,10 +16,9 @@ services:
     depends_on:
       - mysql
     volumes:
-      # Mounts the repo into the container, so that local changes will be picked
-      # up without rebuilding.
       - .:/app
-      - ../sphinx_hosting:/ve/lib/python3.8/site-packages/sphinx_hosting
+      - ../sphinx_hosting:/ve/lib/python3.10/site-packages/sphinx_hosting
+      - ../../django-theme-academy/academy_theme:/ve/lib/python3.10/site-packages/academy_theme
 
   mysql:
     image: mysql:8.0.23

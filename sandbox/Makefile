@@ -12,7 +12,11 @@ clean:
 dist: clean
 	@python setup.py sdist
 
-build:
+package:
+	(cd ..; python setup.py sdist)
+	cp ../dist/django-sphinx-hosting-${VERSION}.tar.gz django-sphinx-hosting.tar.gz
+
+build: package
 	docker build -t ${PACKAGE}:${VERSION} .
 	docker tag ${PACKAGE}:${VERSION} ${PACKAGE}:latest
 	docker image prune -f

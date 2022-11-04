@@ -7,5 +7,5 @@ setup(
     description="",
     author="Caltech IMSS ADS",
     author_email="imss-ads-staff@caltech.edu",
-    packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests", "htmlcov"])
+    packages=find_packages()
 )

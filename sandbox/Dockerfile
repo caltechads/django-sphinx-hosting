@@ -18,13 +18,6 @@ RUN amazon-linux-extras install nginx1 rust1 python3.8 && \
         # We need these mysql packages for python to be able to connect to mysql, and for `manage.py dbshell` to work.
         mysql-devel \
         mysql \
-        # Python3.8 packages necessary for building wheels
-        python38-devel \
-        python38-wheel \
-        # Upgrade SQLite3 to 3.14.2-1 using the packages we downloaded above.
-        sqlite-3.14.2-1.fc25.x86_64.rpm \
-        sqlite-devel-3.14.2-1.fc25.x86_64.rpm \
-        sqlite-libs-3.14.2-1.fc25.x86_64.rpm \
         # Useful unix utilities that don't come with the amazonlinux2 docker image.
         hostname \
         psmisc \
@@ -50,6 +43,7 @@ ENV PATH /ve/bin:$PATH
 # before copying the codebase so that minor code changes don't force a rebuild
 # of the entire virtualenv.
 COPY requirements.txt /tmp/requirements.txt
+COPY django-sphinx-hosting.tar.gz /tmp/django-sphinx-hosting.tar.gz
 RUN pip install --upgrade pip wheel && \
     pip install -r /tmp/requirements.txt && \
     # Purge the pip cache, which can save us a good few megabytes in the docker image.
