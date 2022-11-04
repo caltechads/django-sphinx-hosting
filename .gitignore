@@ -134,3 +134,4 @@ config.codekit3
 # Local temp files
 local_storage
 
+django-sphinx-hosting.tar.gz
