@@ -1,3 +1,8 @@
+-e .
+
+-r doc/requirements.txt
+-r sandbox/requirements.txt
+
 # Packaging
 # ------------------------------------------------------------------------------
 bumpversion==0.5.3                            # https://github.com/peritus/bumpversion
