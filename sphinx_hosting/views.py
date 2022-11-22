@@ -122,7 +122,7 @@ class ProjectCreateView(
     def get_success_url(self) -> str:
         obj = cast(Project, self.object)
         logger.info("project.create.success project=%s id=%s", obj.machine_name, obj.id)
-        return reverse('sphinx_hosting:project--update', args=[obj.id])
+        return reverse('sphinx_hosting:project--update', args=[obj.machine_name])
 
     def get_form_invalid_message(self) -> str:
         logger.warning('project.create.failed.validation')
@@ -155,7 +155,7 @@ class ProjectUpdateView(
         layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
         layout.add_sidebar_form_button(
             'Delete Project',
-            reverse('sphinx_hosting:project--delete', args=[self.object.pk]),
+            reverse('sphinx_hosting:project--delete', args=[self.object.machine_name]),
             color='outline-secondary',
             confirm_text=_("Are you sure you want to delete this project?"),
         )
@@ -171,7 +171,7 @@ class ProjectUpdateView(
 
     def get_success_url(self) -> str:
         logger.info('project.update.success project=%s id=%s', self.object.machine_name, self.object.id)
-        return reverse('sphinx_hosting:project--update', args=[self.object.pk])
+        return reverse('sphinx_hosting:project--update', args=[self.object.machine_name])
 
 
 class ProjectDeleteView(
@@ -242,7 +242,7 @@ class VersionDetailView(
                 reverse(
                     'sphinx_hosting:sphinxpage--detail',
                     args=[
-                        self.object.project.pk,
+                        self.object.project.machine_name,
                         self.object.version,
                         self.object.head.relative_path
                     ]
@@ -250,7 +250,7 @@ class VersionDetailView(
             )
         layout.add_sidebar_form_button(
             'Delete Version',
-            reverse('sphinx_hosting:version--delete', args=[self.object.project.pk, self.object.version]),
+            reverse('sphinx_hosting:version--delete', args=[self.object.project.machine_name, self.object.version]),
             color='outline-secondary',
             confirm_text=_("Are you sure you want to delete this version?"),
         )
@@ -294,7 +294,7 @@ class VersionDeleteView(
         return response
 
     def get_success_url(self) -> str:
-        return reverse('sphinx_hosting:project--update', args=[self.kwargs['project_id']])
+        return reverse('sphinx_hosting:project--update', args=[self.kwargs['project_slug']])
 
 
 # ===========================
@@ -346,9 +346,12 @@ class SphinxPageDetailView(
             A queryset of ``SphinxPage`` objects filtered to a particular version of
             a particular project.
         """
-        project_id = self.kwargs.get('project_id', None)
+        project_slug = self.kwargs.get('project_slug', None)
         version = self.kwargs.get('version', None)
-        return super().get_queryset().filter(version__version=version, version__project_id=project_id)
+        return super().get_queryset().filter(
+            version__version=version,
+            version__project__machine_name=project_slug
+        )
 
     def get_content(self) -> Widget:
         return SphinxPageLayout(self.object)

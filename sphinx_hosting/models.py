@@ -26,7 +26,7 @@ def sphinx_image_upload_to(instance: "SphinxImage", filename: str) -> str:
     Returns:
         The properly formatted path to the file
     """
-    path = Path(instance.version.project.name) /  Path(instance.version.version) / 'images'
+    path = Path(instance.version.project.machine_name) / Path(instance.version.version) / 'images'
     path = path / Path(filename).name
     return str(path)
 
@@ -147,17 +147,39 @@ class SphinxPage(TimeStampedModel, models.Model):
         max_length=255,
         help_text=_('Just the title for the page, extracted from the page JSON')
     )
+    orig_body: F = models.TextField(
+        'Body (Original',
+        blank=True,
+        help_text=_(
+            'The original body for the page, extracted from the page JSON. Some pages have no body.'
+            'We save this here in case we need to reprocess the body at some later date.'
+        ),
+    )
     body: F = models.TextField(
         'Body',
         blank=True,
-        help_text=_('Just the body for the page, extracted from the page JSON. Some pages have no body.'),
+        help_text=_(
+            'The body for the page, extracted from the page JSON, and modified to suit us.  '
+            'Some pages have no body.'
+        ),
+    )
+    orig_local_toc: F = models.TextField(
+        'Local Table of Contents (original)',
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_(
+            'The original table of contents for headings in this page.'
+            'We save this here in case we need to reprocess the table of contents '
+            'at some later date.'
+        ),
     )
     local_toc: F = models.TextField(
         'Local Table of Contents',
         blank=True,
         null=True,
         default=None,
-        help_text=_('Table of Contents for headings in this page'),
+        help_text=_('Table of Contents for headings in this page, modified to work in our templates'),
     )
 
     parent: FK = models.ForeignKey(
@@ -225,5 +247,3 @@ class SphinxImage(TimeStampedModel, models.Model):
         verbose_name = _('sphinx image')
         verbose_name_plural = _('sphinx images')
         unique_together = ('version', 'orig_path')
-        verbose_name = _('sphinx image')
-        verbose_name_plural = _('sphinx images')

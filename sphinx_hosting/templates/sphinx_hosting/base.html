@@ -1,1 +1,7 @@
 {% extends 'academy_theme/base--wildewidgets.html' %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'sphinx_hosting/css/sphinx_hosting.css' %}">
+{% endblock %}

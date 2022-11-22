@@ -1,0 +1,113 @@
+
+@import '_pygments.scss';
+@import '_sphinx_layout.scss';
+
+pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+.toc__toggle[aria-expanded="true"] {
+    transform: rotate(180deg);
+}
+
+.docutils.literal {
+    font-size: small;
+}
+
+.sphinxpage-body {
+    tt, code {
+        white-space: nowrap;
+        max-width: 100%;
+        background: #fff;
+        border: 1px solid #e1e4e5;
+        font-size: 75%;
+        padding: 0 5px;
+        font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,Courier,monospace;
+        color: #333;
+        overflow-x: auto
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 0;
+    }
+    h1 {margin-bottom: 2rem;}
+    h2 {margin-bottom: 1.2rem;}
+
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) > dt::before {
+        color: #6ab0de;
+    }
+
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) > dt {
+        display: table;
+        margin: 6px 0;
+        font-size: 90%;
+        line-height: normal;
+        background: #e7f2fa;
+        color: #2980b9;
+        border-top: 3px solid #6ab0de;
+        padding: 6px;
+        position: relative;
+    }
+
+    dl dd {
+        margin: 0 0 12px 24px;
+        line-height: 24px;
+    }
+
+    dl dt {
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    dl.field-list,
+    dl.footnote {
+        display: grid;
+        grid-template-columns: max-content auto;
+        dd, dt {
+            margin-bottom: 0;
+        }
+        dt {
+            padding-left: 1rem;
+            &::after {
+                content: ":";
+            }
+        }
+    }
+
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) {
+        margin-bottom: 24px;
+    }
+
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) > dt:first-child {
+        margin-top: 0;
+    }
+
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) .property {
+        display: inline-block;
+        padding-right: 8px;
+        max-width: 100%;
+    }
+
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) dl:not(.field-list) > dt {
+        margin-bottom: 6px;
+        border: none;
+        border-left: 3px solid #ccc;
+        background: #f0f0f0;
+        color: #555;
+    }
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) .descclassname,
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) .descname,
+    dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) .sig-name {
+        color: #000;
+    }
+
+    .viewcode-back,
+    .viewcode-link {
+        display: inline-block;
+        color: #27ae60;
+        font-size: 80%;
+        padding-left: 24px;
+    }
+}

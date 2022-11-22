@@ -57,7 +57,7 @@ class ProjectUpdateForm(forms.ModelForm):
         self.helper.label_class = 'col-lg-3'
         self.helper.field_class = 'col'
         self.helper.form_method = 'post'
-        self.helper.form_action = reverse('sphinx_hosting:project--update', args=[self.instance.pk])
+        self.helper.form_action = reverse('sphinx_hosting:project--update', args=[self.instance.machine_name])
         self.helper.layout = Layout(
             Fieldset(
                 '',

@@ -1,5 +1,5 @@
 from copy import deepcopy
-from typing import Dict, List, Optional, Tuple, Type, Union, cast
+from typing import Any, Dict, List, Optional, Tuple, Type, Union, cast
 
 from django.db.models import Model, QuerySet
 from django.db.models.functions import Length
@@ -24,6 +24,7 @@ from .forms import ProjectCreateForm
 from .models import Project, SphinxPage, Version
 
 MenuItem = Union[Tuple[str, str], Tuple[str, str, Dict[str, str]]]
+DatagridItemDef = Union["DatagridItem", Tuple[str, str], Tuple[str, str, Dict[str, Any]]]
 
 
 #------------------------------------------------------
@@ -54,6 +55,57 @@ class SphinxHostingBreadcrumbs(BreadrumbBlock):
         self.add_breadcrumb('Sphinx Hosting', reverse('sphinx_hosting:project--list'))
 
 
+class SphinxPagePagination(LightMenu):
+
+    navbar_classes = LightMenu.navbar_classes + ' submenu'
+
+    def __init__(self, page: SphinxPage, **kwargs):
+        super().__init__(page.title, **kwargs)
+        self.items: List[MenuItem] = deepcopy(self.__class__.items)
+        if page.parent:
+            self.items.append(
+                (f'Up: {page.parent.title}', page.parent.get_absolute_url())
+            )
+        if hasattr(page, 'previous_page'):
+            self.items.append(
+                (f'Prev: {page.previous_page.title}', page.previous_page.get_absolute_url())
+            )
+        if page.next_page:
+            self.items.append(
+                (f'Next: {page.next_page.title}', page.next_page.get_absolute_url())
+            )
+
+    def build_menu(self) -> None:
+        """
+        Here we're overriding :py:meth:`wildewidgets.BasicMenu.build_menu` to
+        deal with bare URLs in addition to named URLPaths.
+        """
+        if len(self.active_hierarchy) > 0:
+            for item in self.items:
+                data = {}
+                if isinstance(item[1], str):
+                    try:
+                        # Try to get this as a named URL from our URLConf
+                        data['url'] = reverse(item[1])
+                    except NoReverseMatch:
+                        # It wasn't a named URL -- use it verbatim as a URL
+                        data['url'] = item[1]
+                    data['extra'] = ''
+                    data['kind'] = 'item'
+                    if len(item) > 2:
+                        item = cast(Tuple[str, str, Dict[str, str]], item)
+                        extra = item[2]
+                        if isinstance(extra, dict):
+                            extra_list = [f"{k}={v}" for k, v in extra.items()]
+                            data['extra'] = f"?{'&'.join(extra_list)}"
+                elif isinstance(item[1], list):
+                    submenu_active = None
+                    if len(self.active_hierarchy) > 1:
+                        submenu_active = self.active_hierarchy[1]
+                    data = self.parse_submemu(item[1], submenu_active)
+                self.add_menu_item(item[0], data, item[0] == self.active_hierarchy[0])
+
+
 #------------------------------------------------------
 # Modals
 #------------------------------------------------------
@@ -77,10 +129,19 @@ class ProjectCreateModalWidget(CrispyFormModalWidget):
 #------------------------------------------------------
 
 class DatagridItem(Block):
+    """
+    This widget implements a `Tabler datagrid-item <https://preview.tabler.io/docs/datagrid.html`_
+    It should be used with :py:class:`Datagrid`.
+
+    Args:
+        title: the ``datagrid-title`` of the ``datagrid-item``
+        content: the ``datagrid-content`` of the ``datagrid-item``
+        link: URL to use to turn content into a hyperlink
+    """
     block: str = 'datagrid-item'
-    title: Optional[str] = None
-    content: Optional[str] = None
-    link: Optional[str] = None
+    title: Optional[str] = None  #: the ``datagrid-title`` of the ``datagrid-item``
+    content: Optional[str] = None  #: the ``datagrid-content`` of the ``datagrid-item``
+    link: Optional[str] = None  #: a URL to use to turn content into a hyperlink
 
     def __init__(self, **kwargs):
         self.title = kwargs.pop('title', self.title)
@@ -101,17 +162,40 @@ class DatagridItem(Block):
 
 
 class Datagrid(Block):
+    """
+    This widget implements a `Tabler Data grid <https://preview.tabler.io/docs/datagrid.html`_
+    To use it, create :py:class:`DatagridItem`.
+    It should be used with :py:class:`DatagridItem`.
+
+    Keyword Args:
+        items:a list of ``datagrid-items`` to add to our content
+    """
     block: str = 'datagrid'
+    items: List[DatagridItemDef] = []  #: a list of ``datagrid-items`` to add to our content
 
-    def add_item(self, title: str, content: str, **kwargs) -> None:
-        """
-        Add a :py:class:`DatagridItem` to contents.
+    def __init__(self, **kwargs):
+        items = kwargs.pop('items', self.__class__.items)
+        super().__init__(**kwargs)
+        for item in items:
+            if isinstance(item, DatagridItem):
+                self.add_block(item)
+            elif isinstance(item, tuple):
+                if len(item) == 2:
+                    self.add_item(item[0], item[1])
+                else:
+                    self.add_item(item[0], item[1], **item[2])
 
-        Args:
-            title: the label for the item
-            content: the content of the item
+    def add_item(self, title: str, content: str, link: str = None, **kwargs) -> None:
         """
-        self.add_block(DatagridItem(title=title, content=content, **kwargs))
+        Add a :py:class:`DatagridItem` to our block contents, with
+        ``datagrid-title`` of ``title`` and datagrid
+
+        Keyword Args:
+            title: the ``datagrid-title`` of the ``datagrid-item``
+            content: the ``datagrid-content`` of the ``datagrid-item``
+            link: URL to use to turn content into a hyperlink
+        """
+        self.add_block(DatagridItem(title=title, content=content, link=link, **kwargs))
 
 
 class TwoColumnLayoutWidget(Block):
@@ -274,56 +358,6 @@ class VersionSphinxPageTableWidget(CardWidget):
 #------------------------------------------------------
 # SphinxPage related widgets
 #------------------------------------------------------
-
-class SphinxPagePagination(LightMenu):
-
-    navbar_classes = LightMenu.navbar_classes + ' submenu'
-
-    def __init__(self, page: SphinxPage, **kwargs):
-        super().__init__(page.title, **kwargs)
-        self.items: List[MenuItem] = deepcopy(self.__class__.items)
-        if page.parent:
-            self.items.append(
-                (f'Up: {page.parent.title}', page.parent.get_absolute_url())
-            )
-        if hasattr(page, 'previous_page'):
-            self.items.append(
-                (f'Prev: {page.previous_page.title}', page.previous_page.get_absolute_url())
-            )
-        if page.next_page:
-            self.items.append(
-                (f'Next: {page.next_page.title}', page.next_page.get_absolute_url())
-            )
-
-    def build_menu(self) -> None:
-        """
-        Here we're overriding :py:meth:`wildewidgets.BasicMenu.build_menu` to
-        deal with bare URLs in addition to named URLPaths.
-        """
-        if len(self.active_hierarchy) > 0:
-            for item in self.items:
-                data = {}
-                if isinstance(item[1], str):
-                    try:
-                        # Try to get this as a named URL from our URLConf
-                        data['url'] = reverse(item[1])
-                    except NoReverseMatch:
-                        # It wasn't a named URL -- use it verbatim as a URL
-                        data['url'] = item[1]
-                    data['extra'] = ''
-                    data['kind'] = 'item'
-                    if len(item) > 2:
-                        item = cast(Tuple[str, str, Dict[str, str]], item)
-                        extra = item[2]
-                        if isinstance(extra, dict):
-                            extra_list = [f"{k}={v}" for k, v in extra.items()]
-                            data['extra'] = f"?{'&'.join(extra_list)}"
-                elif isinstance(item[1], list):
-                    submenu_active = None
-                    if len(self.active_hierarchy) > 1:
-                        submenu_active = self.active_hierarchy[1]
-                    data = self.parse_submemu(item[1], submenu_active)
-                self.add_menu_item(item[0], data, item[0] == self.active_hierarchy[0])
 
 
 class SphinxPageBodyWidget(HTMLWidget):
@@ -500,7 +534,8 @@ class ProjectVersionTable(BasicModelTable):
         This will get added to the :py:attr:`extra_data` dict in the ``kwargs``
         key, from which we reference it.
         """
-        self.project_id: int = None  #: The pk of the :py:class:`sphinx_hosting.models.Project` for which to list versions
+        #: The pk of the :py:class:`sphinx_hosting.models.Project` for which to list versions
+        self.project_id: int = None
         super().__init__(self, *args, **kwargs)
         if 'project_id' in self.extra_data['kwargs']:
             self.project_id = int(self.extra_data['kwargs']['project_id'])

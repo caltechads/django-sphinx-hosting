@@ -5,7 +5,9 @@ from pathlib import Path
 import tarfile
 from typing import Any, Dict, Optional, cast
 
+from django.utils.text import slugify
 import lxml.html
+from lxml.etree import XML
 
 from .exc import VersionAlreadyExists
 from .logging import logger
@@ -73,7 +75,8 @@ class SphinxPackageImporter:
 
     def __init__(self) -> None:
         self.image_map: ImageMap = {}   #: Used to map original Sphinx image paths to our Django storage path
-        self.page_tree: Dict[str, PageTreeNode] = {}  #: Used to link pages to their parent pages, and to their next pages
+        #: Used to link pages to their parent pages, and to their next pages
+        self.page_tree: Dict[str, PageTreeNode] = {}
         self.config: Dict[str, Any] = {}  #: the contents of globalcontext.json
 
     def _update_image_src(self, body: str) -> str:
@@ -165,16 +168,14 @@ class SphinxPackageImporter:
         Args:
             package: the opened Sphinx documentation tarfile
             version: the :py:class:`Version` which which to associate our images
-
-        Returns:
-            A mapping of original filename to :py:class:`SphinxImage`
         """
         for member in package.getmembers():
             path = Path(member.name)
             if path.match('*/_images/*'):
                 fd = package.extractfile(member)
                 orig_path = Path(*path.parts[1:])
-                image = SphinxImage(version=version, orig_path=orig_path, file=fd)
+                image = SphinxImage(version=version, orig_path=orig_path)
+                image.file.save(orig_path, fd)
                 image.save()
                 self.image_map[member.name] = image
                 logger.info(
@@ -224,7 +225,51 @@ class SphinxPackageImporter:
             # SphinxPage, below
             data['body'] = ''
         # Update the img src for to point to our Django storage locations
+        data['orig_body'] = data['body']
         data['body'] = self._update_image_src(data['body'])
+
+    def _fix_toc(self, data: Dict[str, Any]) -> None:
+        """
+        Update our page's local table of contents (``data['toc']`) to have the CSS
+        classes we need in order for it to display properly.
+
+        Args:
+            data: the decoded JSON data of the sphinx page
+        """
+        if 'toc' not in data:
+            return
+        data['orig_toc'] = data['toc']
+        html = lxml.html.fromstring(data['toc'])
+        ul_first = html.cssselect('ul:first-child')[0]
+        # Turn the first <ul> into a tabler vertical nav
+        ul_first.classes.add('nav-vertical')
+        # Turn all <uls> into nav-pills and nav
+        for ul in html.cssselect('ul'):
+            ul.classes.add('nav')
+            ul.classes.add('nav-pills')
+        # Make all list items into nav-items
+        for li in html.cssselect('li'):
+            li.classes.add('nav-item')
+        # Make <a> into nav-links
+        for link in html.cssselect('a'):
+            link.classes.add('nav-link')
+        # Now make the embedded uls collapsable
+        for ul in html.cssselect('li > ul'):
+            wrapper = XML('<div class="d-flex flex-row justify-content-between align-items-center"></div>')
+            link = ul.getprevious()
+            link.addprevious(wrapper)
+            wrapper.insert(0, link)
+            target = f'menu-{slugify(link.text_content())}'
+            wrapper.append(XML(
+                f'<a class="toc__toggle nav-link-toggle" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#{target}"></a>'
+            ))
+            ul.attrib['id'] = target
+            ul.classes.add('collapse')
+        link = html.cssselect('a:nth-child(2)')[0]
+        link.attrib['aria-expanded'] = 'true'
+        ul = html.cssselect('li:first-child ul')[0]
+        ul.classes.add('show')
+        data['toc'] = lxml.html.tostring(html).decode('utf-8')
 
     def _update_page_tree(
         self,
@@ -266,7 +311,7 @@ class SphinxPackageImporter:
             The page linkage tree for consumption by :py:meth:`link_pages`.
         """
         for member in package.getmembers():
-            path: str = str(*Path(member.name).parts[1:])
+            path: str = str(Path(*Path(member.name).parts[1:]))
             if path.endswith('.fjson'):
                 # files that contain page data will have a .fjson extension
                 path = path.replace('.fjson', '')
@@ -274,12 +319,15 @@ class SphinxPackageImporter:
                 data = json.loads(fd.read())
                 self._fix_page_title(path, data)
                 self._fix_page_body(path, data)
+                self._fix_toc(data)
                 page = SphinxPage(
                     version=version,
                     relative_path=path,
                     content=json.dumps(data),
                     title=data['title'],
+                    orig_body=data['orig_body'],
                     body=data['body'],
+                    orig_local_toc=data['orig_toc'] if 'orig_toc' in data else None,
                     local_toc=data['toc'] if 'toc' in data else None
                 )
                 page.save()
@@ -307,7 +355,6 @@ class SphinxPackageImporter:
             The top page in the tree.
         """
         for link in self.page_tree.values():
-            print(link)
             page = link.page
             if link.parent_title:
                 page.parent = self.page_tree[link.parent_title].page
