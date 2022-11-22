@@ -33,9 +33,9 @@ services:
     volumes:
       - ./sql/docker/my.cnf:/etc/mysql/conf.d/dev.cnf
       - ./sql/docker:/docker-entrypoint-initdb.d
-      - demo_data:/var/lib/mysql
+      - sphinx_hosting_demo_data:/var/lib/mysql
 
 volumes:
   # The Docker volume in which the database's files are stored. Works in tandem
   # with the "demo_data:/var/lib/mysql" volume mount defined above.
-  demo_data:
+  sphinx_hosting_demo_data:

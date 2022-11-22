@@ -118,6 +118,7 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
     'sass_processor',
     'crispy_forms',
+    'crispy_bootstrap5',
     'academy_theme',
     'wildewidgets',
     'sphinx_hosting'
@@ -371,6 +372,12 @@ LOGGING = {
 }
 logging.config.dictConfig(LOGGING)
 
+# crispy-forms
+# ------------------------------------------------------------------------------
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+
 # django-theme-academy
 # ------------------------------------------------------------------------------
 ACADEMY_THEME_SETTINGS = {
@@ -389,6 +396,9 @@ ACADEMY_THEME_SETTINGS = {
     'FOOTER_LINKS': []
 }
 
+# django-wildewidgets
+# ------------------------------------------------------------------------------
+WILDEWIDGETS_DATETIME_FORMAT = "%Y-%m-%d %H:%M %Z"
 
 # django-xff
 # ------------------------------------------------------------------------------

@@ -3,11 +3,12 @@ from django.urls import path, include
 from django.conf import settings
 from wildewidgets import WildewidgetDispatch
 
-from .core import urls as core_urls
+from sphinx_hosting import urls as sphinx_hosting_urls
 
 
 urlpatterns = [
-    path('', include(core_urls, namespace='core')),
+    path('', include(sphinx_hosting_urls, namespace='sphinx_hosting')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', include(admin.site.urls[:2], namespace=admin.site.name)),
     path('wildewidgets_json', WildewidgetDispatch.as_view(), name='wildewidgets_json'),
 ]

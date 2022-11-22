@@ -4,7 +4,7 @@ USER root
 
 ENV LC_ALL=en_US.utf8 LANG=en_US.utf8 PYCURL_SSL_LIBRARY=nss SHELL_PLUS=ipython IPYTHONDIR=/etc/ipython
 
-RUN amazon-linux-extras install nginx1 rust1 python3.8 && \
+RUN amazon-linux-extras install nginx1 rust1 && \
     yum -y update && \
     yum -y install \
         gcc \
@@ -37,7 +37,7 @@ RUN amazon-linux-extras install nginx1 rust1 python3.8 && \
     adduser -r gunicorn
 
 # Ensure that we run the pip and python that are in the virtualenv, rather than the system copies.
-ENV PATH /ve/bin:$PATH
+ENV PATH /ve/bin:/opt/python/3.10/bin:$PATH
 
 # Install the latest pip and our dependencies into the virtualenv.  We do this
 # before copying the codebase so that minor code changes don't force a rebuild
@@ -46,6 +46,7 @@ COPY requirements.txt /tmp/requirements.txt
 COPY django-sphinx-hosting.tar.gz /tmp/django-sphinx-hosting.tar.gz
 RUN pip install --upgrade pip wheel && \
     pip install -r /tmp/requirements.txt && \
+    pip install /tmp/django-sphinx-hosting.tar.gz && \
     # Purge the pip cache, which can save us a good few megabytes in the docker image.
     rm -rf `pip cache dir`
 

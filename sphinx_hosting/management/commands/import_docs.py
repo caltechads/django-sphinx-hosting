@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from sphinx_hosting.exc import VersionAlreadyExists
 
 from sphinx_hosting.models import Project

@@ -2,7 +2,7 @@ VERSION = 0.1.0
 
 PACKAGE = sphinx_hosting_demo
 
-.PHONY: clean dist build force-build tag dev dev-detached devup devdown logall log exec restart docker-clean docker-destroy-db docker-destroy list
+.PHONY: clean dist build force-build tag dev dev-detached devup devdown logall log exec restart docker-clean docker-destroy-db docker-destroy list  package
 #======================================================================
 
 clean:
@@ -57,12 +57,10 @@ docker-clean:
 	docker stop $(shell docker ps -a -q)
 	docker rm $(shell docker ps -a -q)
 
-docker-destroy-db:
-	rm -Rf sql/docker/mysql-data/
+docker-destroy-db: docker-clean
+	docker volume rm sandbox_sphinx_hosting_demo_data
 
 docker-destroy: docker-clean docker-destroy-db
-	docker rmi -f $(shell docker images -q | uniq)
-	docker image prune -f; docker volume prune -f; docker container prune -f
 
 list:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs
