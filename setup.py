@@ -8,11 +8,13 @@ setup(
     version="0.1.0",
     packages=find_packages(),
     include_package_data=True,
-    package_data={'sphinx_hosting': ["py.typed"]},
     install_requires=[
+        "django-braces >= 1.15.0",
         "django-theme-academy >= 0.1.0",
-        "django-wildewidgets >= 0.13.49",
+        "django-wildewidgets >= 0.13.50",
         "django-extensions >= 3.2.1",
+        "django-crispy-forms==1.14.0",
+        "crispy-bootstrap5",
         "lxml >= 4.9.1",
         "cssselect >= 1.2.0"
     ],
