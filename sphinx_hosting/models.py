@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Dict, Optional
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -61,6 +62,17 @@ class Project(TimeStampedModel, models.Model):
     def __str__(self) -> str:  # pylint: disable=invalid-str-returned
         return self.title
 
+    @property
+    def latest_version(self) -> "Optional[Version]":
+        """
+        Return the latest version (by version number) of our project
+        documentation, if any.
+
+        Returns:
+            The latest version of our project.
+        """
+        return self.versions.order_by('-version').first()
+
     def get_absolute_url(self) -> str:
         return reverse('sphinx_hosting:project--update', args=[self.machine_name])
 
@@ -105,6 +117,17 @@ class Version(TimeStampedModel, models.Model):
         help_text=_('The top page of the documentation set for this version of our project'),
     )
 
+    global_toc: F = models.TextField(
+        'Global Table of Contents',
+        null=True,
+        blank=True,
+        default=True,
+        help_text=_(
+            'The global table of contents for this version, if any.  This is HTML, and will only be present '
+            'if you had "sphinxcontrib-jsonglobaltoc" installed in your "extensions" in the Sphinx conf.py'
+        ),
+    )
+
     def get_absolute_url(self) -> str:
         return reverse(
             'sphinx_hosting:version--detail',
@@ -119,7 +142,8 @@ class SphinxPage(TimeStampedModel, models.Model):
     turn owned by :py:class:`Project` objects.
     """
 
-    SPECIAL_TITLES = {
+    # This is a mapping between filename and title
+    SPECIAL_PAGES: Dict[str, str] = {
         'genindex': 'General Index',
         'py-modindex': 'Module Index',
         'np-modindex': 'Module Index',
@@ -190,7 +214,9 @@ class SphinxPage(TimeStampedModel, models.Model):
         help_text=_('The parent page of this page'),
     )
 
-    next_page: FK = models.OneToOneField(
+    # This has to be a ForeignKey here and not a OneToOneField becuase
+    # more than one page can have the same next_page.
+    next_page: FK = models.ForeignKey(
         "SphinxPage",
         on_delete=models.CASCADE,
         null=True,

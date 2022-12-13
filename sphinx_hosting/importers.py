@@ -2,12 +2,15 @@ from dataclasses import dataclass
 import io
 import json
 from pathlib import Path
+import re
 import tarfile
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, List, Optional, cast
+from urllib.parse import urlparse, unquote
 
 from django.utils.text import slugify
+from django.urls import reverse
 import lxml.html
-from lxml.etree import XML
+from lxml.etree import XML  #: pylint: disable=no-name-in-module
 
 from .exc import VersionAlreadyExists
 from .logging import logger
@@ -20,7 +23,13 @@ ImageMap = Dict[str, SphinxImage]
 class PageTreeNode:
     """
     A data structure to temporarily hold relationships between
-    :py:class:`sphinx_hosting.models.SphinxPage` objects while loading pages.
+    :py:class:`sphinx_hosting.models.SphinxPage` objects while importing pages.
+
+    In the page JSON we get from Sphinx, we only know the titles of related
+    pages, so we store them here along with the
+    :py:class:`sphinx_hosting.models.SphinxPage` we created from our JSON, and
+    then do another pass through these :py:class:`PageTreeNode` objects to link
+    our pages together.
 
     This is used in :py:meth:`SphinxPackageImporter.link_pages`.
     """
@@ -73,11 +82,42 @@ class SphinxPackageImporter:
     created as :py:class:`sphinx_hosting.models.SphinxImage` objects.
     """
 
+    # Sometimes pages have weird titles -- replace them with their filename
+    ODD_TITLES: List[str] = [
+        '&lt;no title&gt;'
+    ]
+
     def __init__(self) -> None:
         self.image_map: ImageMap = {}   #: Used to map original Sphinx image paths to our Django storage path
         #: Used to link pages to their parent pages, and to their next pages
         self.page_tree: Dict[str, PageTreeNode] = {}
+        self.name_map: Dict[str, str] = {}
         self.config: Dict[str, Any] = {}  #: the contents of globalcontext.json
+
+    def _get_file(self, package: tarfile.TarFile, filename: str) -> io.BufferedReader:
+        """
+        Look through the member names in our tarfile ``package`` for
+        ``filename``, and return an open file descriptor on that file.
+
+        Note:
+          We have to do it this way instead of using ``package.getmember(name)``
+          because we don't know the name of the containing folder.
+
+        Args:
+            package: the opened Sphinx documentation tarfile
+            filename: the name of the file we're looking for
+
+        Raises:
+            KeyError: no file named ``filename`` was found in the tarfile
+
+        Returns:
+            The opened file descriptor for our file.
+        """
+        if not self.name_map:
+            self.name_map = {str(Path(*Path(name).parts[1:])): name for name in package.getnames()}
+        if filename not in self.name_map:
+            raise KeyError(f'Sphinx docs TarFile has no file named "{filename}"')
+        return cast(io.BufferedReader, package.extractfile(self.name_map[filename]))
 
     def _update_image_src(self, body: str) -> str:
         """
@@ -96,8 +136,21 @@ class SphinxPackageImporter:
         html = lxml.html.fromstring(body)
         images = html.cssselect('img')
         for image in images:
-            if image.attrib['src'] in self.image_map:
-                image.attrib['src'] = self.image_map[image.attrib['src']].file.url
+            src = re.sub(r'\.\./', '', image.attrib['src'])
+            if src in self.image_map:
+                image.attrib['src'] = self.image_map[src].file.url
+
+        # also deal with any lightbox <a>
+        lightboxes = html.cssselect('a[data-lightbox]')
+        for lightbox in lightboxes:
+            lightbox.attrib['data-fslightbox'] = lightbox.attrib['data-lightbox']
+            del lightbox.attrib['data-lightbox']
+            if 'data-title' in lightbox.attrib:
+                lightbox.attrib['data-caption'] = lightbox.attrib['data-title']
+                del lightbox.attrib['data-title']
+            src = re.sub(r'\.\./', '', lightbox.attrib['href'])
+            if src in self.image_map:
+                lightbox.attrib['href'] = self.image_map[src].file.url
         return lxml.html.tostring(html).decode('utf-8')
 
     def load_config(self, package: tarfile.TarFile) -> None:
@@ -107,11 +160,7 @@ class SphinxPackageImporter:
         Args:
             package: the opened Sphinx documentation tarfile
         """
-        names = [member for member in package.getnames() if member.endswith('/globalcontext.json')]
-        if not names:
-            raise KeyError('Sphinx docs TarFile has no globalcontext.json')
-        fd = cast(io.BufferedReader, package.extractfile(names[0]))
-        self.config = json.loads(fd.read())
+        self.config = json.loads(self._get_file(package, 'globalcontext.json').read())
 
     def get_version(self, package: tarfile.TarFile, force: bool = False) -> Version:
         """
@@ -122,9 +171,10 @@ class SphinxPackageImporter:
 
             * the version string from the ``release`` key.
             * the ``machine_name`` of the :py:class:`Project` for this
-              documentation tarfile
+              documentation tarfile as the slugified version of the ``project``
+              key
 
-        Return a new :py:class:`Version` instance on the project
+        Return a new :py:class:`Version` instance on the project.
 
         Args:
             package: the opened Sphinx documentation tarfile
@@ -139,17 +189,19 @@ class SphinxPackageImporter:
             VersionAlreadyExists: a :py:class:`Version` with version string
                 ``version`` already exists for our project
         """
-        project = Project.objects.get(machine_name=self.config['project'])
+        machine_name = slugify(self.config['project'])
+        project = Project.objects.get(machine_name=machine_name)
         v = project.versions.filter(version=self.config['release']).first()
         if v:
             if not force:
                 raise VersionAlreadyExists(
-                    f"""Version {self.config['release']} of Project(machine_name="{self.config['project']}") """
+                    f"""Version {self.config['release']} of Project(machine_name="{machine_name}") """
                     """already exists."""
                 )
             v.pages.all().delete()
             v.images.all().delete()
             v.sphinx_version = self.config['sphinx_version']
+            v.head = None
         else:
             v = Version(
                 project=project,
@@ -158,6 +210,70 @@ class SphinxPackageImporter:
             )
             v.save()
         return v
+
+    def import_globaltoc(self, package: tarfile.TarFile, version: Version) -> None:
+        """
+        Read the global table of contents, if any, from the master document in
+        the package.
+
+        .. note::
+
+            The JSON files in the Sphinx documentation tarfile needed to have been
+            built with the `sphinxcontrib-jsonglobaltoc <https://github.com/caltechads/sphinxcontrib-jsonglobaltoc>`_
+            extension in order for this to work.
+
+        Args:
+            package: the opened Sphinx documentation tarfile
+            version: the :py:class:`Version` which which to associate our global table of contents
+        """
+        top_page = self.config['root_doc']
+        data = json.loads(self._get_file(package, top_page + ".fjson").read())
+        if 'globaltoc' in data:
+            html = lxml.html.fromstring(data['globaltoc'])
+            links = html.cssselect('a')
+            for link in links:
+                p = urlparse(unquote(link.attrib['href']))
+                link.attrib['href'] = reverse(
+                    'sphinx_hosting:sphinxpage--detail',
+                    kwargs={
+                        'project_slug': version.project.machine_name,
+                        'version': version.version,
+                        'path': p.path.strip('/')
+                    }
+                )
+                if p.fragment:
+                    link.attrib['href'] += f'#{p.fragment}'
+
+            for ul in html.cssselect('div > ul'):
+                ul.classes.add('nav-vertical')
+            for caption in html.cssselect('p.caption'):
+                caption.classes.add('text-uppercase')
+            for caption in html.cssselect('.caption-text'):
+                caption.tag = 'b'
+            for caption in html.cssselect('ul + p.caption'):
+                caption.classes.add('mt-3')
+            for ul in html.cssselect('ul'):
+                ul.classes.add('nav')
+                ul.classes.add('nav-pills')
+            for li in html.cssselect('li'):
+                li.classes.add('nav-item')
+            for li in html.cssselect('a'):
+                li.classes.add('nav-link')
+            # Now make the embedded uls collapsable
+            for ul in html.cssselect('li > ul'):
+                wrapper = XML('<div class="d-flex flex-row justify-content-between align-items-center"></div>')
+                link = ul.getprevious()
+                link.addprevious(wrapper)
+                wrapper.insert(0, link)
+                target = f'menu-{slugify(link.text_content())}'
+                wrapper.append(XML(
+                    '<a class="toc__toggle nav-link-toggle" data-bs-toggle="collapse" '
+                    f'aria-expanded="false" data-bs-target="#{target}"></a>'
+                ))
+                ul.attrib['id'] = target
+                ul.classes.add('collapse')
+            version.global_toc = lxml.html.tostring(html).decode('utf-8')
+            version.save()
 
     def import_images(self, package: tarfile.TarFile, version: Version) -> None:
         """
@@ -170,14 +286,14 @@ class SphinxPackageImporter:
             version: the :py:class:`Version` which which to associate our images
         """
         for member in package.getmembers():
-            path = Path(member.name)
-            if path.match('*/_images/*'):
+            path = Path(*Path(member.name).parts[1:])
+            if path.match('_images/*'):
                 fd = package.extractfile(member)
-                orig_path = Path(*path.parts[1:])
+                orig_path: str = str(path)
                 image = SphinxImage(version=version, orig_path=orig_path)
                 image.file.save(orig_path, fd)
                 image.save()
-                self.image_map[member.name] = image
+                self.image_map[orig_path] = image
                 logger.info(
                     "%s.image.imported project=%s version=%s orig_path=%s url=%s id=%s",
                     self.__class__.__name__,
@@ -195,17 +311,18 @@ class SphinxPackageImporter:
         based on their filename, or by copying another key from ``data``.
 
         Args:
-            path: the file path in the tarfile
-            data: the JSON data from our file
+            path: the file path in the tarfile data: the JSON data from our file
         """
-        if path in SphinxPage.SPECIAL_TITLES:
-            data['title'] = SphinxPage.SPECIAL_TITLES[path]
+        if path in SphinxPage.SPECIAL_PAGES:
+            data['title'] = SphinxPage.SPECIAL_PAGES[path]
+        if data['title'] in self.ODD_TITLES:
+            data['title'] = path
         if 'title' not in data:
             # Some of the special pages don't have 'title' keys
             if 'indextitle' in data:
                 data['title'] = data['indextitle']
             else:
-                data['title'] = SphinxPage.SPECIAL_TITLES[path]
+                data['title'] = SphinxPage.SPECIAL_PAGES[path]
 
     def _fix_page_body(self, path: str, data: Dict[str, Any]) -> None:
         """
@@ -227,6 +344,33 @@ class SphinxPackageImporter:
         # Update the img src for to point to our Django storage locations
         data['orig_body'] = data['body']
         data['body'] = self._update_image_src(data['body'])
+        # Fix our tables
+        if data['body']:
+            html = lxml.html.fromstring(data['body'])
+            tables = html.cssselect('table')
+            for table in tables:
+                wrapper = XML('<div class="table-responsive"></div>')
+                parent = table.getparent()
+                parent.append(wrapper)
+                wrapper.insert(0, table)
+                table.classes.add('table')
+                table.classes.add('table-striped')
+                table.classes.add('border')
+                for tr in table.cssselect('thead > tr'):
+                    tr.classes.discard('row-even')
+                    tr.classes.discard('row-odd')
+                for tr in table.cssselect('th'):
+                    tr.classes.discard('head')
+                    tr.classes.add('p-2')
+                for tr in table.cssselect('tbody > tr'):
+                    tr.classes.discard('row-even')
+                    tr.classes.discard('row-odd')
+                for div in table.cssselect('tbody > tr div.line'):
+                    div.classes.discard('line')
+                    div.classes.add('text-start')
+                for div in table.cssselect('tbody > tr p'):
+                    div.classes.add('text-start')
+            data['body'] = lxml.html.tostring(html).decode('utf-8')
 
     def _fix_toc(self, data: Dict[str, Any]) -> None:
         """
@@ -261,14 +405,21 @@ class SphinxPackageImporter:
             wrapper.insert(0, link)
             target = f'menu-{slugify(link.text_content())}'
             wrapper.append(XML(
-                f'<a class="toc__toggle nav-link-toggle" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#{target}"></a>'
+                '<a class="toc__toggle nav-link-toggle" data-bs-toggle="collapse" '
+                f'aria-expanded="false" data-bs-target="#{target}"></a>'
             ))
             ul.attrib['id'] = target
             ul.classes.add('collapse')
-        link = html.cssselect('a:nth-child(2)')[0]
-        link.attrib['aria-expanded'] = 'true'
-        ul = html.cssselect('li:first-child ul')[0]
-        ul.classes.add('show')
+        try:
+            link = html.cssselect('a:nth-child(2)')[0]
+            link.attrib['aria-expanded'] = 'true'
+        except IndexError:
+            pass
+        try:
+            ul = html.cssselect('li:first-child ul')[0]
+            ul.classes.add('show')
+        except IndexError:
+            pass
         data['toc'] = lxml.html.tostring(html).decode('utf-8')
 
     def _update_page_tree(
@@ -344,15 +495,12 @@ class SphinxPackageImporter:
 
     def link_pages(self) -> None:
         """
-        Given :py:attr:`page_tree``, a list of page linkages (parent, next, prev), link
-        all the :py:class:`sphinx_hosting.models.SphinxPage` objects in that
-        list to their next page and their parent page.
+        Given :py:attr:`page_tree``, a list of page linkages (parent, next,
+        prev), link all the :py:class:`sphinx_hosting.models.SphinxPage` objects
+        in that list to their next page and their parent page.
 
         Args:
             tree: the page linkage tree
-
-        Returns:
-            The top page in the tree.
         """
         for link in self.page_tree.values():
             page = link.page
@@ -431,9 +579,11 @@ class SphinxPackageImporter:
         with tarfile.open(filename) as package:
             self.load_config(package)
             version = self.get_version(package, force=force)
+            self.import_globaltoc(package, version)
             self.import_images(package, version)
             self.import_pages(package, version)
+            self.import_globaltoc(package, version)
             self.link_pages()
             # Point version.head at the top page of the documentation set
-            version.head = SphinxPage.objects.get(relative_path=self.config['root_doc'])
+            version.head = SphinxPage.objects.get(version=version, relative_path=self.config['root_doc'])
             version.save()

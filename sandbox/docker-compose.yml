@@ -19,6 +19,7 @@ services:
       - .:/app
       - ../sphinx_hosting:/ve/lib/python3.10/site-packages/sphinx_hosting
       - ../../django-theme-academy/academy_theme:/ve/lib/python3.10/site-packages/academy_theme
+      - sphinx_hosting_demo_media:/media
 
   mysql:
     image: mysql:8.0.23
@@ -39,3 +40,4 @@ volumes:
   # The Docker volume in which the database's files are stored. Works in tandem
   # with the "demo_data:/var/lib/mysql" volume mount defined above.
   sphinx_hosting_demo_data:
+  sphinx_hosting_demo_media:

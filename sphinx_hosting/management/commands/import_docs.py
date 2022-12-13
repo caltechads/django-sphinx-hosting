@@ -1,8 +1,8 @@
 from argparse import ArgumentParser
 
 from django.core.management.base import BaseCommand
-from sphinx_hosting.exc import VersionAlreadyExists
 
+from sphinx_hosting.exc import VersionAlreadyExists
 from sphinx_hosting.models import Project
 from sphinx_hosting.importers import SphinxPackageImporter
 
@@ -11,10 +11,11 @@ class Command(BaseCommand):
     """
     Import a Sphinx documentation tarfile into the database.
 
-    We will use the ``project`` variable from the Sphinx ``conf.py`` that built
-    the tarfile as the ``machine_name`` of the :py:class:`Project` to load into,
-    and we will use the "release" variable from ``conf.py`` to build the
-    :py:class:`Version` object to load into.
+    We will use the the slugified version (converted to only letters, numbers,
+    dashes and underscores) of the ``project`` variable from the Sphinx
+    ``conf.py`` that built the tarfile as the ``machine_name`` of the
+    :py:class:`Project` to load into, and we will use the "release" variable
+    from ``conf.py`` to build the :py:class:`Version` object to load into.
 
     The Sphinx documentation tarfile should have been built via the``json``
     output from ``sphinx-build``, either::

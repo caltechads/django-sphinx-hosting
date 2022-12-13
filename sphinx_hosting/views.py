@@ -47,9 +47,9 @@ from .wildewidgets import (
     SphinxHostingMenu,
     SphinxHostingBreadcrumbs,
     SphinxPageLayout,
-    SphinxPagePagination,
     VersionInfoWidget,
-    VersionSphinxPageTableWidget
+    VersionSphinxPageTableWidget,
+    VersionSphinxImageTableWidget,
 )
 
 
@@ -153,6 +153,19 @@ class ProjectUpdateView(
         layout.add_widget(ProjectInfoWidget(self.object))
         layout.add_widget(ProjectDetailWidget(self.object))
         layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
+        version = self.object.latest_version
+        if version and version.head:
+            layout.add_sidebar_link_button(
+                'Read Docs',
+                reverse(
+                    'sphinx_hosting:sphinxpage--detail',
+                    args=[
+                        self.object.machine_name,
+                        version.version,
+                        version.head.relative_path
+                    ]
+                ),
+            )
         layout.add_sidebar_form_button(
             'Delete Project',
             reverse('sphinx_hosting:project--delete', args=[self.object.machine_name]),
@@ -236,6 +249,7 @@ class VersionDetailView(
         layout = WidgetListLayout(f'{self.object.project.title} {self.object.version}')
         layout.add_widget(VersionInfoWidget(self.object))
         layout.add_widget(VersionSphinxPageTableWidget(version_id=self.object.pk))
+        layout.add_widget(VersionSphinxImageTableWidget(version_id=self.object.pk))
         if self.object.head:
             layout.add_sidebar_link_button(
                 'Read Docs',
@@ -319,16 +333,6 @@ class SphinxPageDetailView(
     slug_field: str = 'relative_path'
     slug_url_kwarg: str = 'path'
 
-    def get_submenu(self) -> SphinxPagePagination:
-        """
-        Configure our per-page pagination menu.  This is what shows the "Up",
-        "Prev" and "Next" links at the top of the page.
-
-        Returns:
-            A submenu configured specifically for this page.
-        """
-        return SphinxPagePagination(self.object)
-
     def get_queryset(self) -> QuerySet[SphinxPage]:
         """
         Pre-filter our default queryset so that we only are able to get
@@ -356,7 +360,15 @@ class SphinxPageDetailView(
     def get_content(self) -> Widget:
         return SphinxPageLayout(self.object)
 
-    def get_breadcrumbs(self):
+    def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
+        """
+        Return our breadcrumbs for this page::
+
+            Home -> Project -> Version -> SphinxPage.title
+
+        Returns:
+            This page's breadcrumbs
+        """
         breadcrumbs = SphinxHostingBreadcrumbs()
         breadcrumbs.add_breadcrumb(
             self.object.version.project.machine_name,

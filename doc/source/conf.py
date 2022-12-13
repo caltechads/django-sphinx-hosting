@@ -10,9 +10,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../../sandbox'))
 
 from typing import List, Dict, Tuple, Optional
 import sphinx_rtd_theme  # pylint: disable=unused-import  # noqa:F401
@@ -27,7 +27,7 @@ copyright = '2022, Caltech IMSS ADS'  # pylint: disable=redefined-builtin
 author = 'Caltech IMSS ADS'
 
 # The full version, including alpha/beta/rc tags
-release = '1.1.0'
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -40,7 +40,8 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx.ext.intersphinx',
-    'sphinx_rtd_theme'
+    'sphinx_rtd_theme',
+    "sphinxcontrib_django2",
 ]
 
 source_suffix = ".rst"
@@ -56,30 +57,22 @@ exclude_patterns: List[str] = ['_build']
 add_function_parentheses = False
 add_module_names = True
 
-# Make Sphinx not expand all our Type Aliases
 
-autodoc_member_order = 'bysource'
-autodoc_type_aliases = {
-    'LDAPData': 'ldap_faker.types.LDAPData',
-    'CILDAPData': 'ldap_faker.types.CILDAPData',
-    'LDAPRecord': 'ldap_faker.types.LDAPRecord',
-    'LDAPSearchResult': 'ldap_faker.types.LDAPSearchResult',
-    'LDAPSearchDirectory': 'ldap_faker.types.LDAPSearchDirectory',
-    'LDAPObjectStore': 'ldap_faker.types.LDAPObjectStore',
-    'RawLDAPObjectStore': 'ldap_faker.types.RawLDAPObjectStore',
-    'LDAPOptionValue': 'ldap_faker.types.LDAPOptionValue',
-    'LDAPOptionStore': 'ldap_faker.types.LDAPOptionStore',
-    'ModList': 'ldap_faker.types.ModList',
-    'AddModList': 'ldap_faker.types.AddModList',
-    'LDAPFixtureList': 'ldap_faker.types.LDAPFixtureList',
-}
+autodoc_member_order = 'groupwise'
+
+# Make Sphinx not expand all our Type Aliases
+autodoc_type_aliases = {}
 
 # the locations and names of other projects that should be linked to this one
 intersphinx_mapping: Dict[str, Tuple[str, Optional[str]]] = {
     'python': ('https://docs.python.org/3', None),
-    'python-ldap': ('https://www.python-ldap.org/en/latest/', None)
-
+    'django': ('http://docs.djangoproject.com/en/dev/', 'http://docs.djangoproject.com/en/dev/_objects/'),
 }
+
+# Configure the path to the Django settings module
+django_settings = "demo.settings"
+# Include the database table names of Django models
+django_show_db_tables = True
 
 
 # -- Options for HTML output -------------------------------------------------

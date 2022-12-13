@@ -4,86 +4,77 @@
 Developer Interface
 ===================
 
-.. module:: ldap_faker
+Models
+------
 
-This part of the documentation covers all the classes and functions that make up ``python-ldap-faker``.
+.. module:: sphinx_hosting.models
 
-Unittest Support
-----------------
+This part of the documentation covers all the models provided by ``django-sphinx-hosting``.
 
-.. autoclass:: LDAPFakerMixin
-    :inherited-members:
+Projects
+^^^^^^^^
+
+.. autoclass:: Project
+    :members:
     :undoc-members:
 
-.. autoclass:: LDAPCallRecord
+.. autoclass:: Version
+    :members:
+    :undoc-members:
+
+.. autoclass:: SphinxPage
+    :members:
+    :undoc-members:
+
+.. autoclass:: SphinxImage
+    :members:
+    :undoc-members:
+
+
+Widgets
+-------
+
+This part of the documentation covers all the reusable `django-wildewidgets
+<https://github.com/caltechads/django-wildewidgets>`_ widgets provided by
+``django-sphinx-hosting``.
+
+.. module:: sphinx_hosting.wildewidgets
+
+Basic Widgets
+^^^^^^^^^^^^^
+
+.. autoclass:: Datagrid
     :members:
 
-.. autoclass:: CallHistory
-    :inherited-members:
-    :undoc-members:
+.. autoclass:: DatagridItem
+    :members:
+
+Navigation
+^^^^^^^^^^
+
+.. autoclass:: SphinxHostingMenu
+    :members:
+
+.. autoclass:: SphinxHostingBreadcrumbs
+    :members:
+
+Modals
+^^^^^^
+
+.. autoclass:: ProjectCreateModalWidget
+    :members:
+
+.. autoclass:: ProjectTableWidget
+    :members:
+
+.. autoclass:: ProjectTable
+    :members:
 
 
-python-ldap replacements
-------------------------
+Importers
+---------
 
-.. autoclass:: FakeLDAP
-    :inherited-members:
-    :undoc-members:
+.. module:: sphinx_hosting.importers
 
-.. autoclass:: FakeLDAPObject
-    :inherited-members:
-    :undoc-members:
-
-
-LDAP Server like objects
-------------------------
-
-.. autoclass:: LDAPServerFactory
-    :inherited-members:
-    :undoc-members:
-
-.. autoclass:: ObjectStore
-    :inherited-members:
-    :undoc-members:
-
-.. autoclass:: OptionStore
-    :inherited-members:
-    :undoc-members:
-
-
-Hook management
----------------
-
-.. autodata:: hooks
-
-.. autoclass:: Hook
-    :inherited-members:
-    :undoc-members:
-
-.. autoclass:: HookDefinition
-    :inherited-members:
-    :undoc-members:
-
-.. autoclass:: HookRegistry
-    :inherited-members:
-    :undoc-members:
-
-
-Type Aliases
-------------
-
-.. autodata:: ldap_faker.types.LDAPOptionValue
-
-.. autodata:: ldap_faker.types.LDAPData
-
-.. autodata:: ldap_faker.types.LDAPRecord
-
-.. autodata:: ldap_faker.types.LDAPSearchResult
-
-.. autodata:: ldap_faker.types.ModList
-
-.. autodata:: ldap_faker.types.AddModList
-
-.. autodata:: ldap_faker.types.LDAPFixtureList
-
-
+.. autoclass:: SphinxPackageImporter
+    :members:

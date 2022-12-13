@@ -11,6 +11,14 @@ from .models import Project
 
 
 class ProjectCreateForm(forms.ModelForm):
+    """
+    This is the form we use to create a new
+    :py:class:`sphinx_hosting.models.Project`.  The difference between this and
+    :py:class:`sphinx_hosting.forms.ProjectUpdateForm` is that the user can set
+    :py:attr:`sphinx_hosting.models.Project.machine_name` here, but can't in
+    :py:class:`sphinx_hosting.forms.ProjectUpdateForm`.  ``machine_name`` should not change after the
+    project is created.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -49,6 +57,14 @@ class ProjectCreateForm(forms.ModelForm):
 
 
 class ProjectUpdateForm(forms.ModelForm):
+    """
+    This is the form we use to update an existing
+    :py:class:`sphinx_hosting.models.Project`.  The difference between this and
+    :py:class:`sphinx_hosting.forms.ProjectCreateForm` is that the user cannot change
+    :py:attr:`sphinx_hosting.models.Project.machine_name` here, but can in
+    :py:class:`sphinx_hosting.forms.ProjectCreateForm`.  ``machine_name`` should not change after the
+    project is created.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
