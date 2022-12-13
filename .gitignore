@@ -111,6 +111,7 @@ venv.bak/
 /*.sql
 config.codekit3
 sql/docker/mysql-data
+sandbox/data/private/
 
 # Vim
 *.sw*
