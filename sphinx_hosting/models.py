@@ -1,8 +1,10 @@
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Optional
+from typing import List, Dict, Optional
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.functional import cached_property
 from django.urls import reverse
 from django_extensions.db.models import TimeStampedModel
 
@@ -12,6 +14,113 @@ from .validators import NoHTMLValidator
 F = models.Field
 M2M = models.ManyToManyField
 FK = models.ForeignKey
+
+
+# --------------------------
+# Dataclasses
+# --------------------------
+
+@dataclass
+class TreeNode:
+    """
+    This is a dataclass that we use with :py:class:`SphinxTree` to build out the
+    global navigation structure for a set of documentation for a
+    :py:class:`Version`.
+    """
+
+    #: The page title
+    title: str
+    #: This page
+    page: Optional["SphinxPage"] = None
+    #: The :py:class:`SphinxPage` after this one
+    prev: Optional["SphinxPage"] = None
+    #: The :py:class:`SphinxPage` before this one
+    next: Optional["SphinxPage"] = None
+    #: The :py:class:`SphinxPage` that is this page's parent
+    parent: Optional["SphinxPage"] = None
+    #: The :py:class:`TreeNode` objects that are this page's children
+    children: List["TreeNode"] = field(default_factory=list)
+
+    @classmethod
+    def from_page(cls, page: "SphinxPage") -> "TreeNode":
+        """
+        Build a :py:class:`TreeNode` from ``page``.
+
+        Note:
+            This does not populate :py:attr:`children`; :py:class:`SphinxPageTree`
+            will populate it as appropriate as it ingests pages.
+
+        Args:
+            page: the :py:class:`SphinxPage` from which to build a node
+
+        Returns:
+            A configured node.
+        """
+        return cls(
+            page=page,
+            title=page.title,
+            next=page.next_page,
+            prev=page.previous_page.first(),
+            parent=page.parent
+        )
+
+
+class SphinxPageTree:
+    """
+    A class that holds the page hierarchy for the set of :py:class:`SphinxPage`
+    pages in a :py:class:`Version`.as a linked set of :py:class:`TreeNode`
+    objects.
+
+    The page heirarchy is built by starting at :py:attr:`Version.head` and
+    following the page linkages by looking at :py:attr:`SphinxPage.next_page`,
+    stopping the traversal when we find a :py:attr:`SphinxPage.next_page` that is ``None``.
+
+    As we traverse, if a :py:attr:`SphinxPage.parent` is not ``None``, find the
+    :py:class:`TreeNode` for that parent, and add the page to
+    :py:attr:`TreeNode.children`.
+
+    For pages who have no :py:attr:`SpinxPage.parent`, assume they are top level
+    children of the set, and make them children of :py:class:`Version.head`.
+
+    Load it like so::
+
+        >>> project = Project.objects.get(machine_name='my-project')
+        >>> version = project.versions.get(version='1.0.0')
+        >>> tree = SphinxPageTree(version)
+
+    You can then traverse the built hierarchy by starting at
+    :py:attr:`SphinxPageTree.head`, looking at its children, then looking at
+    their children, etc..
+
+        >>>
+
+    """
+
+    def __init__(self, version: "Version"):
+        #: The :py:class:`Version that this tree examines
+        self.version: Version = version
+        self.nodes: Dict[int, TreeNode] = {}
+        self.nodes[self.version.head.id] = TreeNode.from_page(self.version.head)
+        #: The top page in the page hierarchy
+        self.head: TreeNode = self.nodes[self.version.head.id]
+        self.build(version)
+
+    def build(self, version: "Version"):
+        self.add_page(version.head)
+
+    def add_page(self, page: "SphinxPage"):
+        node = TreeNode.from_page(page)
+        self.nodes[page.id] = node
+        if node.parent:
+            if node.parent.id in self.nodes:
+                self.nodes[node.parent.id].children.append(node)
+        else:
+            # The top level pages that are not head will not have any parent
+            # because Sphinx doesn't think that way
+            if node != self.head:
+                self.head.children.append(node)
+        if node.next:
+            self.add_page(node.next)
 
 
 def sphinx_image_upload_to(instance: "SphinxImage", filename: str) -> str:
@@ -127,6 +236,17 @@ class Version(TimeStampedModel, models.Model):
             'if you had "sphinxcontrib-jsonglobaltoc" installed in your "extensions" in the Sphinx conf.py'
         ),
     )
+
+    @cached_property
+    def page_tree(self) -> SphinxPageTree:
+        """
+        Return the page hierarchy for the set of :py:class:`SphinxPage` pages
+        in this version linked set of :py:class:`TreeNode` objects.
+
+        Returns:
+            The page hierarchy for this version.
+        """
+        return SphinxPageTree(self)
 
     def get_absolute_url(self) -> str:
         return reverse(
