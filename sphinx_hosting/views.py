@@ -46,6 +46,7 @@ from .wildewidgets import (
     ProjectTableWidget,
     SphinxHostingMenu,
     SphinxHostingBreadcrumbs,
+    SphinxHostingSidebar,
     SphinxPageLayout,
     VersionInfoWidget,
     VersionSphinxPageTableWidget,
@@ -72,7 +73,6 @@ class WildewidgetsMixin(StandardWidgetMixin):
 
 class ProjectListView(
     LoginRequiredMixin,
-    MenuMixin,
     WildewidgetsMixin,
     TemplateView
 ):
@@ -81,8 +81,10 @@ class ProjectListView(
     lists all available :py:class:`sphinx_hosting.models.Project` objects from
     the database and allows the user to create new Projects.
     """
-    menu_class = SphinxHostingMenu
-    menu_item = "Projects"
+
+    def get_context_data(self, **kwargs):
+        kwargs['menu'] = SphinxHostingSidebar()
+        return super().get_context_data(**kwargs)
 
     def get_content(self) -> Widget:
         layout = WidgetListLayout("Projects")
