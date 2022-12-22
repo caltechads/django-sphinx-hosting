@@ -10,11 +10,13 @@ from urllib.parse import urlparse, unquote
 from django.utils.text import slugify
 from django.urls import reverse
 import lxml.html
+from lxml.html import HtmlElement
 from lxml.etree import XML  #: pylint: disable=no-name-in-module
 
 from .exc import VersionAlreadyExists
 from .logging import logger
 from .models import Project, Version, SphinxPage, SphinxImage
+from .wildewidgets import MenuItem
 
 ImageMap = Dict[str, SphinxImage]
 
@@ -39,9 +41,153 @@ class PageTreeNode:
     next_title: Optional[str] = None
 
 
-class SphinxPackageImporter:
+class SphinxGlobalTOCImporter:
+    """
+    **Usage**: ``SphinxGlobalTOCImporter().run(version, globaltoc_html)```
+
+    This importer is used to parse the ``globaltoc`` key in JSON output of
+    Sphinx pages built with the `sphinxcontrib-jsonglobaltoc
+    <https://github.com/caltechads/sphinxcontrib-jsonglobaltoc>`_ extension.
+
+    Sphinx uses your ``.. toctree:`` declarations in your ``.rst`` files to
+    build site navigation for your document tree, and
+    ``sphinxcontrib-jsonglobaltoc`` saves the Sphinx HTML produced by those
+    ``..toctree`` as the ``globaltoc`` key in the `.fjson` output.
+
+    Note:
+
+        Sphinx ``.. toctree:`` are ad-hoc -- they're up to how the author wants
+        to organize their content, and may not reflect how files are filled out
+        in the filesystem.
+
+    Our challenge here is that Sphinx is myopic and each page's ``globaltoc``
+    shows only those elements of the site navigation that should be visible on
+    that page.  Let's say that you have organized your pages into a heirarchy
+    like so::
+
+        master_doc
+           |_section1
+           | |_section1, page1
+           | |_section1, page2
+           | |_section1, page3
+           |_section2
+           | |_section2, page1
+           | |_section2, page2
+           |_|_section2, page3
+
+    On the master doc, the ``globaltoc`` will look something like this::
+
+        <ul>
+          <li class="toctree-l1"><a class "reference internal" href="section1">Section 1</a></li>
+          <li class="toctree-l1"><a class "reference internal" href="section2">Section 2</a></li>
+        </ul>
+
+    Note that the pages under "Section 1" and "Section 2" are missing.
+
+    On the ``section1`` page
+    Sphinx is that Sphinx has no single place where the entire set of documents is listed
+    .  If you have a single ``.. toctree:`` declaration
+    in your ``master_doc``, this is no problem to import into ``django-sphinx-hosting` --
+    we just look at the ``globaltoctree``master_doc
+
+    If this extension was used, while importing pages in in
+    :py:meth:`SphinxPackageImporter.run` we will have saved the contents of the ``globaltoc``
+    key in each `.fjson` file to the :py:attr:`sphinx_hosting.models.SphinxPage.globaltoc`
+    field for the page.
+
+
+
+    The big problem with building a single master menu for the entire document tree from
+    Sphinx is that Sphinx has no single place where the entire set of documents is listed
+
+
     """
 
+    def fix_href(self, href: str) -> str:
+        p = urlparse(unquote(href))
+        url = reverse(
+            'sphinx_hosting:sphinxpage--detail',
+            kwargs={
+                'project_slug': self.version.project.machine_name,
+                'version': self.version.version,
+                'path': p.path.strip('/')
+            }
+        )
+        if p.fragment:
+            url += f'#{p.fragment}'
+        return url
+
+    def _globaltoc(self, data: str) -> List[MenuItem]:
+        """
+        Parse our global table of contents HTML blob and return a data struct
+        that looks like this::
+
+            {
+                items: [
+                    {'text': 'foo'},
+                    {'text': 'bar', 'url': '/foo', 'icon': 'blah'}
+                    {'text': 'bar', 'url': '/foo', 'icon': 'blah', items: [{'text': 'blah' ...} ...]}
+                    ...
+                ]
+            }
+
+        Note:
+
+            We're assuming here that there are no submenus, only a single, flat
+            menu with links and possibly headings.  I could not find a way to
+            generate an actual fully fleshed-out sitemap for our entire set of
+            docs all in one ``globaltoc`` from the Sphinx side at any rate.
+
+            Thus we just look at ``self.version.head.globaltoc`` and use that --
+            it should list all the pages we need.
+
+            This is going to be a problem with very large sets of documentation.
+
+        How our mapping works:
+
+        * Multiple top level ``<ul>`` tags separated by ``<p class="caption">`` tags will be
+          merged into a single list.
+        * ``<p class="caption ...">CONTENTS</p>`` becomes ``{'text': 'CONTENTS'}```
+        * Any ``href`` will be converted to its full ``django-sphinx-hosting`` path
+
+        Args:
+            version: the version whose global table of contents we are parsing
+            data: the HTML of the global table of contents from Sphinx
+        """
+        html = lxml.html.fromstring(data)
+        items: List[MenuItem] = []
+        for elem in html:
+            if elem.tag == 'p' and 'caption' in elem.classes:
+                items.append(MenuItem(text=elem.text_content()))
+            if elem.tag == 'ul':
+                for li in elem:
+                    a = li.cssselect('a:first-child')
+                    items.append(
+                        MenuItem(
+                            text=a.text_content(),
+                            url=self.fix_href(a.attrib['href'])
+                        )
+                    )
+        return items
+
+    def run(self, version: Version) -> None:
+        """
+        Parse ``globaltoc_html`` into a dict suitable for use with
+        :py:class:`sphinx_hosting.wildewidgets.SphinxPageGlobalTableOfContentsMenu.parse_obj`
+        and store it as ``version.globaltoc``.
+
+        Args:
+            version: the version whose global table of contents we are parsing
+        """
+        self.version = version
+        menu_data = self.parse_globaltoc(globaltoc_html)
+
+
+
+
+
+class SphinxPackageImporter:
+    """
     **Usage**: ``SphinxPackageImporter().run(sphinx_tarfilename)```
 
     Import a tarfile of a built set of Sphinx documentation into the database.
@@ -504,6 +650,13 @@ class SphinxPackageImporter:
         """
         for link in self.page_tree.values():
             page = link.page
+            logger.info(
+                "%s.page.linking relpath=%s title=%s id=%s",
+                self.__class__.__name__,
+                page.relative_path,
+                page.title,
+                page.id
+            )
             if link.parent_title:
                 page.parent = self.page_tree[link.parent_title].page
                 logger.info(
