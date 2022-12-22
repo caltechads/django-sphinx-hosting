@@ -36,13 +36,13 @@ class DatagridItem(Block):
         url: str = None,
         **kwargs
     ) -> None:
-        self.title = title if title else self.__class__.title
+        self.title = title if title else self.title
         if not self.title:
             raise ValueError('"title" is required as either a keyword argument or as a class attribute')
-        self.content = content if content else deepcopy(self.__class__.content)
+        self.content = content if content else deepcopy(self.content)
         if not self.content:
             raise ValueError('"content" is required as either a keyword argument or as a class attribute')
-        self.url = url if url else self.__class__.url
+        self.url = url if url else self.url
         super().__init__(**kwargs)
         if self.url:
             wrapper: Block = Block(
@@ -53,7 +53,9 @@ class DatagridItem(Block):
             )
         else:
             if not isinstance(self.content, Block):
-                wrapper = Block(self.content, name='datagrid-conetnt')
+                # Wrap the text in a block to allow us to assign the datagrid-content
+                # class to it
+                wrapper = Block(self.content, name='datagrid-content')
             else:
                 wrapper = self.content
         self.add_block(Block(self.title, name='datagrid-title'))
@@ -93,7 +95,7 @@ class Datagrid(Block):
     items: List[DatagridItemDef] = []  #: a list of ``datagrid-items`` to add to our content
 
     def __init__(self, *items: DatagridItemDef, **kwargs):
-        self.items = list(items) if items else deepcopy(self.__class__.items)
+        self.items = list(items) if items else deepcopy(self.items)
         super().__init__(**kwargs)
         for item in items:
             if isinstance(item, DatagridItem):

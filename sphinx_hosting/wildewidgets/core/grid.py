@@ -35,15 +35,13 @@ class Column(Block):
             and 12 inclusive, or "auto".  These will be converted to CSS classes
             that look like ``col-{viewport}-{width}``
         alignment: how to align items within this column.  Valid choices: ``start``,
-            ``end``, ``center``, ``baseline``, ``stretch``.  see `Bootstrap: Flex,
-            align items <https://getbootstrap.com/docs/5.2/utilities/flex/#align-items>`_.
+            ``center``, ``end``, ``between``, ``around``, ``evenly``.  See `Bootstrap: Flex,
+            justify content <https://getbootstrap.com/docs/5.2/utilities/flex/#justify-content>`_.
             If not supplied here and :py:attr:`alignment` is ``None``, do whatever aligment
             Bootstrap does by default.
-        self_alignment: how to align items within this column.  Valid choices: ``start``,
-            ``end``, ``center``, ``baseline``, ``stretch``.  see `Bootstrap: Flex,
-            align items <https://getbootstrap.com/docs/5.2/utilities/flex/#align-items>`_.
-            If not supplied here and :py:attr:`alignment` is ``None``, do whatever aligment
-            the containing :py:class:`Row`
+        self_alignment: how to align this column vertically within its contaiing row.  Valid
+            choices: ``start``, ``end``, ``center``  See `Bootstrap Columns
+            <https://getbootstrap.com/docs/5.2/layout/columns/#alignment>`_
 
     Raises:
         ValueError: there was a problem validating one of our settings
@@ -53,8 +51,9 @@ class Column(Block):
         'start',
         'center',
         'end',
-        'baseline',
-        'stretch'
+        'between',
+        'around',
+        'evenly'
     ]
     #: The valid self vertical alignments with our row
     SELF_ALIGNMENTS: List[str] = [
@@ -71,12 +70,14 @@ class Column(Block):
     #: inclusive, or "auto"
     viewport_widths: Dict[str, str] = {}
     #: How to align items within this column.  Valid choices: ``start``,
-    #: ``end``, ``center``, ``baseline``, ``stretch``.  see `Bootstrap: Flex,
-    #: align items <https://getbootstrap.com/docs/5.2/utilities/flex/#align-items>`_
+    #: ``center``, ``end``, ``between``, ``around``, ``evenly``.  See `Bootstrap: Flex,
+    #: justify content <https://getbootstrap.com/docs/5.2/utilities/flex/#justify-content>`_.
+    #: If not supplied here and :py:attr:`alignment` is ``None``, do whatever aligment
+    #: Bootstrap does by default.
     alignment: Optional[str] = None
     #: How to align this column vertically within its containing row.  Valid choices: ``start``,
-    #: ``end``, ``center``.  See `Bootstrap: Columns, Vertical Alignment
-    #: <https://getbootstrap.com/docs/5.2/utilities/flex/#align-items>_``
+    #: ``end``, ``center``.  See `Bootstrap: Columns, Alignment
+    #: <https://getbootstrap.com/docs/5.2/layout/columns/#alignment>`_
     self_alignment: Optional[str] = None
 
     def __init__(
@@ -88,10 +89,10 @@ class Column(Block):
         self_alignment: str = None,
         **kwargs
     ):
-        self.base_width = base_width if base_width else self.__class__.base_width
-        self.viewport_widths = viewport_widths if viewport_widths else deepcopy(self.__class__.viewport_widths)
-        self.alignment = alignment if alignment else self.__class__.alignment
-        self.self_alignment = self_alignment if self_alignment else self.__class__.self_alignment
+        self.base_width = base_width if base_width else self.base_width
+        self.viewport_widths = viewport_widths if viewport_widths else deepcopy(self.viewport_widths)
+        self.alignment = alignment if alignment else self.alignment
+        self.self_alignment = self_alignment if self_alignment else self.self_alignment
         self.check_widths()
         self.check_alignments()
         super().__init__(*blocks, **kwargs)
@@ -235,14 +236,14 @@ class Row(Block):
         **kwargs
     ):
         self.horizontal_alignment = (
-            horizontal_alignment if horizontal_alignment else self.__class__.horizontal_alignment
+            horizontal_alignment if horizontal_alignment else self.horizontal_alignment
         )
         if self.horizontal_alignment and self.horizontal_alignment not in self.HORIZONTAL_ALIGNMENT:
             raise ValueError(
                 f'"{self.horizontal_alignment}" is not a valid horizontal alignment.  '
                 f'Must be one of {", ".join(self.HORIZONTAL_ALIGNMENT)}')
         self.vertical_alignment = (
-            vertical_alignment if vertical_alignment else self.__class__.vertical_alignment
+            vertical_alignment if vertical_alignment else self.vertical_alignment
         )
         if self.vertical_alignment and self.vertical_alignment not in self.vertical_ALIGNMENT:
             raise ValueError(
@@ -420,12 +421,12 @@ class TwoColumnLayoutWidget(Row):
         right_column_widgets: List[Block] = None,
         **kwargs
     ):
-        self.left_column_width = left_column_width if left_column_width else self.__class__.left_column_width
+        self.left_column_width = left_column_width if left_column_width else self.left_column_width
         self.left_column_widgets = (
-            left_column_widgets if left_column_widgets is not None else deepcopy(self.__class__.left_column_widgets)
+            left_column_widgets if left_column_widgets is not None else deepcopy(self.left_column_widgets)
         )
         self.right_column_widgets = (
-            right_column_widgets if right_column_widgets is not None else deepcopy(self.__class__.right_column_widgets)
+            right_column_widgets if right_column_widgets is not None else deepcopy(self.right_column_widgets)
         )
         super().__init__(**kwargs)
         left_viewport_widths = {'md': str(self.left_column_width)}

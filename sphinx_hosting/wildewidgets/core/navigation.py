@@ -1,7 +1,7 @@
 from copy import deepcopy
 from dataclasses import dataclass, field
 import re
-from typing import Dict, Iterable, List, Optional, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 from wildewidgets import Block, CollapseWidget
 
@@ -77,8 +77,8 @@ class NavigationTogglerButton(Block):
     label: str = 'Toggle navigation'
 
     def __init__(self, target: str = None, label: str = None, **kwargs):
-        self.target = target if target else self.__class__.target
-        self.label = label if label else self.__class__.label
+        self.target = target if target else self.target
+        self.label = label if label else self.label
         if not self.target:
             raise ValueError(
                 'No target supplied; define it either as a constructor kwarg or as a class attribute'
@@ -208,15 +208,15 @@ class Navbar(Block):
         background_color: str = None,
         **kwargs
     ):
-        self.contents_id = contents_id if contents_id else self.__class__.contents_id
-        self.hide_below_viewport = hide_below_viewport if hide_below_viewport else self.__class__.hide_below_viewport
-        self.container_size = container_size if container_size else self.__class__.container_size
-        self.dark = dark if dark is not None else self.__class__.dark
-        self.background_color = background_color if background_color is not None else self.__class__.background_color
+        self.contents_id = contents_id if contents_id else self.contents_id
+        self.hide_below_viewport = hide_below_viewport if hide_below_viewport else self.hide_below_viewport
+        self.container_size = container_size if container_size else self.container_size
+        self.dark = dark if dark is not None else self.dark
+        self.background_color = background_color if background_color is not None else self.background_color
         if contents:
             self.contents: Iterable[Block] = contents
         else:
-            self.contents = deepcopy(self.__class__.contents)
+            self.contents = deepcopy(self.contents)
         if self.hide_below_viewport not in self.VALID_BREAKPOINTS:
             raise ValueError(
                 f'"{self.hide_below_viewport}" is not a valid breakpoint size. '
@@ -245,7 +245,7 @@ class Navbar(Block):
         self.inner = Container(size=self.container_size, css_class='ms-0')
         self.add_block(self.inner)
         # The branding at top
-        self.branding = branding if branding else deepcopy(self.__class__.branding)
+        self.branding = branding if branding else deepcopy(self.branding)
         self.build_brand()
         # The menu toggler button for small viewports
         self.inner.add_block(NavigationTogglerButton(target=self.contents_id))
@@ -370,7 +370,7 @@ class MenuHeading(Block):
     text: Optional[str] = None
 
     def __init__(self, text: str = None, **kwargs):
-        self.text = text if text else self.__class__.text
+        self.text = text if text else self.text
         super().__init__(**kwargs)
         self.add_block(self.text)
 
@@ -440,12 +440,12 @@ class NavItem(Block):
             raise ValueError('Specify "item" or ("text", "icon", "url"), but not both')
         if item:
             self.text = item.text
-            self.icon = item.icon if item.icon else deepcopy(self.__class__.icon)
-            self.url = item.url if item.url else self.__class__.url
+            self.icon = item.icon if item.icon else deepcopy(self.icon)
+            self.url = item.url if item.url else self.url
         else:
-            self.text = text if text else self.__class__.text
-            self.icon = icon if icon else self.__class__.icon
-            self.url = url if url else self.__class__.url
+            self.text = text if text else self.text
+            self.icon = icon if icon else self.icon
+            self.url = url if url else self.url
             if not self.text:
                 raise ValueError('"text" is required as either a class attribute or keyword arg')
         super().__init__(**kwargs)
@@ -526,9 +526,9 @@ class NavDropdownControl(Link):
         button_id: str = None,
         **kwargs
     ):
-        self.text = text if text else self.__class__.text
-        self.icon = icon if icon else deepcopy(self.__class__.icon)
-        self.button_id = button_id if button_id else self.__class__.button_id
+        self.text = text if text else self.text
+        self.icon = icon if icon else deepcopy(self.icon)
+        self.button_id = button_id if button_id else self.button_id
         if not self.text:
             raise ValueError('"text" is required as either a class attribute of a keyword arg')
         if not self.button_id:
@@ -587,12 +587,12 @@ class DropdownItem(Link):
             raise ValueError('Specify "item" or ("text", "icon", "url"), but not both')
         if item:
             self.text = item.text
-            self.icon = item.icon if item.icon else self.__class__.icon
+            self.icon = item.icon if item.icon else self.icon
             if item.url:
                 kwargs['url'] = item.url
         else:
-            self.text = text if text else self.__class__.text
-            self.icon = icon if icon else self.__class__.icon
+            self.text = text if text else self.text
+            self.icon = icon if icon else self.icon
         if not self.text:
             raise ValueError('"text" is required as either a class attribute or keyword arg')
         if not self.url:
@@ -680,13 +680,13 @@ class DropdownMenu(Block):
         button_id: str = None,
         **kwargs
     ):
-        self.button_id = button_id if button_id else self.__class__.button_id
+        self.button_id = button_id if button_id else self.button_id
         if not self.button_id:
             raise ValueError('"button_id" is required as either a class attribute of a keyword arg')
         if items:
             self.items: Iterable[MenuItem] = items
         else:
-            self.items = deepcopy(self.__class__.items)
+            self.items = deepcopy(self.items)
         super().__init__(**kwargs)
         self._aria_attributes['labelledby'] = self.button_id
         for item in items:
@@ -755,14 +755,14 @@ class NavDropdownItem(Block):
         icon: str = None,
         **kwargs
     ):
-        self.text = text if text else self.__class__.text
-        self.icon = self.icon if self.icon else deepcopy(self.__class__.icon)
+        self.text = text if text else self.text
+        self.icon = self.icon if self.icon else deepcopy(self.icon)
         if not self.text:
             raise ValueError('"text" is required as either a class attribute of a keyword arg')
         if items:
             self.items: Iterable[MenuItem] = items
         else:
-            self.items = deepcopy(self.__class__.items)
+            self.items = deepcopy(self.items)
         super().__init__(*kwargs)
         button_id = f'nav-item-{self.text.lower()}'
         button_id = re.sub('[ ._]', '-', button_id)
@@ -835,7 +835,7 @@ class Menu(Block):
         if items:
             self._items: List[MenuItem] = list(items)
         else:
-            self._items = list(deepcopy(self.__class__.items))
+            self._items = list(deepcopy(self.items))
         super().__init__(**kwargs)
 
     def get_content(self, **kwargs) -> str:

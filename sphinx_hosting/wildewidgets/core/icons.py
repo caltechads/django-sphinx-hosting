@@ -58,9 +58,9 @@ class FontIcon(Block):
         **kwargs
     ) -> None:
         super().__init__(**kwargs)
-        self.color = color if color else self.__class__.color
-        self.background = background if background else self.__class__.background
-        self.icon = icon if icon else self.__class__.icon
+        self.color = color if color else self.color
+        self.background = background if background else self.background
+        self.icon = icon if icon else self.icon
         if not self.icon:
             raise ValueError('"icon" is required as either a keyword argument or as a class attribute')
         self.icon = f'{self.prefix}-{icon}'

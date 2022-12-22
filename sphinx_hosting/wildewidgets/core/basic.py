@@ -42,7 +42,7 @@ class Container(Block):
         size: str = None,
         **kwargs
     ):
-        self.size = size if size else self.__class__.size
+        self.size = size if size else self.size
         if self.size and self.size not in self.VALID_SIZES:
             raise ValueError(
                 f"\"{self.size}\" is not a valid container size.  Valid sizes: {', '.join(self.VALID_SIZES)}")
@@ -112,16 +112,16 @@ class Link(Block):
         target: str = None,
         **kwargs
     ):
-        self.url = url if url else self.__class__.url
-        self.role = role if role else self.__class__.role
-        self.title = title if title else self.__class__.title
-        self.target = target if target else self.__class__.target
+        self.url = url if url else self.url
+        self.role = role if role else self.role
+        self.title = title if title else self.title
+        self.target = target if target else self.target
         # FIXME: validate url
         # FIXME: validate that title and role are htmleescaped
         if contents:
             self.contents: Iterable[Union[str, Block]] = contents
         else:
-            c = self.__class__.contents
+            c = self.contents
             if isinstance(c, str):
                 self.contents = [c]
             elif isinstance(c, Block):
@@ -183,11 +183,11 @@ class Image(Block):
         alt: str = None,
         **kwargs
     ):
-        self.src = src if src else self.__class__.src
+        self.src = src if src else self.src
         # FIXME: validate src as a URL/Path
-        self.width = width if width else self.__class__.width
-        self.height = height if height else self.__class__.height
-        self.alt = alt if alt else self.__class__.alt
+        self.width = width if width else self.width
+        self.height = height if height else self.height
+        self.alt = alt if alt else self.alt
         # FIXME: htmlescape alt
         super().__init__(**kwargs)
         if self.src:
@@ -255,9 +255,9 @@ class LinkedImage(Link):
         image_alt: str = None,
         **kwargs
     ):
-        self.image_src = image_src if image_src else self.__class__.image_src
-        self.image_width = image_width if image_width else self.__class__.image_width
-        self.image_alt = image_alt if image_alt else self.__class__.image_alt
+        self.image_src = image_src if image_src else self.image_src
+        self.image_width = image_width if image_width else self.image_width
+        self.image_alt = image_alt if image_alt else self.image_alt
         #: The actual image block that we will wrap with an ``<a>``
         self.image: Image = Image(src=self.image_src, width=self.image_width, alt=self.image_alt)
         super().__init__(self.image, **kwargs)
