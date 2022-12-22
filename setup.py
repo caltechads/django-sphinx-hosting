@@ -16,7 +16,8 @@ setup(
         "django-crispy-forms==1.14.0",
         "crispy-bootstrap5",
         "lxml >= 4.9.1",
-        "cssselect >= 1.2.0"
+        "cssselect >= 1.2.0",
+        "rich"
     ],
     author="Caltech IMSS ADS",
     author_email="cmalek@caltech.edu",
