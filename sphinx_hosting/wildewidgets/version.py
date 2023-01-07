@@ -28,7 +28,7 @@ class VersionInfoWidget(CardWidget):
         grid.add_item(
             title='Project',
             content=version.project.machine_name,
-            link=version.project.get_absolute_url()
+            url=version.project.get_absolute_url()
         )
         grid.add_item(title='Version Created', content=version.created.strftime('%Y-%m-%d %H:%M %Z'))
         grid.add_item(title='Version Last Modified', content=version.modified.strftime('%Y-%m-%d %H:%M %Z'))

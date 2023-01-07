@@ -1298,6 +1298,40 @@ span.eqno a.headerlink {
     display: none;
   }
 }
+.menu .menu-title {
+  padding: 0.5rem 0.75rem;
+  justify-content: flex-start;
+  color: #FFFF;
+}
+
+.navbar-vertical.navbar-expand-lg ~ .page {
+  padding-left: 18rem;
+}
+
+.navbar.navbar-vertical {
+  width: 18rem;
+}
+.navbar.navbar-vertical.navbar-dark .menu .menu-title {
+  background-color: #2e3e5d;
+  border-bottom: 2px solid #3f547f;
+}
+.navbar.navbar-vertical.navbar-dark .menu .nav-subtitle {
+  font-size: 0.75rem;
+  background-color: #202c42;
+  border-bottom: 2px solid #2e3e5d;
+  border-top: 2px solid #2e3e5d;
+}
+
+.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .nav-item.active {
+  background: var(--tblr-navbar-active-bg);
+}
+.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .dropdown-menu .dropdown-item {
+  padding-left: 1.5rem;
+}
+.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .menu .nav-link.dropdown-toggle .nav-link {
+  font-size: smaller;
+}
+
 pre {
   background-color: #f8f8f8;
   border: 1px solid #ccc;

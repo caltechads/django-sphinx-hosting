@@ -1,0 +1,41 @@
+.menu .menu-title {
+    padding: .5rem .75rem;
+    justify-content: flex-start;
+    color: #FFFF;
+}
+
+.navbar-vertical.navbar-expand-lg ~ .page {
+    padding-left: 18rem;
+}
+
+.navbar.navbar-vertical {
+  width: 18rem;
+  &.navbar-dark {
+    .menu {
+        .menu-title {
+            background-color: lighten(#1d273b, 10%);
+            border-bottom: 2px solid lighten(#1d273b, 20%);
+        }
+        .nav-subtitle {
+            font-size: 0.75rem;
+            background-color: lighten(#1d273b, 2%);
+            border-bottom: 2px solid lighten(#1d273b, 10%);
+            border-top: 2px solid lighten(#1d273b, 10%);
+        }
+    }
+  }
+}
+
+.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse{
+
+  .nav-item.active {
+    background: var(--tblr-navbar-active-bg);
+  }
+  .dropdown-menu .dropdown-item {
+    padding-left: 1.5rem;
+  }
+
+  .menu .nav-link.dropdown-toggle .nav-link {
+    font-size: smaller;
+  }
+}

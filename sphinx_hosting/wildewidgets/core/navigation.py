@@ -1,11 +1,12 @@
 from copy import deepcopy
 from dataclasses import dataclass, field
 import re
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Any, Dict, Iterable, List, Optional, Type, Union, cast
 
+from django.core.exceptions import ImproperlyConfigured
 from wildewidgets import Block, CollapseWidget
 
-from .basic import Container, Link, LinkedImage
+from .basic import Container, Link
 from .icons import FontIcon
 
 
@@ -37,7 +38,48 @@ class MenuItem:
     #: ``reverse('myapp:view')`` or ``reverse_lazy('myapp:view')``
     url: Optional[str] = None
     #: a submenu under this menu item
-    items: Iterable["MenuItem"] = field(default_factory=list)
+    items: List["MenuItem"] = field(default_factory=list)
+    #: Is this the page we're currently on?
+    active: bool = False
+
+    @property
+    def is_active(self) -> bool:
+        """
+        Return ``True`` if we or any item in :py:attr:`items` have :py:attr:`active` equal
+        to ``True``.
+
+        Returns:
+            Whether this item is active.
+        """
+        status = self.active
+        if not status:
+            return any(item.is_active for item in self.items)
+        return status
+
+    def set_active(self, text: str) -> bool:
+        """
+        If ``text`` equals :py:attr:`text`, set :py:attr:`active` to ``True``, if
+        not, set :py:attr:`active` to `False`.
+
+        If not, try doing :py:meth:`set_active` on our :py:attr:`items`. Stop
+        looking when we find the first item that matches ``text``.
+
+        Args:
+            text: the value to which to compare our :py:attr:`text`
+
+        Returns:
+            If we actually did set someone's :py:attr:`active` to ``True``, return
+            ``True``, otherwise return False
+        """
+        print(f'  ACTIVATING: "{self.text}"" -> "{text}"')
+        if self.text == text:
+            self.active = True
+            return True
+        self.active = False
+        for item in self.items:
+            if item.set_active(text):
+                return True
+        return False
 
 
 # ==============================
@@ -241,16 +283,16 @@ class Navbar(Block):
             self._css_class += f' bg-{self.background_color} bg-{self.background_color}-fg'
         # Set our "role" attribute to make us more accessible
         self._attributes['role'] = 'navigation'
-        # Everything inside our sidebar lives in this inner container
-        self.inner = Container(size=self.container_size, css_class='ms-0')
+        #: Everything inside our sidebar lives in this inner container
+        self.inner: Block = Container(size=self.container_size, css_class='ms-0')
         self.add_block(self.inner)
-        # The branding at top
-        self.branding = branding if branding else deepcopy(self.branding)
+        #: The branding block at the start of the navbar
+        self.branding: Block = branding if branding else deepcopy(self.branding)
         self.build_brand()
         # The menu toggler button for small viewports
         self.inner.add_block(NavigationTogglerButton(target=self.contents_id))
-        # This is where all menus go
-        self.menu_container = CollapseWidget(css_id=self.contents_id, css_class='navbar-collapse')
+        #: The container for all menus
+        self.menu_container: Block = CollapseWidget(css_id=self.contents_id, css_class='navbar-collapse')
         self.inner.add_block(self.menu_container)
         for block in self.contents:
             self.add_to_menu_section(block)
@@ -280,6 +322,26 @@ class Navbar(Block):
             block: the block to add to the menu section
         """
         self.menu_container.add_block(block)
+
+    def activate(self, text: str) -> bool:
+        """
+        Loop through all the :py:class:`Menu` blocks in
+        :py:attr:`menu_container` and set the first menu item we find that
+        matches ``text`` to be active.
+
+        Args:
+            text: the value to which to compare to menu items
+
+        Returns:
+            If we actually did set an item to be active, return
+            ``True``, otherwise return ``False``
+        """
+        for block in self.menu_container.blocks:
+            if isinstance(block, Menu):
+                print(repr(block))
+                if block.activate(text):
+                    return True
+        return False
 
 
 class TablerVerticalNavbar(Navbar):
@@ -363,8 +425,8 @@ class MenuHeading(Block):
         text: the text of the heading
     """
 
-    block: str = 'nav-link'
-    css_class: str = 'my-1 fw-bold text-uppercase'
+    block: str = 'nav-link nav-subtitle'
+    css_class: str = 'nav-link my-1 fw-bold text-uppercase'
 
     #: The text of the heading
     text: Optional[str] = None
@@ -412,6 +474,8 @@ class NavItem(Block):
             :py:class:`TablerMenuIcon` object
         text: The text for the item
         url: The URL for the item
+        active: ``True`` if this represents the page we're currently on
+        item: a :py:class:`MenuItem`
 
     Raises:
         ValueError: one or more of the settings failed validation
@@ -433,15 +497,18 @@ class NavItem(Block):
         text: str = None,
         icon: str = None,
         url: str = None,
+        active: bool = False,
         item: MenuItem = None,
         **kwargs
     ):
-        if item and (text or icon or url):
-            raise ValueError('Specify "item" or ("text", "icon", "url"), but not both')
+        self.active: bool = active
+        if item and (text or icon or url or active):
+            raise ValueError('Specify "item" or ("text", "icon", "url", "active"), but not both')
         if item:
             self.text = item.text
             self.icon = item.icon if item.icon else deepcopy(self.icon)
             self.url = item.url if item.url else self.url
+            self.active = item.active
         else:
             self.text = text if text else self.text
             self.icon = icon if icon else self.icon
@@ -449,6 +516,10 @@ class NavItem(Block):
             if not self.text:
                 raise ValueError('"text" is required as either a class attribute or keyword arg')
         super().__init__(**kwargs)
+        if self.active:
+            if not self._css_class:
+                self._css_class = ''
+            self._css_class += ' active'
         icon_block: Block = None
         if self.icon:
             icon_block = TablerMenuIcon(icon=self.icon)
@@ -507,8 +578,7 @@ class NavDropdownControl(Link):
         'auto-close': 'true'
     }
     aria_attributes: Dict[str, str] = {
-        'haspopup': 'true',
-        'expanded': 'true'
+        'expanded': 'false'
     }
     #: Either the name of a Bootstrap icon, or a :py:class:`TablerMenuIcon`
     #: class or subclass
@@ -538,6 +608,18 @@ class NavDropdownControl(Link):
             self.add_block(TablerMenuIcon(icon=self.icon))
         self.add_block(self.text)
 
+    def expand(self) -> None:
+        """
+        Set our ``aria-expanded`` attribute to ``true``.
+        """
+        self._aria_attributes['expanded'] = 'true'
+
+    def collapse(self) -> None:
+        """
+        Set our ``aria-expanded`` attribute to ``false``.
+        """
+        self._aria_attributes['expanded'] = 'false'
+
 
 class DropdownItem(Link):
     """
@@ -563,12 +645,13 @@ class DropdownItem(Link):
         icon: Either the name of a Bootstrap icon, or a
             :py:class:`TablerMenuIcon` object
         text: The text for the item
+        active: ``True`` if this represents the page we're currently on
+        item: a :py:class:`MenuItem`
 
     Raises:
-        ValueError: one or more of the settings failed validation
+        ValueError: one or more of the arguments failed validation
     """
     block: str = 'dropdown-item'
-    css_class: str = 'ps-3'
 
     #: this is either the name of a bootstrap icon, or a :py:class:`TablerMenuIcon`
     #: class or subclass
@@ -580,9 +663,12 @@ class DropdownItem(Link):
         self,
         text: str = None,
         icon: str = None,
+        active: bool = False,
         item: MenuItem = None,
         **kwargs
     ):
+        # Does this item represent the page we're on?
+        self.active: bool = active
         if item and (text or icon or kwargs.get('url', None)):
             raise ValueError('Specify "item" or ("text", "icon", "url"), but not both')
         if item:
@@ -590,6 +676,7 @@ class DropdownItem(Link):
             self.icon = item.icon if item.icon else self.icon
             if item.url:
                 kwargs['url'] = item.url
+            self.active = item.active
         else:
             self.text = text if text else self.text
             self.icon = icon if icon else self.icon
@@ -598,6 +685,10 @@ class DropdownItem(Link):
         if not self.url:
             raise ValueError('"url" is required as either a class attribute or keyword arg')
         super().__init__(**kwargs)
+        if self.active:
+            if not self._css_class:
+                self._css_class = ''
+            self._css_class += ' active'
         icon_block: Block = None
         if self.icon:
             icon_block = TablerMenuIcon(icon=self.icon, css_class='text-white')
@@ -690,16 +781,60 @@ class DropdownMenu(Block):
         super().__init__(**kwargs)
         self._aria_attributes['labelledby'] = self.button_id
         for item in items:
-            self.add_block(DropdownItem(item=item))
+            self.add_item(item=item)
 
     def add_item(
         self,
         text: str = None,
         url: str = None,
         icon: Union[str, TablerMenuIcon] = None,
+        active: bool = False,
         item: MenuItem = None
     ) -> None:
-        ...
+        """
+        Add a new item to this :py:class:`DropdownMenu`.
+
+        Kewyword Args:
+            icon: Either the name of a Bootstrap icon, or a
+                :py:class:`TablerMenuIcon` object
+            text: The text for the item
+            url: The URL for the item
+            active: ``True`` if this represents the page we're currently on
+            item: a :py:class:`MenuItem`
+
+        Raises:
+            ValueError: one or more of the settings failed validation
+        """
+        if item and (text or icon or url or active):
+            raise ValueError('Specify "item" or ("text", "icon", "url"), but not both')
+        if not item:
+            if not self.text:
+                raise ValueError('"text" is required if "item" is not provided')
+            item = MenuItem(text=cast(str, text), url=url, icon=icon, active=active)
+        if item.items:
+            self.add_block(NavDropdownItem(*item.items, text=item.text))
+        else:
+            self.add_block(DropdownItem(item=item))
+
+    def show(self) -> None:
+        """
+        Force this dropdown menu to be shown.
+        """
+        if not self._css_class:
+            self._css_class = ''
+        self._css_class += ' show'
+
+    def hide(self) -> None:
+        """
+        Force this dropdown menu to be hidden.
+        """
+        if self._css_class:
+            classes = set(self._css_class.split(' '))
+            try:
+                classes.remove('show')
+            except KeyError:
+                pass
+            self._css_class = ' '.join(list(classes))
 
 
 class NavDropdownItem(Block):
@@ -766,16 +901,45 @@ class NavDropdownItem(Block):
         super().__init__(*kwargs)
         button_id = f'nav-item-{self.text.lower()}'
         button_id = re.sub('[ ._]', '-', button_id)
-        self.add_block(NavDropdownControl(button_id=button_id, text=self.text, icon=icon))
-        self.add_block(DropdownMenu(*self.items, button_id=button_id))
+        self.control: NavDropdownControl = NavDropdownControl(
+            button_id=button_id,
+            text=self.text,
+            icon=icon
+        )
+        self.add_block(self.control)
+        self.menu: DropdownMenu = DropdownMenu(*self.items, button_id=button_id)
+        self.add_block(self.menu)
+
+    def show(self) -> None:
+        """
+        Show ourselves.
+        """
+        self.control.expand()
+        self.menu.show()
+
+    def hide(self) -> None:
+        """
+        Hide ourselves.
+        """
+        self.control.collapse()
+        self.menu.hide()
+
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
+        is_active: bool = any(item.is_active for item in self.items)
+        if is_active:
+            self.show()
+        else:
+            self.hide()
+        return super().get_context_data(**kwargs)
 
 
 class Menu(Block):
     """
     Extends :py:class:`wildewidgets.Block`.
 
-    An `Bootstrap ``.navbar-nav`` <https://getbootstrap.com/docs/5.2/components/navbar/>`_ for
-    use in a :py:class:`Navbar`.
+    A ``<div>`` with an optional title and a  `Bootstrap ``ul.navbar-nav``
+    <https://getbootstrap.com/docs/5.2/components/navbar/>`_ for use in a
+    :py:class:`Navbar`.
 
     Use this in any of these ways:
 
@@ -816,22 +980,39 @@ class Menu(Block):
         *items: the list of :py:class:`MenuItem` objects to insert into
             this menu
 
+    Keyword Args:
+        title: the title for this menu
+        title_tag: the HTML tag to use for the title
+        title_css_classes: CSS classes to apply to the title
+
     Raises:
         ValueError: one or more of the settings failed validation
     """
 
-    tag: str = 'ul'
-    block: str = 'navbar-nav'
+    tag: str = 'div'
+    block: str = 'menu'
     css_class: str = 'me-1'
 
     #: The list of items in this menu
     items: Iterable[MenuItem] = []
+    #: The title for this menu
+    title: Optional[str] = None
+    #: The HTML tag for this title
+    title_tag: str = 'h4'
+    #: CSS classes to apply to the title
+    title_css_classes: str = ''
 
     def __init__(
         self,
         *items: MenuItem,
+        title: str = None,
+        title_tag: str = None,
+        title_css_classes: str = None,
         **kwargs
     ):
+        self.title = title if title else self.title
+        self.title_tag = title_tag if title_tag else self.title_tag
+        self.title_css_classes = title_css_classes if title_css_classes else self.title_css_classes
         if items:
             self._items: List[MenuItem] = list(items)
         else:
@@ -839,7 +1020,11 @@ class Menu(Block):
         super().__init__(**kwargs)
 
     def get_content(self, **kwargs) -> str:
-        # FIXME: why am I doing this in get_content() instead of in __init__()
+        """
+        Actually build out the menu from our list of :py:class:`MenuItems`.  We do
+        this in :py:meth:`get_content` instead of in ``__init__`` so that we catch
+        any menu items added via :py:meth:`add_item` after instantiation.
+        """
         self.build_menu(self._items)
         return super().get_content(**kwargs)
 
@@ -853,11 +1038,15 @@ class Menu(Block):
         Args:
             items: the list of menu items to add to the list
         """
+        ul = Block(tag='ul', css_class='navbar-nav')
+        if self.title:
+            self.add_block(Block(self.title, tag=self.title_tag, css_class=self.title_css_classes + ' menu-title'))
+        self.add_block(ul)
         for item in items:
             if item.items:
-                self.add_block(NavDropdownItem(*item.items, text=item.text, icon=item.icon))
+                ul.add_block(NavDropdownItem(*item.items, text=item.text, icon=item.icon))
             else:
-                self.add_block(NavItem(item=item))
+                ul.add_block(NavItem(item=item))
 
     def add_item(self, item: MenuItem) -> None:
         """
@@ -867,3 +1056,99 @@ class Menu(Block):
             item: the menu item to add to ourselves.
         """
         self._items.append(item)
+
+    def activate(self, text: str) -> bool:
+        """
+        Set :py:attr:`MenuItem.active` to ``True`` for the first item we find
+        in our :py:attr:`items` (searching recursively) whose :py:attr:`MenuItem.text`
+        matches ``text``.
+
+        Args:
+            text: the text to search for among our :py:attr:`items`
+
+        Returns:
+            If we found a match, return ``True``, otherwise return ``False``.
+        """
+        for item in self._items:
+            if item.set_active(text):
+                return True
+        return False
+
+
+# ==============================
+# View mixins
+# ==============================
+
+class MenuMixin:
+
+    #: The :py:class:`Navbar`` subclass that holds our menus
+    menu_class: Type[Navbar] = Navbar
+    #: The text of an item in one of our menus to set active
+    menu_item: Optional[str] = None
+    #: The :py:class:`Navbar` subclass that holds our secondary menus
+    secondary_menu_class: Optional[Type[Navbar]] = None
+    #: The text of an item in one of our secondary menus to set active
+    secondary_menu_item: Optional[str] = None
+
+    def get_menu_class(self) -> Type[Navbar]:
+        """
+        Return the :py:class:`Navbar` subclass for the main menu.
+        """
+        return self.menu_class
+
+    def get_menu_item(self) -> Optional[str]:
+        """
+        Return the text of an item to set active in our main menu
+        """
+        return self.menu_item
+
+    def get_menu(self) -> Navbar:
+        """
+        Instantiate and return our :py:class:`Navbar` subclass for our
+        main menu.
+        """
+        menu_class = self.get_menu_class()
+        if not menu_class:
+            raise ImproperlyConfigured('"menu_class" must not be None')
+        return menu_class()
+
+    def get_secondary_menu_class(self) -> Optional[Type[Navbar]]:
+        """
+        Return our :py:class:`Navbar` subclass for the secondary menu.
+        """
+        return self.secondary_menu_class
+
+    def get_secondary_menu_item(self) -> Optional[str]:
+        """
+        Return the text of an item to set active in our secondary menu
+        """
+        return self.secondary_menu_item
+
+    def get_secondary_menu(self) -> Optional[Navbar]:
+        """
+        Instantiate and return our :py:class:`Navbar` subclass for our
+        secondary menu.
+        """
+        secondary_menu_class = self.get_secondary_menu_class()
+        if secondary_menu_class:
+            # pylint is saying that secondary_menu_class is not callable, which is not true
+            return secondary_menu_class()  # pylint: disable=not-callable
+        return None
+
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
+        """
+        Add our main menu and our secondary menu (if we have one) to the context
+        data for our view as the ``menu`` and ``submenu`` kwargs, respectively
+        """
+        kwargs['menu'] = self.get_menu()
+        if menu_item := self.get_menu_item():
+            print(f'ACTIVATING "{menu_item}"')
+            success = kwargs['menu'].activate(menu_item)
+            if success:
+                print(f'ACTIVATED "{menu_item}"')
+        secondary_menu = self.get_secondary_menu()
+        if secondary_menu:
+            kwargs['submenu'] = secondary_menu
+            if submenu_item := self.get_secondary_menu_item():
+                secondary_menu.activate(submenu_item)
+        return super().get_context_data(**kwargs)  # type: ignore

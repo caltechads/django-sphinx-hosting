@@ -48,7 +48,7 @@ class DatagridItem(Block):
             wrapper: Block = Block(
                 self.content,
                 tag='a',
-                attributes={'href': self.link},
+                attributes={'href': self.url},
                 name='datagrid-conetnt'
             )
         else:

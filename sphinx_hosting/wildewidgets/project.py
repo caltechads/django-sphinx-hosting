@@ -39,6 +39,10 @@ class ProjectCreateModalWidget(CrispyFormModalWidget):
 #------------------------------------------------------
 
 class ProjectInfoWidget(CardWidget):
+    """
+    This is a :py:class:`wildewidgets.CardWidget` containing a Tabler datagrid
+    that gives information about a :py:class:`sphinx_hosting.models.Project`.
+    """
 
     title: str = "Project Info"
     icon: str = "info-square"
@@ -54,8 +58,9 @@ class ProjectInfoWidget(CardWidget):
 
 class ProjectTableWidget(CardWidget):
     """
-    This is a :py:class:`wildewidgets.CardWidget` that gives our Projects
-    dataTable a nice header with a total book count and an "Add Project" button.
+    This is a :py:class:`wildewidgets.CardWidget` that gives our
+    :py:class:`ProjectTable` dataTable a nice header with a total book count and
+    an "Add Project" button that opens a modal dialog.
     """
     title: str = "Projects"
     icon: str = "window"
@@ -105,8 +110,16 @@ class ProjectDetailWidget(
     Widget
 ):
     """
-    This widget draws update form for a
-    :py:class:`sphinx_hosting.models.Project`.
+    This widget renders an update form for a :py:class:`sphinx_hosting.models.Project`.
+
+    Use directly it like so::
+
+        >>> project = Project.objects.get(pk=1)
+        >>> form = ProjectUpdateForm(instance=project)
+        >>> widget = ProjectDetailWidget(form=form)
+
+    Or you can simply add the form to your view context and
+    :py:class:`ProjectDetailWidget` will pick it up automatically.
     """
     title: str = "General Settings"
     name: str = 'project-detail__section'
@@ -129,30 +142,40 @@ class ProjectTable(BasicModelTable):
 
     model: Type[Model] = Project
 
-    page_length: int = 25  #: Show this many books per page
-    striped: bool = True   #: Set to ``True`` to stripe our table rows
+    #: Show this many rows per page
+    page_length: int = 25
+    #: Set to ``True`` to stripe our table rows
+    striped: bool = True
     actions: bool = True
-
-    fields: List[str] = [  #: These are the fields on our model (or which are computed) that we will list as columns
+    #: A list of fields that we will list as columns.  These are either fields
+    #: on our :py:attr:`model`, or defined as ``render_FIELD_NAME_column`` methods
+    #: on this class
+    fields: List[str] = [
         'title',
         'machine_name',
         'latest_version',
         'latest_version_date',
     ]
-    hidden: List[str] = [  #: the columns that start as hidden
+    #: A list of names of columns to hide by default.
+    hidden: List[str] = [
         'machine_name'
     ]
-    unsearchable: List[str] = [  #: These columns will not be searched when doing a **global** search
+    #: A list of names of columns that will will not be searched when doing a
+    #: **global** search
+    unsearchable: List[str] = [
         'lastest_version',
         'latest_version_date',
     ]
-    verbose_names: Dict[str, str] = {  #: Override the default labels labels for the named columns
+    #: A dict of column name to column label.  We use it to override the
+    #: default labels for the named columns
+    verbose_names: Dict[str, str] = {
         'title': 'Project Name',
         'machine_name': 'Machine Name',
         'latest_version': 'Latest Version',
         'latest_version_date': 'Import Date',
     }
-    alignment: Dict[str, str] = {  #: declare how we horizontally align our columns
+    #: A dict of column names to alignment ("left", "right", "center")
+    alignment: Dict[str, str] = {
         'title': 'left',
         'machine_name': 'left',
         'latest_version': 'left',
@@ -215,27 +238,37 @@ class ProjectVersionTable(BasicModelTable):
 
     model: Type[Model] = Version
 
-    page_length: int = 25  #: Show this many books per page
-    striped: bool = True   #: Set to ``True`` to stripe our table rows
+    #: Show this many rows per page
+    page_length: int = 25
+    #: Set to ``True`` to stripe our table rows
+    striped: bool = True
     actions: bool = True
 
-    fields: List[str] = [  #: These are the fields on our model (or which are computed) that we will list as columns
+    #: A list of fields that we will list as columns.  These are either fields
+    #: on our :py:attr:`model`, or defined as ``render_FIELD_NAME_column`` methods
+    #: on this class
+    fields: List[str] = [
         'version',
         'num_pages',
         'num_images',
         'created',
         'modified',
     ]
-    unsearchable: List[str] = [  #: These columns will not be searched when doing a **global** search
+    #: A list of names of columns that will will not be searched when doing a
+    #: **global** search
+    unsearchable: List[str] = [
         'num_pages',
         'num_images',
     ]
-    verbose_names: Dict[str, str] = {  #: Override the default labels labels for the named columns
+    #: A dict of column name to column label.  We use it to override the
+    #: default labels for the named columns
+    verbose_names: Dict[str, str] = {
         'title': 'Version',
         'num_pages': '# Pages',
         'num_images': '# Images',
     }
-    alignment: Dict[str, str] = {  #: declare how we horizontally align our columns
+    #: A dict of column names to alignment ("left", "right", "center")
+    alignment: Dict[str, str] = {
         'version': 'center',
         'num_pages': 'right',
         'num_images': 'right',

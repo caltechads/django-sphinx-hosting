@@ -21,8 +21,6 @@ from django.views.generic import (
 )
 
 from wildewidgets import (
-    BasicMenu,
-    MenuMixin,
     StandardWidgetMixin,
     WidgetListLayout,
     Widget
@@ -38,13 +36,16 @@ from .models import (
     Version,
     SphinxPage
 )
+
 from .wildewidgets import (
+    Navbar,
+    MenuMixin,
     ProjectCreateModalWidget,
     ProjectDetailWidget,
     ProjectInfoWidget,
     ProjectVersionsTableWidget,
     ProjectTableWidget,
-    SphinxHostingMenu,
+    SphinxPageGlobalTableOfContentsMenu,
     SphinxHostingBreadcrumbs,
     SphinxHostingSidebar,
     SphinxPageLayout,
@@ -58,13 +59,17 @@ from .wildewidgets import (
 # View Mixins
 # ===========================
 
+class SphinxHostingMenuMixin(MenuMixin):
+
+    menu_class: Type[Navbar] = SphinxHostingSidebar
+
+
 class WildewidgetsMixin(StandardWidgetMixin):
     """
     We subclass :py:class:`WildewidgetsMixin` here so that we can define our
     standard template.
     """
     template_name = 'sphinx_hosting/base.html'
-
 
 # ===========================
 # Projects
@@ -74,6 +79,7 @@ class WildewidgetsMixin(StandardWidgetMixin):
 class ProjectListView(
     LoginRequiredMixin,
     WildewidgetsMixin,
+    SphinxHostingMenuMixin,
     TemplateView
 ):
     """
@@ -81,10 +87,7 @@ class ProjectListView(
     lists all available :py:class:`sphinx_hosting.models.Project` objects from
     the database and allows the user to create new Projects.
     """
-
-    def get_context_data(self, **kwargs):
-        kwargs['menu'] = SphinxHostingSidebar()
-        return super().get_context_data(**kwargs)
+    menu_item: str = 'Projects'
 
     def get_content(self) -> Widget:
         layout = WidgetListLayout("Projects")
@@ -135,7 +138,7 @@ class ProjectUpdateView(
     LoginRequiredMixin,
     FormValidMessageMixin,
     WildewidgetsMixin,
-    MenuMixin,
+    SphinxHostingMenuMixin,
     UpdateView
 ):
     """
@@ -144,8 +147,8 @@ class ProjectUpdateView(
     settings itself.
     """
 
-    menu_class: Type[BasicMenu] = SphinxHostingMenu
     menu_item: str = "Projects"
+
     model: Type[Model] = Project
     form_class: Type[ModelForm] = ProjectUpdateForm
     slug_field: str = 'machine_name'
@@ -215,7 +218,7 @@ class ProjectDeleteView(
 class VersionDetailView(
     LoginRequiredMixin,
     WildewidgetsMixin,
-    MenuMixin,
+    SphinxHostingMenuMixin,
     DetailView
 ):
     """
@@ -224,8 +227,8 @@ class VersionDetailView(
     settings itself.
     """
 
-    menu_class: Type[BasicMenu] = SphinxHostingMenu
     menu_item: str = "Projects"
+
     model: Type[Model] = Version
     slug_field: str = 'version'
     slug_url_kwarg: str = 'version'
@@ -320,6 +323,7 @@ class VersionDeleteView(
 class SphinxPageDetailView(
     LoginRequiredMixin,
     WildewidgetsMixin,
+    SphinxHostingMenuMixin,
     MenuMixin,
     DetailView
 ):
@@ -329,11 +333,19 @@ class SphinxPageDetailView(
     page content.
     """
 
-    menu_class: Type[BasicMenu] = SphinxHostingMenu
-    menu_item: str = "Projects"
     model: Type[Model] = SphinxPage
     slug_field: str = 'relative_path'
     slug_url_kwarg: str = 'path'
+
+    def get_menu(self) -> Navbar:
+        navbar = super().get_menu()
+        globaltoc = SphinxPageGlobalTableOfContentsMenu.parse_obj(self.object.version.globaltoc)
+        globaltoc.title = self.object.version.project.title
+        navbar.add_to_menu_section(globaltoc)
+        return navbar
+
+    def get_menu_item(self) -> str:
+        return self.object.title
 
     def get_queryset(self) -> QuerySet[SphinxPage]:
         """

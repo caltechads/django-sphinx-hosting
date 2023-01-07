@@ -5,18 +5,14 @@ from pathlib import Path
 import re
 import tarfile
 from typing import Any, Dict, List, Optional, cast
-from urllib.parse import urlparse, unquote
 
 from django.utils.text import slugify
-from django.urls import reverse
 import lxml.html
-from lxml.html import HtmlElement
 from lxml.etree import XML  #: pylint: disable=no-name-in-module
 
 from .exc import VersionAlreadyExists
 from .logging import logger
 from .models import Project, Version, SphinxPage, SphinxImage
-from .wildewidgets import MenuItem
 
 ImageMap = Dict[str, SphinxImage]
 
@@ -39,151 +35,6 @@ class PageTreeNode:
     page: SphinxPage
     parent_title: Optional[str] = None
     next_title: Optional[str] = None
-
-
-class SphinxGlobalTOCImporter:
-    """
-    **Usage**: ``SphinxGlobalTOCImporter().run(version, globaltoc_html)```
-
-    This importer is used to parse the ``globaltoc`` key in JSON output of
-    Sphinx pages built with the `sphinxcontrib-jsonglobaltoc
-    <https://github.com/caltechads/sphinxcontrib-jsonglobaltoc>`_ extension.
-
-    Sphinx uses your ``.. toctree:`` declarations in your ``.rst`` files to
-    build site navigation for your document tree, and
-    ``sphinxcontrib-jsonglobaltoc`` saves the Sphinx HTML produced by those
-    ``..toctree`` as the ``globaltoc`` key in the `.fjson` output.
-
-    Note:
-
-        Sphinx ``.. toctree:`` are ad-hoc -- they're up to how the author wants
-        to organize their content, and may not reflect how files are filled out
-        in the filesystem.
-
-    Our challenge here is that Sphinx is myopic and each page's ``globaltoc``
-    shows only those elements of the site navigation that should be visible on
-    that page.  Let's say that you have organized your pages into a heirarchy
-    like so::
-
-        master_doc
-           |_section1
-           | |_section1, page1
-           | |_section1, page2
-           | |_section1, page3
-           |_section2
-           | |_section2, page1
-           | |_section2, page2
-           |_|_section2, page3
-
-    On the master doc, the ``globaltoc`` will look something like this::
-
-        <ul>
-          <li class="toctree-l1"><a class "reference internal" href="section1">Section 1</a></li>
-          <li class="toctree-l1"><a class "reference internal" href="section2">Section 2</a></li>
-        </ul>
-
-    Note that the pages under "Section 1" and "Section 2" are missing.
-
-    On the ``section1`` page
-    Sphinx is that Sphinx has no single place where the entire set of documents is listed
-    .  If you have a single ``.. toctree:`` declaration
-    in your ``master_doc``, this is no problem to import into ``django-sphinx-hosting` --
-    we just look at the ``globaltoctree``master_doc
-
-    If this extension was used, while importing pages in in
-    :py:meth:`SphinxPackageImporter.run` we will have saved the contents of the ``globaltoc``
-    key in each `.fjson` file to the :py:attr:`sphinx_hosting.models.SphinxPage.globaltoc`
-    field for the page.
-
-
-
-    The big problem with building a single master menu for the entire document tree from
-    Sphinx is that Sphinx has no single place where the entire set of documents is listed
-
-
-    """
-
-    def fix_href(self, href: str) -> str:
-        p = urlparse(unquote(href))
-        url = reverse(
-            'sphinx_hosting:sphinxpage--detail',
-            kwargs={
-                'project_slug': self.version.project.machine_name,
-                'version': self.version.version,
-                'path': p.path.strip('/')
-            }
-        )
-        if p.fragment:
-            url += f'#{p.fragment}'
-        return url
-
-    def _globaltoc(self, data: str) -> List[MenuItem]:
-        """
-        Parse our global table of contents HTML blob and return a data struct
-        that looks like this::
-
-            {
-                items: [
-                    {'text': 'foo'},
-                    {'text': 'bar', 'url': '/foo', 'icon': 'blah'}
-                    {'text': 'bar', 'url': '/foo', 'icon': 'blah', items: [{'text': 'blah' ...} ...]}
-                    ...
-                ]
-            }
-
-        Note:
-
-            We're assuming here that there are no submenus, only a single, flat
-            menu with links and possibly headings.  I could not find a way to
-            generate an actual fully fleshed-out sitemap for our entire set of
-            docs all in one ``globaltoc`` from the Sphinx side at any rate.
-
-            Thus we just look at ``self.version.head.globaltoc`` and use that --
-            it should list all the pages we need.
-
-            This is going to be a problem with very large sets of documentation.
-
-        How our mapping works:
-
-        * Multiple top level ``<ul>`` tags separated by ``<p class="caption">`` tags will be
-          merged into a single list.
-        * ``<p class="caption ...">CONTENTS</p>`` becomes ``{'text': 'CONTENTS'}```
-        * Any ``href`` will be converted to its full ``django-sphinx-hosting`` path
-
-        Args:
-            version: the version whose global table of contents we are parsing
-            data: the HTML of the global table of contents from Sphinx
-        """
-        html = lxml.html.fromstring(data)
-        items: List[MenuItem] = []
-        for elem in html:
-            if elem.tag == 'p' and 'caption' in elem.classes:
-                items.append(MenuItem(text=elem.text_content()))
-            if elem.tag == 'ul':
-                for li in elem:
-                    a = li.cssselect('a:first-child')
-                    items.append(
-                        MenuItem(
-                            text=a.text_content(),
-                            url=self.fix_href(a.attrib['href'])
-                        )
-                    )
-        return items
-
-    def run(self, version: Version) -> None:
-        """
-        Parse ``globaltoc_html`` into a dict suitable for use with
-        :py:class:`sphinx_hosting.wildewidgets.SphinxPageGlobalTableOfContentsMenu.parse_obj`
-        and store it as ``version.globaltoc``.
-
-        Args:
-            version: the version whose global table of contents we are parsing
-        """
-        self.version = version
-        menu_data = self.parse_globaltoc(globaltoc_html)
-
-
-
 
 
 class SphinxPackageImporter:
@@ -213,13 +64,16 @@ class SphinxPackageImporter:
         cd build
         tar zcf mydocs.tar.gz json
 
-    When run, ``SphinxPacawill look inside the tarfile at the ``globalcontext.json``
-    file to determine two things:
+    ensuring that the package contents are enclosed in a folder.
 
-    * the ``project`` key in will be used to look up the
+    When run, :py:class:`SphinxPackageImporter` will look inside the tarfile at
+    the ``globalcontext.json`` file to determine which project and version we should
+    associate these pages with.
+
+    * The ``project`` key in will be used to look up the
       :py:class:`sphinx_hosting.models.Project` to associate these Sphinx pages
       with, using ``project`` as :py:attr:`sphinx_hosting.models.Project.machine_name`
-    * the ``version`` key will be used to create a new
+    * The ``version`` key will be used to create a new
       :py:class:`sphinx_hosting.models.Version` object tied to that project
 
     Once the :py:class:`sphinx_hosting.models.Version` has been created, the
@@ -234,11 +88,13 @@ class SphinxPackageImporter:
     ]
 
     def __init__(self) -> None:
-        self.image_map: ImageMap = {}   #: Used to map original Sphinx image paths to our Django storage path
+        #: Used to map original Sphinx image paths to our Django storage path
+        self.image_map: ImageMap = {}
         #: Used to link pages to their parent pages, and to their next pages
         self.page_tree: Dict[str, PageTreeNode] = {}
         self.name_map: Dict[str, str] = {}
-        self.config: Dict[str, Any] = {}  #: the contents of globalcontext.json
+        #: the contents of globalcontext.json
+        self.config: Dict[str, Any] = {}
 
     def _get_file(self, package: tarfile.TarFile, filename: str) -> io.BufferedReader:
         """
@@ -268,14 +124,16 @@ class SphinxPackageImporter:
     def _update_image_src(self, body: str) -> str:
         """
         Given an HTML body of a Sphinx page, update the ``<img src="path">``
-        references to point to the URLs for our uploaded :py:class:`SphinxImage`
-        objects.
+        references to point to the URLs for our uploaded
+        :py:class:`sphinx_hosting.models.SphinxImage` objects.  Also deal with
+        any lightboxes by converting them to the appropriate form to work with
+        Tabler lightboxes.
 
         Args:
             body: the HTML body of a Sphinx document
 
         Returns:
-            ``body`` with its `<img>` urls updated
+            ``body`` with its ``<img>`` urls and lightbox attributes updated
         """
         if not body:
             return ''
@@ -330,10 +188,12 @@ class SphinxPackageImporter:
               images associated with it first
 
         Raises:
-            Project.DoesNotExist: no :py:class:`Project` with machine_name
-                ``machine_name`` exists
+            Project.DoesNotExist: no :py:class:`Project` exists whose
+                ``machine_name`` matches the slugified ``project`` setting
+                in the Sphinx package's ``conf.py``
             VersionAlreadyExists: a :py:class:`Version` with version string
-                ``version`` already exists for our project
+                ``release`` from the Sphinx ``conf.py`` already exists for our
+                project, and ``force`` was not ``True``
         """
         machine_name = slugify(self.config['project'])
         project = Project.objects.get(machine_name=machine_name)
@@ -356,70 +216,6 @@ class SphinxPackageImporter:
             )
             v.save()
         return v
-
-    def import_globaltoc(self, package: tarfile.TarFile, version: Version) -> None:
-        """
-        Read the global table of contents, if any, from the master document in
-        the package.
-
-        .. note::
-
-            The JSON files in the Sphinx documentation tarfile needed to have been
-            built with the `sphinxcontrib-jsonglobaltoc <https://github.com/caltechads/sphinxcontrib-jsonglobaltoc>`_
-            extension in order for this to work.
-
-        Args:
-            package: the opened Sphinx documentation tarfile
-            version: the :py:class:`Version` which which to associate our global table of contents
-        """
-        top_page = self.config['root_doc']
-        data = json.loads(self._get_file(package, top_page + ".fjson").read())
-        if 'globaltoc' in data:
-            html = lxml.html.fromstring(data['globaltoc'])
-            links = html.cssselect('a')
-            for link in links:
-                p = urlparse(unquote(link.attrib['href']))
-                link.attrib['href'] = reverse(
-                    'sphinx_hosting:sphinxpage--detail',
-                    kwargs={
-                        'project_slug': version.project.machine_name,
-                        'version': version.version,
-                        'path': p.path.strip('/')
-                    }
-                )
-                if p.fragment:
-                    link.attrib['href'] += f'#{p.fragment}'
-
-            for ul in html.cssselect('div > ul'):
-                ul.classes.add('nav-vertical')
-            for caption in html.cssselect('p.caption'):
-                caption.classes.add('text-uppercase')
-            for caption in html.cssselect('.caption-text'):
-                caption.tag = 'b'
-            for caption in html.cssselect('ul + p.caption'):
-                caption.classes.add('mt-3')
-            for ul in html.cssselect('ul'):
-                ul.classes.add('nav')
-                ul.classes.add('nav-pills')
-            for li in html.cssselect('li'):
-                li.classes.add('nav-item')
-            for li in html.cssselect('a'):
-                li.classes.add('nav-link')
-            # Now make the embedded uls collapsable
-            for ul in html.cssselect('li > ul'):
-                wrapper = XML('<div class="d-flex flex-row justify-content-between align-items-center"></div>')
-                link = ul.getprevious()
-                link.addprevious(wrapper)
-                wrapper.insert(0, link)
-                target = f'menu-{slugify(link.text_content())}'
-                wrapper.append(XML(
-                    '<a class="toc__toggle nav-link-toggle" data-bs-toggle="collapse" '
-                    f'aria-expanded="false" data-bs-target="#{target}"></a>'
-                ))
-                ul.attrib['id'] = target
-                ul.classes.add('collapse')
-            version.global_toc = lxml.html.tostring(html).decode('utf-8')
-            version.save()
 
     def import_images(self, package: tarfile.TarFile, version: Version) -> None:
         """
@@ -453,8 +249,9 @@ class SphinxPackageImporter:
     def _fix_page_title(self, path: str, data: Dict[str, Any]) -> None:
         """
         Ensure that there is a ``title`` key in ``data``, the JSON data from our
-        .fjson file.  Some special pages don't have titles, so we supply them
-        based on their filename, or by copying another key from ``data``.
+        .fjson file.  Some special pages don't have a ``title`` key in their
+        JSON data, so we supply one based on their filename, or by copying
+        another key from ``data``.
 
         Args:
             path: the file path in the tarfile data: the JSON data from our file
@@ -484,14 +281,15 @@ class SphinxPackageImporter:
             data: the JSON data from our file
         """
         if 'body' not in data or data['body'] is None:
-            # Ensure we always have data['body'] defined, for when we create the
-            # SphinxPage, below
+            # Ensure we always have data['body'] defined as a string, for when
+            # we create the SphinxPage, below
             data['body'] = ''
-        # Update the img src for to point to our Django storage locations
         data['orig_body'] = data['body']
-        data['body'] = self._update_image_src(data['body'])
-        # Fix our tables
         if data['body']:
+            # Update the img src for any images in data['body'] for to point to our
+            # Django storage locations
+            data['body'] = self._update_image_src(data['body'])
+            # Fix our tables to look better
             html = lxml.html.fromstring(data['body'])
             tables = html.cssselect('table')
             for table in tables:
@@ -596,12 +394,12 @@ class SphinxPackageImporter:
 
     def import_pages(self, package: tarfile.TarFile, version: Version) -> None:
         """
-        Import a all page into the database as
+        Import a all pages from ``package`` into the database as
         :py:class:`sphinx_hosting.models.SphinxPage` objects, associating them
         with :py:class:`Version` ``version``.
 
         Args:
-            data: the decoded JSON data of the sphinx page
+            package: the tarfile of the sphinx docs
             version: the :py:class:`Version` object to associated data
 
         Returns:
@@ -625,7 +423,8 @@ class SphinxPackageImporter:
                     orig_body=data['orig_body'],
                     body=data['body'],
                     orig_local_toc=data['orig_toc'] if 'orig_toc' in data else None,
-                    local_toc=data['toc'] if 'toc' in data else None
+                    local_toc=data['toc'] if 'toc' in data else None,
+                    orig_global_toc=data['globaltoc'] if 'globaltoc' in data else None
                 )
                 page.save()
                 self._update_page_tree(page, data)
@@ -681,61 +480,28 @@ class SphinxPackageImporter:
         """
         Load the pages in the tarfile identified by ``filename`` into
         the database as :py:class:`Version` ``version`` of :py:class:`Project`
-        ``project``.
-
-        The :py:class:`Project` named by ``machine_name`` must exist in the
-        database before you run this.
-
-        Note:
-            The Sphinx docs in the tarfile should be in ``.tjson`` format, which
-            you get in the usual Sphinx folder by doing::
-
-                make json
-
-            The files in the tarfile should be contained in a folder.  We want::
-
-                mypackage/py-modindex.fjson
-                mypackage/globalcontext.json
-                mypackage/_static
-                mypackage/last_build
-                mypackage/genindex.fjson
-                mypackage/objectstore.fjson
-                mypackage/index.fjson
-                mypackage/environment.pickle
-                mypackage/searchindex.json
-                mypackage/objects.inv
-                ...
-
-            Not::
-
-                py-modindex.fjson
-                globalcontext.json
-                _static
-                last_build
-                genindex.fjson
-                index.fjson
-                environment.pickle
-                searchindex.json
-                objects.inv
-                ...
+        ``project``.  See the class docs for :py:class:`SphinxPackageImporter` for
+        more background on how to prepare the package named by ``filename``.
 
         Args:
             filename: the filename of the gzipped tar archive of the Sphinx pages
+
+        Keyword Args:
             force: if ``True``, overwrite the docs for an existing version
 
         Raises:
-            Project.DoesNotExist: no :py:class:`Project` with machine_name
-                ``machine_name`` exists
+            Project.DoesNotExist: no :py:class:`Project` exists whose
+                ``machine_name`` matches the slugified ``project`` setting
+                in the Sphinx package's ``conf.py``
             VersionAlreadyExists: a :py:class:`Version` with version string
-                ``version`` already exists for our project
+                ``release`` from the Sphinx package's ``conf.py``
+                already exists for our project, and ``force`` was not ``True``
         """
         with tarfile.open(filename) as package:
             self.load_config(package)
             version = self.get_version(package, force=force)
-            self.import_globaltoc(package, version)
             self.import_images(package, version)
             self.import_pages(package, version)
-            self.import_globaltoc(package, version)
             self.link_pages()
             # Point version.head at the top page of the documentation set
             version.head = SphinxPage.objects.get(version=version, relative_path=self.config['root_doc'])
