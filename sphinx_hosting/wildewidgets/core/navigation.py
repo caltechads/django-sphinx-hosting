@@ -10,6 +10,48 @@ from .basic import Container, Link
 from .icons import FontIcon
 
 
+path_validator_re = re.compile(
+    r'^/\S+$', re.IGNORECASE)
+
+fragment_re = re.compile(
+    r'#\S+$', re.IGNORECASE
+)
+
+url_validator_re = re.compile(
+    r'^(?:http)s?://'  # http:// or https://
+    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
+    r'localhost|'  # localhost...
+    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+    r'(?::\d+)?'  # optional port
+    r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
+
+def is_url(text: str) -> bool:
+    """
+    if ``text`` looks like a URL or path, return ``True``.
+
+    Args:
+        text: the string to check
+
+    Returns:
+        ``True`` if ``text`` looks like a URL or path, ``False`` otherwise.
+    """
+    return bool(path_validator_re.search(text) or url_validator_re.search(text))
+
+def url_has_fragment(url: str) -> bool:
+    """
+    If ``url`` has a fragment at the end (e.g. ``/foo/bar#baz``), return
+    ``True``.
+
+    Args:
+        url: the URL to check
+
+    Returns:
+        ``True`` if ``url`` has a fragment, ``False`` otherwise.
+    """
+    return bool(fragment_re.search(url))
+
+
 # ==============================
 # Dataclasses
 # ==============================
@@ -58,11 +100,14 @@ class MenuItem:
 
     def set_active(self, text: str) -> bool:
         """
-        If ``text`` equals :py:attr:`text`, set :py:attr:`active` to ``True``, if
-        not, set :py:attr:`active` to `False`.
+        If ``text`` looks like a URL or path, look at our :py:attr:`url` and set
+        :py:attr:`active` to ``True`` if they are equal.
 
-        If not, try doing :py:meth:`set_active` on our :py:attr:`items`. Stop
-        looking when we find the first item that matches ``text``.
+        If ``text`` does not look like a URL or path, look at our :py:attr:`text` and set :py:attr:`active` to ``True``.
+
+        If we find no match, set :py:attr:`active` to `False`, and try doing
+        :py:meth:`set_active` on our :py:attr:`items`. Stop looking when we find
+        the first item that matches ``text``.
 
         Args:
             text: the value to which to compare our :py:attr:`text`
@@ -71,7 +116,11 @@ class MenuItem:
             If we actually did set someone's :py:attr:`active` to ``True``, return
             ``True``, otherwise return False
         """
-        if self.text == text:
+        if is_url(text):
+            target = self.url
+        else:
+            target = self.text
+        if target == text:
             self.active = True
             return True
         self.active = False
@@ -1205,9 +1254,13 @@ class Menu(Block):
 
     def activate(self, text: str) -> bool:
         """
-        Set :py:attr:`MenuItem.active` to ``True`` for the first item we find
-        in our :py:attr:`items` (searching recursively) whose :py:attr:`MenuItem.text`
-        matches ``text``.
+        If ``text`` is not a URL or path, Set :py:attr:`MenuItem.active` to
+        ``True`` for the first item we find in our :py:attr:`items` (searching
+        recursively) whose :py:attr:`MenuItem.text` matches ``text``.
+
+        If ``text`` is a URL or path, Set :py:attr:`MenuItem.active` to
+        ``True`` for the first item we find in our :py:attr:`items` (searching
+        recursively) whose :py:attr:`MenuItem.url` matches ``text``.
 
         Args:
             text: the text to search for among our :py:attr:`items`

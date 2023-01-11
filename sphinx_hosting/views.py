@@ -345,7 +345,7 @@ class SphinxPageDetailView(
         return navbar
 
     def get_menu_item(self) -> str:
-        return self.object.title
+        return self.request.path
 
     def get_queryset(self) -> QuerySet[SphinxPage]:
         """
