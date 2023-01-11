@@ -4,12 +4,16 @@
     color: #FFFF;
 }
 
-.navbar-vertical.navbar-expand-lg ~ .page {
-    padding-left: 18rem;
+$expand-breakpoints: ["sm", "md", "lg", "xl", "xxl"] !default;
+
+@each $bp in $expand-breakpoints {
+  .navbar-vertical.navbar-wide.navbar-expand-#{"" + $bp} ~ .page {
+      padding-left: 18rem;
+  }
 }
 
 .navbar.navbar-vertical {
-  width: 18rem;
+  &.navbar-wide {width: 18rem;}
   &.navbar-dark {
     .menu {
         .menu-title {

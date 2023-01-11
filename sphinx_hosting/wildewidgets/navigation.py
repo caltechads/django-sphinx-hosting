@@ -23,6 +23,7 @@ class SphinxHostingMainMenu(Menu):
 
 class SphinxHostingSidebar(TablerVerticalNavbar):
 
+    wide = True
     branding = LinkedImage(
         image_src=static("sphinx_hosting/images/logo.jpg"),
         image_width='100%',

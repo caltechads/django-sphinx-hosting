@@ -247,8 +247,14 @@ class Navbar(Block):
     tag: str = 'aside'
     block: str = 'navbar'
 
+    #: Valid values for ``navbar-expand-``. From `Navbar: How It Works
+    #: <https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works>`_
     VALID_BREAKPOINTS: List[str] = [
-        size for size in Container.VALID_SIZES if size != 'fluid'
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        'xxl'
     ]
     #: Valid background colors.  Note that these are Tabler colors, not Bootstrap
     #: colors.  We use Tabler colors because Tabler also defines an appropriate
@@ -399,7 +405,7 @@ class TablerVerticalNavbar(Navbar):
 
     * Make the navbar vertical instead of horizontal
     * :py:attr:`dark` is always ``True``
-    * Fix width of sidebar at 15rem
+    * Fix width of sidebar at 15rem, unless :py:attr:`wide` is ``True``, when we set it to 18rem.
     * CSS ``position`` is always ``fixed``.
     * Supply some open/close animations.
 
@@ -418,9 +424,21 @@ class TablerVerticalNavbar(Navbar):
         >>> items = [MenuItem(text='One', url='/one'), ... ]
         >>> menu = TablerMenu(*items)
         >>> sidebar = TablerVerticalNavbar(menu, branding=branding)
+
+    Keyword Args:
+        wide: If ``True``, make the navbar width be 18rem instead of 15rem
     """
     css_class: str = 'navbar-vertical'
     dark: bool = True
+
+    #: Make the navbar 18rem wide instead of 15rem
+    wide: bool = False
+
+    def __init__(self, *args, wide: bool = None, **kwargs):
+        self.wide = wide if wide is not None else self.wide
+        super().__init__(*args, **kwargs)
+        if self.wide:
+            self._css_class += " navbar-wide"
 
     def build_brand(self) -> None:
         """
@@ -1119,7 +1137,7 @@ class NavDropdownItem(Block):
             # If we have urls with fragments in our menu, it is likely that
             # the submenu is a local table of contents for the page.  Since fragments
             # are not passed from the web browser to the server, we won't know if
-            # someone had clicked on one of those urls previousl to navigate to
+            # someone had clicked on one of those urls previously to navigate to
             # where they are let's just open the menu so users can see their choices
             if any(url_has_fragment(item.url) for item in self.items if item.url):
                 is_active = True

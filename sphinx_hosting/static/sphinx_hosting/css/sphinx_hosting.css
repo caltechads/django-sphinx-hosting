@@ -1152,11 +1152,27 @@ span.linenos.special {
   color: #FFFF;
 }
 
-.navbar-vertical.navbar-expand-lg ~ .page {
+.navbar-vertical.navbar-wide.navbar-expand-sm ~ .page {
   padding-left: 18rem;
 }
 
-.navbar.navbar-vertical {
+.navbar-vertical.navbar-wide.navbar-expand-md ~ .page {
+  padding-left: 18rem;
+}
+
+.navbar-vertical.navbar-wide.navbar-expand-lg ~ .page {
+  padding-left: 18rem;
+}
+
+.navbar-vertical.navbar-wide.navbar-expand-xl ~ .page {
+  padding-left: 18rem;
+}
+
+.navbar-vertical.navbar-wide.navbar-expand-xxl ~ .page {
+  padding-left: 18rem;
+}
+
+.navbar.navbar-vertical.navbar-wide {
   width: 18rem;
 }
 .navbar.navbar-vertical.navbar-dark .menu .menu-title {
