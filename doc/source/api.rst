@@ -1,18 +1,18 @@
 .. _api:
 
-
+*******************
 Developer Interface
-===================
+*******************
 
 Models
-------
+======
 
 .. module:: sphinx_hosting.models
 
 This part of the documentation covers all the models provided by ``django-sphinx-hosting``.
 
 Projects
-^^^^^^^^
+--------
 
 .. autoclass:: Project
     :members:
@@ -32,7 +32,7 @@ Projects
 
 
 Widgets
--------
+=======
 
 This part of the documentation covers all the reusable `django-wildewidgets
 <https://github.com/caltechads/django-wildewidgets>`_ widgets provided by
@@ -41,7 +41,7 @@ This part of the documentation covers all the reusable `django-wildewidgets
 .. module:: sphinx_hosting.wildewidgets
 
 Basic Widgets
-^^^^^^^^^^^^^
+-------------
 
 .. autoclass:: Datagrid
     :members:
@@ -50,7 +50,7 @@ Basic Widgets
     :members:
 
 Navigation
-^^^^^^^^^^
+----------
 
 .. autoclass:: SphinxHostingMenu
     :members:
@@ -59,7 +59,7 @@ Navigation
     :members:
 
 Modals
-^^^^^^
+------
 
 .. autoclass:: ProjectCreateModalWidget
     :members:
@@ -72,7 +72,7 @@ Modals
 
 
 Importers
----------
+=========
 
 .. module:: sphinx_hosting.importers
 

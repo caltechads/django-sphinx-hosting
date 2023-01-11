@@ -44,18 +44,18 @@ extensions = [
     "sphinxcontrib_django2",
 ]
 
-source_suffix = ".rst"
+source_suffix: str = ".rst"
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path: List[str] = ['_templates']
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns: List[str] = ['_build']
 
-add_function_parentheses = False
-add_module_names = True
+add_function_parentheses: bool = False
+add_module_names: bool = True
 
 
 autodoc_member_order = 'groupwise'
@@ -67,12 +67,13 @@ autodoc_type_aliases = {}
 intersphinx_mapping: Dict[str, Tuple[str, Optional[str]]] = {
     'python': ('https://docs.python.org/3', None),
     'django': ('http://docs.djangoproject.com/en/dev/', 'http://docs.djangoproject.com/en/dev/_objects/'),
+    'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
 }
 
 # Configure the path to the Django settings module
-django_settings = "demo.settings"
+django_settings: str = "demo.settings"
 # Include the database table names of Django models
-django_show_db_tables = True
+django_show_db_tables: bool = True
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -80,7 +81,7 @@ django_show_db_tables = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme: str = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
