@@ -30,11 +30,8 @@ pre {
         overflow-x: auto
     }
 
-    h1, h2, h3, h4, h5, h6 {
-        margin-top: 0;
-    }
     h1 {margin-bottom: 2rem;}
-    h2 {margin-bottom: 1.2rem;}
+    h2 {margin-bottom: 1.2rem; margin-top: 1.5rem;}
 
     dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) > dt::before {
         color: #6ab0de;

@@ -6,6 +6,12 @@
 <link rel="stylesheet" href="{% static 'sphinx_hosting/css/sphinx_hosting.css' %}">
 {% endblock %}
 
+{% block extra_header_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'sphinx_hosting/js/sphinx_hosting.js' %}"></script>
+{% endblock %}
+
 {% block extra_footer_js %}
+{{ block.super }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fslightbox/3.0.9/index.js" integrity="sha512-2VqLVM3WCyaqUgQb2hpoWHSus021RIN0Jq0wfrLqqLh+anm1kW/H4Yw7HVu3D5W4nbdUQmAA2mqQv2JEoy+kPA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}

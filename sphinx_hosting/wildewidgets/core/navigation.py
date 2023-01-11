@@ -71,7 +71,6 @@ class MenuItem:
             If we actually did set someone's :py:attr:`active` to ``True``, return
             ``True``, otherwise return False
         """
-        print(f'  ACTIVATING: "{self.text}"" -> "{text}"')
         if self.text == text:
             self.active = True
             return True
@@ -286,12 +285,12 @@ class Navbar(Block):
         #: Everything inside our sidebar lives in this inner container
         self.inner: Block = Container(size=self.container_size, css_class='ms-0')
         self.add_block(self.inner)
-        #: The branding block at the start of the navbar
+        #: This is the branding block at the start of the navbar
         self.branding: Block = branding if branding else deepcopy(self.branding)
         self.build_brand()
         # The menu toggler button for small viewports
         self.inner.add_block(NavigationTogglerButton(target=self.contents_id))
-        #: The container for all menus
+        #: This is the container for all menus
         self.menu_container: Block = CollapseWidget(css_id=self.contents_id, css_class='navbar-collapse')
         self.inner.add_block(self.menu_container)
         for block in self.contents:
@@ -338,7 +337,6 @@ class Navbar(Block):
         """
         for block in self.menu_container.blocks:
             if isinstance(block, Menu):
-                print(repr(block))
                 if block.activate(text):
                     return True
         return False
@@ -362,7 +360,12 @@ class TablerVerticalNavbar(Navbar):
 
     Example:
 
-        >>> branding = LinkedImage(src='/static/branding.png', alt='My Brand', url='https://example.com')
+        >>> branding = LinkedImage(
+            src='/static/branding.png',
+            alt='My Brand',
+            url='https://example.com',
+            width='100%`
+        )
         >>> items = [MenuItem(text='One', url='/one'), ... ]
         >>> menu = TablerMenu(*items)
         >>> sidebar = TablerVerticalNavbar(menu, branding=branding)
@@ -410,12 +413,12 @@ class MenuHeading(Block):
     """
     Extends :py:class:`wildewidgets.Block`.
 
-    A Tabler menu specific heading.  This is a heading within a menu that
-    sepearates the actual menu items into groups.
+    A Tabler menu specific heading.  This is a heading within a :py:class:`Menu`
+    that sepearates the actual menu items into groups.
 
     Typically, you won't use this directly, but instead it will be created for
     you from a :py:class:`MenuItem` specification when :py:attr:`MenuItem.url`
-    is ``None``.
+    is ``None`` and :py:attr:`MenuItem.items` is empty.
 
     Example:
 
@@ -461,13 +464,11 @@ class NavItem(Block):
         With a :py:class:`MenuItem`::
 
             >>> menu_item = MenuItem(text='Page', url='/page', icon='target')
-            >>> item = NavItem(item=menu_item)
+            >>> item2 = NavItem(item=menu_item)
 
         Adding a heading::
 
-            >>> item = NavItem(text='My Heading')
-            >>> menu_item = MenuItem(text='Page')
-            >>> item2 = NavItem(item=menu_item)
+            >>> item3 = NavItem(text='My Heading')
 
     Kewyword Args:
         icon: Either the name of a Bootstrap icon, or a
@@ -536,6 +537,129 @@ class NavItem(Block):
 
 # Submenus:
 
+class ClickableNavDropdownControl(Block):
+    """
+    Extends :py:class:`wildewidgets.Block`.
+
+    This is a variation on :py:class:`NavDropdownControl` for the cases when the
+    text that controls the open and close of the related
+    :py:class:`DropdownMenu` is also a link that should be able to be clicked
+    separately.
+
+    To implement that, this is a ``<div>`` with two different links in it:
+
+    * A first link that link that links our :py:attr:`text` to :py:attr:`url`,
+      optionally with an icon.
+    * A second link that is just the up/down arrow for the dropdown control.
+      Clicking this is what opens the submenu with CSS id :py:attr:`menu_id`.
+
+    Examples:
+
+        No icon:
+
+        >>> control = ClickableNavDropdownControl('the-menu-id', text='My Text', url='/destination')
+
+        With an icon:
+
+        >>> control2 = ClickableNavDropdownControl(
+            'the-menu-id',
+            text='My Text',
+            url='/destination',
+            icon='arrow-down-square-fill'
+        )
+
+        With a :py:class:`TablerMenuIcon`:
+
+        >>> arrow_icon = TablerMenuIcon(icon='arrow-down-square-fill')
+        >>> control3 = ClickableNavDropdownControl(
+            'the-menu-id',
+            text='My Text',
+            url='/destination',
+            icon=arrow_icon
+        )
+
+    Args:
+        menu_id: The CSS Id to of the dropdown menu that this controls.
+
+    Keyword Args:
+        icon: either the name of a Bootstrap icon, or a :py:class:`TablerMenuIcon`
+            class or subclass
+        text: The label for the dropdown control
+        url: The URL for the item.  For Django urls, you will typically do something like
+            ``reverse('myapp:view')`` or ``reverse_lazy('myapp:view')``
+
+    Raises:
+        ValueError: no ``text`` was supplied
+    """
+
+    block: str = 'nav-dropdown-holder'
+    css_class: str = 'd-flex flex-row justify-content-between align-items-center'
+
+    #: Either the name of a Bootstrap icon, or a :py:class:`TablerMenuIcon`
+    #: class or subclass
+    icon: Optional[Union[str, TablerMenuIcon]] = None
+    #: The actual name of the dropdown
+    text: Optional[str] = None
+    #: The URL to associated with the control
+    url: Optional[str] = None
+
+    def __init__(
+        self,
+        menu_id: str,
+        text: str = None,
+        icon: Union[str, TablerMenuIcon] = None,
+        url: str = None,
+        active: bool = False,
+        **kwargs
+    ):
+        #: If this is ``True``, this control itself is active, but nothing
+        #: in the related :py:class:`DropdownMenu` is
+        self.active: bool = active
+        self.text = text if text else self.text
+        self.icon = icon if icon else deepcopy(self.icon)
+        self.url = url if url else self.url
+        if not self.url:
+            raise ValueError('"url" is required as either a class attribute of a keyword arg')
+        if not self.text:
+            raise ValueError('"text" is required as either a class attribute of a keyword arg')
+        super().__init__(**kwargs)
+        self.link = Link(url=self.url, name='nav-link')
+        # make the clickable link
+        if self.icon:
+            self.link.add_block(TablerMenuIcon(icon=self.icon))
+        self.link.add_block(self.text)
+        # make the actual dropdown control
+        self.control = Link(
+            css_class='nav-link dropdown-toggle',
+            role='button',
+            data_attributes={
+                'toggle': 'dropdown-ww',
+                'target': f'#{menu_id}'
+            },
+            aria_attributes={
+                'expanded': 'false'
+            }
+        )
+        self.add_block(self.link)
+        self.add_block(self.control)
+        if self.active:
+            if not self._css_class:
+                self._css_class = ''
+            self._css_class += ' active'
+
+    def expand(self) -> None:
+        """
+        Set our ``aria-expanded`` attribute to ``true``.
+        """
+        self.control._aria_attributes['expanded'] = 'true'
+
+    def collapse(self) -> None:
+        """
+        Set our ``aria-expanded`` attribute to ``false``.
+        """
+        self.control._aria_attributes['expanded'] = 'false'
+
+
 class NavDropdownControl(Link):
     """
     Extends :py:class:`sphinx_hosting.wildewidgets.Link`.
@@ -553,12 +677,12 @@ class NavDropdownControl(Link):
 
         With an icon:
 
-        >>> control = NavDropdownControl(text='My Control', icon='arrow-down-square-fill')
+        >>> control2 = NavDropdownControl(text='My Control', icon='arrow-down-square-fill')
 
         With a :py:class:`TablerMenuIcon`:
 
         >>> arrow_icon = TablerMenuIcon(icon='arrow-down-square-fill')
-        >>> control2 = NavDropdownControl(text='My Control', icon=arrow_icon)
+        >>> control3 = NavDropdownControl(text='My Control', icon=arrow_icon)
 
     Keyword Args:
         icon: either the name of a Bootstrap icon, or a :py:class:`TablerMenuIcon`
@@ -572,7 +696,7 @@ class NavDropdownControl(Link):
     """
 
     block: str = 'nav-link'
-    css_class: str = 'dropdown-toggle'
+    name: str = 'dropdown-toggle'
     data_attributes: Dict[str, str] = {
         'toggle': 'dropdown',
         'auto-close': 'true'
@@ -593,9 +717,12 @@ class NavDropdownControl(Link):
         self,
         text: str = None,
         icon: Union[str, TablerMenuIcon] = None,
+        active: bool = False,
         button_id: str = None,
         **kwargs
     ):
+        #: This item is active, but nothing in the related :py:class:`DropdownMenu` is
+        self.active: bool = active
         self.text = text if text else self.text
         self.icon = icon if icon else deepcopy(self.icon)
         self.button_id = button_id if button_id else self.button_id
@@ -607,6 +734,10 @@ class NavDropdownControl(Link):
         if self.icon:
             self.add_block(TablerMenuIcon(icon=self.icon))
         self.add_block(self.text)
+        if self.active:
+            if not self._css_class:
+                self._css_class = ''
+            self._css_class += ' active'
 
     def expand(self) -> None:
         """
@@ -723,30 +854,6 @@ class DropdownMenu(Block):
         )
         >>> menu = DropdownMenu(*items, button_id=button.button_id)
 
-    Warning:
-
-        Currently we don't support nested dropdown menus, so if you do this::
-
-        >>> items = [
-            MenuItem(
-                text='One',
-                icon='1-circle'
-                items=[
-                    MenuItem(text='Two', url='/two', icon='2-circle'),
-                    MenuItem(text='Three', url='/three', icon='3-circle'),
-                ]
-            )
-        ]
-        >>> button = NavDropdownControl(
-            text='My Dropdown Menu',
-            icon='arrow-down-square-fill',
-            button_id='my-button'
-        )
-        >>> menu = DropdownMenu(*items, button_id=button.button_id)
-
-        You will just get a dropdown menu with a single item that does
-        not link to anything.
-
     Args:
         *items: the list of :py:class:`MenuItem` objects to insert into
             this menu
@@ -772,14 +879,15 @@ class DropdownMenu(Block):
         **kwargs
     ):
         self.button_id = button_id if button_id else self.button_id
-        if not self.button_id:
-            raise ValueError('"button_id" is required as either a class attribute of a keyword arg')
         if items:
             self.items: Iterable[MenuItem] = items
         else:
             self.items = deepcopy(self.items)
         super().__init__(**kwargs)
-        self._aria_attributes['labelledby'] = self.button_id
+        if not self.button_id and not self._css_id:
+            raise ValueError('Either "button_id" or "css_id" are required as either class attributes of keyword args')
+        if self.button_id:
+            self._aria_attributes['labelledby'] = self.button_id
         for item in items:
             self.add_item(item=item)
 
@@ -812,7 +920,12 @@ class DropdownMenu(Block):
                 raise ValueError('"text" is required if "item" is not provided')
             item = MenuItem(text=cast(str, text), url=url, icon=icon, active=active)
         if item.items:
-            self.add_block(NavDropdownItem(*item.items, text=item.text))
+            self.add_block(NavDropdownItem(
+                *item.items,
+                text=item.text,
+                url=item.url,
+                icon=item.icon
+            ))
         else:
             self.add_block(DropdownItem(item=item))
 
@@ -880,6 +993,9 @@ class NavDropdownItem(Block):
     icon: Optional[Union[str, TablerMenuIcon]] = None
     #: The actual name of the dropdown
     text: Optional[str] = None
+    #: The URL for the control text.  Use this if you want :py:attr:`text` to be
+    #: clickable separately from opening the dropdown menu
+    url: Optional[str] = None
     #: The list of items in this dropdown menu
     items: Iterable[MenuItem] = []
 
@@ -888,10 +1004,17 @@ class NavDropdownItem(Block):
         *items: MenuItem,
         text: str = None,
         icon: str = None,
+        url: str = None,
+        active: bool = False,
         **kwargs
     ):
+
+        #: The control for opening the dropdown menu is active, but nothing in the
+        #: related :py:class:`DropdownMenu` is active
+        self.active = active
         self.text = text if text else self.text
-        self.icon = self.icon if self.icon else deepcopy(self.icon)
+        self.url = url if url else self.url
+        self.icon = icon if icon else deepcopy(self.icon)
         if not self.text:
             raise ValueError('"text" is required as either a class attribute of a keyword arg')
         if items:
@@ -899,15 +1022,32 @@ class NavDropdownItem(Block):
         else:
             self.items = deepcopy(self.items)
         super().__init__(*kwargs)
-        button_id = f'nav-item-{self.text.lower()}'
-        button_id = re.sub('[ ._]', '-', button_id)
-        self.control: NavDropdownControl = NavDropdownControl(
-            button_id=button_id,
-            text=self.text,
-            icon=icon
-        )
+        if self.url:
+            # We need to be able to click on the control to get to a page
+            menu_id: str = f'nav-menu-{self.text.lower()}'
+            menu_id = re.sub('[ ._]', '-', menu_id)
+            self.menu: DropdownMenu = DropdownMenu(*self.items, css_id=menu_id)
+            self.control: Union[NavDropdownControl, ClickableNavDropdownControl] = (
+                ClickableNavDropdownControl(
+                    menu_id=menu_id,
+                    text=self.text,
+                    icon=self.icon,
+                    url=self.url,
+                    active=self.active
+                )
+            )
+        else:
+            # We don't need to be able to click on the control to get to a page
+            button_id: str = f'nav-item-{self.text.lower()}'
+            button_id = re.sub('[ ._]', '-', button_id)
+            self.control = NavDropdownControl(
+                button_id=button_id,
+                text=self.text,
+                icon=self.icon,
+                active=self.active
+            )
+            self.menu = DropdownMenu(*self.items, button_id=button_id)
         self.add_block(self.control)
-        self.menu: DropdownMenu = DropdownMenu(*self.items, button_id=button_id)
         self.add_block(self.menu)
 
     def show(self) -> None:
@@ -1044,7 +1184,13 @@ class Menu(Block):
         self.add_block(ul)
         for item in items:
             if item.items:
-                ul.add_block(NavDropdownItem(*item.items, text=item.text, icon=item.icon))
+                ul.add_block(NavDropdownItem(
+                    *item.items,
+                    text=item.text,
+                    icon=item.icon,
+                    url=item.url,
+                    active=item.active
+                ))
             else:
                 ul.add_block(NavItem(item=item))
 
@@ -1093,6 +1239,10 @@ class MenuMixin:
     def get_menu_class(self) -> Type[Navbar]:
         """
         Return the :py:class:`Navbar` subclass for the main menu.
+
+        Returns:
+            The class of the :py:class:`Navbar` subclass to use for our
+            main menu.
         """
         return self.menu_class
 
@@ -1106,6 +1256,10 @@ class MenuMixin:
         """
         Instantiate and return our :py:class:`Navbar` subclass for our
         main menu.
+
+        Returns:
+            The instantiated :py:class:`Navbar` subclass instance to use for our
+            main menu.
         """
         menu_class = self.get_menu_class()
         if not menu_class:
@@ -1115,6 +1269,10 @@ class MenuMixin:
     def get_secondary_menu_class(self) -> Optional[Type[Navbar]]:
         """
         Return our :py:class:`Navbar` subclass for the secondary menu.
+
+        Returns:
+            The class of the :py:class:`Navbar` subclass to use for our
+            secondary menu, if any.
         """
         return self.secondary_menu_class
 
@@ -1128,6 +1286,10 @@ class MenuMixin:
         """
         Instantiate and return our :py:class:`Navbar` subclass for our
         secondary menu.
+
+        Returns:
+            The instantiated :py:class:`Navbar` subclass instance to use for our
+            secondary menu, if any.
         """
         secondary_menu_class = self.get_secondary_menu_class()
         if secondary_menu_class:
@@ -1139,13 +1301,13 @@ class MenuMixin:
         """
         Add our main menu and our secondary menu (if we have one) to the context
         data for our view as the ``menu`` and ``submenu`` kwargs, respectively
+
+        Returns:
+            The updated context data.
         """
         kwargs['menu'] = self.get_menu()
         if menu_item := self.get_menu_item():
-            print(f'ACTIVATING "{menu_item}"')
-            success = kwargs['menu'].activate(menu_item)
-            if success:
-                print(f'ACTIVATED "{menu_item}"')
+            kwargs['menu'].activate(menu_item)
         secondary_menu = self.get_secondary_menu()
         if secondary_menu:
             kwargs['submenu'] = secondary_menu

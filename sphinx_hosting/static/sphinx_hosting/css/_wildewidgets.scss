@@ -28,7 +28,8 @@
 
 .navbar.navbar-vertical.navbar-expand-lg .navbar-collapse{
 
-  .nav-item.active {
+  .nav-item.active,
+  .nav-dropdown-holder.active {
     background: var(--tblr-navbar-active-bg);
   }
   .dropdown-menu .dropdown-item {
@@ -37,5 +38,14 @@
 
   .menu .nav-link.dropdown-toggle .nav-link {
     font-size: smaller;
+    &.active {
+      background: var(--tblr-navbar-active-bg);
+    }
+  }
+
+  .menu .nav-link.dropdown-toggle {
+    &.active {
+      background: var(--tblr-navbar-active-bg);
+    }
   }
 }

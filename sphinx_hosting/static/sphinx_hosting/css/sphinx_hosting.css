@@ -407,47 +407,62 @@ span.linenos.special {
  *
  */
 /* -- main layout ----------------------------------------------------------- */
-.clearer {
+.sphinxpage-body .wildewidgets_html_container {
+  line-height: 1.5rem;
+  font-size: 0.9rem;
+  /* -- relbar ---------------------------------------------------------------- */
+  /* -- sidebar --------------------------------------------------------------- */
+  /* -- search page ----------------------------------------------------------- */
+  /* -- index page ------------------------------------------------------------ */
+  /* -- general index --------------------------------------------------------- */
+  /* -- domain module index --------------------------------------------------- */
+  /* -- general body styles --------------------------------------------------- */
+  /* -- sidebars -------------------------------------------------------------- */
+  /* -- topics ---------------------------------------------------------------- */
+  /* -- admonitions ----------------------------------------------------------- */
+  /* -- content of sidebars/topics/admonitions -------------------------------- */
+  /* -- tables ---------------------------------------------------------------- */
+  /* -- figures --------------------------------------------------------------- */
+  /* -- field list styles ----------------------------------------------------- */
+  /* -- hlist styles ---------------------------------------------------------- */
+  /* -- object description styles --------------------------------------------- */
+  /* C++ specific styling */
+  /* -- other body styles ----------------------------------------------------- */
+  /* -- code displays --------------------------------------------------------- */
+  /* -- math display ---------------------------------------------------------- */
+  /* -- printout stylesheet --------------------------------------------------- */
+}
+.sphinxpage-body .wildewidgets_html_container .clearer {
   clear: both;
 }
-
-.section::after {
+.sphinxpage-body .wildewidgets_html_container .section::after {
   display: block;
   content: "";
   clear: left;
 }
-
-/* -- relbar ---------------------------------------------------------------- */
-.related {
+.sphinxpage-body .wildewidgets_html_container .related {
   width: 100%;
   font-size: 90%;
 }
-
-.related h3 {
+.sphinxpage-body .wildewidgets_html_container .related h3 {
   display: none;
 }
-
-.related ul {
+.sphinxpage-body .wildewidgets_html_container .related ul {
   margin: 0;
   padding: 0 0 0 10px;
   list-style: none;
 }
-
-.related li {
+.sphinxpage-body .wildewidgets_html_container .related li {
   display: inline;
 }
-
-.related li.right {
+.sphinxpage-body .wildewidgets_html_container .related li.right {
   float: right;
   margin-right: 5px;
 }
-
-/* -- sidebar --------------------------------------------------------------- */
-.sphinxsidebarwrapper {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebarwrapper {
   padding: 10px 5px 0 10px;
 }
-
-.sphinxsidebar {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar {
   float: left;
   width: 230px;
   margin-left: -100%;
@@ -455,259 +470,206 @@ span.linenos.special {
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
-
-.sphinxsidebar ul {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar ul {
   list-style: none;
 }
-
-.sphinxsidebar ul ul,
-.sphinxsidebar ul.want-points {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar ul ul,
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar ul.want-points {
   margin-left: 20px;
   list-style: square;
 }
-
-.sphinxsidebar ul ul {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar ul ul {
   margin-top: 0;
   margin-bottom: 0;
 }
-
-.sphinxsidebar form {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar form {
   margin-top: 10px;
 }
-
-.sphinxsidebar input {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar input {
   border: 1px solid #98dbcc;
   font-family: sans-serif;
   font-size: 1em;
 }
-
-.sphinxsidebar #searchbox form.search {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar #searchbox form.search {
   overflow: hidden;
 }
-
-.sphinxsidebar #searchbox input[type=text] {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar #searchbox input[type=text] {
   float: left;
   width: 80%;
   padding: 0.25em;
   box-sizing: border-box;
 }
-
-.sphinxsidebar #searchbox input[type=submit] {
+.sphinxpage-body .wildewidgets_html_container .sphinxsidebar #searchbox input[type=submit] {
   float: left;
   width: 20%;
   border-left: none;
   padding: 0.25em;
   box-sizing: border-box;
 }
-
-img {
+.sphinxpage-body .wildewidgets_html_container img {
   border: 0;
   max-width: 100%;
 }
-
-/* -- search page ----------------------------------------------------------- */
-ul.search {
+.sphinxpage-body .wildewidgets_html_container ul.search {
   margin: 10px 0 0 20px;
   padding: 0;
 }
-
-ul.search li {
+.sphinxpage-body .wildewidgets_html_container ul.search li {
   padding: 5px 0 5px 20px;
   background-image: url(file.png);
   background-repeat: no-repeat;
   background-position: 0 7px;
 }
-
-ul.search li a {
+.sphinxpage-body .wildewidgets_html_container ul.search li a {
   font-weight: bold;
 }
-
-ul.search li p.context {
+.sphinxpage-body .wildewidgets_html_container ul.search li p.context {
   color: #888;
   margin: 2px 0 0 30px;
   text-align: left;
 }
-
-ul.keywordmatches li.goodmatch a {
+.sphinxpage-body .wildewidgets_html_container ul.keywordmatches li.goodmatch a {
   font-weight: bold;
 }
-
-/* -- index page ------------------------------------------------------------ */
-table.contentstable {
+.sphinxpage-body .wildewidgets_html_container table.contentstable {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-
-table.contentstable p.biglink {
+.sphinxpage-body .wildewidgets_html_container table.contentstable p.biglink {
   line-height: 150%;
 }
-
-a.biglink {
+.sphinxpage-body .wildewidgets_html_container a.biglink {
   font-size: 1.3em;
 }
-
-span.linkdescr {
+.sphinxpage-body .wildewidgets_html_container span.linkdescr {
   font-style: italic;
   padding-top: 5px;
   font-size: 90%;
 }
-
-/* -- general index --------------------------------------------------------- */
-table.indextable {
+.sphinxpage-body .wildewidgets_html_container table.indextable {
   width: 100%;
 }
-
-table.indextable td {
+.sphinxpage-body .wildewidgets_html_container table.indextable td {
   text-align: left;
   vertical-align: top;
 }
-
-table.indextable ul {
+.sphinxpage-body .wildewidgets_html_container table.indextable ul {
   margin-top: 0;
   margin-bottom: 0;
   list-style-type: none;
 }
-
-table.indextable > tbody > tr > td > ul {
+.sphinxpage-body .wildewidgets_html_container table.indextable > tbody > tr > td > ul {
   padding-left: 0em;
 }
-
-table.indextable tr.pcap {
+.sphinxpage-body .wildewidgets_html_container table.indextable tr.pcap {
   height: 10px;
 }
-
-table.indextable tr.cap {
+.sphinxpage-body .wildewidgets_html_container table.indextable tr.cap {
   margin-top: 10px;
   background-color: #f2f2f2;
 }
-
-img.toggler {
+.sphinxpage-body .wildewidgets_html_container img.toggler {
   margin-right: 3px;
   margin-top: 3px;
   cursor: pointer;
 }
-
-.modindex-jumpbox {
+.sphinxpage-body .wildewidgets_html_container .modindex-jumpbox {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   margin: 1em 0 1em 0;
   padding: 0.4em;
 }
-
-.genindex-jumpbox {
+.sphinxpage-body .wildewidgets_html_container .genindex-jumpbox {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   margin: 1em 0 1em 0;
   padding: 0.4em;
 }
-
-/* -- domain module index --------------------------------------------------- */
-table.modindextable td {
+.sphinxpage-body .wildewidgets_html_container table.modindextable td {
   padding: 2px;
   border-collapse: collapse;
 }
-
-/* -- general body styles --------------------------------------------------- */
-.body {
+.sphinxpage-body .wildewidgets_html_container .body {
   min-width: 360px;
   max-width: 800px;
 }
-
-.body p, .body dd, .body li, .body blockquote {
+.sphinxpage-body .wildewidgets_html_container .body p, .sphinxpage-body .wildewidgets_html_container .body dd, .sphinxpage-body .wildewidgets_html_container .body li, .sphinxpage-body .wildewidgets_html_container .body blockquote {
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
 }
-
-a.headerlink {
+.sphinxpage-body .wildewidgets_html_container a.headerlink {
   visibility: hidden;
 }
-
-a.brackets:before,
-span.brackets > a:before {
+.sphinxpage-body .wildewidgets_html_container a.brackets:before,
+.sphinxpage-body .wildewidgets_html_container span.brackets > a:before {
   content: "[";
 }
-
-a.brackets:after,
-span.brackets > a:after {
+.sphinxpage-body .wildewidgets_html_container a.brackets:after,
+.sphinxpage-body .wildewidgets_html_container span.brackets > a:after {
   content: "]";
 }
-
-h1:hover > a.headerlink,
-h2:hover > a.headerlink,
-h3:hover > a.headerlink,
-h4:hover > a.headerlink,
-h5:hover > a.headerlink,
-h6:hover > a.headerlink,
-dt:hover > a.headerlink,
-caption:hover > a.headerlink,
-p.caption:hover > a.headerlink,
-.code-block-caption:hover > a.headerlink {
+.sphinxpage-body .wildewidgets_html_container h1:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container h2:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container h3:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container h4:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container h5:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container h6:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container dt:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container caption:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container p.caption:hover > a.headerlink,
+.sphinxpage-body .wildewidgets_html_container .code-block-caption:hover > a.headerlink {
   visibility: visible;
 }
-
-.body p.caption {
+.sphinxpage-body .wildewidgets_html_container .body p.caption {
   text-align: inherit;
 }
-
-.body td {
+.sphinxpage-body .wildewidgets_html_container .body td {
   text-align: left;
 }
-
-.first {
+.sphinxpage-body .wildewidgets_html_container .first {
   margin-top: 0 !important;
 }
-
-p.rubric {
+.sphinxpage-body .wildewidgets_html_container p.rubric {
   margin-top: 30px;
   font-weight: bold;
 }
-
-img.align-left, figure.align-left, .figure.align-left, object.align-left {
+.sphinxpage-body .wildewidgets_html_container img.align-left, .sphinxpage-body .wildewidgets_html_container figure.align-left, .sphinxpage-body .wildewidgets_html_container .figure.align-left, .sphinxpage-body .wildewidgets_html_container object.align-left {
   clear: left;
   float: left;
   margin-right: 1em;
 }
-
-img.align-right, figure.align-right, .figure.align-right, object.align-right {
+.sphinxpage-body .wildewidgets_html_container img.align-right, .sphinxpage-body .wildewidgets_html_container figure.align-right, .sphinxpage-body .wildewidgets_html_container .figure.align-right, .sphinxpage-body .wildewidgets_html_container object.align-right {
   clear: right;
   float: right;
   margin-left: 1em;
 }
-
-img.align-center, figure.align-center, .figure.align-center, object.align-center {
+.sphinxpage-body .wildewidgets_html_container img.align-center, .sphinxpage-body .wildewidgets_html_container figure.align-center, .sphinxpage-body .wildewidgets_html_container .figure.align-center, .sphinxpage-body .wildewidgets_html_container object.align-center {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-
-img.align-default, figure.align-default, .figure.align-default {
+.sphinxpage-body .wildewidgets_html_container img.align-default, .sphinxpage-body .wildewidgets_html_container figure.align-default, .sphinxpage-body .wildewidgets_html_container .figure.align-default {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-
-.align-left {
+.sphinxpage-body .wildewidgets_html_container .align-left {
   text-align: left;
 }
-
-.align-center {
+.sphinxpage-body .wildewidgets_html_container .align-center {
   text-align: center;
 }
-
-.align-default {
+.sphinxpage-body .wildewidgets_html_container .align-default {
   text-align: center;
 }
-
-.align-right {
+.sphinxpage-body .wildewidgets_html_container .align-right {
   text-align: right;
 }
-
-/* -- sidebars -------------------------------------------------------------- */
-.sidebar,
-aside.sidebar {
+.sphinxpage-body .wildewidgets_html_container .sidebar,
+.sphinxpage-body .wildewidgets_html_container aside.sidebar {
   margin: 0 0 0.5em 1em;
   border: 1px solid #ddb;
   padding: 7px;
@@ -717,41 +679,36 @@ aside.sidebar {
   clear: right;
   overflow-x: auto;
 }
-
-p.sidebar-title {
+.sphinxpage-body .wildewidgets_html_container p.sidebar-title {
   font-weight: bold;
 }
-
-.admonition, .topic, blockquote {
+.sphinxpage-body .wildewidgets_html_container .admonition, .sphinxpage-body .wildewidgets_html_container .topic, .sphinxpage-body .wildewidgets_html_container blockquote {
   clear: left;
 }
-
-/* -- topics ---------------------------------------------------------------- */
-.topic {
+.sphinxpage-body .wildewidgets_html_container .topic {
   border: 1px solid #ccc;
   padding: 7px;
   margin: 10px 0 10px 0;
 }
-
-p.topic-title {
+.sphinxpage-body .wildewidgets_html_container p.topic-title {
   font-size: 1.1em;
   font-weight: bold;
   margin-top: 10px;
 }
-
-/* -- admonitions ----------------------------------------------------------- */
-.admonition {
+.sphinxpage-body .wildewidgets_html_container .admonition {
   padding: 12px;
   line-height: 24px;
-  margin-bottom: 24px;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
   background: #e7f2fa;
+  border-radius: 5px;
 }
-
-.admonition dt {
+.sphinxpage-body .wildewidgets_html_container .admonition dt {
   font-weight: bold;
 }
-
-p.admonition-title {
+.sphinxpage-body .wildewidgets_html_container p.admonition-title {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   font-weight: 700;
   display: block;
   color: #fff;
@@ -759,467 +716,372 @@ p.admonition-title {
   padding: 6px 12px;
   margin: -12px -12px 12px;
 }
-
-.admonition-todo {
+.sphinxpage-body .wildewidgets_html_container .admonition-todo {
   background-color: #ffedcc;
 }
-.admonition-todo .admonition-title {
+.sphinxpage-body .wildewidgets_html_container .admonition-todo .admonition-title {
   background-color: #f0b37e;
 }
-
-.admonition.danger {
+.sphinxpage-body .wildewidgets_html_container .admonition.danger {
   background-color: #fdf3f2;
 }
-.admonition.danger .admonition-title {
+.sphinxpage-body .wildewidgets_html_container .admonition.danger .admonition-title {
   background-color: #f29f97;
 }
-
-.admonition.note {
+.sphinxpage-body .wildewidgets_html_container .admonition.note {
   background-color: #e7f2fa;
 }
-.admonition.note .admonition-title {
+.sphinxpage-body .wildewidgets_html_container .admonition.note .admonition-title {
   background-color: #6ab0de;
 }
-
-.admonition.hint {
+.sphinxpage-body .wildewidgets_html_container .admonition.hint {
   background-color: #dbfaf4;
 }
-.admonition.hint .admonition-title {
+.sphinxpage-body .wildewidgets_html_container .admonition.hint .admonition-title {
   background-color: #1abc9c;
 }
-
-.body p.centered {
+.sphinxpage-body .wildewidgets_html_container .body p.centered {
   text-align: center;
   margin-top: 25px;
 }
-
-/* -- content of sidebars/topics/admonitions -------------------------------- */
-.sidebar > :last-child,
-aside.sidebar > :last-child,
-.topic > :last-child,
-.admonition > :last-child {
+.sphinxpage-body .wildewidgets_html_container .sidebar > :last-child,
+.sphinxpage-body .wildewidgets_html_container aside.sidebar > :last-child,
+.sphinxpage-body .wildewidgets_html_container .topic > :last-child,
+.sphinxpage-body .wildewidgets_html_container .admonition > :last-child {
   margin-bottom: 0;
 }
-
-.sidebar::after,
-aside.sidebar::after,
-.topic::after,
-.admonition::after,
-blockquote::after {
+.sphinxpage-body .wildewidgets_html_container .sidebar::after,
+.sphinxpage-body .wildewidgets_html_container aside.sidebar::after,
+.sphinxpage-body .wildewidgets_html_container .topic::after,
+.sphinxpage-body .wildewidgets_html_container .admonition::after,
+.sphinxpage-body .wildewidgets_html_container blockquote::after {
   display: block;
   content: "";
   clear: both;
 }
-
-/* -- tables ---------------------------------------------------------------- */
-table.docutils {
+.sphinxpage-body .wildewidgets_html_container table.docutils {
   margin-top: 10px;
   margin-bottom: 10px;
   border: 0;
   border-collapse: collapse;
 }
-
-table.align-center {
+.sphinxpage-body .wildewidgets_html_container table.align-center {
   margin-left: auto;
   margin-right: auto;
 }
-
-table.align-default {
+.sphinxpage-body .wildewidgets_html_container table.align-default {
   margin-left: auto;
   margin-right: auto;
 }
-
-table caption span.caption-number {
+.sphinxpage-body .wildewidgets_html_container table caption span.caption-number {
   font-style: italic;
 }
-
-table.docutils td, table.docutils th {
+.sphinxpage-body .wildewidgets_html_container table.docutils td, .sphinxpage-body .wildewidgets_html_container table.docutils th {
   padding: 1px 8px 1px 5px;
   border-top: 0;
   border-left: 0;
   border-right: 0;
   border-bottom: 1px solid #aaa;
 }
-
-th {
+.sphinxpage-body .wildewidgets_html_container th {
   text-align: left;
   padding-right: 5px;
 }
-
-table.citation {
+.sphinxpage-body .wildewidgets_html_container table.citation {
   border-left: solid 1px gray;
   margin-left: 1px;
 }
-
-table.citation td {
+.sphinxpage-body .wildewidgets_html_container table.citation td {
   border-bottom: none;
 }
-
-th > :first-child,
-td > :first-child {
+.sphinxpage-body .wildewidgets_html_container th > :first-child,
+.sphinxpage-body .wildewidgets_html_container td > :first-child {
   margin-top: 0px;
 }
-
-th > :last-child,
-td > :last-child {
+.sphinxpage-body .wildewidgets_html_container th > :last-child,
+.sphinxpage-body .wildewidgets_html_container td > :last-child {
   margin-bottom: 0px;
 }
-
-/* -- figures --------------------------------------------------------------- */
-.figure, figure {
+.sphinxpage-body .wildewidgets_html_container .figure, .sphinxpage-body .wildewidgets_html_container figure {
   margin: 0.5em;
   padding: 0.5em;
 }
-
-.figure p.caption, figcaption {
+.sphinxpage-body .wildewidgets_html_container .figure p.caption, .sphinxpage-body .wildewidgets_html_container figcaption {
   padding: 0.3em;
 }
-
-.figure p.caption span.caption-number,
-figcaption span.caption-number {
+.sphinxpage-body .wildewidgets_html_container .figure p.caption span.caption-number,
+.sphinxpage-body .wildewidgets_html_container figcaption span.caption-number {
   font-style: italic;
 }
-
-/* -- field list styles ----------------------------------------------------- */
-table.field-list td, table.field-list th {
+.sphinxpage-body .wildewidgets_html_container table.field-list td, .sphinxpage-body .wildewidgets_html_container table.field-list th {
   border: 0 !important;
 }
-
-.field-list ul {
+.sphinxpage-body .wildewidgets_html_container .field-list ul {
   margin: 0;
   padding-left: 1em;
 }
-
-.field-list p {
+.sphinxpage-body .wildewidgets_html_container .field-list p {
   margin: 0;
 }
-
-.field-name {
+.sphinxpage-body .wildewidgets_html_container .field-name {
   -moz-hyphens: manual;
   -ms-hyphens: manual;
   -webkit-hyphens: manual;
   hyphens: manual;
 }
-
-/* -- hlist styles ---------------------------------------------------------- */
-table.hlist {
+.sphinxpage-body .wildewidgets_html_container table.hlist {
   margin: 1em 0;
 }
-
-table.hlist td {
+.sphinxpage-body .wildewidgets_html_container table.hlist td {
   vertical-align: top;
 }
-
-/* -- object description styles --------------------------------------------- */
-.sig {
+.sphinxpage-body .wildewidgets_html_container .sig {
   font-family: "Consolas", "Menlo", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
 }
-
-.sig-name, code.descname {
+.sphinxpage-body .wildewidgets_html_container .sig-name, .sphinxpage-body .wildewidgets_html_container code.descname {
   background-color: transparent;
   font-weight: bold;
 }
-
-.sig-name {
+.sphinxpage-body .wildewidgets_html_container .sig-name {
   font-size: 1.1em;
 }
-
-code.descname {
+.sphinxpage-body .wildewidgets_html_container code.descname {
   font-size: 1.2em;
 }
-
-.sig-prename, code.descclassname {
+.sphinxpage-body .wildewidgets_html_container .sig-prename, .sphinxpage-body .wildewidgets_html_container code.descclassname {
   background-color: transparent;
 }
-
-.optional {
+.sphinxpage-body .wildewidgets_html_container .optional {
   font-size: 1.3em;
 }
-
-.sig-paren {
+.sphinxpage-body .wildewidgets_html_container .sig-paren {
   font-size: larger;
 }
-
-.sig-param.n {
+.sphinxpage-body .wildewidgets_html_container .sig-param.n {
   font-style: italic;
 }
-
-/* C++ specific styling */
-.sig-inline.c-texpr,
-.sig-inline.cpp-texpr {
+.sphinxpage-body .wildewidgets_html_container .sig-inline.c-texpr,
+.sphinxpage-body .wildewidgets_html_container .sig-inline.cpp-texpr {
   font-family: unset;
 }
-
-.sig.c .k, .sig.c .kt,
-.sig.cpp .k, .sig.cpp .kt {
+.sphinxpage-body .wildewidgets_html_container .sig.c .k, .sphinxpage-body .wildewidgets_html_container .sig.c .kt,
+.sphinxpage-body .wildewidgets_html_container .sig.cpp .k, .sphinxpage-body .wildewidgets_html_container .sig.cpp .kt {
   color: #0033B3;
 }
-
-.sig.c .m,
-.sig.cpp .m {
+.sphinxpage-body .wildewidgets_html_container .sig.c .m,
+.sphinxpage-body .wildewidgets_html_container .sig.cpp .m {
   color: #1750EB;
 }
-
-.sig.c .s, .sig.c .sc,
-.sig.cpp .s, .sig.cpp .sc {
+.sphinxpage-body .wildewidgets_html_container .sig.c .s, .sphinxpage-body .wildewidgets_html_container .sig.c .sc,
+.sphinxpage-body .wildewidgets_html_container .sig.cpp .s, .sphinxpage-body .wildewidgets_html_container .sig.cpp .sc {
   color: #067D17;
 }
-
-/* -- other body styles ----------------------------------------------------- */
-ol.arabic {
+.sphinxpage-body .wildewidgets_html_container ol.arabic {
   list-style: decimal;
 }
-
-ol.loweralpha {
+.sphinxpage-body .wildewidgets_html_container ol.loweralpha {
   list-style: lower-alpha;
 }
-
-ol.upperalpha {
+.sphinxpage-body .wildewidgets_html_container ol.upperalpha {
   list-style: upper-alpha;
 }
-
-ol.lowerroman {
+.sphinxpage-body .wildewidgets_html_container ol.lowerroman {
   list-style: lower-roman;
 }
-
-ol.upperroman {
+.sphinxpage-body .wildewidgets_html_container ol.upperroman {
   list-style: upper-roman;
 }
-
-:not(li) > ol > li:first-child > :first-child,
-:not(li) > ul > li:first-child > :first-child {
+.sphinxpage-body .wildewidgets_html_container :not(li) > ol > li:first-child > :first-child,
+.sphinxpage-body .wildewidgets_html_container :not(li) > ul > li:first-child > :first-child {
   margin-top: 0px;
 }
-
-:not(li) > ol > li:last-child > :last-child,
-:not(li) > ul > li:last-child > :last-child {
+.sphinxpage-body .wildewidgets_html_container :not(li) > ol > li:last-child > :last-child,
+.sphinxpage-body .wildewidgets_html_container :not(li) > ul > li:last-child > :last-child {
   margin-bottom: 0px;
 }
-
-ol.simple ol p,
-ol.simple ul p,
-ul.simple ol p,
-ul.simple ul p {
+.sphinxpage-body .wildewidgets_html_container ol.simple ol p,
+.sphinxpage-body .wildewidgets_html_container ol.simple ul p,
+.sphinxpage-body .wildewidgets_html_container ul.simple ol p,
+.sphinxpage-body .wildewidgets_html_container ul.simple ul p {
   margin-top: 0;
 }
-
-ol.simple > li:not(:first-child) > p,
-ul.simple > li:not(:first-child) > p {
+.sphinxpage-body .wildewidgets_html_container ol.simple li,
+.sphinxpage-body .wildewidgets_html_container ul.simple li {
+  margin-bottom: 0.5rem;
+}
+.sphinxpage-body .wildewidgets_html_container ol.simple > li:not(:first-child) > p,
+.sphinxpage-body .wildewidgets_html_container ul.simple > li:not(:first-child) > p {
   margin-top: 0;
 }
-
-ol.simple p,
-ul.simple p {
+.sphinxpage-body .wildewidgets_html_container ol.simple p,
+.sphinxpage-body .wildewidgets_html_container ul.simple p {
   margin-bottom: 0;
 }
-
-dl.footnote > dt,
-dl.citation > dt {
+.sphinxpage-body .wildewidgets_html_container dl.footnote > dt,
+.sphinxpage-body .wildewidgets_html_container dl.citation > dt {
   float: left;
   margin-right: 0.5em;
 }
-
-dl.footnote > dd,
-dl.citation > dd {
+.sphinxpage-body .wildewidgets_html_container dl.footnote > dd,
+.sphinxpage-body .wildewidgets_html_container dl.citation > dd {
   margin-bottom: 0em;
 }
-
-dl.footnote > dd:after,
-dl.citation > dd:after {
+.sphinxpage-body .wildewidgets_html_container dl.footnote > dd:after,
+.sphinxpage-body .wildewidgets_html_container dl.citation > dd:after {
   content: "";
   clear: both;
 }
-
-dl.field-list {
+.sphinxpage-body .wildewidgets_html_container dl.field-list {
   display: grid;
   grid-template-columns: fit-content(30%) auto;
 }
-
-dl.field-list > dt {
+.sphinxpage-body .wildewidgets_html_container dl.field-list > dt {
   font-weight: bold;
   word-break: break-word;
   padding-left: 0.5em;
   padding-right: 5px;
 }
-
-dl.field-list > dt:after {
+.sphinxpage-body .wildewidgets_html_container dl.field-list > dt:after {
   content: ":";
 }
-
-dl.field-list > dd {
+.sphinxpage-body .wildewidgets_html_container dl.field-list > dd {
   padding-left: 0.5em;
   margin-top: 0em;
   margin-left: 0em;
   margin-bottom: 0em;
 }
-
-dl {
+.sphinxpage-body .wildewidgets_html_container dl {
   margin-bottom: 15px;
 }
-
-dd > :first-child {
+.sphinxpage-body .wildewidgets_html_container dd > :first-child {
   margin-top: 0px;
 }
-
-dd ul, dd table {
+.sphinxpage-body .wildewidgets_html_container dd ul, .sphinxpage-body .wildewidgets_html_container dd table {
   margin-bottom: 10px;
 }
-
-dd {
+.sphinxpage-body .wildewidgets_html_container dd {
   margin-top: 3px;
   margin-bottom: 10px;
   margin-left: 30px;
 }
-
-dl > dd:last-child,
-dl > dd:last-child > :last-child {
+.sphinxpage-body .wildewidgets_html_container dl > dd:last-child,
+.sphinxpage-body .wildewidgets_html_container dl > dd:last-child > :last-child {
   margin-bottom: 0;
 }
-
-dt:target, span.highlighted {
+.sphinxpage-body .wildewidgets_html_container dt:target, .sphinxpage-body .wildewidgets_html_container span.highlighted {
   background-color: #fbe54e;
 }
-
-rect.highlighted {
+.sphinxpage-body .wildewidgets_html_container rect.highlighted {
   fill: #fbe54e;
 }
-
-dl.glossary dt {
+.sphinxpage-body .wildewidgets_html_container dl.glossary dt {
   font-weight: bold;
   font-size: 1.1em;
 }
-
-.versionmodified {
+.sphinxpage-body .wildewidgets_html_container .versionmodified {
   font-style: italic;
 }
-
-.system-message {
+.sphinxpage-body .wildewidgets_html_container .system-message {
   background-color: #fda;
   padding: 5px;
   border: 3px solid red;
 }
-
-.footnote:target {
+.sphinxpage-body .wildewidgets_html_container .footnote:target {
   background-color: #ffa;
 }
-
-.line-block {
+.sphinxpage-body .wildewidgets_html_container .line-block {
   display: block;
   margin-top: 1em;
   margin-bottom: 1em;
 }
-
-.line-block .line-block {
+.sphinxpage-body .wildewidgets_html_container .line-block .line-block {
   margin-top: 0;
   margin-bottom: 0;
   margin-left: 1.5em;
 }
-
-.guilabel, .menuselection {
+.sphinxpage-body .wildewidgets_html_container .guilabel, .sphinxpage-body .wildewidgets_html_container .menuselection {
   font-family: sans-serif;
 }
-
-.accelerator {
+.sphinxpage-body .wildewidgets_html_container .accelerator {
   text-decoration: underline;
 }
-
-.classifier {
+.sphinxpage-body .wildewidgets_html_container .classifier {
   font-style: oblique;
 }
-
-.classifier:before {
+.sphinxpage-body .wildewidgets_html_container .classifier:before {
   font-style: normal;
   margin: 0 0.5em;
   content: ":";
   display: inline-block;
 }
-
-abbr, acronym {
+.sphinxpage-body .wildewidgets_html_container abbr, .sphinxpage-body .wildewidgets_html_container acronym {
   border-bottom: dotted 1px;
   cursor: help;
 }
-
-/* -- code displays --------------------------------------------------------- */
-pre {
+.sphinxpage-body .wildewidgets_html_container pre {
   overflow: auto;
   overflow-y: hidden;
   /* fixes display issues on Chrome browsers */
 }
-
-pre, [class*=highlight-] {
+.sphinxpage-body .wildewidgets_html_container pre, .sphinxpage-body .wildewidgets_html_container [class*=highlight-] {
   clear: both;
 }
-
-span.pre {
+.sphinxpage-body .wildewidgets_html_container span.pre {
   -moz-hyphens: none;
   -ms-hyphens: none;
   -webkit-hyphens: none;
   hyphens: none;
   white-space: nowrap;
 }
-
-[class*=highlight-] {
+.sphinxpage-body .wildewidgets_html_container [class*=highlight-] {
   margin: 1em 0;
 }
-
-td.linenos pre {
+.sphinxpage-body .wildewidgets_html_container td.linenos pre {
   border: 0;
   background-color: transparent;
   color: #aaa;
 }
-
-table.highlighttable {
+.sphinxpage-body .wildewidgets_html_container table.highlighttable {
   display: block;
 }
-
-table.highlighttable tbody {
+.sphinxpage-body .wildewidgets_html_container table.highlighttable tbody {
   display: block;
 }
-
-table.highlighttable tr {
+.sphinxpage-body .wildewidgets_html_container table.highlighttable tr {
   display: flex;
 }
-
-table.highlighttable td {
+.sphinxpage-body .wildewidgets_html_container table.highlighttable td {
   margin: 0;
   padding: 0;
 }
-
-table.highlighttable td.linenos {
+.sphinxpage-body .wildewidgets_html_container table.highlighttable td.linenos {
   padding-right: 0.5em;
 }
-
-table.highlighttable td.code {
+.sphinxpage-body .wildewidgets_html_container table.highlighttable td.code {
   flex: 1;
   overflow: hidden;
 }
-
-.highlight .hll {
+.sphinxpage-body .wildewidgets_html_container .highlight .hll {
   display: block;
 }
-
-.highlight pre,
-table.highlighttable pre {
+.sphinxpage-body .wildewidgets_html_container .highlight pre,
+.sphinxpage-body .wildewidgets_html_container table.highlighttable pre {
   margin: 0;
 }
-
-.code-block-caption + {
+.sphinxpage-body .wildewidgets_html_container .code-block-caption + {
   margin-top: 0;
 }
-
-.code-block-caption {
+.sphinxpage-body .wildewidgets_html_container .code-block-caption {
   margin-top: 1em;
   padding: 2px 5px;
   font-size: small;
 }
-
-.code-block-caption code {
+.sphinxpage-body .wildewidgets_html_container .code-block-caption code {
   background-color: transparent;
 }
-
-table.highlighttable td.linenos,
-span.linenos,
-.highlight span.gp {
+.sphinxpage-body .wildewidgets_html_container table.highlighttable td.linenos,
+.sphinxpage-body .wildewidgets_html_container span.linenos,
+.sphinxpage-body .wildewidgets_html_container .highlight span.gp {
   /* gp: Generic.Prompt */
   user-select: none;
   -webkit-user-select: text;
@@ -1231,73 +1093,59 @@ span.linenos,
   -ms-user-select: none;
   /* IE10+ */
 }
-
-.code-block-caption span.caption-number {
+.sphinxpage-body .wildewidgets_html_container .code-block-caption span.caption-number {
   padding: 0.1em 0.3em;
   font-style: italic;
 }
-
-.literal-block-wrapper {
+.sphinxpage-body .wildewidgets_html_container .literal-block-wrapper {
   margin: 1em 0;
 }
-
-code.xref, a code {
+.sphinxpage-body .wildewidgets_html_container code.xref, .sphinxpage-body .wildewidgets_html_container a code {
   background-color: transparent;
   font-weight: bold;
 }
-
-h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+.sphinxpage-body .wildewidgets_html_container h1 code, .sphinxpage-body .wildewidgets_html_container h2 code, .sphinxpage-body .wildewidgets_html_container h3 code, .sphinxpage-body .wildewidgets_html_container h4 code, .sphinxpage-body .wildewidgets_html_container h5 code, .sphinxpage-body .wildewidgets_html_container h6 code {
   background-color: transparent;
 }
-
-.viewcode-back {
+.sphinxpage-body .wildewidgets_html_container .viewcode-back {
   float: right;
   font-family: sans-serif;
 }
-
-.viewcode-block:target {
+.sphinxpage-body .wildewidgets_html_container .viewcode-block:target {
   margin: -1px -10px;
   padding: 0 10px;
 }
-
-/* -- math display ---------------------------------------------------------- */
-img.math {
+.sphinxpage-body .wildewidgets_html_container img.math {
   vertical-align: middle;
 }
-
-.body .math p {
+.sphinxpage-body .wildewidgets_html_container .body .math p {
   text-align: center;
 }
-
-span.eqno {
+.sphinxpage-body .wildewidgets_html_container span.eqno {
   float: right;
 }
-
-span.eqno a.headerlink {
+.sphinxpage-body .wildewidgets_html_container span.eqno a.headerlink {
   position: absolute;
   z-index: 1;
 }
-
-.math:hover a.headerlink {
+.sphinxpage-body .wildewidgets_html_container .math:hover a.headerlink {
   visibility: visible;
 }
-
-/* -- printout stylesheet --------------------------------------------------- */
 @media print {
-  .document,
-.documentwrapper,
-.bodywrapper {
+  .sphinxpage-body .wildewidgets_html_container .document,
+.sphinxpage-body .wildewidgets_html_container .documentwrapper,
+.sphinxpage-body .wildewidgets_html_container .bodywrapper {
     margin: 0 !important;
     width: 100%;
   }
-
-  .sphinxsidebar,
-.related,
-.footer,
-#top-link {
+  .sphinxpage-body .wildewidgets_html_container .sphinxsidebar,
+.sphinxpage-body .wildewidgets_html_container .related,
+.sphinxpage-body .wildewidgets_html_container .footer,
+.sphinxpage-body .wildewidgets_html_container #top-link {
     display: none;
   }
 }
+
 .menu .menu-title {
   padding: 0.5rem 0.75rem;
   justify-content: flex-start;
@@ -1322,7 +1170,8 @@ span.eqno a.headerlink {
   border-top: 2px solid #2e3e5d;
 }
 
-.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .nav-item.active {
+.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .nav-item.active,
+.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .nav-dropdown-holder.active {
   background: var(--tblr-navbar-active-bg);
 }
 .navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .dropdown-menu .dropdown-item {
@@ -1330,6 +1179,12 @@ span.eqno a.headerlink {
 }
 .navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .menu .nav-link.dropdown-toggle .nav-link {
   font-size: smaller;
+}
+.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .menu .nav-link.dropdown-toggle .nav-link.active {
+  background: var(--tblr-navbar-active-bg);
+}
+.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .menu .nav-link.dropdown-toggle.active {
+  background: var(--tblr-navbar-active-bg);
 }
 
 pre {
@@ -1357,14 +1212,12 @@ pre {
   color: #333;
   overflow-x: auto;
 }
-.sphinxpage-body h1, .sphinxpage-body h2, .sphinxpage-body h3, .sphinxpage-body h4, .sphinxpage-body h5, .sphinxpage-body h6 {
-  margin-top: 0;
-}
 .sphinxpage-body h1 {
   margin-bottom: 2rem;
 }
 .sphinxpage-body h2 {
   margin-bottom: 1.2rem;
+  margin-top: 1.5rem;
 }
 .sphinxpage-body dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) > dt::before {
   color: #6ab0de;

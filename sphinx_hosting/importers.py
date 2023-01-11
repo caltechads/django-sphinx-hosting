@@ -289,8 +289,12 @@ class SphinxPackageImporter:
             # Update the img src for any images in data['body'] for to point to our
             # Django storage locations
             data['body'] = self._update_image_src(data['body'])
-            # Fix our tables to look better
             html = lxml.html.fromstring(data['body'])
+            # remove the first <h1> -- we'll display the page title another way
+            first_h1 = html.cssselect('h1')
+            if first_h1:
+                first_h1[0].getparent().remove(first_h1[0])
+            # Fix our tables to look better
             tables = html.cssselect('table')
             for table in tables:
                 wrapper = XML('<div class="table-responsive"></div>')

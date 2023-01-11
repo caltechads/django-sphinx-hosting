@@ -45,7 +45,7 @@ class SphinxPagePagination(Row):
                     text=Block(FontIcon('box-arrow-in-left'), page.previous_page.first().title),
                     url=page.previous_page.first().get_absolute_url(),
                     name=f'{self.name}__previous',
-                    css_class='bg-azure bg-azure-fg'
+                    css_class='bg-azure-lt'
                 )
             )
         if page.parent:
@@ -54,7 +54,7 @@ class SphinxPagePagination(Row):
                     text=Block(FontIcon('box-arrow-in-up'), page.parent.title),
                     url=page.parent.get_absolute_url(),
                     name=f'{self.name}__parent',
-                    css_class='bg-azure bg-azure-fg'
+                    css_class='bg-azure-lt'
                 )
             )
         if page.next_page:
@@ -63,7 +63,7 @@ class SphinxPagePagination(Row):
                     text=Block(page.next_page.title, FontIcon('box-arrow-in-right')),
                     url=page.next_page.get_absolute_url(),
                     name=f'{self.name}__next',
-                    css_class='bg-azure bg-azure-fg'
+                    css_class='bg-azure-lt'
                 )
             )
 
@@ -170,6 +170,30 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
         return menu_items
 
 
+class SphinxPageTitle(Block):
+
+    block: str = 'sphinxpage-title'
+    css_class: str = 'mb-5'
+
+    def __init__(self, page: SphinxPage, **kwargs):
+        super().__init__(**kwargs)
+        self.project_title = page.version.project.title
+        self.version_number = page.version.version
+        self.title = page.title
+        self.add_block(
+            Block(
+                f'{self.project_title}-{self.version_number}',
+                name='project-title',
+                css_class='text-muted fs-6 text-uppercase')
+        )
+        self.add_block(
+            Block(
+                self.title,
+                tag='h1',
+            )
+        )
+
+
 class SphinxPageLayout(Block):
     """
     The page layout for a single :py:class:`sphinx_hosting.models.SphinxPage`.
@@ -184,7 +208,8 @@ class SphinxPageLayout(Block):
 
     def __init__(self, page: SphinxPage, **kwargs):
         super().__init__(**kwargs)
-        self.add_block(SphinxPagePagination(page, css_class='mb-5'))
+        self.add_block(SphinxPagePagination(page, css_class='mb-4'))
+        self.add_block(SphinxPageTitle(page))
         layout = TwoColumnLayoutWidget(left_column_width=self.left_column_width)
         if page.local_toc:
             layout.add_to_right(SphinxPageTableOfContentsWidget(page))

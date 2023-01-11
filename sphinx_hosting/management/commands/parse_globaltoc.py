@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from pprint import pprint
 
 from django.core.management.base import BaseCommand
+from django.utils.text import slugify
 
 from sphinx_hosting.models import Version
 from sphinx_hosting.models import SphinxGlobalTOCHTMLProcessor
@@ -39,7 +40,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options) -> None:
         try:
             version = Version.objects.get(
-                project__machine_name=options['project'],
+                project__machine_name=slugify(options['project']),
                 version=options['version']
             )
         except Version.DoesNotExist as e:

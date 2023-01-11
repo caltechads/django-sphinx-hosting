@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 import re
-from typing import Any, List, Dict, Optional, TYPE_CHECKING
+from typing import Any, List, Dict, Optional
 from urllib.parse import urlparse, unquote
 
 from django.db import models
@@ -13,6 +13,7 @@ from lxml import etree
 import lxml.html
 from lxml.html import HtmlElement
 
+from .settings import MAX_GLOBAL_TOC_TREE_DEPTH
 from .validators import NoHTMLValidator
 
 
@@ -263,7 +264,7 @@ class SphinxGlobalTOCHTMLProcessor:
         """
         items: List[Dict[str, Any]] = []
         if level <= self.max_level:
-            for li in html:
+            for li in html.iterchildren():
                 item: Dict[str, Any] = {
                     'text': 'placeholder',
                     'url': None,
@@ -296,7 +297,7 @@ class SphinxGlobalTOCHTMLProcessor:
             html: the lxml parsed HTML of the global table of contents from Sphinx
         """
         items: List[Dict[str, Any]] = []
-        for elem in html:
+        for elem in html.iterchildren():
             if elem.tag == 'p' and 'caption' in elem.classes:
                 # Captions only appear at the top level, even if you assign
                 # captions in your toctree declaration in your sub levels with
@@ -496,7 +497,7 @@ class Version(TimeStampedModel, models.Model):
         for this :py:class:`Version`.
 
         """
-        items = SphinxGlobalTOCHTMLProcessor().run(self)
+        items = SphinxGlobalTOCHTMLProcessor(max_level=MAX_GLOBAL_TOC_TREE_DEPTH).run(self)
         if not items:
             items = SphinxPageTreeProcesor().run(self)
         return {'items': items}
