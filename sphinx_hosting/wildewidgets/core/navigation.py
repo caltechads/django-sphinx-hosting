@@ -1115,6 +1115,14 @@ class NavDropdownItem(Block):
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         is_active: bool = any(item.is_active for item in self.items)
+        if self.active:
+            # If we have urls with fragments in our menu, it is likely that
+            # the submenu is a local table of contents for the page.  Since fragments
+            # are not passed from the web browser to the server, we won't know if
+            # someone had clicked on one of those urls previousl to navigate to
+            # where they are let's just open the menu so users can see their choices
+            if any(url_has_fragment(item.url) for item in self.items if item.url):
+                is_active = True
         if is_active:
             self.show()
         else:
