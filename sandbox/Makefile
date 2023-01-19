@@ -21,14 +21,10 @@ build: package
 	docker tag ${PACKAGE}:${VERSION} ${PACKAGE}:latest
 	docker image prune -f
 
-force-build:
+force-build: package
 	docker build --no-cache -t ${PACKAGE}:${VERSION} .
 	docker tag ${PACKAGE}:${VERSION} ${PACKAGE}:latest
 	docker image prune -f
-
-tag:
-	docker tag ${PACKAGE}:${VERSION} ${DOCKER_REGISTRY}/${PACKAGE}:${VERSION}
-	docker tag ${PACKAGE}:latest ${DOCKER_REGISTRY}/${PACKAGE}:latest
 
 dev:
 	docker-compose up

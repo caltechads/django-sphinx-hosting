@@ -1,16 +1,17 @@
 from typing import Dict, List, Type
 
 from django.db.models import Model, QuerySet
+from django.urls import reverse
 from wildewidgets import (
     BasicModelTable,
+    Block,
     CrispyFormModalWidget,
     CrispyFormWidget,
     CardWidget,
+    Datagrid,
     Widget,
     WidgetListLayoutHeader,
 )
-
-from .core import Datagrid
 
 from ..forms import ProjectCreateForm
 from ..models import Project, Version
@@ -56,17 +57,18 @@ class ProjectInfoWidget(CardWidget):
         self.set_widget(grid)
 
 
-class ProjectTableWidget(CardWidget):
+class ProjectTableWidget(Block):
     """
     This is a :py:class:`wildewidgets.CardWidget` that gives our
     :py:class:`ProjectTable` dataTable a nice header with a total book count and
     an "Add Project" button that opens a modal dialog.
     """
-    title: str = "Projects"
-    icon: str = "window"
 
     def __init__(self, **kwargs):
-        super().__init__(widget=ProjectTable(), **kwargs)
+        super().__init__(**kwargs)
+        self.add_block(self.get_title())
+        card = CardWidget(widget=ProjectTable())
+        self.add_block(card)
 
     def get_title(self) -> WidgetListLayoutHeader:
         header = WidgetListLayoutHeader(
@@ -147,6 +149,8 @@ class ProjectTable(BasicModelTable):
     #: Set to ``True`` to stripe our table rows
     striped: bool = True
     actions: bool = True
+    default_action_button_label = 'Edit'
+    default_action_button_color_class = 'outline-secondary'
     #: A list of fields that we will list as columns.  These are either fields
     #: on our :py:attr:`model`, or defined as ``render_FIELD_NAME_column`` methods
     #: on this class
@@ -181,6 +185,23 @@ class ProjectTable(BasicModelTable):
         'latest_version': 'left',
         'latest_version_date': 'left'
     }
+
+    def get_conditional_action_buttons(self, row):
+        version = row.latest_version
+        if version:
+            return self.get_action_button_with_url(
+                row,
+                'Read Docs',
+                reverse(
+                    'sphinx_hosting:sphinxpage--detail',
+                    args=[
+                        row.machine_name,
+                        version.version,
+                        version.head.relative_path
+                    ]
+                ),
+                color_class='primary'
+            )
 
     def render_latest_version_column(self, row: Project, column: str) -> str:
         """

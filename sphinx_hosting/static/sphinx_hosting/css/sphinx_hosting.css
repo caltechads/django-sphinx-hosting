@@ -1146,63 +1146,6 @@ span.linenos.special {
   }
 }
 
-.menu .menu-title {
-  padding: 0.5rem 0.75rem;
-  justify-content: flex-start;
-  color: #FFFF;
-}
-
-.navbar-vertical.navbar-wide.navbar-expand-sm ~ .page {
-  padding-left: 18rem;
-}
-
-.navbar-vertical.navbar-wide.navbar-expand-md ~ .page {
-  padding-left: 18rem;
-}
-
-.navbar-vertical.navbar-wide.navbar-expand-lg ~ .page {
-  padding-left: 18rem;
-}
-
-.navbar-vertical.navbar-wide.navbar-expand-xl ~ .page {
-  padding-left: 18rem;
-}
-
-.navbar-vertical.navbar-wide.navbar-expand-xxl ~ .page {
-  padding-left: 18rem;
-}
-
-.navbar.navbar-vertical.navbar-wide {
-  width: 18rem;
-}
-.navbar.navbar-vertical.navbar-dark .menu .menu-title {
-  background-color: #2e3e5d;
-  border-bottom: 2px solid #3f547f;
-}
-.navbar.navbar-vertical.navbar-dark .menu .nav-subtitle {
-  font-size: 0.75rem;
-  background-color: #202c42;
-  border-bottom: 2px solid #2e3e5d;
-  border-top: 2px solid #2e3e5d;
-}
-
-.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .nav-item.active,
-.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .nav-dropdown-holder.active {
-  background: var(--tblr-navbar-active-bg);
-}
-.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .dropdown-menu .dropdown-item {
-  padding-left: 1.5rem;
-}
-.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .menu .nav-link.dropdown-toggle .nav-link {
-  font-size: smaller;
-}
-.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .menu .nav-link.dropdown-toggle .nav-link.active {
-  background: var(--tblr-navbar-active-bg);
-}
-.navbar.navbar-vertical.navbar-expand-lg .navbar-collapse .menu .nav-link.dropdown-toggle.active {
-  background: var(--tblr-navbar-active-bg);
-}
-
 pre {
   background-color: #f8f8f8;
   border: 1px solid #ccc;

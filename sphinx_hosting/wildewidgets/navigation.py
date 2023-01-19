@@ -1,8 +1,7 @@
 from django.templatetags.static import static
 from django.urls import reverse, reverse_lazy
-from wildewidgets import BreadrumbBlock
-
-from .core import (
+from wildewidgets import (
+    BreadrumbBlock,
     LinkedImage,
     Menu,
     MenuItem,

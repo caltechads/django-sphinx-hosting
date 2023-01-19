@@ -20,7 +20,7 @@ setup(
         "rich"
     ],
     author="Caltech IMSS ADS",
-    author_email="cmalek@caltech.edu",
+    author_email="imss-ads-staff@caltech.edu",
     url="https://github.com/caltechads/django-sphinx-hosting",
     description="Reusable Django app for hosting Sphinx documentation privately.",
     long_description=long_description,
@@ -28,7 +28,6 @@ setup(
     keywords=['documentation', 'sphinx', 'django'],
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Environment :: Console',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
@@ -36,8 +35,11 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        "Topic :: Documentation",
+        'Programming Language :: Python :: 3.11',
+        "Framework :: Django :: 3.2",
+        "Framework :: Django :: 4.0",
+        "Framework :: Django :: 4.1",
+        "Topic :: Documentation :: Sphinx",
         "Topic :: Software Development :: Documentation",
     ],
 )

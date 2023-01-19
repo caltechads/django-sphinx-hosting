@@ -4,12 +4,10 @@ from wildewidgets import (
     Block,
     CardHeader,
     CardWidget,
-    HTMLWidget,
-    LinkButton,
-)
-from .core import (
     Column,
     FontIcon,
+    HTMLWidget,
+    LinkButton,
     Menu,
     MenuItem,
     Row,
@@ -86,7 +84,7 @@ class SphinxPageTableOfContentsWidget(CardWidget):
         self.widget = HTMLWidget(html=page.local_toc)
         self.set_header(
             CardHeader(
-                header_level="h3",
+                header_level=3,
                 header_text="Table of Contents",
                 css_class=''
             )

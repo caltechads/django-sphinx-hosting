@@ -21,9 +21,12 @@ from django.views.generic import (
 )
 
 from wildewidgets import (
+    Navbar,
+    NavbarMixin,
     StandardWidgetMixin,
     WidgetListLayout,
-    Widget
+    Widget,
+    WidgetStream
 )
 
 from .forms import (
@@ -38,8 +41,6 @@ from .models import (
 )
 
 from .wildewidgets import (
-    Navbar,
-    MenuMixin,
     ProjectCreateModalWidget,
     ProjectDetailWidget,
     ProjectInfoWidget,
@@ -59,14 +60,14 @@ from .wildewidgets import (
 # View Mixins
 # ===========================
 
-class SphinxHostingMenuMixin(MenuMixin):
+class SphinxHostingMenuMixin(NavbarMixin):
 
     menu_class: Type[Navbar] = SphinxHostingSidebar
 
 
 class WildewidgetsMixin(StandardWidgetMixin):
     """
-    We subclass :py:class:`WildewidgetsMixin` here so that we can define our
+    We subclass :py:class:`wildewidgets.StandardWidgetMixin` here so that we can define our
     standard template.
     """
     template_name = 'sphinx_hosting/base.html'
@@ -90,9 +91,9 @@ class ProjectListView(
     menu_item: str = 'Projects'
 
     def get_content(self) -> Widget:
-        layout = WidgetListLayout("Projects")
+        layout = WidgetStream()
         layout.add_widget(ProjectTableWidget())
-        layout.add_modal(ProjectCreateModalWidget())
+        layout.add_widget(ProjectCreateModalWidget())
         return layout
 
     def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
@@ -170,6 +171,8 @@ class ProjectUpdateView(
                         version.head.relative_path
                     ]
                 ),
+                color='primary',
+                css_class='mb-3'
             )
         layout.add_sidebar_form_button(
             'Delete Project',
@@ -181,7 +184,7 @@ class ProjectUpdateView(
 
     def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
         breadcrumbs = SphinxHostingBreadcrumbs()
-        breadcrumbs.add_breadcrumb(self.object.machine_name)
+        breadcrumbs.add_breadcrumb(self.object.title)
         return breadcrumbs
 
     def get_form_valid_message(self) -> str:
@@ -266,6 +269,8 @@ class VersionDetailView(
                         self.object.head.relative_path
                     ]
                 ),
+                color='primary',
+                css_class='mb-3'
             )
         layout.add_sidebar_form_button(
             'Delete Version',
@@ -277,7 +282,7 @@ class VersionDetailView(
 
     def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
         breadcrumbs = SphinxHostingBreadcrumbs()
-        breadcrumbs.add_breadcrumb(self.object.project.machine_name, url=self.object.project.get_absolute_url())
+        breadcrumbs.add_breadcrumb(self.object.project.title, url=self.object.project.get_absolute_url())
         breadcrumbs.add_breadcrumb(self.object.version)
         return breadcrumbs
 
@@ -324,7 +329,6 @@ class SphinxPageDetailView(
     LoginRequiredMixin,
     WildewidgetsMixin,
     SphinxHostingMenuMixin,
-    MenuMixin,
     DetailView
 ):
     """
@@ -337,8 +341,8 @@ class SphinxPageDetailView(
     slug_field: str = 'relative_path'
     slug_url_kwarg: str = 'path'
 
-    def get_menu(self) -> Navbar:
-        navbar = super().get_menu()
+    def get_navbar(self) -> Navbar:
+        navbar = super().get_navbar()
         globaltoc = SphinxPageGlobalTableOfContentsMenu.parse_obj(self.object.version.globaltoc)
         globaltoc.title = self.object.version.project.title
         navbar.add_to_menu_section(globaltoc)
@@ -385,7 +389,7 @@ class SphinxPageDetailView(
         """
         breadcrumbs = SphinxHostingBreadcrumbs()
         breadcrumbs.add_breadcrumb(
-            self.object.version.project.machine_name,
+            self.object.version.project.title,
             url=self.object.version.project.get_absolute_url()
         )
         breadcrumbs.add_breadcrumb(self.object.version.version, url=self.object.version.get_absolute_url())

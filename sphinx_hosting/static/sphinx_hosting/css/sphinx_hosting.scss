@@ -1,7 +1,6 @@
 
 @import '_pygments.scss';
 @import '_sphinx_layout.scss';
-@import '_wildewidgets.scss';
 
 pre {
     background-color: #f8f8f8;
@@ -16,6 +15,7 @@ pre {
 .docutils.literal {
     font-size: small;
 }
+
 
 .sphinxpage-body {
     tt, code {
