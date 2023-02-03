@@ -24,10 +24,12 @@ from wildewidgets import (
     Navbar,
     NavbarMixin,
     StandardWidgetMixin,
+    ToggleableManyToManyFieldBlock,
     WidgetListLayout,
     Widget,
     WidgetStream
 )
+from wildewidgets.viewsets import ModelViewSet
 
 from .forms import (
     ProjectCreateForm,
@@ -35,12 +37,14 @@ from .forms import (
 )
 from .logging import logger
 from .models import (
+    Classifier,
     Project,
     Version,
     SphinxPage
 )
 
 from .wildewidgets import (
+    ProjectClassifierSelectorWidget,
     ProjectCreateModalWidget,
     ProjectDetailWidget,
     ProjectInfoWidget,
@@ -55,6 +59,17 @@ from .wildewidgets import (
     VersionSphinxImageTableWidget,
 )
 
+# ===========================
+# Viewsets
+# ===========================
+
+
+class ClassifierViewSet(ModelViewSet):
+    model = Classifier
+    template_name = 'sphinx_hosting/base.html'
+    breadcrumbs_class = SphinxHostingBreadcrumbs
+    navbar_class = SphinxHostingSidebar
+
 
 # ===========================
 # View Mixins
@@ -62,7 +77,7 @@ from .wildewidgets import (
 
 class SphinxHostingMenuMixin(NavbarMixin):
 
-    menu_class: Type[Navbar] = SphinxHostingSidebar
+    navbar_class: Type[Navbar] = SphinxHostingSidebar
 
 
 class WildewidgetsMixin(StandardWidgetMixin):
@@ -71,6 +86,7 @@ class WildewidgetsMixin(StandardWidgetMixin):
     standard template.
     """
     template_name = 'sphinx_hosting/base.html'
+
 
 # ===========================
 # Projects
@@ -158,6 +174,7 @@ class ProjectUpdateView(
         layout = WidgetListLayout(self.object.title)
         layout.add_widget(ProjectInfoWidget(self.object))
         layout.add_widget(ProjectDetailWidget(self.object))
+        layout.add_widget(ProjectClassifierSelectorWidget(self.object))
         layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
         version = self.object.latest_version
         if version and version.head:

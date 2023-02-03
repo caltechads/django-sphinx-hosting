@@ -1,0 +1,513 @@
+[
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 1,
+        "fields": {
+            "name": "Development Status :: Pre-Alpha"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 2,
+        "fields": {
+            "name": "Development Status :: Alpha"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 3,
+        "fields": {
+            "name": "Development Status :: Beta"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 4,
+        "fields": {
+            "name": "Development Status :: Production/Stable"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 5,
+        "fields": {
+            "name": "Development Status :: Inactive"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 6,
+        "fields": {
+            "name": "Environment :: Console"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 7,
+        "fields": {
+            "name": "Environment :: Cloud"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 8,
+        "fields": {
+            "name": "Environment :: Cloud :: AWS"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 9,
+        "fields": {
+            "name": "Environment :: Cloud :: Azure"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 10,
+        "fields": {
+            "name": "Environment :: Cloud :: Google"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 11,
+        "fields": {
+            "name": "Environment :: Handhelds/PDAs"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 12,
+        "fields": {
+            "name": "Environment :: Other Environment"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 13,
+        "fields": {
+            "name": "Framework :: AWS CDK"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 14,
+        "fields": {
+            "name": "Framework :: AWS CDK :: 1"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 15,
+        "fields": {
+            "name": "Framework :: AWS CDK :: 2"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 16,
+        "fields": {
+            "name": "Framework :: AsyncIO"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 17,
+        "fields": {
+            "name": "Framework :: Bottle"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 18,
+        "fields": {
+            "name": "Framework :: Celery"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 19,
+        "fields": {
+            "name": "Framework :: Django"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 20,
+        "fields": {
+            "name": "Framework :: Django :: 1"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 21,
+        "fields": {
+            "name": "Framework :: Django :: 2"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 22,
+        "fields": {
+            "name": "Framework :: Django :: 3"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 23,
+        "fields": {
+            "name": "Framework :: Django :: 4"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 24,
+        "fields": {
+            "name": "Framework :: Django :: Themes"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 25,
+        "fields": {
+            "name": "Framework :: Django :: Widgets"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 26,
+        "fields": {
+            "name": "Framework :: FastAPI"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 27,
+        "fields": {
+            "name": "Framework :: Flask"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 28,
+        "fields": {
+            "name": "Framework :: Sphinx"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 29,
+        "fields": {
+            "name": "Framework :: Sphinx :: Extension"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 31,
+        "fields": {
+            "name": "Framework :: Wagtail"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 32,
+        "fields": {
+            "name": "Framework :: Wagtail :: 2"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 33,
+        "fields": {
+            "name": "Framework :: Wagtail :: 3"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 34,
+        "fields": {
+            "name": "Framework :: Wagtail :: 4"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 35,
+        "fields": {
+            "name": "Framework :: aiohttp"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 36,
+        "fields": {
+            "name": "Framework :: terraform"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 37,
+        "fields": {
+            "name": "Intended Audience :: Customer Service"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 38,
+        "fields": {
+            "name": "Intended Audience :: Developers"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 39,
+        "fields": {
+            "name": "Intended Audience :: End Users"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 40,
+        "fields": {
+            "name": "Intended Audience :: Science/Research"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 41,
+        "fields": {
+            "name": "Intended Audience :: System Administrators"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 42,
+        "fields": {
+            "name": "Programming Language :: C"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 43,
+        "fields": {
+            "name": "Programming Language :: Cython"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 44,
+        "fields": {
+            "name": "Programming Language :: Fortran"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 45,
+        "fields": {
+            "name": "Programming Language :: Go"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 46,
+        "fields": {
+            "name": "Programming Language :: Java"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 47,
+        "fields": {
+            "name": "Programming Language :: JavaScript"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 48,
+        "fields": {
+            "name": "Programming Language :: Objective C"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 49,
+        "fields": {
+            "name": "Programming Language :: Perl"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 50,
+        "fields": {
+            "name": "Programming Language :: PHP"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 51,
+        "fields": {
+            "name": "Programming Language :: PL/SQL"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 52,
+        "fields": {
+            "name": "Programming Language :: Python"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 53,
+        "fields": {
+            "name": "Programming Language :: Python :: 3"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 54,
+        "fields": {
+            "name": "Programming Language :: Python :: 3.6"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 55,
+        "fields": {
+            "name": "Programming Language :: Python :: 3.7"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 56,
+        "fields": {
+            "name": "Programming Language :: Python :: 3.8"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 57,
+        "fields": {
+            "name": "Programming Language :: Python :: 3.9"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 58,
+        "fields": {
+            "name": "Programming Language :: Python :: 3.10"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 59,
+        "fields": {
+            "name": "Programming Language :: Python :: 3.11"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 60,
+        "fields": {
+            "name": "Programming Language :: Python :: 3.12"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 61,
+        "fields": {
+            "name": "Programming Language :: Ruby"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 62,
+        "fields": {
+            "name": "Programming Language :: Rust"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 63,
+        "fields": {
+            "name": "Programming Language :: SQL"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 64,
+        "fields": {
+            "name": "Programming Language :: Unix Shell"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 65,
+        "fields": {
+            "name": "Software Category :: Application"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 66,
+        "fields": {
+            "name": "Software Category :: Library"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 67,
+        "fields": {
+            "name": "Software Category :: Docker Base Image"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 68,
+        "fields": {
+            "name": "Software Category :: Infrastructure as Code"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 69,
+        "fields": {
+            "name": "Software Category :: Programming Support"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 70,
+        "fields": {
+            "name": "Software Category :: Programming Support :: Cookiecutter"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 71,
+        "fields": {
+            "name": "Software Category :: Programming Support :: Testing"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 72,
+        "fields": {
+            "name": "Software Category :: System Support"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 73,
+        "fields": {
+            "name": "Software Category :: Documentation"
+        }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 74,
+        "fields": {
+            "name": "Software Category :: Documentation :: Only"
+        }
+    }
+]

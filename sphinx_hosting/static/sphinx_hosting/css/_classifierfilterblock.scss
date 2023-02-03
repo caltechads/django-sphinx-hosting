@@ -1,0 +1,42 @@
+.classifiers__filter {
+    &__form {
+        a.nav-link-toggle {
+            font-weight: bold;
+            color: rgba(var(--tblr-blue-rgb),1) !important;
+        }
+        ul {
+            position: relative;
+            padding: 0 0 0 5px;
+            margin: 5px 0 0 12px;
+        }
+        ul > li:last-child::after {
+            height: 13px;
+        }
+        li {
+            padding: 0 0 0 5px;
+            list-style: none;
+            position: relative;
+            .form-check {
+                margin-bottom: 0;
+            }
+            &::after {
+                border-left: 2px solid #bbb;
+                content: "";
+                height: 100%;
+                left: -12px;
+                position: absolute;
+                top: -2px;
+                width: 0;
+            }
+            &::before {
+                border-top: 2px solid #bbb;
+                content: "";
+                height: 0;
+                left: -12px;
+                position: absolute;
+                top: 10px;
+                width: 12px;
+            }
+        }
+    }
+}

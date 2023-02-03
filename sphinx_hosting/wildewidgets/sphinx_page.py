@@ -11,7 +11,7 @@ from wildewidgets import (
     Menu,
     MenuItem,
     Row,
-    TwoColumnLayoutWidget
+    TwoColumnLayout
 )
 from ..models import SphinxPage
 
@@ -30,7 +30,7 @@ class SphinxPagePagination(Row):
     an equal sized ``col``.
     """
 
-    name: str = 'sphinx-page-navigation'
+    name: str = 'sphinxpage-pagination'
 
     def __init__(self, page: SphinxPage, **kwargs):
         super().__init__(**kwargs)
@@ -127,7 +127,7 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
             }
 
         Return a fully configured :py:class:`SphinxPageGlobalTableOfContentsMenu` suitable
-        for insertion into a :py:class:`sphinx_hosting.wildewidgets.Navbar`.
+        for insertion into a :py:class:`wildewidgets.Navbar`.
 
         Returns:
             A configured  ``SphinxPageGlobalTableOfContentsMenu``.
@@ -147,11 +147,11 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
                     ...
            ]
 
-        Return a list of :py:class:`sphinx_hosting.wildewidgets.MenuItem`
+        Return a list of :py:class:`wildewidgets.MenuItem`
         objects loaded from that data.
 
         Returns:
-            A list of :py:class:`sphinx_hosting.wildewidgets.MenuItem` objects.
+            A list of :py:class:`wildewidgets.MenuItem` objects.
         """
         menu_items: List[MenuItem] = []
         for item in items:
@@ -199,7 +199,7 @@ class SphinxPageLayout(Block):
     left column, and the content of the page in the right column.
 
     Args:
-        page: the ``SphinxPage`` to render
+        page: the :py:class:`sphinx_hosting.models.SphinxPage` to render
     """
 
     left_column_width: int = 8
@@ -208,7 +208,7 @@ class SphinxPageLayout(Block):
         super().__init__(**kwargs)
         self.add_block(SphinxPagePagination(page, css_class='mb-4'))
         self.add_block(SphinxPageTitle(page))
-        layout = TwoColumnLayoutWidget(left_column_width=self.left_column_width)
+        layout = TwoColumnLayout(left_column_width=self.left_column_width)
         if page.local_toc:
             layout.add_to_right(SphinxPageTableOfContentsWidget(page))
         layout.add_to_left(SphinxPageBodyWidget(page))

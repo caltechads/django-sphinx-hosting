@@ -1,7 +1,9 @@
+from typing import List
 from django.templatetags.static import static
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from wildewidgets import (
-    BreadrumbBlock,
+    BreadcrumbBlock,
+    BreadcrumbItem,
     LinkedImage,
     Menu,
     MenuItem,
@@ -20,6 +22,18 @@ class SphinxHostingMainMenu(Menu):
     ]
 
 
+class SphinxHostingLookupsMenu(Menu):
+    title: str = "Lookups"
+    css_class: str = 'mt-3'
+    items = [
+        MenuItem(
+            text='Classifiers',
+            icon='bookshelf',
+            url=reverse_lazy('sphinx_hosting:classifier--index')
+        )
+    ]
+
+
 class SphinxHostingSidebar(TablerVerticalNavbar):
 
     wide = True
@@ -30,12 +44,16 @@ class SphinxHostingSidebar(TablerVerticalNavbar):
         url="/"
     )
     contents = [
-        SphinxHostingMainMenu()
+        SphinxHostingMainMenu(),
+        SphinxHostingLookupsMenu(),
     ]
 
 
-class SphinxHostingBreadcrumbs(BreadrumbBlock):
+class SphinxHostingBreadcrumbs(BreadcrumbBlock):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.add_breadcrumb('Sphinx Hosting', reverse('sphinx_hosting:project--list'))
+    items: List[BreadcrumbItem] = [
+        BreadcrumbItem(
+            title='Sphinx Hosting',
+            url=reverse_lazy('sphinx_hosting:project--list')
+        )
+    ]

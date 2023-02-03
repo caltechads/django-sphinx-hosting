@@ -1,4 +1,4 @@
-from typing import Dict, List, Type
+from typing import Dict, List, Optional, Type
 
 from django.db.models import Model, QuerySet
 from django.urls import reverse
@@ -9,12 +9,16 @@ from wildewidgets import (
     CrispyFormWidget,
     CardWidget,
     Datagrid,
+    ToggleableManyToManyFieldBlock,
+    TwoColumnLayout,
     Widget,
     WidgetListLayoutHeader,
 )
 
 from ..forms import ProjectCreateForm
 from ..models import Project, Version
+
+from .classifier import ClassifierFilterBlock
 
 
 #------------------------------------------------------
@@ -67,8 +71,16 @@ class ProjectTableWidget(Block):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.add_block(self.get_title())
-        card = CardWidget(widget=ProjectTable())
-        self.add_block(card)
+        layout = TwoColumnLayout(left_column_width=9)
+        table = ProjectTable()
+        layout.add_to_left(CardWidget(widget=table))
+        layout.add_to_right(
+            ClassifierFilterBlock(
+                table_name=table.table_name,
+                column_number=table.get_column_number('classifiers')
+            )
+        )
+        self.add_block(layout)
 
     def get_title(self) -> WidgetListLayoutHeader:
         header = WidgetListLayoutHeader(
@@ -105,6 +117,14 @@ class ProjectVersionsTableWidget(CardWidget):
             badge_text=Project.objects.get(pk=self.project_id).versions.count(),
         )
         return header
+
+
+class ProjectClassifierSelectorWidget(ToggleableManyToManyFieldBlock):
+
+    model = Project
+    field_name = 'classifiers'
+    title = 'Classifiers'
+    icon = 'collection'
 
 
 class ProjectDetailWidget(
@@ -157,11 +177,13 @@ class ProjectTable(BasicModelTable):
     fields: List[str] = [
         'title',
         'machine_name',
+        'classifiers',
         'latest_version',
         'latest_version_date',
     ]
     #: A list of names of columns to hide by default.
     hidden: List[str] = [
+        'classifiers',
         'machine_name'
     ]
     #: A list of names of columns that will will not be searched when doing a
@@ -181,6 +203,7 @@ class ProjectTable(BasicModelTable):
     #: A dict of column names to alignment ("left", "right", "center")
     alignment: Dict[str, str] = {
         'title': 'left',
+        'classifiers': 'left',
         'machine_name': 'left',
         'latest_version': 'left',
         'latest_version_date': 'left'
@@ -247,6 +270,29 @@ class ProjectTable(BasicModelTable):
             return self.render_datetime_type_column(version.modified)
         return ''
 
+    def render_classifiers_column(self, row: Project, column: str) -> str:
+        """
+        Render our ``classifiers`` column.
+
+        Args:
+            row: the ``Project`` we are rendering
+            colunn: the name of the column to render
+
+        Returns:
+
+        """
+        return '<br>'.join(row.classifiers.values_list('name', flat=True))
+
+    def filter_classifiers_column(
+        self,
+        qs: QuerySet,
+        column: str,
+        value: str
+    ) -> QuerySet:
+        print(f'FILTER_CLASSIFIERS: {value}')
+        classifier_ids = value.split(',')
+        return qs.filter(classifiers__id__in=classifier_ids)
+
 
 class ProjectVersionTable(BasicModelTable):
     """
@@ -297,7 +343,7 @@ class ProjectVersionTable(BasicModelTable):
         'modified': 'left'
     }
 
-    def __init__(self, *args,  **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """
         One of our ``kwargs`` must be ``project_id``, the ``pk`` of the
         :py:class:`sphinx_hosting.models.Project` for which we want to list
@@ -307,7 +353,7 @@ class ProjectVersionTable(BasicModelTable):
         key, from which we reference it.
         """
         #: The pk of the :py:class:`sphinx_hosting.models.Project` for which to list versions
-        self.project_id: int = None
+        self.project_id: Optional[int] = None
         super().__init__(self, *args, **kwargs)
         if 'project_id' in self.extra_data['kwargs']:
             self.project_id = int(self.extra_data['kwargs']['project_id'])

@@ -10,6 +10,11 @@ from sphinx_hosting.models import SphinxPage, Version, TreeNode
 
 
 class TreePrinter:
+    """
+    Parse the tree of :py:class:`sphinx_hosting.models.TreeNode` objects
+    we get from :py:meth:`sphinx_hosting.models.Version.page_tree` and
+    print them to stdout in a pretty format.
+    """
 
     def __init__(self, version: Version):
         self.sphinx_tree = version.page_tree

@@ -4,6 +4,7 @@ import re
 from typing import Any, List, Dict, Optional
 from urllib.parse import urlparse, unquote
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.functional import cached_property
@@ -12,6 +13,7 @@ from django_extensions.db.models import TimeStampedModel
 from lxml import etree
 import lxml.html
 from lxml.html import HtmlElement
+from wildewidgets.models import ViewSetMixin
 
 from .settings import MAX_GLOBAL_TOC_TREE_DEPTH
 from .validators import NoHTMLValidator
@@ -29,9 +31,9 @@ FK = models.ForeignKey
 @dataclass
 class TreeNode:
     """
-    This is a dataclass that we use with :py:class:`SphinxTree` to build out the
-    global navigation structure for a set of documentation for a
-    :py:class:`Version`.
+    This is a :py:class:`dataclass` that we use with :py:class:`SphinxPageTree`
+    to build out the global navigation structure for a set of documentation for
+    a :py:class:`Version`.
     """
 
     #: The page title
@@ -70,6 +72,18 @@ class TreeNode:
             parent=page.parent
         )
 
+
+@dataclass
+class ClassifierNode:
+
+    title: str
+    classifier: Optional["Classifier"] = None
+    items: Dict[str, "ClassifierNode"] = field(default_factory=dict)
+
+
+# --------------------------
+# Helper classes
+# --------------------------
 
 class SphinxPageTree:
     """
@@ -133,14 +147,14 @@ class SphinxPageTreeProcesor:
 
     def build_item(self, node: TreeNode) -> Dict[str, Any]:
         """
-        Build a :py:class:`sphinx_hosting.wildewdigets.MenuItem` compatible
+        Build a :py:class:`wildewdigets.MenuItem` compatible
         dict representing ``node``.
 
         Args:
             node: the current node in our page tree
 
         Returns:
-            A dict suitable for loading into a ``MenuItem``
+            A dict suitable for loading into a :py:class:`wildewidgets.MenuItem`.
         """
         item: Dict[str, Any] = {
             'text': node.title,
@@ -154,7 +168,7 @@ class SphinxPageTreeProcesor:
 
     def build(self, items: List[Dict[str, Any]], node: TreeNode) -> None:
         """
-        Build a :py:class:`sphinx_hosting.wildewdigets.MenuItem` compatible
+        Build a :py:class:`wildewdigets.MenuItem` compatible
         dict representing ``node``, and append it to ``items``.
 
         if ``node`` has children, recurse into those children, building out
@@ -358,6 +372,10 @@ class SphinxGlobalTOCHTMLProcessor:
         else:
             return []
 
+# --------------------------
+# FileField upload functions
+# --------------------------
+
 
 def sphinx_image_upload_to(instance: "SphinxImage", filename: str) -> str:
     """
@@ -377,8 +395,166 @@ def sphinx_image_upload_to(instance: "SphinxImage", filename: str) -> str:
     path = path / Path(filename).name
     return str(path)
 
+# --------------------------
+# Managers
+# --------------------------
 
-class Project(TimeStampedModel, models.Model):
+
+class ClassifierManager(models.Manager):
+
+    def tree(self) -> Dict[str, ClassifierNode]:
+        """
+        Given our classifiers, which are ``::`` separated lists of terms
+        like::
+
+            Section :: Subsection :: Name
+            Section :: Subsection :: Name2
+            Section :: Subsection :: Name3
+            Section :: Subsection
+
+        Return a tree-like data structure that looks like:
+
+            {
+                'Section': ClassifierNode(
+                    title='Section'
+                    items={
+                        'Subsection': ClassifierNode(
+                            title='Subsection',
+                            classifier=Classifier(name="Section :: Subsection"),
+                            items: {
+                                'Name': ClassifierNode(
+                                    title='Name',
+                                    classifier=Classifier(
+                                        name='Section :: Subsection :: Name'
+                                    )
+                                ),
+                                ...
+                            }
+                        )
+                    }
+                )
+            }
+        """
+        nodes: Dict[str, ClassifierNode] = {}
+        current: Optional[ClassifierNode] = None
+        for classifier in self.get_queryset().all():
+            parts = classifier.name.split(' :: ')
+            if parts[0] not in nodes:
+                nodes[parts[0]] = ClassifierNode(title=parts[0])
+            current = nodes[parts[0]]
+            if len(parts) > 1:
+                for part in parts[1:]:
+                    if part not in current.items:
+                        current.items[part] = ClassifierNode(title=part)
+                    current = current.items[part]
+            current.classifier = classifier
+        return nodes
+
+
+# --------------------------
+# Models
+# --------------------------
+
+
+class Classifier(ViewSetMixin, models.Model):
+    """
+    A :py:class:`Project` can be tagged with one or more :py:class:`Classifier`
+    tags.  This allows you to group projects by ecosystem, or type, for example.
+
+    Use `PyPI <www.pypi.org>`_ classifiers as an example of how to use a single
+    field for classifying across many dimensions.
+
+    Examples::
+
+        Ecosystem :: CMS
+        Language :: Python
+        Owner :: DevOps :: AWS
+    """
+    objects = ClassifierManager()
+
+    name: F = models.CharField(
+        'Classifier Name',
+        help_text=_('The classifier spec for this classifier, e.g. "Language :: Python"'),
+        max_length=255,
+        unique=True,
+    )
+
+    def save(self, *args, **kwargs) -> None:
+        """
+        Overrides :py:meth:`django.db.models.Model.save`.
+
+        Override save to create any missing classifiers in our chain.  For example,
+        if we want to create this classifier::
+
+            Foo :: Bar :: Baz
+
+        But ``Foo :: Bar`` does not yet exist in the database, create that before
+        creating ``Foo :: Bar :: Baz``.  We do this so that when we filter our projects
+        by classifier, we can filter by ``Foo :: Bar`` and ``Foo :: Bar :: Baz``.
+        """
+        parts = [p.strip() for p in self.name.split('::')]
+        if len(parts) > 2:
+            name = parts[0]
+            for part in parts[1:-1]:
+                name = f'{name} :: {part}'
+                if not self.objects.filter(name=name).exists():
+                    new_classifiier = Classifier(name=name)
+                    new_classifiier.save(using=kwargs.get('using', settings.DEFAULT_DB_ALIAS))
+        # Rejoin our parts to ensure we always get a classifier that looks like
+        # "part :: part :: part" instead of "part:: part::part"
+        self.name = ' :: '.join(parts)
+        super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return str(self.name)
+
+    class Meta:
+        verbose_name: str = _('classifier')
+        verbose_name_plural: str = _('classifiers')
+
+
+class ProjectPermissionGroup(
+    ViewSetMixin,
+    TimeStampedModel,
+    models.Model
+):
+    """
+    A :py:class:`Project` can be assigned to one or more
+    :py:class:`ProjectPermissionGroup` groups.  This restricts viewing of the
+    project to users which belong to those groups.
+
+    Examples::
+
+        Ecosystem :: CMS
+        Language :: Python
+        Owner :: DevOps :: AWS
+    """
+    name: F = models.CharField(
+        'Permission Group Name',
+        help_text=_('The name for this permission group'),
+        max_length=100,
+        unique=True,
+    )
+    description: F = models.CharField(
+        'Brief Description',
+        max_length=256,
+        null=True,
+        blank=True,
+        help_text=_('A brief description of this permission group'),
+        validators=[NoHTMLValidator()]
+    )
+
+    users: M2M = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='project_permission_groups'
+    )
+
+    class Meta:
+        verbose_name: str = _('classifier')
+        verbose_name_plural: str = _('classifiers')
+
+
+class Project(ViewSetMixin, TimeStampedModel, models.Model):
     """
     A Project is what a set of Sphinx docs describes: an application, a library, etc.
 
@@ -402,7 +578,18 @@ class Project(TimeStampedModel, models.Model):
     machine_name: F = models.SlugField(
         'Machine Name',
         unique=True,
-        help_text=_("""Must be unique.  Set this to the value of "project" in Sphinx's. conf.py""")
+        help_text=_(
+            """Must be unique.  Set this to the slugified value of "project" in Sphinx's. conf.py"""
+        )
+    )
+
+    permission_groups: M2M = models.ManyToManyField(
+        ProjectPermissionGroup,
+        related_name='projects'
+    )
+    classifiers: M2M = models.ManyToManyField(
+        Classifier,
+        related_name='projects'
     )
 
     def __str__(self) -> str:  # pylint: disable=invalid-str-returned

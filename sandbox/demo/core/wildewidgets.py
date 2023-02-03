@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from sphinx_hosting.wildewidgets import SphinxHostingMenu
+from sphinx_hosting.wildewidgets import SphinxHostingSidebar
 
 
 #------------------------------------------------------
 # Menus
 #------------------------------------------------------
 
-class MainMenu(SphinxHostingMenu):
+class MainMenu(SphinxHostingSidebar):
     pass

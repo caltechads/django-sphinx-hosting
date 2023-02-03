@@ -1,4 +1,4 @@
-from typing import Dict, List, Type
+from typing import Dict, List, Optional, Type
 
 from django.db.models import Model, QuerySet
 from django.db.models.functions import Length
@@ -114,7 +114,7 @@ class VersionSphinxPageTable(BasicModelTable):
         'size': 'right',
     }
 
-    def __init__(self, *args,  **kwargs):
+    def __init__(self, *args,  **kwargs) -> None:
         """
         One of our ``kwargs`` must be ``version_id``, the ``pk`` of the
         :py:class:`sphinx_hosting.models.Version` for which we want to list
@@ -123,7 +123,8 @@ class VersionSphinxPageTable(BasicModelTable):
         This will get added to the :py:attr:`extra_data` dict in the ``kwargs``
         key, from which we reference it.
         """
-        self.version_id: int = None  #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to list pages
+        #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to list pages
+        self.version_id: Optional[int] = None
         super().__init__(self, *args, **kwargs)
         if 'version_id' in self.extra_data['kwargs']:
             self.version_id = int(self.extra_data['kwargs']['version_id'])
@@ -166,7 +167,7 @@ class VersionSphinxImageTable(BasicModelTable):
         'size': 'right',
     }
 
-    def __init__(self, *args,  **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """
         One of our ``kwargs`` must be ``version_id``, the ``pk`` of the
         :py:class:`sphinx_hosting.models.Version` for which we want to list
@@ -175,7 +176,8 @@ class VersionSphinxImageTable(BasicModelTable):
         This will get added to the :py:attr:`extra_data` dict in the ``kwargs``
         key, from which we reference it.
         """
-        self.version_id: int = None  #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to list pages
+        #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to list pages
+        self.version_id: Optional[int] = None
         super().__init__(self, *args, **kwargs)
         if 'version_id' in self.extra_data['kwargs']:
             self.version_id = int(self.extra_data['kwargs']['version_id'])
@@ -218,4 +220,3 @@ class VersionSphinxImageTable(BasicModelTable):
             The size in bytes of the uploaded file.
         """
         return str(row.file.name)
-

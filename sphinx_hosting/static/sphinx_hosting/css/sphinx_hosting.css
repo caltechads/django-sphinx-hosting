@@ -1146,6 +1146,45 @@ span.linenos.special {
   }
 }
 
+.classifiers__filter__form a.nav-link-toggle {
+  font-weight: bold;
+  color: rgba(var(--tblr-blue-rgb), 1) !important;
+}
+.classifiers__filter__form ul {
+  position: relative;
+  padding: 0 0 0 5px;
+  margin: 5px 0 0 12px;
+}
+.classifiers__filter__form ul > li:last-child::after {
+  height: 13px;
+}
+.classifiers__filter__form li {
+  padding: 0 0 0 5px;
+  list-style: none;
+  position: relative;
+}
+.classifiers__filter__form li .form-check {
+  margin-bottom: 0;
+}
+.classifiers__filter__form li::after {
+  border-left: 2px solid #bbb;
+  content: "";
+  height: 100%;
+  left: -12px;
+  position: absolute;
+  top: -2px;
+  width: 0;
+}
+.classifiers__filter__form li::before {
+  border-top: 2px solid #bbb;
+  content: "";
+  height: 0;
+  left: -12px;
+  position: absolute;
+  top: 10px;
+  width: 12px;
+}
+
 pre {
   background-color: #f8f8f8;
   border: 1px solid #ccc;

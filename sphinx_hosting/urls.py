@@ -3,6 +3,7 @@ from typing import List
 from django.urls import path, re_path, URLPattern
 
 from .views import (
+    ClassifierViewSet,
     ProjectCreateView,
     ProjectDeleteView,
     ProjectListView,
@@ -11,6 +12,7 @@ from .views import (
     VersionDeleteView,
     VersionDetailView,
 )
+from .wildewidgets import ProjectClassifierSelectorWidget
 
 
 app_name: str = "sphinx_hosting"
@@ -29,3 +31,5 @@ urlpatterns: List[URLPattern] = [
         name='sphinxpage--detail'
     ),
 ]
+urlpatterns += ClassifierViewSet(url_prefix='lookups', url_namespace=app_name).get_urlpatterns()
+urlpatterns += ProjectClassifierSelectorWidget.get_urlpatterns(url_namespace=app_name)

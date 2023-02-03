@@ -10,11 +10,11 @@ from sphinx_hosting.models import SphinxGlobalTOCHTMLProcessor
 
 class Command(BaseCommand):
     """
-    **Usage**: ``./manage.py print_doctree <project_machine_name> <version number>``
+    **Usage**: ``./manage.py print_globaltoc <project_machine_name> <version number>``
 
-    Print the page tree for a :py:class:`Version`
+    Print the global table of contents for a :py:class:`Version`.
     """
-    args = '<tarfile>'
+    args = '<project_machine_name> <version_number>'
     help = ('Print the deduced page hierarchy for a version of a project.')
 
     def add_arguments(self, parser: ArgumentParser) -> None:
