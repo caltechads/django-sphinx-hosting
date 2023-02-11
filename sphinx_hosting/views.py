@@ -1,8 +1,9 @@
-from typing import Type, cast
+from typing import Optional, Type, cast
 
 from braces.views import (
     FormInvalidMessageMixin,
     FormValidMessageMixin,
+    MessageMixin,
     LoginRequiredMixin,
 )
 from django.contrib import messages
@@ -19,12 +20,13 @@ from django.views.generic import (
     TemplateView,
     UpdateView
 )
-
+from haystack.forms import ModelSearchForm
+from haystack.query import SearchQuerySet
+from haystack.generic_views import SearchView
 from wildewidgets import (
     Navbar,
     NavbarMixin,
     StandardWidgetMixin,
-    ToggleableManyToManyFieldBlock,
     WidgetListLayout,
     Widget,
     WidgetStream
@@ -50,6 +52,7 @@ from .wildewidgets import (
     ProjectInfoWidget,
     ProjectVersionsTableWidget,
     ProjectTableWidget,
+    PagedSearchLayout,
     SphinxPageGlobalTableOfContentsMenu,
     SphinxHostingBreadcrumbs,
     SphinxHostingSidebar,
@@ -411,4 +414,54 @@ class SphinxPageDetailView(
         )
         breadcrumbs.add_breadcrumb(self.object.version.version, url=self.object.version.get_absolute_url())
         breadcrumbs.add_breadcrumb(self.object.title)
+        return breadcrumbs
+
+
+# ===========================
+# Search Views
+# ===========================
+
+class GlobalSphinxPageSearchView(
+    LoginRequiredMixin,
+    MessageMixin,
+    SphinxHostingMenuMixin,
+    WildewidgetsMixin,
+    SearchView,
+):
+    query: Optional[str] = None
+    queryset: SearchQuerySet
+
+    def form_invalid(self, form: ModelSearchForm) -> HttpResponse:
+        self.queryset = self.get_queryset()
+        self.object_list = self.queryset
+        self.query: str = None
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    def form_valid(self, form: ModelSearchForm) -> HttpResponse:
+        self.queryset = form.search().filter(is_latest='true')
+        if project_id := self.request.GET.get('project_id', None):
+            self.queryset = self.queryset.filter(project_id=project_id)
+        if classifier_name := self.request.GET.get('classifiers', None):
+            self.queryset = self.queryset.filter(classifiers=classifier_name)
+        self.object_list = self.queryset
+        self.query = form.cleaned_data[self.search_field]
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    def get_content(self) -> Widget:
+        return PagedSearchLayout(self.object_list, self.query)
+
+    def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
+        """
+        Return our breadcrumbs for this page::
+
+            Home -> Project -> Version -> SphinxPage.title
+
+        Returns:
+            This page's breadcrumbs
+        """
+        breadcrumbs = SphinxHostingBreadcrumbs()
+        breadcrumbs.add_breadcrumb('Search')
+        breadcrumbs.add_breadcrumb(f'Query: "{self.query}"')
         return breadcrumbs

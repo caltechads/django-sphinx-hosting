@@ -37,6 +37,31 @@ services:
       - ./sql/docker:/docker-entrypoint-initdb.d
       - sphinx_hosting_demo_data:/var/lib/mysql
 
+
+  elastic:
+    image: elasticsearch:7.10.1
+    container_name: search
+    hostname: search
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    deploy:
+      resources:
+        limits:
+          memory: 1500m
+    cap_add:
+      - IPC_LOCK
+
 volumes:
   # The Docker volume in which the database's files are stored. Works in tandem
   # with the "demo_data:/var/lib/mysql" volume mount defined above.

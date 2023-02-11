@@ -3,11 +3,34 @@ from typing import Type
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field, Fieldset, ButtonHolder
 
+from crispy_forms.bootstrap import FieldWithButtons
 from django import forms
 from django.db.models import Model
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from haystack.forms import SearchForm
+from haystack.query import SearchQuerySet
 
 from .models import Project
+
+
+class GlobalSearchForm(SearchForm):
+
+    def __init__(self, *args, **kwargs):
+        kwargs['searchqueryset'] = SearchQuerySet().filter(is_latest='true')
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal px-3'
+        self.helper.form_method = 'get'
+        self.helper.form_show_labels = False
+        # This is a reverse_lazy on purpose because the form gets instantiated as
+        # the urlpatterns are being made
+        self.helper.form_action = reverse_lazy('sphinx_hosting:search')
+        self.helper.layout = Layout(
+            FieldWithButtons(
+                Field('q', css_class='text-dark', placeholder='Search'),
+                Submit('submit', 'Search'),
+            )
+        )
 
 
 class ProjectCreateForm(forms.ModelForm):

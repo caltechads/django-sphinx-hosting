@@ -10,6 +10,8 @@ from wildewidgets import (
     TablerVerticalNavbar
 )
 
+from .search import GlobalSearchFormWidget
+
 
 class SphinxHostingMainMenu(Menu):
     title: str = "Main"
@@ -44,6 +46,7 @@ class SphinxHostingSidebar(TablerVerticalNavbar):
         url="/"
     )
     contents = [
+        GlobalSearchFormWidget(),
         SphinxHostingMainMenu(),
         SphinxHostingLookupsMenu(),
     ]

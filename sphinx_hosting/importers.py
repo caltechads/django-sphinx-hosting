@@ -507,6 +507,8 @@ class SphinxPackageImporter:
             self.import_images(package, version)
             self.import_pages(package, version)
             self.link_pages()
-            # Point version.head at the top page of the documentation set
-            version.head = SphinxPage.objects.get(version=version, relative_path=self.config['root_doc'])
-            version.save()
+        # Point version.head at the top page of the documentation set
+        version.head = SphinxPage.objects.get(version=version, relative_path=self.config['root_doc'])
+        version.save()
+        # Mark the appropriate pages as indexable
+        version.mark_searchable_pages()

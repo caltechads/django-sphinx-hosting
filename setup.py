@@ -10,11 +10,13 @@ setup(
     include_package_data=True,
     install_requires=[
         "django-braces >= 1.15.0",
-        "django-theme-academy >= 0.1.0",
-        "django-wildewidgets >= 0.15.1",
-        "django-extensions >= 3.2.1",
         "django-crispy-forms>=1.14.0",
+        "django-extensions >= 3.2.1",
+        "django-haystack >= 3.2.1",
+        "django-theme-academy >= 0.3.0",
+        "django-wildewidgets >= 0.15.1",
         "crispy-bootstrap5",
+        "humanize",
         "lxml >= 4.9.1",
         "cssselect >= 1.2.0",
         "rich"

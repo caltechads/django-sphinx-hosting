@@ -119,6 +119,7 @@ THIRD_PARTY_APPS = [
     'sass_processor',
     'crispy_forms',
     'crispy_bootstrap5',
+    'haystack',
     'academy_theme',
     'wildewidgets',
     'sphinx_hosting'
@@ -248,7 +249,7 @@ CSRF_COOKIE_NAME = f'{PROJECT_NAME}_csrftoken'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#csrf-cookie-secure
 CSRF_COOKIE_SECURE = True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#csrf-trusted-origins
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS: List[str] = []
 # https://docs.djangoproject.com/en/3.2/ref/settings/#csrf-cookie-secure
 CSRF_COOKIE_SECURE = True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#secure-browser-xss-filter
@@ -371,6 +372,16 @@ LOGGING = {
     },
 }
 logging.config.dictConfig(LOGGING)
+
+# django-haystack
+# ------------------------------------------------------------------------------
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine',
+        'URL': 'http://search:9200/',
+        'INDEX_NAME': 'sphinx_hosting',
+    },
+}
 
 # crispy-forms
 # ------------------------------------------------------------------------------

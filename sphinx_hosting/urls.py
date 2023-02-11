@@ -4,6 +4,7 @@ from django.urls import path, re_path, URLPattern
 
 from .views import (
     ClassifierViewSet,
+    GlobalSphinxPageSearchView,
     ProjectCreateView,
     ProjectDeleteView,
     ProjectListView,
@@ -30,6 +31,7 @@ urlpatterns: List[URLPattern] = [
         SphinxPageDetailView.as_view(),
         name='sphinxpage--detail'
     ),
+    path('search/', GlobalSphinxPageSearchView.as_view(), name='search')
 ]
 urlpatterns += ClassifierViewSet(url_prefix='lookups', url_namespace=app_name).get_urlpatterns()
 urlpatterns += ProjectClassifierSelectorWidget.get_urlpatterns(url_namespace=app_name)

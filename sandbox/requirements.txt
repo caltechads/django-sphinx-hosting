@@ -29,6 +29,7 @@ drf-spectacular==0.21.2                       # https://github.com/tfranzel/drf-
 
 # Other utils
 # ------------------------------------------------------------------------------
+elasticsearch>=7.0.0,<8.0.0                   # https://github.com/elastic/elasticsearch-py
 ipython>=7.27.0                               # https://github.com/ipython/ipython
 mysqlclient==2.1.1                            # https://github.com/PyMySQL/mysqlclient-python
 redis==4.3.4                                  # https://github.com/andymccurdy/redis-py

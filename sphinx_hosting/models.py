@@ -1,9 +1,8 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 import re
-from typing import Any, List, Dict, Optional
+from typing import cast, Any, List, Dict, Optional, Tuple
 from urllib.parse import urlparse, unquote
-
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -141,6 +140,21 @@ class SphinxPageTree:
                 self.head.children.append(node)
         if node.next:
             self.add_page(node.next)
+
+    def _traverse_level(self, pages, nodes):
+        for node in nodes:
+            if node.page:
+                pages.append(node.page)
+                if node.children:
+                    self._traverse_level(pages, node.children)
+
+    def traverse(self) -> List["SphinxPage"]:
+        """
+        Return a list of the pages represented in this tree.
+        """
+        pages: List["SphinxPage"] = [cast("SphinxPage", self.head.page)]
+        self._traverse_level(pages, self.head.children)
+        return pages
 
 
 class SphinxPageTreeProcesor:
@@ -345,8 +359,8 @@ class SphinxGlobalTOCHTMLProcessor:
 
             [
                 {'text': 'foo'},
-                {'text': 'bar', 'url': '/foo', 'icon': None}
-                {'text': 'bar', 'url': '/foo', 'icon': None, items: [{'text': 'blah' ...} ...]}
+                {'text': 'bar', 'url': '/project/version/foo', 'icon': None}
+                {'text': 'bar', 'url': '/project/version/bar', 'icon': None, items: [{'text': 'blah' ...} ...]}
                 ...
             ]
 
@@ -632,7 +646,6 @@ class Version(TimeStampedModel, models.Model):
         null=False,
         help_text=_('The version number for this release of the Project'),
     )
-
     sphinx_version: F = models.CharField(
         'Sphinx Version',
         max_length=64,
@@ -640,6 +653,13 @@ class Version(TimeStampedModel, models.Model):
         blank=True,
         default=None,
         help_text=_('The version of Sphinx used to create this documentation set')
+    )
+    archived: F = models.BooleanField(
+        'Archived?',
+        default=False,
+        help_text=_(
+            'Whether this version should be excluded from search indexes'
+        )
     )
 
     head: FK = models.OneToOneField(
@@ -650,12 +670,18 @@ class Version(TimeStampedModel, models.Model):
         help_text=_('The top page of the documentation set for this version of our project'),
     )
 
+    def __str__(self) -> str:
+        return f'{self.project.title}-{self.version}'
+
+    @property
+    def is_latest(self) -> bool:
+        return self == self.project.latest_version
+
     @property
     def page_tree(self) -> SphinxPageTree:
         """
         Return the page hierarchy for the set of :py:class:`SphinxPage` pages in
-        this version.  This is a :py:func:`cached_property`; it will be calculated
-        only once and then cached.
+        this version.
 
         The page hierarchy is build by traversing the pages in the set, starting
         with :py:attr:`head`.
@@ -664,6 +690,32 @@ class Version(TimeStampedModel, models.Model):
             The page hierarchy for this version.
         """
         return SphinxPageTree(self)
+
+    def mark_searchable_pages(self) -> None:
+        """
+        Set the :py:attr:`SphinxPage.searchable` flag on
+        the searchable pages in this version.
+
+        Searchable pages are ones that:
+
+        * Are not in :py:attr:`SphinxPage.SPECIAL_PAGES`
+        * Do not have a part of their relative path that starts with ``_``.
+
+        Go through the pages in this version, and set
+        :py:attr:`SphinxPage.searchable` to ``True`` for all those which meet the above
+        requirements, ``False`` otherwise.
+        """
+        ignored_paths = list(SphinxPage.SPECIAL_PAGES.keys())
+        for page in self.pages.all():
+            if (
+                page.relative_path not in ignored_paths and
+                not page.relative_path.startswith('_') and
+                '/_' not in page.relative_path
+            ):
+                page.searchable = True
+            else:
+                page.searchable = False
+            page.save()
 
     @cached_property
     def globaltoc(self) -> Dict[str, List[Dict[str, Any]]]:
@@ -754,7 +806,7 @@ class SphinxPage(TimeStampedModel, models.Model):
         help_text=_('Just the title for the page, extracted from the page JSON')
     )
     orig_body: F = models.TextField(
-        'Body (Original',
+        'Body (Original)',
         blank=True,
         help_text=_(
             'The original body for the page, extracted from the page JSON. Some pages have no body.'
@@ -787,7 +839,6 @@ class SphinxPage(TimeStampedModel, models.Model):
         default=None,
         help_text=_('Table of Contents for headings in this page, modified to work in our templates'),
     )
-
     orig_global_toc: F = models.TextField(
         'Global Table of Contents (original)',
         blank=True,
@@ -798,6 +849,11 @@ class SphinxPage(TimeStampedModel, models.Model):
             'will only be present if you had "sphinxcontrib-jsonglobaltoc" installed in your "extensions" '
             'in the Sphinx conf.py'
         ),
+    )
+    searchable: F = models.BooleanField(
+        'Searchable',
+        default=False,
+        help_text=_('Should this page be included in the search index?')
     )
 
     parent: FK = models.ForeignKey(
@@ -819,7 +875,7 @@ class SphinxPage(TimeStampedModel, models.Model):
     )
 
     def __str__(self) -> str:  # pylint: disable=invalid-str-returned
-        return self.relative_path
+        return f'{self.version.project.title}-{self.version.version}: {self.relative_path}'
 
     def get_absolute_url(self) -> str:
         return reverse(
