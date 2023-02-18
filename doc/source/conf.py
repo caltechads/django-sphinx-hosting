@@ -42,6 +42,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx_rtd_theme',
     "sphinxcontrib_django2",
+    "sphinxcontrib.openapi",
 ]
 
 source_suffix: str = ".rst"

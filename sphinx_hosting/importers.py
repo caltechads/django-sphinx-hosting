@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import re
 import tarfile
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, IO, List, Optional, cast
 
 from django.utils.text import slugify
 import lxml.html
@@ -480,7 +480,12 @@ class SphinxPackageImporter:
                 )
             page.save()
 
-    def run(self, filename: str, force: bool = False) -> None:
+    def run(
+        self,
+        filename: str = None,
+        file_obj: IO = None,
+        force: bool = False
+    ) -> Version:
         """
         Load the pages in the tarfile identified by ``filename`` into
         the database as :py:class:`Version` ``version`` of :py:class:`Project`
@@ -501,7 +506,8 @@ class SphinxPackageImporter:
                 ``release`` from the Sphinx package's ``conf.py``
                 already exists for our project, and ``force`` was not ``True``
         """
-        with tarfile.open(filename) as package:
+        assert not all([filename, file_obj]), 'provide either "filename" or "file_obj" but not both'
+        with tarfile.open(name=filename, fileobj=file_obj) as package:
             self.load_config(package)
             version = self.get_version(package, force=force)
             self.import_images(package, version)
@@ -512,3 +518,4 @@ class SphinxPackageImporter:
         version.save()
         # Mark the appropriate pages as indexable
         version.mark_searchable_pages()
+        return version

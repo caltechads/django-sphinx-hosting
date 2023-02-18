@@ -10,6 +10,9 @@ dist: clean
 pypi: dist
 	@twine upload dist/*
 
+update_schema:
+	@curl -XGET --insecure -o schema/v1.yml https://localhost/api/v1/schema/
+
 tox:
 	# create a tox pyenv virtualenv based on 3.7.x
 	# install tox and tox-pyenv in that ve

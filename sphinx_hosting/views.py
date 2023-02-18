@@ -1,4 +1,4 @@
-from typing import Optional, Type, cast
+from typing import Dict, List, Optional, Type, cast
 
 from braces.views import (
     FormInvalidMessageMixin,
@@ -440,17 +440,20 @@ class GlobalSphinxPageSearchView(
 
     def form_valid(self, form: ModelSearchForm) -> HttpResponse:
         self.queryset = form.search().filter(is_latest='true')
+        self.facets: Dict[str, List[str]] = {}
         if project_id := self.request.GET.get('project_id', None):
             self.queryset = self.queryset.filter(project_id=project_id)
+            self.facets['project_id'] = [project_id]
         if classifier_name := self.request.GET.get('classifiers', None):
             self.queryset = self.queryset.filter(classifiers=classifier_name)
+            self.facets['classifiers'] = [classifier_name]
         self.object_list = self.queryset
         self.query = form.cleaned_data[self.search_field]
         context = self.get_context_data()
         return self.render_to_response(context)
 
     def get_content(self) -> Widget:
-        return PagedSearchLayout(self.object_list, self.query)
+        return PagedSearchLayout(self.object_list, self.query, facets=self.facets)
 
     def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
         """

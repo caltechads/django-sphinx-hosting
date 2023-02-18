@@ -1,44 +1,30 @@
 # Django and third-party apps
 # ------------------------------------------------------------------------------
 # When you update django in this file, update the links in settings.py, too!
-django==4.1.2                                 # https://www.djangoproject.com/
-django-autocomplete-light==3.8.2              # https://github.com/yourlabs/django-autocomplete-light
-django-braces==1.15.0                         # https://github.com/brack3t/django-braces
-django-crispy-forms==1.14.0                   # https://github.com/django-crispy-forms/django-crispy-forms
-django-environ==0.4.5                         # https://github.com/joke2k/django-environ
-django-extensions==3.2.1                      # https://github.com/django-extensions/django-extensions
+django==4.1.7                                 # https://www.djangoproject.com/
+django-environ==0.9.0                         # https://github.com/joke2k/django-environ
 django-xff==1.3.0                             # https://github.com/ferrix/xff/
-django-compressor==4.0                        # https://github.com/django-compressor/django-compressor
+django-compressor==4.3.1                      # https://github.com/django-compressor/django-compressor
 django-crequest==2018.5.11                    # https://github.com/Alir3z4/django-crequest
-django-theme-academy==0.3.0                   # https://github.com/caltechads/django-theme-academy
 
 
 # Web server
 # ------------------------------------------------------------------------------
 gunicorn==20.1.0                              # https://github.com/benoitc/gunicorn
 
-# Django REST Framework
-# ------------------------------------------------------------------------------
-djangorestframework==3.14.0                   # https://github.com/encode/django-rest-framework
-django-filter==22.1                           # https://github.com/carltongibson/django-filter
-django-rest-framework-helpers==8.5.0          # https://github.com/alexseitsinger/django-rest-framework-helpers
-#django-rest-framework-expandable==0.5.0       # https://github.com/alexseitsinger/django-rest-framework-expandable
-# Upstream has a bug around PKOnlyObjects which affects us, so use our fork which has the fix
-git+https://github.com/caltechads/django-rest-framework-expandable.git
-drf-spectacular==0.21.2                       # https://github.com/tfranzel/drf-spectacular
-
 # Other utils
 # ------------------------------------------------------------------------------
 elasticsearch>=7.0.0,<8.0.0                   # https://github.com/elastic/elasticsearch-py
 ipython>=7.27.0                               # https://github.com/ipython/ipython
 mysqlclient==2.1.1                            # https://github.com/PyMySQL/mysqlclient-python
-redis==4.3.4                                  # https://github.com/andymccurdy/redis-py
-structlog==22.1.0                             # https://github.com/hynek/structlog
+redis==4.5.1                                  # https://github.com/andymccurdy/redis-py
+structlog==22.3.0                             # https://github.com/hynek/structlog
+tabulate==0.9.0                               # https://github.com/astanin/python-tabulate
 
 # SASS Processing
 # ------------------------------------------------------------------------------
-django-sass-processor==1.2.1                  # https://github.com/jrief/django-sass-processor
-libsass==0.21.0
+django-sass-processor==1.2.2                  # https://github.com/jrief/django-sass-processor
+libsass==0.22.0
 
 # Testing
 # ------------------------------------------------------------------------------
@@ -48,5 +34,5 @@ testfixtures==6.14.0                          # https://github.com/Simplistix/te
 
 # Development
 # ------------------------------------------------------------------------------
-django-debug-toolbar==3.2.2                   # https://github.com/jazzband/django-debug-toolbar
-django-debug-toolbar-template-profiler==2.0.2 # https://github.com/node13h/django-debug-toolbar-template-profiler
+django-debug-toolbar==3.8.1                   # https://github.com/jazzband/django-debug-toolbar
+django-debug-toolbar-template-profiler==2.1.0 # https://github.com/node13h/django-debug-toolbar-template-profiler

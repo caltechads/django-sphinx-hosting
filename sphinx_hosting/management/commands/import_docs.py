@@ -67,8 +67,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options) -> None:
         importer = SphinxPackageImporter()
         try:
-            importer.run(options['tarfile'], force=options['force'])
+            version = importer.run(filename=options['tarfile'], force=options['force'])
         except VersionAlreadyExists as e:
             self.stdout.write(self.style.ERROR(str(e)))
         except Project.DoesNotExist as e:
             self.stdout.write(self.style.ERROR(str(e)))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f'Imported to Version(id={version.id}) of '
+                f'Project(id={version.project.id}, title={version.project.title})'
+            )
+        )

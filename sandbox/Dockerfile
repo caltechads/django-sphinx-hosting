@@ -62,6 +62,7 @@ RUN pip install -e . && \
     # Run collectstatic to symlink all the static files into /static, which is where the webserver expects them.
     python manage.py collectstatic --settings=demo.settings_docker --noinput -v0 && \
     chown -R gunicorn:nginx /static && \
+    chown -R gunicorn:nginx /media && \
     /usr/libexec/httpd-ssl-gencerts && \
     mkdir /certs && \
     cp /etc/pki/tls/private/localhost.key /certs && \

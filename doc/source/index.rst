@@ -1,18 +1,30 @@
-.. module:: ldap_faker
-  :noindex:
-
-#####################
+=====================
 django-sphinx-hosting
-#####################
+=====================
 
 .. toctree::
-   :maxdepth: 2
+   :caption: Overview
    :hidden:
 
-   packaging
-   globaltoc
-   commands
-   api
+   overview/packaging
+   overview/globaltoc
+   overview/commands
+
+.. toctree::
+   :caption: Runbook
+   :hidden:
+
+   runbook/main
+
+.. toctree::
+   :caption: Reference
+   :hidden:
+
+   api/models.rst
+   api/importers.rst
+   api/widgets.rst
+   api/rest_api.rst
+
 
 
 Current version is |release|.

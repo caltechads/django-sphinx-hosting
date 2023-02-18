@@ -1,4 +1,4 @@
-from typing import Optional, Type
+from typing import Dict, List, Optional, Type
 
 from django.db.models import Model
 from django.utils import timezone
@@ -11,6 +11,7 @@ from wildewidgets import (
     Block,
     Column,
     CrispyFormWidget,
+    FontIcon,
     HorizontalLayoutBlock,
     Link,
     LinkButton,
@@ -25,7 +26,7 @@ from ..models import Classifier, Project, SphinxPage
 
 class GlobalSearchFormWidget(CrispyFormWidget):
     name: str = 'global-search'
-    css_class: str = 'mb-5'
+    css_class: str = 'mb-3'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -105,6 +106,9 @@ class SearchResultsHeader(HorizontalLayoutBlock):
 
 
 class PagedSearchResultsBlock(PagedModelWidget):
+    """
+    This is a block that
+    """
 
     model: Type[Model] = SphinxPage
     page_kwarg: str = 'p'
@@ -180,7 +184,14 @@ class SearchResultsPageHeader(Block):
     block: str = 'search-results__header'
     css_class: str = 'mb-5'
 
-    def __init__(self, query: Optional[str], **kwargs):
+    def __init__(
+        self,
+        query: Optional[str],
+        facets: Optional[Dict[str, List[str]]] = None,
+        **kwargs
+    ):
+        if facets is None:
+            facets = {}
         super().__init__(**kwargs)
         self.add_class('mb-4')
         self.add_block(
@@ -197,6 +208,36 @@ class SearchResultsPageHeader(Block):
                 css_class='text-muted fs-6 text-uppercase'
             )
         )
+        if facets:
+            buttons = HorizontalLayoutBlock(
+                Block('Filters:', tag='h3', css_class='me-3'),
+                justify='start',
+                align='baseline',
+                css_class='mt-3'
+            )
+            for facet, identifiers in facets.items():
+                for identifier in identifiers:
+                    if facet == 'project_id':
+                        project = Project.objects.get(pk=identifier)
+                        label = Block(
+                            FontIcon(icon='file-excel-fill'),
+                            f'Project: {project.title}'
+                        )
+                    elif facet == 'classifiers':
+                        classifier = Classifier.objects.get(name=identifier)
+                        label = Block(
+                            FontIcon(icon='file-excel-fill'),
+                            f'Classifier: {classifier.name}'
+                        )
+                    buttons.add_block(
+                        LinkButton(
+                            text=label,
+                            url=reverse('sphinx_hosting:search') + f"?q={query}",
+                            color='outline-azure',
+                            css_class='me-3'
+                        )
+                    )
+            self.add_block(buttons)
 
 
 class PagedSearchLayout(Block):
@@ -208,11 +249,14 @@ class PagedSearchLayout(Block):
         self,
         results: SearchQuerySet,
         query: Optional[str] = None,
+        facets: Optional[Dict[str, List[str]]] = None,
         **kwargs
     ):
         self.query = query
+        if facets is None:
+            facets = {}
         super().__init__(**kwargs)
-        self.add_block(SearchResultsPageHeader(query))
+        self.add_block(SearchResultsPageHeader(query, facets=facets))
         self.add_block(SearchResultsHeader(results))
         row = Row()
         row.add_column(

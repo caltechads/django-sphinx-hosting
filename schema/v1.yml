@@ -1,0 +1,1141 @@
+openapi: 3.0.3
+info:
+  title: Django Sphinx Hosting
+  version: 0.1.0
+  description: |2
+
+
+
+    ## Authentication
+
+    The Sphinx Hosting Demo API uses Token based authentication.   To use the API:
+
+    * You must have a Django user in the system
+    * That Django user must have an API Token associated with its User object
+
+    Then, on each `GET` to the API caller must supply an `Authorization` request header on each of your requests that looks
+    like so:
+
+    ```
+    Authorization: Token b422b0e7d1d11f5060613c01c4ccd1b00174b876
+    ```
+
+    replacing that hex string with your actual authoriztion token.  Note that the auth token should be preceeded with the
+    string literal "Token" with whitespace separating the two strings.
+
+    Here's a properly formatted `curl` line that will hit the `/api/v1/projects/` endpoint:
+
+    ```
+    curl -X GET \
+        -H 'Accept: application/json; indent=4' \
+        -H 'Authorization: Token b422b0e7d1d11f5060613c01c4ccd1b00174b876' \
+        --insecure \
+        --verbose \
+        https://${SERVER}:${PORT}/api/v1/projects/
+    ```
+
+    ## Pagination of list results
+
+    All list results are paginated, with the default page size of 100 items.   We paginate because a some of the queries are
+    very costly,  especially if you're getting a list result of a model with lots of rows.
+
+    Your results will all look something like this:
+
+    ```
+    GET /api/v1/projects/
+    ```
+
+    ```json
+    {
+        "count": 123,
+        "next":"https://localhost/api/v1/projects/?limit=100&offset=100",
+        "previous": null,
+        "results": [
+            [ ... ]
+        ]
+    }
+    ```
+
+    * To get to the next page of your results, `GET` the URL from the `next` key from the result dict
+    * To get the previous page, `GET` URL from the `prev` key from the result dict.
+
+    To get a different number of results per page, use the `limit` param:
+
+    ```
+    GET /api/v1/projects/?limit=50
+    ```
+
+    will retrieve 50 projects instead of 100.
+paths:
+  /api/v1/classifiers/:
+    get:
+      operationId: classifiers_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - classifiers
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedClassifierList'
+          description: ''
+    post:
+      operationId: classifiers_create
+      tags:
+      - classifiers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classifier'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classifier'
+          description: ''
+  /api/v1/classifiers/{id}/:
+    get:
+      operationId: classifiers_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this classifier.
+        required: true
+      tags:
+      - classifiers
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classifier'
+          description: ''
+    put:
+      operationId: classifiers_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this classifier.
+        required: true
+      tags:
+      - classifiers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classifier'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classifier'
+          description: ''
+    patch:
+      operationId: classifiers_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this classifier.
+        required: true
+      tags:
+      - classifiers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedClassifier'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classifier'
+          description: ''
+    delete:
+      operationId: classifiers_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this classifier.
+        required: true
+      tags:
+      - classifiers
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/images/:
+    get:
+      operationId: images_list
+      description: |-
+        This is a read-only model set for
+        :py:class:`sphinx_hosting.models.SphinxImage` models.  It is purposely
+        read-only because images are dependent objects of
+        :py:class:`sphinx_hosting.models.SphinxPage` instances, and it makes no
+        sense to update them independently.
+      parameters:
+      - in: query
+        name: archived
+        schema:
+          type: boolean
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: orig_path
+        schema:
+          type: string
+      - in: query
+        name: project
+        schema:
+          type: integer
+      - in: query
+        name: project_classifier
+        schema:
+          type: string
+      - in: query
+        name: project_machine_name
+        schema:
+          type: string
+      - in: query
+        name: project_title
+        schema:
+          type: string
+      - in: query
+        name: sphinx_version
+        schema:
+          type: string
+      - in: query
+        name: version
+        schema:
+          type: integer
+      - in: query
+        name: version_number
+        schema:
+          type: string
+      tags:
+      - images
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSphinxImageList'
+          description: ''
+  /api/v1/images/{id}/:
+    get:
+      operationId: images_retrieve
+      description: |-
+        This is a read-only model set for
+        :py:class:`sphinx_hosting.models.SphinxImage` models.  It is purposely
+        read-only because images are dependent objects of
+        :py:class:`sphinx_hosting.models.SphinxPage` instances, and it makes no
+        sense to update them independently.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sphinx image.
+        required: true
+      tags:
+      - images
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SphinxImage'
+          description: ''
+  /api/v1/pages/:
+    get:
+      operationId: pages_list
+      description: |-
+        This is a read-only model set for
+        :py:class:`sphinx_hosting.models.SphinxPage` models.  It is purposely
+        read-only because we only want to update pages in the source Sphinx project,
+        not here in the database.
+
+        Even for our derived fields that we built out of the source, pages have a
+        lot of interdependencies that need to be accounted for while editing.
+      parameters:
+      - in: query
+        name: archived
+        schema:
+          type: boolean
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: project
+        schema:
+          type: integer
+      - in: query
+        name: project_classifier
+        schema:
+          type: string
+      - in: query
+        name: project_machine_name
+        schema:
+          type: string
+      - in: query
+        name: project_title
+        schema:
+          type: string
+      - in: query
+        name: relative_path
+        schema:
+          type: string
+      - in: query
+        name: sphinx_version
+        schema:
+          type: string
+      - in: query
+        name: title
+        schema:
+          type: string
+      - in: query
+        name: version
+        schema:
+          type: integer
+      - in: query
+        name: version_number
+        schema:
+          type: string
+      tags:
+      - pages
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSphinxPageList'
+          description: ''
+  /api/v1/pages/{id}/:
+    get:
+      operationId: pages_retrieve
+      description: |-
+        This is a read-only model set for
+        :py:class:`sphinx_hosting.models.SphinxPage` models.  It is purposely
+        read-only because we only want to update pages in the source Sphinx project,
+        not here in the database.
+
+        Even for our derived fields that we built out of the source, pages have a
+        lot of interdependencies that need to be accounted for while editing.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sphinx page.
+        required: true
+      tags:
+      - pages
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SphinxPage'
+          description: ''
+  /api/v1/projects/:
+    get:
+      operationId: projects_list
+      parameters:
+      - in: query
+        name: classifier
+        schema:
+          type: string
+      - in: query
+        name: description
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: machine_name
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: title
+        schema:
+          type: string
+      tags:
+      - projects
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProjectList'
+          description: ''
+    post:
+      operationId: projects_create
+      tags:
+      - projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/projects/{id}/:
+    get:
+      operationId: projects_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project.
+        required: true
+      tags:
+      - projects
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+    put:
+      operationId: projects_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project.
+        required: true
+      tags:
+      - projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+    patch:
+      operationId: projects_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project.
+        required: true
+      tags:
+      - projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProject'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+    delete:
+      operationId: projects_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project.
+        required: true
+      tags:
+      - projects
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/projects/{id}/latest_version/:
+    get:
+      operationId: projects_latest_version_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project.
+        required: true
+      tags:
+      - projects
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      tags:
+      - schema
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/version/import/:
+    post:
+      operationId: version_import_create
+      description: |-
+        This is the view to use to upload our sphinx tarballs.  It uploads to a
+        temporary directory that disappears at the end of this view.
+
+        To upload a file, you must submit as form-data, with a single file key named
+        ``file``, with the ``Content-Disposition`` header like so::
+
+            Content-Disposition: attachment;filename=yourdocs.tar.gz
+
+        The filename you pass in the ``Content-Disposition`` header does not matter
+        and is not used; set it to whatever you want.
+
+        Example:
+
+            To upload a file with ``curl`` to the endpoint for this view::
+
+                curl                 -XPOST                 -H "Authorization: Token __THE_API_TOKEN__"
+                    -F 'file=@path/to/yourdocs.tar.gz'                 https://sphinx-hosting.example.com/api/v1/version/import/
+      tags:
+      - version
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/versions/:
+    get:
+      operationId: versions_list
+      description: |-
+        Users can get, list and delete :py:class:`sphinx_hosting.models.Version` objects,
+        but they can't create or update them the normal Django way.
+      parameters:
+      - in: query
+        name: archived
+        schema:
+          type: boolean
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: project
+        schema:
+          type: integer
+      - in: query
+        name: project_classifier
+        schema:
+          type: string
+      - in: query
+        name: project_machine_name
+        schema:
+          type: string
+      - in: query
+        name: project_title
+        schema:
+          type: string
+      - in: query
+        name: sphinx_version
+        schema:
+          type: string
+      - in: query
+        name: version
+        schema:
+          type: string
+      - in: query
+        name: version_number
+        schema:
+          type: string
+      tags:
+      - versions
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedVersionList'
+          description: ''
+  /api/v1/versions/{id}/:
+    get:
+      operationId: versions_retrieve
+      description: |-
+        Users can get, list and delete :py:class:`sphinx_hosting.models.Version` objects,
+        but they can't create or update them the normal Django way.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this version.
+        required: true
+      tags:
+      - versions
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+          description: ''
+    delete:
+      operationId: versions_destroy
+      description: |-
+        Users can get, list and delete :py:class:`sphinx_hosting.models.Version` objects,
+        but they can't create or update them the normal Django way.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this version.
+        required: true
+      tags:
+      - versions
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Classifier:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Classifier Name
+          description: 'The classifier spec for this classifier, e.g. "Language ::
+            Python"'
+          maxLength: 255
+      required:
+      - id
+      - name
+      - url
+    PaginatedClassifierList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Classifier'
+    PaginatedProjectList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    PaginatedSphinxImageList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SphinxImage'
+    PaginatedSphinxPageList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SphinxPage'
+    PaginatedVersionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Version'
+    PatchedClassifier:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Classifier Name
+          description: 'The classifier spec for this classifier, e.g. "Language ::
+            Python"'
+          maxLength: 255
+    PatchedProject:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: Project Name
+          description: The human name for this project
+          maxLength: 100
+        machine_name:
+          type: string
+          readOnly: true
+          description: Must be unique.  Set this to the slugified value of "project"
+            in Sphinx's. conf.py
+          pattern: ^[-a-zA-Z0-9_]+$
+        description:
+          type: string
+          nullable: true
+          title: Brief Description
+          description: A brief description of this project
+          maxLength: 256
+        classifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Classifier'
+        versions:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
+    Project:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: Project Name
+          description: The human name for this project
+          maxLength: 100
+        machine_name:
+          type: string
+          readOnly: true
+          description: Must be unique.  Set this to the slugified value of "project"
+            in Sphinx's. conf.py
+          pattern: ^[-a-zA-Z0-9_]+$
+        description:
+          type: string
+          nullable: true
+          title: Brief Description
+          description: A brief description of this project
+          maxLength: 256
+        classifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Classifier'
+        versions:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
+      required:
+      - classifiers
+      - id
+      - machine_name
+      - title
+      - url
+      - versions
+    SphinxImage:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        version:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
+        orig_path:
+          type: string
+          title: Original Path
+          description: The original path to this file in the Sphinx documentation
+            package
+          maxLength: 256
+      required:
+      - id
+      - orig_path
+      - url
+      - version
+    SphinxPage:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        version:
+          type: string
+          format: uri
+          readOnly: true
+        title:
+          type: string
+          description: Just the title for the page, extracted from the page JSON
+          maxLength: 255
+        relative_path:
+          type: string
+          title: Relative page path
+          description: The path to the page under our top slug
+          maxLength: 255
+        content:
+          type: string
+          description: The full JSON payload for the page
+        orig_body:
+          type: string
+          title: Body (Original)
+          description: The original body for the page, extracted from the page JSON.
+            Some pages have no body.We save this here in case we need to reprocess
+            the body at some later date.
+        body:
+          type: string
+          description: The body for the page, extracted from the page JSON, and modified
+            to suit us.  Some pages have no body.
+        orig_local_toc:
+          type: string
+          nullable: true
+          title: Local Table of Contents (original)
+          description: The original table of contents for headings in this page.We
+            save this here in case we need to reprocess the table of contents at some
+            later date.
+        local_toc:
+          type: string
+          nullable: true
+          title: Local Table of Contents
+          description: Table of Contents for headings in this page, modified to work
+            in our templates
+        orig_global_toc:
+          type: string
+          nullable: true
+          title: Global Table of Contents (original)
+          description: The original global table of contents HTML attached to this
+            page, if any.  This will only be present if you had "sphinxcontrib-jsonglobaltoc"
+            installed in your "extensions" in the Sphinx conf.py
+        searchable:
+          type: boolean
+          description: Should this page be included in the search index?
+        parent:
+          type: string
+          format: uri
+          readOnly: true
+        next_page:
+          type: string
+          format: uri
+          readOnly: true
+        previous_page:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
+      required:
+      - content
+      - id
+      - next_page
+      - parent
+      - previous_page
+      - relative_path
+      - title
+      - url
+      - version
+    Version:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        project:
+          type: string
+          format: uri
+          readOnly: true
+        version:
+          type: string
+          description: The version number for this release of the Project
+          maxLength: 64
+        sphinx_version:
+          type: string
+          nullable: true
+          description: The version of Sphinx used to create this documentation set
+          maxLength: 64
+        archived:
+          type: boolean
+          title: Archived?
+          description: Whether this version should be excluded from search indexes
+        head:
+          type: string
+          format: uri
+          readOnly: true
+        pages:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
+        images:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
+      required:
+      - head
+      - id
+      - images
+      - pages
+      - project
+      - url
+      - version
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+servers:
+- url: https://localhost
+  description: Django Sphinx Hosting

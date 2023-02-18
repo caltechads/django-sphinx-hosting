@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 import re
-from typing import cast, Any, List, Dict, Optional, Tuple
+from typing import cast, Any, List, Dict, Optional
 from urllib.parse import urlparse, unquote
 from django.conf import settings
 from django.db import models
@@ -381,7 +381,14 @@ class SphinxGlobalTOCHTMLProcessor:
             global_toc_html = re.sub(r'\n', '', self.version.head.orig_global_toc)
             html = lxml.html.fromstring(global_toc_html)
             if verbose:
-                print(etree.tostring(html, method='xml', encoding='unicode', pretty_print=True))
+                print(
+                    etree.tostring(
+                        html,
+                        method='xml',
+                        encoding='unicode',
+                        pretty_print=True
+                    )  # pylint: disable=c-extension-no-member
+                )
             return self.parse_globaltoc(html)
         else:
             return []
@@ -523,8 +530,8 @@ class Classifier(ViewSetMixin, models.Model):
         return str(self.name)
 
     class Meta:
-        verbose_name: str = _('classifier')
-        verbose_name_plural: str = _('classifiers')
+        verbose_name = _('classifier')
+        verbose_name_plural = _('classifiers')
 
 
 class ProjectPermissionGroup(
@@ -564,8 +571,8 @@ class ProjectPermissionGroup(
     )
 
     class Meta:
-        verbose_name: str = _('classifier')
-        verbose_name_plural: str = _('classifiers')
+        verbose_name = _('classifier')
+        verbose_name_plural = _('classifiers')
 
 
 class Project(ViewSetMixin, TimeStampedModel, models.Model):
@@ -624,14 +631,14 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
         return reverse('sphinx_hosting:project--update', args=[self.machine_name])
 
     class Meta:
-        verbose_name: str = _('project')
-        verbose_name_plural: str = _('projects')
+        verbose_name = _('project')
+        verbose_name_plural = _('projects')
 
 
 class Version(TimeStampedModel, models.Model):
     """
-    A Version is a specific version of a :py:class:`Project`.  Versions own
-    Sphinx pages (:py:class:`SphinxPage`)
+    A ``Version`` is a specific version of a :py:class:`Project`.  Versions own
+    :py:class:`SphinxPage` objects.
     """
 
     project: FK = models.ForeignKey(
@@ -732,7 +739,7 @@ class Version(TimeStampedModel, models.Model):
             }
 
         suitable for constructing a
-        :py:class:`sphinx_hosting.wildewdigets.SphinxPageGlobalTableOfContentsMenu`
+        :py:class:`sphinx_hosting.wildewidgets.SphinxPageGlobalTableOfContentsMenu`
         for this :py:class:`Version`.
 
         """

@@ -16,7 +16,6 @@ from .models import Project
 class GlobalSearchForm(SearchForm):
 
     def __init__(self, *args, **kwargs):
-        kwargs['searchqueryset'] = SearchQuerySet().filter(is_latest='true')
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal px-3'

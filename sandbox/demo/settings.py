@@ -122,7 +122,8 @@ THIRD_PARTY_APPS = [
     'haystack',
     'academy_theme',
     'wildewidgets',
-    'sphinx_hosting'
+    'sphinx_hosting',
+    'sphinx_hosting.api'
 ]
 LOCAL_APPS = [
     'demo.users',
@@ -373,6 +374,18 @@ LOGGING = {
 }
 logging.config.dictConfig(LOGGING)
 
+# django-rest-framework
+# ------------------------------------------------------------------------------
+REST_FRAMEWORK = {
+    # https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication',),
+    # https://django-filter.readthedocs.io/en/master/guide/rest_framework.html
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    # https://www.django-rest-framework.org/api-guide/pagination/#limitoffsetpagination
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+}
+
 # django-haystack
 # ------------------------------------------------------------------------------
 HAYSTACK_CONNECTIONS = {
@@ -443,10 +456,10 @@ SPECTACULAR_SETTINGS = {
     'SERVERS': [
         {
             'url': 'https://localhost',
-            'description': 'sphinx hosting demo'
+            'description': 'Django Sphinx Hosting'
         }
     ],
-    'TITLE': 'Sphinx Hosting Demo API',
+    'TITLE': 'Django Sphinx Hosting',
     'VERSION': __version__,
     'DESCRIPTION': """
 
@@ -493,7 +506,7 @@ GET /api/v1/projects/
 ```json
 {
     "count": 123,
-    "next":"https://localhost/api/v1/roles/?limit=100&offset=100",
+    "next":"https://localhost/api/v1/projects/?limit=100&offset=100",
     "previous": null,
     "results": [
         [ ... ]
@@ -510,7 +523,7 @@ To get a different number of results per page, use the `limit` param:
 GET /api/v1/projects/?limit=50
 ```
 
-will retrieve 50 roles instead of 100.
+will retrieve 50 projects instead of 100.
 """
 
 
