@@ -203,9 +203,10 @@ TEMPLATES = [
         'OPTIONS': {
             # https://docs.djangoproject.com/en/3.2/ref/settings/#template-loaders
             # https://docs.djangoproject.com/en/3.2/ref/templates/api/#loader-types
-            # Always use Django's cached templates loader, even in dev with DEBUG==True.
-            # We use RequestLevelTemplateCacheMiddleware in dev to clear that cache at the start of each request, so
-            # that the latest template changes get loaded without having to reboot gunicorn.
+            # Always use Django's cached templates loader, even in dev with
+            # DEBUG==True.  We use RequestLevelTemplateCacheMiddleware in dev to
+            # clear that cache at the start of each request, so that the latest
+            # template changes get loaded without having to reboot gunicorn.
             'loaders': [
                 ('django.template.loaders.cached.Loader', [
                     'django.template.loaders.filesystem.Loader',

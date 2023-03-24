@@ -54,6 +54,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class VersionSerializer(serializers.HyperlinkedModelSerializer):
+
     project: RelatedField = serializers.HyperlinkedRelatedField(
         read_only=True,
         view_name='sphinx_hosting_api:project-detail'
@@ -92,6 +93,7 @@ class VersionSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class VersionUploadSerializer(serializers.Serializer):
+
     file = serializers.FileField()
 
     def create(self, validated_data: Dict[str, Any]) -> None:
@@ -102,6 +104,7 @@ class VersionUploadSerializer(serializers.Serializer):
 
 
 class SphinxPageSerializer(serializers.HyperlinkedModelSerializer):
+
     version: RelatedField = serializers.HyperlinkedRelatedField(
         read_only=True,
         view_name='sphinx_hosting_api:version-detail'
