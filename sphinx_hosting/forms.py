@@ -118,3 +118,26 @@ class ProjectUpdateForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'cols': 50, 'rows': 3}),
         }
+class VersionUploadForm(forms.Form):
+
+    file = forms.FileField(label='')
+
+    def __init__(self, *args, project: Project = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form'
+        self.helper.form_method = 'post'
+        if project:
+            self.helper.form_action = reverse(
+                'sphinx_hosting:version--upload', kwargs={'slug': project.machine_name}
+            )
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                Field('file'),
+            ),
+            ButtonHolder(
+                Submit('submit', 'Import', css_class='btn btn-primary'),
+                css_class='d-flex flex-row justify-content-end button-holder'
+            )
+        )

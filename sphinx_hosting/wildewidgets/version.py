@@ -3,8 +3,10 @@ from typing import Dict, List, Optional, Type
 from django.db.models import Model, QuerySet
 from django.db.models.functions import Length
 from wildewidgets import (
+    Block,
     BasicModelTable,
     CardWidget,
+    CrispyFormWidget,
     Datagrid,
     WidgetListLayoutHeader
 )
@@ -58,6 +60,18 @@ class VersionSphinxPageTableWidget(CardWidget):
             badge_text=Version.objects.get(pk=self.version_id).pages.count(),
         )
         return header
+
+
+class VersionUploadBlock(CardWidget):
+
+    css_class: str = "my-3 border"
+
+    def __init__(self, *blocks, form=None, **kwargs):
+        super().__init__(
+            widget=CrispyFormWidget(form=form, name='project__upload_docs'),
+            **kwargs
+        )
+        self.set_header(Block("Import Docs", tag='h3'))
 
 
 class VersionSphinxImageTableWidget(CardWidget):
@@ -124,8 +138,8 @@ class VersionSphinxPageTable(BasicModelTable):
         key, from which we reference it.
         """
         #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to list pages
-        self.version_id: Optional[int] = None
-        super().__init__(self, *args, **kwargs)
+        self.version_id: Optional[int] = kwargs.get('version_id', None)
+        super().__init__(*args, **kwargs)
         if 'version_id' in self.extra_data['kwargs']:
             self.version_id = int(self.extra_data['kwargs']['version_id'])
 
@@ -177,8 +191,8 @@ class VersionSphinxImageTable(BasicModelTable):
         key, from which we reference it.
         """
         #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to list pages
-        self.version_id: Optional[int] = None
-        super().__init__(self, *args, **kwargs)
+        self.version_id: Optional[int] = kwargs.get('version_id', None)
+        super().__init__(*args, **kwargs)
         if 'version_id' in self.extra_data['kwargs']:
             self.version_id = int(self.extra_data['kwargs']['version_id'])
 

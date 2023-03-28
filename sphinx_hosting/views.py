@@ -1,3 +1,5 @@
+import os
+import tempfile
 from typing import Dict, List, Optional, Type, cast
 
 from braces.views import (
@@ -5,14 +7,18 @@ from braces.views import (
     FormValidMessageMixin,
     MessageMixin,
     LoginRequiredMixin,
+    PermissionRequiredMixin,
 )
 from django.contrib import messages
+from django.contrib.auth.models import AbstractUser
+from django.core.files.storage import FileSystemStorage
 from django.db.models import Model, QuerySet
-from django.forms import ModelForm
+from django.forms import ModelForm, Form
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import BaseFormView
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -36,7 +42,9 @@ from wildewidgets.viewsets import ModelViewSet
 from .forms import (
     ProjectCreateForm,
     ProjectUpdateForm
+    VersionUploadForm
 )
+from .importers import SphinxPackageImporter
 from .logging import logger
 from .models import (
     Classifier,
@@ -60,6 +68,7 @@ from .wildewidgets import (
     VersionInfoWidget,
     VersionSphinxPageTableWidget,
     VersionSphinxImageTableWidget,
+    VersionUploadBlock,
 )
 
 # ===========================
@@ -180,6 +189,7 @@ class ProjectUpdateView(
         layout.add_widget(ProjectClassifierSelectorWidget(self.object))
         layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
         version = self.object.latest_version
+        user = cast(AbstractUser, self.request.user)
         if version and version.head:
             layout.add_sidebar_link_button(
                 'Read Docs',
@@ -200,6 +210,10 @@ class ProjectUpdateView(
             color='outline-secondary',
             confirm_text=_("Are you sure you want to delete this project?"),
         )
+        if user.has_perm('sphinxhostingcore.change_project'):
+            layout.add_sidebar_bare_widget(
+                VersionUploadBlock(form=VersionUploadForm(project=self.object))
+            )
         return layout
 
     def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
@@ -305,6 +319,52 @@ class VersionDetailView(
         breadcrumbs.add_breadcrumb(self.object.project.title, url=self.object.project.get_absolute_url())
         breadcrumbs.add_breadcrumb(self.object.version)
         return breadcrumbs
+
+
+class VersionUploadView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    FormInvalidMessageMixin,
+    FormValidMessageMixin,
+    BaseFormView
+):
+    permission_required: str = 'sphinxhostingcore.change_project'
+    form_class = VersionUploadForm
+
+    def get_form_valid_message(self) -> str:
+        version = cast(Version, self.version)
+        return f'Uploaded version "{version.version}" to project "{version.project.title}"'
+
+    def form_valid(self, form: Form):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            fs = FileSystemStorage(tmpdir)
+            filename = fs.save('docs.tar.gz', content=self.request.FILES['file'])
+            path = os.path.join(fs.location, filename)
+            self.version: Optional[Version] = None
+            try:
+                self.version = SphinxPackageImporter().run(filename=path, force=True)
+            except Project.DoesNotExist:
+                logger.error('version.upload.failed.no-such-project')
+                self.messages.error(
+                    'The project for the your tarball was not found.  Ensure that '
+                    'the "project" field in your Sphinx "conf.py" matches the machine name '
+                    'of an existing project here.'
+                )
+            except Exception as e:
+                logger.error('version.upload.failed.unknown, error=%s', str(e))
+                os.rename(path, '/tmp/uploaded_file')
+                raise
+        version = cast(Version, self.version)
+        logger.info(
+            'version.upload.success project_id=%s project_title=%s version=%s',
+            version.project.id,
+            version.project.title,
+            version.version
+        )
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse('sphinx_hosting:project--update', args=[self.kwargs['slug']])
 
 
 class VersionDeleteView(
