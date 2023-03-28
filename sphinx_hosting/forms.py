@@ -118,6 +118,48 @@ class ProjectUpdateForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'cols': 50, 'rows': 3}),
         }
+
+
+class ProjectReadonlyUpdateForm(forms.ModelForm):
+    """
+    This is the form we use to on the
+    :py:class:`sphinx_hosting.views.ProjectDetailView` to show the viewer the
+    project title, machine name and description.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs['readonly'] = True
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-3'
+        self.helper.field_class = 'col'
+        self.helper.form_method = 'get'
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                Field('title'),
+                Field('description'),
+            )
+        )
+
+    class Meta:
+        model: Type[Model] = Project
+        fields = (
+            'title',
+            'description',
+        )
+        widgets = {
+            'description': forms.Textarea(
+                attrs={
+                    'cols': 50,
+                    'rows': 3,
+                    'readonly': 'readonly',
+                }
+            ),
+        }
+
+
 class VersionUploadForm(forms.Form):
 
     file = forms.FileField(label='')

@@ -5,8 +5,8 @@ from typing import Dict, List, Optional, Type, cast
 from braces.views import (
     FormInvalidMessageMixin,
     FormValidMessageMixin,
-    MessageMixin,
     LoginRequiredMixin,
+    MessageMixin,
     PermissionRequiredMixin,
 )
 from django.contrib import messages
@@ -41,7 +41,8 @@ from wildewidgets.viewsets import ModelViewSet
 
 from .forms import (
     ProjectCreateForm,
-    ProjectUpdateForm
+    ProjectUpdateForm,
+    ProjectReadonlyUpdateForm,
     VersionUploadForm
 )
 from .importers import SphinxPackageImporter
@@ -54,6 +55,7 @@ from .models import (
 )
 
 from .wildewidgets import (
+    ProjectClassifierListWidget,
     ProjectClassifierSelectorWidget,
     ProjectCreateModalWidget,
     ProjectDetailWidget,
@@ -92,7 +94,7 @@ class SphinxHostingMenuMixin(NavbarMixin):
     navbar_class: Type[Navbar] = SphinxHostingSidebar
 
 
-class WildewidgetsMixin(StandardWidgetMixin):
+class WildewidgetsMixin(StandardWidgetMixin):  # pylint: disable=abstract-method
     """
     We subclass :py:class:`wildewidgets.StandardWidgetMixin` here so that we can define our
     standard template.
@@ -120,8 +122,10 @@ class ProjectListView(
 
     def get_content(self) -> Widget:
         layout = WidgetStream()
-        layout.add_widget(ProjectTableWidget())
-        layout.add_widget(ProjectCreateModalWidget())
+        user = cast(AbstractUser, self.request.user)
+        layout.add_widget(ProjectTableWidget(user))
+        if user.has_perm('sphinxhostingcore.add_project'):
+            layout.add_widget(ProjectCreateModalWidget())
         return layout
 
     def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
@@ -129,8 +133,67 @@ class ProjectListView(
         return breadcrumbs
 
 
+class ProjectDetailView(
+    LoginRequiredMixin,
+    WildewidgetsMixin,
+    SphinxHostingMenuMixin,
+    DetailView
+):
+    """
+    This view handles displaying the details page for a
+    :py:class:`sphinx_hosting.models.Project` and handles updates to the project
+    settings itself.
+    """
+
+    menu_item: str = "Projects"
+
+    model: Type[Model] = Project
+    slug_field: str = 'machine_name'
+
+    def get_content(self) -> Widget:
+        layout = WidgetListLayout(self.object.title)
+        layout.add_widget(ProjectInfoWidget(self.object))
+        layout.add_widget(
+            ProjectDetailWidget(
+                self.object,
+                form=ProjectReadonlyUpdateForm(instance=self.object)
+            )
+        )
+        layout.add_widget(ProjectClassifierListWidget(queryset=self.object.classifiers.all()))
+        layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
+        user = cast(AbstractUser, self.request.user)
+        version = self.object.latest_version
+        if version and version.head:
+            layout.add_sidebar_link_button(
+                'Read Docs',
+                reverse(
+                    'sphinx_hosting:sphinxpage--detail',
+                    args=[
+                        self.object.machine_name,
+                        version.version,
+                        version.head.relative_path
+                    ]
+                ),
+                color='orange',
+                css_class='mb-3'
+            )
+        if user.has_perm('sphinxhostingcore.change_project'):
+            layout.add_sidebar_link_button(
+                'Edit Project',
+                reverse('sphinx_hosting:project--update', args=[self.object.machine_name]),
+                color='azure',
+            )
+        return layout
+
+    def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
+        breadcrumbs = SphinxHostingBreadcrumbs()
+        breadcrumbs.add_breadcrumb(self.object.title)
+        return breadcrumbs
+
+
 class ProjectCreateView(
     LoginRequiredMixin,
+    PermissionRequiredMixin,
     FormInvalidMessageMixin,
     FormValidMessageMixin,
     CreateView
@@ -140,6 +203,7 @@ class ProjectCreateView(
     :py:class:`sphinx_hosting.models.Project`.  The POST will be submitted from
     the "Add Project" modal form displayed on :py:class:`ProjectListView`.
     """
+    permission_required: str = 'sphinxhostingcore.add_project'
     model: Type[Model] = Project
     form_class: Type[ModelForm] = ProjectCreateForm
 
@@ -165,6 +229,7 @@ class ProjectCreateView(
 
 class ProjectUpdateView(
     LoginRequiredMixin,
+    PermissionRequiredMixin,
     FormValidMessageMixin,
     WildewidgetsMixin,
     SphinxHostingMenuMixin,
@@ -178,6 +243,7 @@ class ProjectUpdateView(
 
     menu_item: str = "Projects"
 
+    permission_required: str = 'sphinxhostingcore.change_project'
     model: Type[Model] = Project
     form_class: Type[ModelForm] = ProjectUpdateForm
     slug_field: str = 'machine_name'
@@ -201,18 +267,19 @@ class ProjectUpdateView(
                         version.head.relative_path
                     ]
                 ),
-                color='primary',
+                color='orange',
                 css_class='mb-3'
             )
-        layout.add_sidebar_form_button(
-            'Delete Project',
-            reverse('sphinx_hosting:project--delete', args=[self.object.machine_name]),
-            color='outline-secondary',
-            confirm_text=_("Are you sure you want to delete this project?"),
-        )
         if user.has_perm('sphinxhostingcore.change_project'):
             layout.add_sidebar_bare_widget(
                 VersionUploadBlock(form=VersionUploadForm(project=self.object))
+            )
+        if user.has_perm('sphinxhostingcore.delete_project'):
+            layout.add_sidebar_form_button(
+                'Delete Project',
+                reverse('sphinx_hosting:project--delete', args=[self.object.machine_name]),
+                color='outline-secondary',
+                confirm_text=_("Are you sure you want to delete this project?"),
             )
         return layout
 
@@ -231,9 +298,11 @@ class ProjectUpdateView(
 
 class ProjectDeleteView(
     LoginRequiredMixin,
+    PermissionRequiredMixin,
     DeleteView
 ):
     model: Type[Model] = Project
+    permission_required: str = 'sphinxhostingcore.delete_project'
     success_url = reverse_lazy('sphinx_hosting:project--list')
     slug_field: str = 'machine_name'
 
@@ -306,12 +375,14 @@ class VersionDetailView(
                 color='primary',
                 css_class='mb-3'
             )
-        layout.add_sidebar_form_button(
-            'Delete Version',
-            reverse('sphinx_hosting:version--delete', args=[self.object.project.machine_name, self.object.version]),
-            color='outline-secondary',
-            confirm_text=_("Are you sure you want to delete this version?"),
-        )
+        user = cast(AbstractUser, self.request.user)
+        if user.has_perm('sphinxhostingcore.change_project'):
+            layout.add_sidebar_form_button(
+                'Delete Version',
+                reverse('sphinx_hosting:version--delete', args=[self.object.project.machine_name, self.object.version]),
+                color='outline-secondary',
+                confirm_text=_("Are you sure you want to delete this version?"),
+            )
         return layout
 
     def get_breadcrumbs(self) -> SphinxHostingBreadcrumbs:
@@ -369,8 +440,10 @@ class VersionUploadView(
 
 class VersionDeleteView(
     LoginRequiredMixin,
+    PermissionRequiredMixin,
     DeleteView
 ):
+    permission_required: str = 'sphinxhostingcore.change_project'
     model: Type[Model] = Version
     slug_field: str = 'version'
     slug_url_kwarg: str = 'version'

@@ -2,7 +2,6 @@ import os
 import tempfile
 from typing import List, Type, Optional
 
-from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Model
 from django_filters import rest_framework as filters

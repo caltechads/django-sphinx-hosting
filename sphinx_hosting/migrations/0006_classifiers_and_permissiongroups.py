@@ -61,8 +61,8 @@ class Migration(migrations.Migration):
                 ('users', models.ManyToManyField(related_name='project_permission_groups', to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'verbose_name': 'classifier',
-                'verbose_name_plural': 'classifiers',
+                'verbose_name': 'project permission group',
+                'verbose_name_plural': 'project permission groups',
             },
         ),
         migrations.AddField(

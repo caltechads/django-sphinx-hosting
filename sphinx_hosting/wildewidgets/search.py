@@ -119,8 +119,8 @@ class PagedSearchResultsBlock(PagedModelWidget):
             kwargs['extra_url'] = {'q': query}
         super().__init__(queryset=results, **kwargs)
 
-    def get_model_widget(self, object: SearchResult, **kwargs) -> Block:
-        return SearchResultBlock(object)
+    def get_model_widget(self, instance: SearchResult, **kwargs) -> Block:  # pylint: disable=arguments-renamed
+        return SearchResultBlock(instance)
 
 
 class FacetBlock(Block):
@@ -145,7 +145,7 @@ class FacetBlock(Block):
             body.add_block(
                 Block(
                     HorizontalLayoutBlock(
-                        Link(str(instance), url=instance.get_absolute_url(), css_class='fs-5'),
+                        Link(str(instance), url=instance.get_absolute_url(), css_class='fs-5'),  # type: ignore
                         HorizontalLayoutBlock(
                             TagBlock(count, color='cyan', css_class='me-2'),
                             LinkButton(

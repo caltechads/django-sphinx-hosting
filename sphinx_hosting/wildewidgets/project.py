@@ -1,14 +1,19 @@
 from typing import Dict, List, Optional, Type
 
+from django.contrib.auth.models import AbstractUser
 from django.db.models import Model, QuerySet
-from django.urls import reverse
 from wildewidgets import (
+    ActionButtonModelTable,
     BasicModelTable,
     Block,
     CrispyFormModalWidget,
     CrispyFormWidget,
     CardWidget,
     Datagrid,
+    ListModelWidget,
+    RowActionButton,
+    RowEditButton,
+    RowModelUrlButton,
     ToggleableManyToManyFieldBlock,
     TwoColumnLayout,
     Widget,
@@ -16,7 +21,7 @@ from wildewidgets import (
 )
 
 from ..forms import ProjectCreateForm
-from ..models import Project, Version
+from ..models import Classifier, Project, Version
 
 from .classifier import ClassifierFilterBlock
 
@@ -68,9 +73,9 @@ class ProjectTableWidget(Block):
     an "Add Project" button that opens a modal dialog.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, user: AbstractUser, **kwargs):
         super().__init__(**kwargs)
-        self.add_block(self.get_title())
+        self.add_block(self.get_title(user))
         layout = TwoColumnLayout(left_column_width=9)
         table = ProjectTable()
         layout.add_to_left(CardWidget(widget=table))
@@ -82,16 +87,17 @@ class ProjectTableWidget(Block):
         )
         self.add_block(layout)
 
-    def get_title(self) -> WidgetListLayoutHeader:
+    def get_title(self, user: AbstractUser) -> WidgetListLayoutHeader:
         header = WidgetListLayoutHeader(
             header_text="Projects",
             badge_text=Project.objects.count(),
         )
-        header.add_modal_button(
-            text="New Project",
-            color="primary",
-            target=f'#{ProjectCreateModalWidget.modal_id}'
-        )
+        if user.has_perm('sphinxhostingcore.add_project'):
+            header.add_modal_button(
+                text="New Project",
+                color="primary",
+                target=f'#{ProjectCreateModalWidget.modal_id}'
+            )
         return header
 
 
@@ -127,6 +133,20 @@ class ProjectClassifierSelectorWidget(ToggleableManyToManyFieldBlock):
     icon = 'collection'
 
 
+class ProjectClassifierListWidget(ListModelWidget):
+
+    paginate_by: int = 100
+    item_label: str = 'Classifier'
+    title = 'Classifiers'
+    icon = 'collection'
+
+    def get_object_text(self, instance: Classifier) -> str:
+        return instance.name
+
+    def get_model_subblock(self, instance: Classifier) -> Block:
+        return Block(self.get_object_text(instance), tag='label')
+
+
 class ProjectDetailWidget(
     CrispyFormWidget,
     Widget
@@ -154,7 +174,19 @@ class ProjectDetailWidget(
 # Datatables
 #------------------------------------------------------
 
-class ProjectTable(BasicModelTable):
+class LatestVersionButton(RowModelUrlButton):
+
+    attribute: str = 'get_latest_version_url'
+    text: str = 'Read Docs'
+    color: str = 'orange'
+
+    def is_visible(self, row: Project, user: AbstractUser) -> bool:
+        if row.latest_version is None:
+            return False
+        return super().is_visible(row, user)
+
+
+class ProjectTable(ActionButtonModelTable):
     """
     This widget displays a `dataTable <https://datatables.net>`_ of our
     :py:class:`sphinx_hosting.models.Project` instances.
@@ -168,7 +200,6 @@ class ProjectTable(BasicModelTable):
     page_length: int = 25
     #: Set to ``True`` to stripe our table rows
     striped: bool = True
-    actions: bool = True
     default_action_button_label = 'Edit'
     default_action_button_color_class = 'outline-secondary'
     #: A list of fields that we will list as columns.  These are either fields
@@ -209,22 +240,18 @@ class ProjectTable(BasicModelTable):
         'latest_version_date': 'left'
     }
 
-    def get_conditional_action_buttons(self, row):
-        version = row.latest_version
-        if version:
-            return self.get_action_button_with_url(
-                row,
-                'Read Docs',
-                reverse(
-                    'sphinx_hosting:sphinxpage--detail',
-                    args=[
-                        row.machine_name,
-                        version.version,
-                        version.head.relative_path
-                    ]
-                ),
-                color_class='primary'
-            )
+    actions: List[RowActionButton] = [
+        LatestVersionButton(),
+        RowModelUrlButton(
+            attribute='get_absolute_url',
+            text='View',
+            color='outline-secondary'
+        ),
+        RowEditButton(
+            permission='sphinxhostingcore.change_project',
+            color='azure'
+        ),
+    ]
 
     def render_latest_version_column(self, row: Project, column: str) -> str:
         """
@@ -353,8 +380,8 @@ class ProjectVersionTable(BasicModelTable):
         key, from which we reference it.
         """
         #: The pk of the :py:class:`sphinx_hosting.models.Project` for which to list versions
-        self.project_id: Optional[int] = None
-        super().__init__(self, *args, **kwargs)
+        self.project_id: Optional[int] = kwargs.get('project_id', None)
+        super().__init__(*args, **kwargs)
         if 'project_id' in self.extra_data['kwargs']:
             self.project_id = int(self.extra_data['kwargs']['project_id'])
 
@@ -366,6 +393,7 @@ class ProjectVersionTable(BasicModelTable):
         Returns:
             A filtered :py:class:`QuerySet` on :py:class:`sphinx_hosting.models.Version`
         """
+        print(f'PROJECT_ID: {self.project_id}')
         qs = super().get_initial_queryset().filter(project_id=self.project_id)
         return qs.order_by('-version')
 

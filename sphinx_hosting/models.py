@@ -571,8 +571,8 @@ class ProjectPermissionGroup(
     )
 
     class Meta:
-        verbose_name = _('classifier')
-        verbose_name_plural = _('classifiers')
+        verbose_name = _('project permission group')
+        verbose_name_plural = _('project permission groups')
 
 
 class Project(ViewSetMixin, TimeStampedModel, models.Model):
@@ -606,11 +606,11 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
 
     permission_groups: M2M = models.ManyToManyField(
         ProjectPermissionGroup,
-        related_name='projects'
+        related_name='projects',
     )
     classifiers: M2M = models.ManyToManyField(
         Classifier,
-        related_name='projects'
+        related_name='projects',
     )
 
     def __str__(self) -> str:  # pylint: disable=invalid-str-returned
@@ -628,7 +628,22 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
         return self.versions.order_by('-version').first()
 
     def get_absolute_url(self) -> str:
+        return reverse('sphinx_hosting:project--detail', args=[self.machine_name])
+
+    def get_update_url(self) -> str:
         return reverse('sphinx_hosting:project--update', args=[self.machine_name])
+
+    def get_latest_version_url(self) -> Optional[str]:
+        if self.latest_version:
+            return reverse(
+                'sphinx_hosting:sphinxpage--detail',
+                args=[
+                    self.machine_name,
+                    self.latest_version.version,
+                    self.latest_version.head.relative_path
+                ]
+            )
+        return None
 
     class Meta:
         verbose_name = _('project')

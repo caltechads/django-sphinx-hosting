@@ -93,10 +93,19 @@ class VersionSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class VersionUploadSerializer(serializers.Serializer):
+    """
+    The actual work of importing the file is done in
+    :py:class:`sphinx_hosting.api.views.VersionUploadView`.  We're defining our
+    :py:meth:`create` and :py:meth:`create` here as NOOP functions to make the
+    linters happy because they're abstract in :py:class:`serializers.Serializer`.
+    """
 
     file = serializers.FileField()
 
     def create(self, validated_data: Dict[str, Any]) -> None:
+        pass
+
+    def update(self, instance, validated_data):
         pass
 
     class Meta:
@@ -109,7 +118,7 @@ class SphinxPageSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True,
         view_name='sphinx_hosting_api:version-detail'
     )
-    parent: RelatedField = serializers.HyperlinkedRelatedField(
+    parent: RelatedField = serializers.HyperlinkedRelatedField(   # type: ignore
         read_only=True,
         view_name='sphinx_hosting_api:sphinxpage-detail'
     )
