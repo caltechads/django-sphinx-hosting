@@ -8,7 +8,6 @@ from django import forms
 from django.db.models import Model
 from django.urls import reverse, reverse_lazy
 from haystack.forms import SearchForm
-from haystack.query import SearchQuerySet
 
 from .models import Project
 
@@ -68,6 +67,8 @@ class ProjectCreateForm(forms.ModelForm):
         exclude = (
             # These are relational fields that will be handled separately
             'versions',
+            'classifiers',
+            'permission_groups',
 
             # These are maintained automatically
             'created',
