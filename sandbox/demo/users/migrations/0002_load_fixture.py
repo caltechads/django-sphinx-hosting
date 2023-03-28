@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('users', '0001_initial'),
+        ('sphinxhostingcore', '0010_add_groups'),
     ]
 
     operations = [
