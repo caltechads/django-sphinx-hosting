@@ -164,7 +164,6 @@ MIDDLEWARE = [
 
     # Set our REMOTE_ADDR properly when we're behind a proxy.
     'xff.middleware.XForwardedForMiddleware',
-    # Enables the use of the get_current_request() and get_current_user() functions.
     'crequest.middleware.CrequestMiddleware',
 ]
 
@@ -303,6 +302,7 @@ structlog.configure(
         structlog.processors.TimeStamper(fmt='iso'),
         structlog.processors.StackInfoRenderer(),
         structlog.processors.format_exc_info,
+        structlog.processors.UnicodeDecoder(),
         request_context_logging_processor,
         censor_password_processor,
         structlog.stdlib.ProcessorFormatter.wrap_for_formatter
