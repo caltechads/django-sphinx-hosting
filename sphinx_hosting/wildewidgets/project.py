@@ -318,7 +318,7 @@ class ProjectTable(ActionButtonModelTable):
     ) -> QuerySet:
         print(f'FILTER_CLASSIFIERS: {value}')
         classifier_ids = value.split(',')
-        return qs.filter(classifiers__id__in=classifier_ids)
+        return qs.filter(classifiers__id__in=classifier_ids).distinct()
 
 
 class ProjectVersionTable(BasicModelTable):
