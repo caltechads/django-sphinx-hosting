@@ -357,6 +357,12 @@ class VersionDetailView(
         return super().get_queryset().filter(project__machine_name=project_machine_name)
 
     def get_content(self) -> Widget:
+        """
+        Generate the set of widgets for this page.
+
+        Returns:
+            A populated page layout
+        """
         layout = WidgetListLayout(f'{self.object.project.title} {self.object.version}')
         layout.add_widget(VersionInfoWidget(self.object))
         layout.add_widget(VersionSphinxPageTableWidget(version_id=self.object.pk))
@@ -572,7 +578,7 @@ class GlobalSphinxPageSearchView(
         return self.render_to_response(context)
 
     def form_valid(self, form: ModelSearchForm) -> HttpResponse:
-        self.queryset = form.search().filter(is_latest='true')
+        self.queryset = form.search().filter(is_latest='true').distinct()
         self.facets: Dict[str, List[str]] = {}
         if project_id := self.request.GET.get('project_id', None):
             self.queryset = self.queryset.filter(project_id=project_id)

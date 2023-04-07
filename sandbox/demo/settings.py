@@ -164,6 +164,7 @@ MIDDLEWARE = [
 
     # Set our REMOTE_ADDR properly when we're behind a proxy.
     'xff.middleware.XForwardedForMiddleware',
+    # Enables the use of the get_current_request() and get_current_user() functions.
     'crequest.middleware.CrequestMiddleware',
 ]
 
