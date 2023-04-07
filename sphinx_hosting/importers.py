@@ -256,6 +256,8 @@ class SphinxPackageImporter:
         Args:
             path: the file path in the tarfile data: the JSON data from our file
         """
+        if 'title' not in data:
+            data['title'] = 'UNKNOWN'
         if path in SphinxPage.SPECIAL_PAGES:
             data['title'] = SphinxPage.SPECIAL_PAGES[path]
         if data['title'] in self.ODD_TITLES:
