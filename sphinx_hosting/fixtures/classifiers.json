@@ -509,5 +509,12 @@
         "fields": {
             "name": "Software Category :: Documentation :: Only"
         }
+    },
+    {
+        "model": "sphinxhostingcore.classifier",
+        "pk": 75,
+        "fields": {
+            "name": "Language :: HCL"
+        }
     }
 ]
