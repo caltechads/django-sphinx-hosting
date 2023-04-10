@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Type
+from typing import Dict, List, Optional, Type, cast
 
 from django.db.models import Model
 from django.utils import timezone
@@ -68,22 +68,24 @@ class SearchResultBlock(Block):
             )
             self.add_block(Block(result.object.title, tag='h3'))
 
-    def __init__(self, obj: SearchResult, **kwargs):
+    def __init__(self, object: SearchResult = None, **kwargs):  # pylint: disable=redefined-builtin
+        result = cast(SearchResult, object)
         super().__init__(**kwargs)
         self.add_class('shadow')
         self.add_class('border')
         self.add_class('p-4')
         self.add_class('mb-4')
-        self.add_block(SearchResultBlock.Header(obj))
-        text = strip_tags(obj.object.body)
+        self.add_block(SearchResultBlock.Header(result))
+        page = cast(SphinxPage, result.object)
+        text = strip_tags(page.body)
         text = text[:self.max_text_length].rsplit(' ', 1)[0] + '...'
         self.add_block(
             Block(text, name='search-result_snippet', css_class='fs-8 text-muted mb-3')
         )
         self.add_block(
             HorizontalLayoutBlock(
-                LinkButton(text='Read', url=obj.object.get_absolute_url()),
-                Block(f'Rank: {obj.score}', css_class='fs-6 text-muted'),
+                LinkButton(text='Read', url=page.get_absolute_url()),
+                Block(f'Rank: {result.score}', css_class='fs-6 text-muted'),
                 justify='between',
                 align='baseline'
             )
@@ -113,14 +115,12 @@ class PagedSearchResultsBlock(PagedModelWidget):
     model: Type[Model] = SphinxPage
     page_kwarg: str = 'p'
     paginate_by: int = 10
+    model_widget: Block = SearchResultBlock
 
     def __init__(self, results: SearchQuerySet, query: Optional[str], **kwargs):
         if query is not None:
             kwargs['extra_url'] = {'q': query}
         super().__init__(queryset=results, **kwargs)
-
-    def get_model_widget(self, instance: SearchResult, **kwargs) -> Block:  # pylint: disable=arguments-renamed
-        return SearchResultBlock(instance)
 
 
 class FacetBlock(Block):

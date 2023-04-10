@@ -415,7 +415,7 @@ class VersionUploadView(
     def form_valid(self, form: Form):
         with tempfile.TemporaryDirectory() as tmpdir:
             fs = FileSystemStorage(tmpdir)
-            filename = fs.save('docs.tar.gz', content=self.request.FILES['file'])
+            filename = fs.save('docs.tar.gz', content=self.request.FILES['file'])  # type: ignore
             path = os.path.join(fs.location, filename)
             self.version: Optional[Version] = None
             try:
@@ -578,7 +578,7 @@ class GlobalSphinxPageSearchView(
         return self.render_to_response(context)
 
     def form_valid(self, form: ModelSearchForm) -> HttpResponse:
-        self.queryset = form.search().filter(is_latest='true').distinct()
+        self.queryset = form.search().filter(is_latest='true')
         self.facets: Dict[str, List[str]] = {}
         if project_id := self.request.GET.get('project_id', None):
             self.queryset = self.queryset.filter(project_id=project_id)
