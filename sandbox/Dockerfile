@@ -13,9 +13,9 @@ RUN amazon-linux-extras install nginx1 rust1 && \
         git \
         libcurl-devel \
         openssl-devel \
-        # Even though we don't always use Apache in these apps, mod_ssl installs certs that we need.
+        # Even though we don't always use Apache in these apps, mod_ssl
+        # installs# certs that we need.
         mod_ssl \
-        # We need these mysql packages for python to be able to connect to mysql, and for `manage.py dbshell` to work.
         mysql-devel \
         mysql \
         # Useful unix utilities that don't come with the amazonlinux2 docker image.
@@ -24,19 +24,15 @@ RUN amazon-linux-extras install nginx1 rust1 && \
         procps-ng \
         which \
     && \
-    # Cleanup for yum, as suggested by yum itself. Minimizes image size.
     yum -y clean all && \
     rm -rf /var/cache/yum && \
-    # Set up the UTF-8 locale so that shelling into the container won't spam you with locale errors.
     localedef -i en_US -f UTF-8 en_US.UTF-8 && \
-    # Install supervisor globally
     /opt/python/bin/pip3.10 install supervisor && \
-    # Create the venv
     /opt/python/bin/python3.10 -m venv /ve && \
-    # Add the user under which gunicorn will run.
     adduser -r gunicorn
 
-# Ensure that we run the pip and python that are in the virtualenv, rather than the system copies.
+# Ensure that we run the pip and python that are in the virtualenv, rather than
+# the system copies.
 ENV PATH /ve/bin:/opt/python/3.10/bin:$PATH
 
 # Install the latest pip and our dependencies into the virtualenv.  We do this
@@ -53,13 +49,13 @@ RUN pip install --upgrade pip wheel && \
 COPY . /app
 WORKDIR /app
 
-# Install our app into the ve, symlink static resources, settings files, certs into place, etc.
 RUN pip install -e . && \
     cp etc/supervisord.conf /etc/supervisord.conf && \
     cp etc/nginx.conf /etc/nginx/nginx.conf && \
     # Precompile the sass files.
     python manage.py compilescss --settings=demo.settings_docker -v0 --skip-checks --use-storage && \
-    # Run collectstatic to symlink all the static files into /static, which is where the webserver expects them.
+    # Run collectstatic to symlink all the static files into /static, which is
+    # where the webserver expects them.
     python manage.py collectstatic --settings=demo.settings_docker --noinput -v0 && \
     chown -R gunicorn:nginx /static && \
     chown -R gunicorn:nginx /media && \
