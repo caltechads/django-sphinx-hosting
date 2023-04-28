@@ -567,6 +567,9 @@ class GlobalSphinxPageSearchView(
     WildewidgetsMixin,
     SearchView,
 ):
+    """
+    This is the view that renders our search results.
+    """
     query: Optional[str] = None
     queryset: SearchQuerySet
 

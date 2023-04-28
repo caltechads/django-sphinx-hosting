@@ -17,6 +17,14 @@ from ..models import Classifier, ClassifierNode
 
 
 class ClassifierFilterForm(Block):
+    """
+    This is the tree-like classifier filter form that appears to the right of
+    the :py:class:`sphinx_hosting.wildewidgets.project.ProjectTable`.  It
+    is embedded in :py:class:`ClassifierFilterBlock`.
+
+    It allows the user to select a set of classifiers by which to filter the
+    projects listing table.
+    """
 
     SCRIPT = """
 $(document).ready(function() {{
@@ -112,8 +120,15 @@ $(document).ready(function() {{
         )
 
     def add_subtree(self, contents: UnorderedList, nodes: Dict[str, ClassifierNode]) -> None:
+        """
+        Add a subtree of classifier checkboxes.
+
+        Args:
+            contents: the ``<ul>`` block to which to add our list of classifier checkboxes
+            nodes (_type_): _description_
+        """
         for node in nodes.values():
-            checkbox = self.get_checkbox(contents, node)
+            checkbox = self.get_checkbox(node)
             if node.items:
                 container = Block(tag='li')
                 container.add_block(checkbox)
@@ -124,7 +139,17 @@ $(document).ready(function() {{
             else:
                 contents.add_block(checkbox)
 
-    def get_checkbox(self, ul: UnorderedList, node: ClassifierNode) -> HorizontalLayoutBlock:
+    def get_checkbox(self, node: ClassifierNode) -> HorizontalLayoutBlock:
+        """
+        Build and return the :py:class:`wildewidgets.CheckboxInputBlock` for the
+        classifier ``node``.
+
+        Args:
+            node: the classifier data
+
+        Returns:
+            A configured :py:class:`wildewidgets.CheckboxInputBlock`
+        """
         value = node.classifier.id if node.classifier else 'empty'
         return CheckboxInputBlock(
             label_text=node.title,
@@ -135,6 +160,18 @@ $(document).ready(function() {{
 
 
 class ClassifierFilterBlock(CardWidget):
+    """
+    A :py:class:`wildewidgets.CardWidget` that contains the
+    :py:class:`ClassifierFilterForm`.  This the right of the
+    :py:class:`sphinx_hosting.wildewidgets.project.ProjectTable`.  This widget
+    is embedded in
+    :py:class:`sphinx_hosting.wildewdigets.project.ProjectTableWidget`
+
+    Args:
+        table_name: the name of the dataTables table to control
+        column_number: the number of the column in the dataTable that contains
+            classifier names
+    """
 
     name: str = 'classifiers__filter'
 

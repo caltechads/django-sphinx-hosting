@@ -281,8 +281,8 @@ class ProjectTable(ActionButtonModelTable):
         date of the :py:class:`sphinx_hosting.models.Version` that has the most
         recent :py:attr:`sphinx_hosting.models.Version.modified` timestamp.
 
-        If there are not yet any :py:class:`sphinx_hosting.models.Version` instances for
-        this project, return empty string.
+        If there are not yet any :py:class:`sphinx_hosting.models.Version`
+        instances for this project, return empty string.
 
         Args:
             row: the ``Project`` we are rendering
@@ -306,7 +306,7 @@ class ProjectTable(ActionButtonModelTable):
             colunn: the name of the column to render
 
         Returns:
-
+            A ``<br>`` separated list of classifier names
         """
         return '<br>'.join(row.classifiers.values_list('name', flat=True))
 
@@ -316,7 +316,19 @@ class ProjectTable(ActionButtonModelTable):
         column: str,
         value: str
     ) -> QuerySet:
-        print(f'FILTER_CLASSIFIERS: {value}')
+        """
+        Filter our results by the ``value``, a comma separated list of
+        :py:class:`sphinx_hosting.models.Classifier` names.
+
+        Args:
+            qs: the current :py:class:`QuerySet`
+            colunn: the name of the column to filter on
+            value: a comma-separated list of classifier names
+
+        Returns:
+            A :py:class:`QuerySet` filtered for rows that contain the selected
+            classifiers.
+        """
         classifier_ids = value.split(',')
         return qs.filter(classifiers__id__in=classifier_ids).distinct()
 

@@ -32,8 +32,11 @@ class PageTreeNode:
     This is used in :py:meth:`SphinxPackageImporter.link_pages`.
     """
 
+    #: The page for this node
     page: SphinxPage
+    #: The title of the parent page for this node, if any
     parent_title: Optional[str] = None
+    #: The title of the next page for this node, if any
     next_title: Optional[str] = None
 
 

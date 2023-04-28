@@ -25,6 +25,9 @@ from ..models import Classifier, Project, SphinxPage
 
 
 class GlobalSearchFormWidget(CrispyFormWidget):
+    """
+    This widget encapsulates the :py:class:`sphinx_hosting.forms.GlobalSearchForm`.
+    """
     name: str = 'global-search'
     css_class: str = 'mb-3'
 
@@ -35,6 +38,13 @@ class GlobalSearchFormWidget(CrispyFormWidget):
 
 
 class SearchResultBlock(Block):
+    """
+    This is the block we use for rendering a particular search result on the search
+    results page.
+
+    Keyword Args:
+        object: the :py:class:`haystack.models.SearchResult` object to render
+    """
 
     block: str = 'search-result'
     max_text_length: int = 200
@@ -93,6 +103,13 @@ class SearchResultBlock(Block):
 
 
 class SearchResultsHeader(HorizontalLayoutBlock):
+    """
+    The header for the search results listing (not the page header -- that is
+    :py:class:`SearchResultsPageHeader`).
+
+    Args:
+        results: the Haystack search queryset containing our search results
+    """
 
     name: str = 'search-results__title'
     justify: str = 'between'
@@ -109,7 +126,8 @@ class SearchResultsHeader(HorizontalLayoutBlock):
 
 class PagedSearchResultsBlock(PagedModelWidget):
     """
-    This is a block that
+    This is a paged listing of :py:class:`SearchResultBlock` entries describing
+    our search results.
     """
 
     model: Type[Model] = SphinxPage
@@ -124,10 +142,28 @@ class PagedSearchResultsBlock(PagedModelWidget):
 
 
 class FacetBlock(Block):
+    """
+    This is a base class for blocks that appear to the right of the search
+    results listing on the search results page that allows you to refine your
+    results by a particular facet that is present in the result set.
 
+    Subclass this to create facet filtering blocks for specific facets.  Any
+    facet you want to filter by must be defined on your search index by adding
+    ``faceted=True`` to the field definition.
+
+    Args:
+        results: the Haystack search queryset containing our search results
+        query: the text entered into the search form that got us to this results
+            page
+    """
+
+    #: The model class which our facet is related to
     model: Type[Model]
+    #: The title for our block
     title: str
+    #: The name of the facet
     facet: str
+    #: The field on :py:attr:`model` that we will filter by
     model_field: str
 
     def __init__(self, results: SearchQuerySet, query: Optional[str], **kwargs):
@@ -164,6 +200,9 @@ class FacetBlock(Block):
 
 
 class SearchResultsClassifiersFacet(FacetBlock):
+    """
+    A :py:class:`FacetBlock` that allows the user to filter search results by classifier.
+    """
 
     model: Type[Model] = Classifier
     title: str = 'Classifiers'
@@ -172,6 +211,9 @@ class SearchResultsClassifiersFacet(FacetBlock):
 
 
 class SearchResultsProjectFacet(FacetBlock):
+    """
+    A :py:class:`FacetBlock` that allows the user to filter search results by project.
+    """
 
     model: Type[Model] = Project
     title: str = 'Projects'
@@ -180,6 +222,19 @@ class SearchResultsProjectFacet(FacetBlock):
 
 
 class SearchResultsPageHeader(Block):
+    """
+    The header for the entire search results page.  This shows the search string
+    that got us here, and any active facet filters, allowing the user to remove
+    any active filter by clicking the "X" next to the filter name.
+
+    Args:
+        query: the text entered into the search form that got us to this results
+            page
+
+    Keyword Args:
+        facets: the active facet filters.  This will be a dict where the key is the
+            facet name, and the value is a list of facet values to filter by.
+    """
 
     block: str = 'search-results__header'
     css_class: str = 'mb-5'
@@ -241,6 +296,20 @@ class SearchResultsPageHeader(Block):
 
 
 class PagedSearchLayout(Block):
+    """
+    This is the page layout for the entire search results page.
+
+    Args:
+        query: the text entered into the search form that got us to this results
+            page
+
+
+    Keyword Args:
+        query: the text entered into the search form that got us to this results
+            page
+        facets: the active facet filters.  This will be a dict where the key is
+            the facet name, and the value is a list of facet values to filter by.
+    """
 
     name: str = 'search-layout'
     modifier: str = 'paged'

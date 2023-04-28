@@ -5,7 +5,15 @@ Models
 
 .. module:: sphinx_hosting.models
 
-This part of the documentation covers all the models provided by ``django-sphinx-hosting``.
+Managers
+--------
+
+.. autoclass:: ClassifierManager
+    :members:
+    :undoc-members:
+
+Models
+------
 
 .. autoclass:: Classifier
     :members:
@@ -26,3 +34,26 @@ This part of the documentation covers all the models provided by ``django-sphinx
 .. autoclass:: SphinxImage
     :members:
     :undoc-members:
+
+Utility functions
+-----------------
+
+.. autofunction:: sphinx_image_upload_to
+
+Utility classes used by models
+------------------------------
+
+.. autoclass:: SphinxPageTree
+    :members:
+
+.. autoclass:: SphinxPageTreeProcessor
+    :members:
+
+.. autoclass:: SphinxGlobalTOCHTMLProcessor
+    :members:
+
+.. autoclass:: TreeNode
+    :members:
+
+.. autoclass:: ClassifierNode
+    :members:

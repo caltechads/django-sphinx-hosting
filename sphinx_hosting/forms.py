@@ -13,6 +13,11 @@ from .models import Project
 
 
 class GlobalSearchForm(SearchForm):
+    """
+    This is the search form at the top of the sidebar, underneath the logo.  It is
+    a subclass of :py:class:`haystack.forms.SearchForm`, and does a search of our
+    haystack backend.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -83,9 +88,9 @@ class ProjectUpdateForm(forms.ModelForm):
     """
     This is the form we use to update an existing
     :py:class:`sphinx_hosting.models.Project`.  The difference between this and
-    :py:class:`sphinx_hosting.forms.ProjectCreateForm` is that the user cannot change
+    :py:class:`.ProjectCreateForm` is that the user cannot change
     :py:attr:`sphinx_hosting.models.Project.machine_name` here, but can in
-    :py:class:`sphinx_hosting.forms.ProjectCreateForm`.  ``machine_name`` should not change after the
+    :py:class:`ProjectCreateForm`.  ``machine_name`` should not change after the
     project is created.
     """
 
@@ -124,7 +129,10 @@ class ProjectReadonlyUpdateForm(forms.ModelForm):
     """
     This is the form we use to on the
     :py:class:`sphinx_hosting.views.ProjectDetailView` to show the viewer the
-    project title, machine name and description.
+    project title and description.  The difference between this and
+    :py:class:`ProjectUpdateForm` is that all the fields are readonly, and there
+    are no submit buttons.  We're doing it this way instead of just rendering a
+    non-form widget so that we can ensure that the page looks the same.
     """
 
     def __init__(self, *args, **kwargs):
@@ -161,6 +169,14 @@ class ProjectReadonlyUpdateForm(forms.ModelForm):
 
 
 class VersionUploadForm(forms.Form):
+    """
+    This is the form on :py:class:`sphinx_hosting.views.ProjectDetailView` that
+    allows the user to upload a new documentation set.
+
+    Keyword Args:
+        project: the project to which this documentation set should be
+            associated
+    """
 
     file = forms.FileField(label='')
 

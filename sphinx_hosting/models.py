@@ -157,7 +157,7 @@ class SphinxPageTree:
         return pages
 
 
-class SphinxPageTreeProcesor:
+class SphinxPageTreeProcessor:
 
     def build_item(self, node: TreeNode) -> Dict[str, Any]:
         """
@@ -433,7 +433,7 @@ class ClassifierManager(models.Manager):
             Section :: Subsection :: Name3
             Section :: Subsection
 
-        Return a tree-like data structure that looks like:
+        Return a tree-like data structure that looks like::
 
             {
                 'Section': ClassifierNode(
@@ -760,7 +760,7 @@ class Version(TimeStampedModel, models.Model):
         """
         items = SphinxGlobalTOCHTMLProcessor(max_level=MAX_GLOBAL_TOC_TREE_DEPTH).run(self)
         if not items:
-            items = SphinxPageTreeProcesor().run(self)
+            items = SphinxPageTreeProcessor().run(self)
         return {'items': items}
 
     def purge_cached_globaltoc(self) -> None:
@@ -798,7 +798,7 @@ class SphinxPage(TimeStampedModel, models.Model):
     #: This is a mapping between filename and title that identifies the
     #: special pages that Sphinx produces on its own and gives them
     #: reasonable titles.  These pages have no ``title`` key in their
-    #: json data
+    #: json data, but ``title`` is required for pages
     SPECIAL_PAGES: Dict[str, str] = {
         'genindex': 'General Index',
         'py-modindex': 'Module Index',
@@ -831,7 +831,7 @@ class SphinxPage(TimeStampedModel, models.Model):
         'Body (Original)',
         blank=True,
         help_text=_(
-            'The original body for the page, extracted from the page JSON. Some pages have no body.'
+            'The original body for the page, extracted from the page JSON. Some pages have no body. '
             'We save this here in case we need to reprocess the body at some later date.'
         ),
     )

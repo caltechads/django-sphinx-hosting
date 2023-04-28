@@ -18,10 +18,9 @@ Workflow is pretty straightforward:
 1. Make sure you are reading the latest version of this document.
 2. Setup your machine with the required development environment
 3. Make your changes.
-3. Ensure your changes work by running the demo app in ``sandbox``.
-4. Update the documentation to reflect your changes.
-5. Commit changes to your branch.
-6.
+4. Ensure your changes work by running the demo app in ``sandbox``.
+5. Update the documentation to reflect your changes.
+6. Commit changes to your branch.
 
 
 Preconditions for working on django-sphinx-hosting

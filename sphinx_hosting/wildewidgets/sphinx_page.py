@@ -22,7 +22,7 @@ from ..models import SphinxPage
 
 class SphinxPagePagination(Row):
     """
-    This widget draws the Previous Page, Parent Page and Next Page buttons that
+    This widget draws the "Previous Page", Parent Page and Next Page buttons that
     are found at the top of each
     :py:class:`sphinx_hosting.views.SphinxPageDetailView`.
 
@@ -67,6 +67,12 @@ class SphinxPagePagination(Row):
 
 
 class SphinxPageBodyWidget(CardWidget):
+    """
+    This widget holds the body of the page.
+
+    Args:
+        page: the ``SphinxPage`` we are rendering
+    """
 
     css_class: str = 'sphinxpage-body'
 
@@ -76,6 +82,12 @@ class SphinxPageBodyWidget(CardWidget):
 
 
 class SphinxPageTableOfContentsWidget(CardWidget):
+    """
+    This widget draws the in-page navigation -- the header hierarchy.
+
+    Args:
+        page: the ``SphinxPage`` we are rendering
+    """
 
     css_class: str = 'sphinxpage-toc'
 
@@ -91,23 +103,13 @@ class SphinxPageTableOfContentsWidget(CardWidget):
         )
 
 
-class SphinxPageGlobalTableOfContentsWidget(CardWidget):
-
-    name: str = 'sphinxpage-globaltoc'
-
-    def __init__(self, page: SphinxPage, **kwargs):
-        super().__init__(**kwargs)
-        self.widget = HTMLWidget(html=page.version.global_toc)
-        self.set_header(
-            CardHeader(
-                header_level="h3",
-                header_text="Project Table of Contents",
-                css_class=''
-            )
-        )
-
-
 class SphinxPageGlobalTableOfContentsMenu(Menu):
+    """
+    This is the version-specific navigation menu that gets inserted into the
+    page sidebar when viewing the documentation for a
+    :py:class:`sphinx_hosting.models.Version`.  It will appear on all pages for
+    that version.
+    """
 
     css_class: str = 'mt-4'
     title_css_classes: str = 'mt-3'
@@ -169,6 +171,12 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
 
 
 class SphinxPageTitle(Block):
+    """
+    The title block for a :py:class:`sphinx_hosting.models.SphinxPage` page.
+
+    Args:
+        page: the ``SphinxPage`` to render
+    """
 
     block: str = 'sphinxpage-title'
     css_class: str = 'mb-5'
@@ -199,7 +207,7 @@ class SphinxPageLayout(Block):
     left column, and the content of the page in the right column.
 
     Args:
-        page: the :py:class:`sphinx_hosting.models.SphinxPage` to render
+        page: the ``SphinxPage`` to render
     """
 
     left_column_width: int = 8

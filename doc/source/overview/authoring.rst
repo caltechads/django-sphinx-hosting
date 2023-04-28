@@ -1,6 +1,10 @@
-****************************
-The Global Table of Contents
-****************************
+*****************************
+Authoring your Sphinx project
+*****************************
+
+When authoring your Sphinx project that will be imported into
+``django-sphinx-hosting``, the most important thing to be careful with is your
+global table of contents.
 
 The global table of contents for a documentation set is something that the
 author of the Sphinx documents defines with :rst:dir:`toctree` directives.
@@ -21,10 +25,10 @@ have ``django-sphinx-contrib`` build a global table of contents by starting at
 the root page and traversing the page tree via the ``next`` key in each
 ``.ftjson`` file.
 
-The only reason to use sphinxcontrib_jsonglobaltoc_ over the traversal mechanism
-is if you want either to use ``:caption:`` in your :rst:dir:`toctree` directives,
-or if you want the in-page anchors to page section to show up in your sidebar
-navigation, or both.
+The main reason to use sphinxcontrib_jsonglobaltoc_ over the traversal mechanism
+is so that the in-page anchors to page sections to show up in your sidebar
+navigation, or both.  It also will obey the ``:caption:`` setting in your
+:rst:dir:`toctree` directives.
 
 How to make a good global table of contents
 ===========================================
@@ -50,9 +54,9 @@ really important in a minute.  The Sphinx docs say:
 > Normally, there are no heading levels assigned to certain characters as the structure is determined from the succession of headings.
 
 The "is determined by from the succession of headings" is quite important and
-unfortunate here.   Sphinx is unfortunately quite forgiving where it might save
-a lot o heartache if it were to be a bit more draconian, and that easily causes
-subtle problems in global table of contents creation.
+unfortunate here.   Sphinx is overly forgiving where it might save a lot of
+heartache if it were to be a bit more draconian, and that can easily cause subtle
+problems in global table of contents creation.
 
 Here is the Python Style Guide convention:
 
@@ -72,14 +76,12 @@ Here is the Python Style Guide convention:
 Guidelines:
 
 * **Headings in the root page**: the document heading (the page title)
- on your root page **must be a level 1 heading**.
- If you have subsections in the root page,
- **make them level 3 headings or lower**.  If you use level
- 2 headings on the root page, you'll compete with your page document headings,
- which should be level 2, and you'll get a mess in your navigation.  If you're
- going to do nested :rst:dir:`toctree` directives (see below), you may want
- subheadings on the root page to be level 4 or below.
-
+  on your root page **must be a level 1 heading**.  If you have subsections in
+  the root page, **make them level 3 headings or lower**.  If you use level
+  2 headings on the root page, you'll compete with your page document headings,
+  which should be level 2, and you'll get a mess in your navigation.  If you're
+  going to do nested :rst:dir:`toctree` directives (see below), you may want
+  subheadings on the root page to be level 4 or below.
 * **Headings in all other pages**: pages under the root page must have a level 2
   heading.  In ReStructuredText that is `*` underline and overline.  If you
   don't get the heading levels right, you end up with very odd nesting behavior
@@ -90,32 +92,25 @@ toctree directives
 
 :rst:dir:`toctree` directives and only those directives determine the page/section
 hierarchy shown in the navigtion sidebar.  Filesystem layout of your ``.rst``
-documents has no impact on the global table of contents, for instance.
+documents has no impact on the global table of contents.
 
 * You must put at least one :rst:dir:`toctree` directive in your root page. This
   will form the root of your global table of contents.
-
-* If you are using nested :rst:dir:`toctree` directives, on sub-pages, put your directive
-  directly under the document heading.  On sub-pages, the toctree recalibates the
-  starting heading level for the pages it references to be relative to the **nearest preceding
-  heading** for the :rst:dir:`toctree`, not from the page heading for the page the
-  directive is on.
-
+* If you are using nested :rst:dir:`toctree` directives on sub-pages, put your directive
+  directly under the document heading on those sub-pages.  Do this because, on
+  sub-pages, the toctree recalibates the starting heading level for the pages it
+  references to be relative to the **nearest preceding heading** for the
+  :rst:dir:`toctree`, not from the page heading for the page the directive is on.
 * If all you're interested in for your global table of contents are the page titles, be
-  sure to do add ``:titlesonly:`` to your :rst;dir:`toctree` directive.  This does
-
-  have access to the local table of contents for the headings on the page in the ``toc``
-  key in the `.fjson` file.
-
+  sure to add ``:titlesonly:`` to your :rst:dir:`toctree` directive.
 * Unless you really want to show the global table of contents within the page contents
   in addition to the navigation sidebar, use the ``:hidden:`` parameter in your
-  :rst:dir:`toctree` directives
-
+  :rst:dir:`toctree` directives.
 * The ``:caption:`` parameter for a :rst:dir:`toctree` directive only produces an
   actual caption if that directive **is on the root page**.  ``:caption:`` parameters
-  anywhere else are ignored.
-
-* You will only see captions in the ``django-sphinx-hosting`` if you used the ``sphinxcontrib-jsonglobaltoc`` extension when building your JSON package.
+  on sub-pages are ignored.
+* You will only see captions in the ``django-sphinx-hosting`` if you used the
+  ``sphinxcontrib-jsonglobaltoc`` extension when building your JSON package.
 
 Now on to constructing your document hierarchy and :rst:dir:`toctree` directives.
 
