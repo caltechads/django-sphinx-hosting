@@ -12,7 +12,6 @@ from wildewidgets import (
 )
 
 from ..models import (
-    Project,
     SphinxImage,
     SphinxPage,
     Version
@@ -20,11 +19,23 @@ from ..models import (
 
 
 class VersionInfoWidget(CardWidget):
+    """
+    This widget gives a :py:class:`wildewidget.Datagrid` type overview of
+    information about this version:
+
+    * A link to the project that owns this
+      :py:class:`sphinx_hosting.models.Version`
+    * Create and last modified timestamps
+    * What version of Sphinx was used to generate the pages
+
+    Args:
+        version: the ``Version`` object we're describing
+    """
 
     title: str = "Version Info"
     icon: str = "info-square"
 
-    def __init__(self, version: Project, **kwargs):
+    def __init__(self, version: Version, **kwargs):
         super().__init__(**kwargs)
         grid = Datagrid()
         grid.add_item(
@@ -63,6 +74,12 @@ class VersionSphinxPageTableWidget(CardWidget):
 
 
 class VersionUploadBlock(CardWidget):
+    """
+    This block holds the upload form for uploading documentation tarballs.  Once
+    uploaded, the tarball will be run through
+    :py:class:`sphinx_hosting.importers.SphinxPackageImporter` to actually
+    import it into the database.
+    """
 
     css_class: str = "my-3 border"
 

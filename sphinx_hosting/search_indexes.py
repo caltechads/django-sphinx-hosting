@@ -31,7 +31,7 @@ class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
         Returns:
             Either ``true`` or ``false``.
         """
-        is_latest = (obj.version == obj.version.project.latest_version)
+        is_latest = obj.version == obj.version.project.latest_version
         if is_latest:
             return 'true'
         return 'false'
