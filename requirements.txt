@@ -16,6 +16,7 @@ autopep8                                      # https://github.com/hhatto/autope
 flake8                                        # https://github.com/PyCQA/flake8
 pycodestyle                                   # https://github.com/PyCQA/pycodestyle
 mypy                                          # https://github.com/python/mypy
+django-stubs
 
 # Other utils
 # ------------------------------------------------------------------------------
