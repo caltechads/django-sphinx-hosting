@@ -3,6 +3,11 @@
 version: 2
 build:
   image: latest
+  apt_packages:
+    - gcc
+    - mysql-client
+    - mysql-server
+    - libmysqlclient-dev
 
 sphinx:
   configuration: doc/source/conf.py
