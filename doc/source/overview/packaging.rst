@@ -13,9 +13,9 @@ project
 -------
 
 To import a documentation set, there must be a
-:py:class:`sphinx_hosting.models.Project` in the database whose slugified
-``machine_name`` matches the ``project`` in Sphinx's ``conf.py`` config file for
-the docs to be imported.
+:py:class:`sphinx_hosting.models.Project` in the database whose ``machine_name``
+matches the ``project`` in Sphinx's ``conf.py`` config file for the docs to be
+imported.
 
 To determine the proper ``machine_name`` for your ``conf.py``, create a project
 via the "Create Project" button on the project listing page, then view or edit
