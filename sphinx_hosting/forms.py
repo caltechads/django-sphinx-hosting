@@ -1,7 +1,7 @@
 from typing import Type
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Field, Fieldset, ButtonHolder
+from crispy_forms.layout import Submit, Layout, Field, Fieldset, HTML, ButtonHolder
 
 from crispy_forms.bootstrap import FieldWithButtons
 from django import forms
@@ -10,7 +10,6 @@ from django.urls import reverse, reverse_lazy
 from haystack.forms import SearchForm
 
 from .models import Project
-
 
 
 class GlobalSearchForm(SearchForm):
@@ -32,7 +31,7 @@ class GlobalSearchForm(SearchForm):
         self.helper.layout = Layout(
             FieldWithButtons(
                 Field('q', css_class='text-dark', placeholder='Search'),
-                Submit('submit', 'Search'),
+                HTML('<button type="submit" class="btn btn-primary"><span class="bi bi-search"></span></button>')
             )
         )
 
