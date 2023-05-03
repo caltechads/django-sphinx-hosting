@@ -18,8 +18,8 @@ services:
     volumes:
       - .:/app
       - ../sphinx_hosting:/ve/lib/python3.10/site-packages/sphinx_hosting
-      - ../../django-theme-academy/academy_theme:/ve/lib/python3.10/site-packages/academy_theme
-      - ../../django-wildewidgets/wildewidgets:/ve/lib/python3.10/site-packages/wildewidgets
+      #- ../../django-theme-academy/academy_theme:/ve/lib/python3.10/site-packages/academy_theme
+      #- ../../django-wildewidgets/wildewidgets:/ve/lib/python3.10/site-packages/wildewidgets
       - sphinx_hosting_demo_media:/media
 
   mysql:
