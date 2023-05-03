@@ -198,7 +198,7 @@ class SphinxPackageImporter:
                 ``release`` from the Sphinx ``conf.py`` already exists for our
                 project, and ``force`` was not ``True``
         """
-        machine_name = slugify(self.config['project'])
+        machine_name = self.config['project']
         project = Project.objects.get(machine_name=machine_name)
         v = project.versions.filter(version=self.config['release']).first()
         if v:
