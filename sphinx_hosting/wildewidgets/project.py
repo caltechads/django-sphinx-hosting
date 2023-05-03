@@ -375,12 +375,16 @@ class ProjectVersionTable(BasicModelTable):
     }
     #: A dict of column names to alignment ("left", "right", "center")
     alignment: Dict[str, str] = {
-        'version': 'center',
+        'version': 'left',
         'num_pages': 'right',
         'num_images': 'right',
         'created': 'left',
         'modified': 'left'
     }
+    #: Order by version number
+    order_columns: List[str] = ['version']
+    #: Sort so that the highest version number is on top
+    sort_ascending: bool = False
 
     def __init__(self, *args, **kwargs) -> None:
         """
@@ -405,9 +409,7 @@ class ProjectVersionTable(BasicModelTable):
         Returns:
             A filtered :py:class:`QuerySet` on :py:class:`sphinx_hosting.models.Version`
         """
-        print(f'PROJECT_ID: {self.project_id}')
-        qs = super().get_initial_queryset().filter(project_id=self.project_id)
-        return qs.order_by('-version')
+        return super().get_initial_queryset().filter(project_id=self.project_id)
 
     def render_num_pages_column(self, row: Version, column: str) -> str:
         """
