@@ -215,6 +215,11 @@ Here is example ``settings.py`` code for using Elasticsearch 7.x as our search b
       },
    }
 
+If you want your search index to be updated automatically when versions of your
+documentation are uploaded, add this to ``settings.py``:
+
+.. code-block:: python
+
    # This will cause the search index to be updated whenever a SphinxPage is
    # saved or deleted.
    HAYSTACK_SIGNAL_PROCESSOR = 'sphinx_hosting.signals.SphinxHostingSignalProcessor'
