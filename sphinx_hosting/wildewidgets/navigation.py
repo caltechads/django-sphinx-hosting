@@ -131,7 +131,7 @@ class SphinxHostingBreadcrumbs(BreadcrumbBlock):
 
     items: List[BreadcrumbItem] = [
         BreadcrumbItem(
-            title='Sphinx Hosting',
+            title=SITE_NAME,
             url=reverse_lazy('sphinx_hosting:project--list')
         )
     ]
