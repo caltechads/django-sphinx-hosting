@@ -14,7 +14,7 @@ gunicorn==20.1.0                              # https://github.com/benoitc/gunic
 
 # Other utils
 # ------------------------------------------------------------------------------
-elasticsearch>=7.0.0,<8.0.0                   # https://github.com/elastic/elasticsearch-py
+elasticsearch==7.13.3                         # https://github.com/elastic/elasticsearch-py
 ipython>=7.27.0                               # https://github.com/ipython/ipython
 mysqlclient==2.1.1                            # https://github.com/PyMySQL/mysqlclient-python
 redis==4.5.4                                  # https://github.com/andymccurdy/redis-py
