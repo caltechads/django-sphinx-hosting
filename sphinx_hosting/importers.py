@@ -127,10 +127,17 @@ class SphinxPackageImporter:
     def _update_image_src(self, body: str) -> str:
         """
         Given an HTML body of a Sphinx page, update the ``<img src="path">``
-        references to point to the URLs for our uploaded
-        :py:class:`sphinx_hosting.models.SphinxImage` objects.  Also deal with
-        any lightboxes by converting them to the appropriate form to work with
-        Tabler lightboxes.
+        references to template tag expressions that load the actual image URL
+        from the :py:class:`sphinx_hosting.models.SphinxImage` objects at render time.
+
+        We need to defer filling in the URL of the image until render time
+        because of things like storing images in S3 and using time-limited S3
+        auth parameters to retrieve the image from a private bucket.  Those
+        parameters expire typically after an hour, so if we don't defer figuring
+        out the URL for our images, we end up storing a stale URL.
+
+        Also deal with any lightboxes by converting them to the appropriate form
+        to work with Tabler lightboxes.
 
         Args:
             body: the HTML body of a Sphinx document
@@ -157,7 +164,7 @@ class SphinxPackageImporter:
                 del lightbox.attrib['data-title']
             src = re.sub(r'\.\./', '', lightbox.attrib['href'])
             if src in self.image_map:
-                lightbox.attrib['href'] = self.image_map[src].file.url
+                lightbox.attrib['href'] = f'{{% sphinximage_url {self.image_map[src].id} %}}'
         return lxml.html.tostring(html).decode('utf-8')
 
     def load_config(self, package: tarfile.TarFile) -> None:

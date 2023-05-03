@@ -841,7 +841,7 @@ class SphinxPage(TimeStampedModel, models.Model):
         blank=True,
         help_text=_(
             'The body for the page, extracted from the page JSON, and modified to suit us.  '
-            'Some pages have no body.'
+            'Some pages have no body.  The body is actually stored as a Django template.'
         ),
     )
     orig_local_toc: F = models.TextField(

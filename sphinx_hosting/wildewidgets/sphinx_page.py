@@ -1,5 +1,6 @@
 from typing import Any, Dict, List
 
+from django.template import Context, Template
 from wildewidgets import (
     Block,
     CardHeader,
@@ -68,7 +69,9 @@ class SphinxPagePagination(Row):
 
 class SphinxPageBodyWidget(CardWidget):
     """
-    This widget holds the body of the page.
+    This widget holds the body of the page.  The body as stored in the model is
+    actually a Django template, so we retrieve the body, run it through the
+    Django template engine, and display the results.
 
     Args:
         page: the ``SphinxPage`` we are rendering
@@ -78,7 +81,8 @@ class SphinxPageBodyWidget(CardWidget):
 
     def __init__(self, page: SphinxPage, **kwargs):
         super().__init__(**kwargs)
-        self.widget = HTMLWidget(html=page.body)
+        body = '{% load sphinx_hosting %}\n' + page.body
+        self.widget = HTMLWidget(html=Template(body).render(Context()))
 
 
 class SphinxPageTableOfContentsWidget(CardWidget):
