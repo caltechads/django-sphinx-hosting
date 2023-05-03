@@ -397,6 +397,9 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'sphinx_hosting',
     },
 }
+# This will cause the search index to be updated whenever a SphinxPage is
+# saved or deleted.
+HAYSTACK_SIGNAL_PROCESSOR = 'sphinx_hosting.signals.SphinxHostingSignalProcessor'
 
 # crispy-forms
 # ------------------------------------------------------------------------------

@@ -215,6 +215,10 @@ Here is example ``settings.py`` code for using Elasticsearch 7.x as our search b
       },
    }
 
+   # This will cause the search index to be updated whenever a SphinxPage is
+   # saved or deleted.
+   HAYSTACK_SIGNAL_PROCESSOR = 'sphinx_hosting.signals.SphinxHostingSignalProcessor'
+
 
 Configure Django REST Framework
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
