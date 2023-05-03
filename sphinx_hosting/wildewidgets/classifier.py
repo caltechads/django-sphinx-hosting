@@ -113,9 +113,11 @@ $(document).ready(function() {{
                     name='classifier--clear',
                     text='Clear',
                     color='outline-secondary',
+                    css_class="mt-2 mt-xl-0"
                 ),
                 css_class='my-3',
-                justify='between'
+                justify='between',
+                flex_size='xl'
             )
         )
 

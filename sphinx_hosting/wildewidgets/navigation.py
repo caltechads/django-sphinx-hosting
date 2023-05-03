@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.http.request import HttpRequest
 from django.urls import reverse_lazy
 from wildewidgets import (
+    Block,
     BreadcrumbBlock,
     BreadcrumbItem,
     LinkedImage,
@@ -112,15 +113,19 @@ class SphinxHostingSidebar(TablerVerticalNavbar):
     documentation.
     """
 
-    branding = LinkedImage(
-        image_src=LOGO_IMAGE,
-        image_width=LOGO_WIDTH,
-        image_alt=SITE_NAME,
-        css_class='d-flex justify-content-center',
-        url=LOGO_URL
+    hide_below_viewport: str = 'xl'
+    branding = Block(
+        LinkedImage(
+            image_src=LOGO_IMAGE,
+            image_width=LOGO_WIDTH,
+            image_alt=SITE_NAME,
+            css_class='d-flex justify-content-center',
+            url=LOGO_URL
+        ),
+        GlobalSearchFormWidget(css_class='ms-auto ms-xl-0 align-self-center mt-3 mt-xl-0'),
+        css_class='d-flex flex-row flex-xl-column justify-content-between flex-grow-1 flex-xl-grow-0'
     )
     contents = [
-        GlobalSearchFormWidget(),
         SphinxHostingMainMenu(),
         SphinxHostingLookupsMenu(),
     ]
