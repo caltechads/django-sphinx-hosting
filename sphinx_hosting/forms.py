@@ -12,6 +12,7 @@ from haystack.forms import SearchForm
 from .models import Project
 
 
+
 class GlobalSearchForm(SearchForm):
     """
     This is the search form at the top of the sidebar, underneath the logo.  It is

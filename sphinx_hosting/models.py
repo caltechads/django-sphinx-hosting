@@ -14,6 +14,7 @@ import lxml.html
 from lxml.html import HtmlElement
 from wildewidgets.models import ViewSetMixin
 
+from .fields import MachineNameField
 from .settings import MAX_GLOBAL_TOC_TREE_DEPTH
 from .validators import NoHTMLValidator
 
@@ -596,7 +597,7 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
         help_text=_('A brief description of this project'),
         validators=[NoHTMLValidator()]
     )
-    machine_name: F = models.SlugField(
+    machine_name: F = MachineNameField(
         'Machine Name',
         unique=True,
         help_text=_(

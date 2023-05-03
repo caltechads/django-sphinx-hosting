@@ -23,14 +23,14 @@ app_name: str = "sphinx_hosting"
 urlpatterns: List[URLPattern] = [
     path('', ProjectListView.as_view(), name='project--list'),
     path('project/', ProjectCreateView.as_view(), name='project--create'),
-    path('project/<slug:slug>/', ProjectDetailView.as_view(), name='project--detail'),
-    path('project/<slug:slug>/update/', ProjectUpdateView.as_view(), name='project--update'),
-    path('project/<slug:slug>/upload/', VersionUploadView.as_view(), name='version--upload'),
-    path('project/<slug:slug>/delete/', ProjectDeleteView.as_view(), name='project--delete'),
-    path('project/<slug:project_slug>/<str:version>/', VersionDetailView.as_view(), name='version--detail'),
-    path('project/<slug:project_slug>/<str:version>/delete/', VersionDeleteView.as_view(), name='version--delete'),
+    path('project/<str:slug>/', ProjectDetailView.as_view(), name='project--detail'),
+    path('project/<str:slug>/update/', ProjectUpdateView.as_view(), name='project--update'),
+    path('project/<str:slug>/upload/', VersionUploadView.as_view(), name='version--upload'),
+    path('project/<str:slug>/delete/', ProjectDeleteView.as_view(), name='project--delete'),
+    path('project/<str:project_slug>/<str:version>/', VersionDetailView.as_view(), name='version--detail'),
+    path('project/<str:project_slug>/<str:version>/delete/', VersionDeleteView.as_view(), name='version--delete'),
     re_path(
-        r'project/(?P<project_slug>[\w-]+)/(?P<version>[^/]+)/(?P<path>.*)/',
+        r'project/(?P<project_slug>[-a-zA-Z0-9_.]+)/(?P<version>[^/]+)/(?P<path>.*)/',
         SphinxPageDetailView.as_view(),
         name='sphinxpage--detail'
     ),

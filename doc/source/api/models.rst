@@ -1,7 +1,16 @@
 .. _api__models:
 
+
 Models
 ======
+
+.. module:: sphinx_hosting.fields
+
+Fields
+------
+
+.. autoclass:: MachineNameField
+    :members:
 
 .. module:: sphinx_hosting.models
 

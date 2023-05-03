@@ -19,3 +19,11 @@ Forms
 
 .. autoclass:: VersionUploadForm
     :members:
+
+Fields
+------
+
+.. module:: sphinx_hosting.form_fields
+
+.. autoclass:: MachineNameField
+    :members:

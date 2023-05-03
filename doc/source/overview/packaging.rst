@@ -15,11 +15,13 @@ project
 To import a documentation set, there must be a
 :py:class:`sphinx_hosting.models.Project` in the database whose ``machine_name``
 matches the ``project`` in Sphinx's ``conf.py`` config file for the docs to be
-imported.
+imported.  The ``machine_name`` for a project is set at project create time within
+``django-sphinx-hosting``.
 
-To determine the proper ``machine_name`` for your ``conf.py``, create a project
-via the "Create Project" button on the project listing page, then view or edit
-the project to see the ``machine_name`` that got generated for you.
+Create a project by navigating to the "Projects" page and clicking the "Create
+Project" button.  You'll be asked for a human name, a machine name and a
+description.  Whatever you use for your version control repository name is a
+good choice for ``Machine Name``.
 
 release
 -------
