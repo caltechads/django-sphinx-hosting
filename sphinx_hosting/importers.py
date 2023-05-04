@@ -338,6 +338,8 @@ class SphinxPackageImporter:
             #     %7B%%20sphinximage_url%2026%20%%7D
             html = re.sub(r'%7B%%20', r'{% ', data['body'])
             data['body'] = re.sub(r'%20([0-9]+)%20%%7D', r' \1 %}', html)
+            # Convert the weird paragraph symbols to actual paragraph symbols
+            data['body'] = re.sub(r'#61633;', r'para;', data['body'])
 
     def _fix_toc(self, data: Dict[str, Any]) -> None:
         """
