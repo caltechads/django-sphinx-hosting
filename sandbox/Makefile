@@ -1,4 +1,4 @@
-VERSION = 1.1.4
+VERSION = 1.1.5
 
 PACKAGE = sphinx_hosting_demo
 
