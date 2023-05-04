@@ -122,7 +122,7 @@ class SphinxHostingSidebar(TablerVerticalNavbar):
             css_class='d-flex justify-content-center',
             url=LOGO_URL
         ),
-        GlobalSearchFormWidget(css_class='ms-auto ms-xl-0 align-self-center mt-3 mt-xl-0'),
+        GlobalSearchFormWidget(css_class='ms-auto ms-xl-0 align-self-center mt-3'),
         css_class='d-flex flex-row flex-xl-column justify-content-between flex-grow-1 flex-xl-grow-0'
     )
     contents = [
