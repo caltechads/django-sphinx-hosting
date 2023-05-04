@@ -210,12 +210,14 @@ class ProjectTable(ActionButtonModelTable):
         'machine_name',
         'classifiers',
         'latest_version',
+        'description',
         'latest_version_date',
     ]
     #: A list of names of columns to hide by default.
     hidden: List[str] = [
         'classifiers',
-        'machine_name'
+        'machine_name',
+        'latest_version_date',
     ]
     #: A list of names of columns that will will not be searched when doing a
     #: **global** search
@@ -234,6 +236,7 @@ class ProjectTable(ActionButtonModelTable):
     #: A dict of column names to alignment ("left", "right", "center")
     alignment: Dict[str, str] = {
         'title': 'left',
+        'description': 'left',
         'classifiers': 'left',
         'machine_name': 'left',
         'latest_version': 'left',
