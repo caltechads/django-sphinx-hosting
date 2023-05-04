@@ -394,10 +394,10 @@ class SphinxGlobalTOCHTMLProcessor:
             A list of dicts representing the global menu structure
         """
         self.version = version
-        # This is really only necessary to get the pretty printer below to
-        # work properly.  If the \n chars are not removed, lxml won't indent
-        # properly
         if self.version.head.orig_global_toc:
+            # This is really only necessary to get the pretty printer below to
+            # work properly.  If the \n chars are not removed, lxml won't indent
+            # properly
             global_toc_html = re.sub(r'\n', '', self.version.head.orig_global_toc)
             html = lxml.html.fromstring(global_toc_html)
             if verbose:
