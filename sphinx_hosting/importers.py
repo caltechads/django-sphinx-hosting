@@ -152,7 +152,7 @@ class SphinxPackageImporter:
         for image in images:
             src = re.sub(r'\.\./', '', image.attrib['src'])
             if src in self.image_map:
-                image.attrib['src'] = self.image_map[src].file.url
+                image.attrib['src'] = f'{{% sphinximage_url {self.image_map[src].id} %}}'
 
         # also deal with any lightbox <a>
         lightboxes = html.cssselect('a[data-lightbox]')
@@ -331,6 +331,13 @@ class SphinxPackageImporter:
                 for div in table.cssselect('tbody > tr p'):
                     div.classes.add('text-start')
             data['body'] = lxml.html.tostring(html).decode('utf-8')
+            # Unescape our template tags after lxml has converted our {% %}
+            # to entities.  The pattern we're looking for looks something
+            # like this::
+            #
+            #     %7B%%20sphinximage_url%2026%20%%7D
+            html = re.sub(r'%7B%%20', r'{% ', data['body'])
+            data['body'] = re.sub(r'%20([0-9]+)%20%%7D', r' \1 %}', html)
 
     def _fix_toc(self, data: Dict[str, Any]) -> None:
         """
