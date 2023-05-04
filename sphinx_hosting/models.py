@@ -314,18 +314,37 @@ class SphinxGlobalTOCHTMLProcessor:
         Parse our global table of contents HTML blob and return a list of
         :py:class:`sphinx_hosting.wildewidgets.MenuItem` objects.
 
+        Add a first node that points to the root doc, also.  The root doc can't
+        add itself to its ``toctree`` blocks, so we need to do it ourselves.
+
         How our mapping works:
 
-        * Multiple top level ``<ul>`` tags separated by ``<p class="caption">`` tags will be
-          merged into a single list.
+        * Multiple top level ``<ul>`` tags separated by ``<p class="caption">``
+          tags will be merged into a single list.
         * ``<p class="caption ...">CONTENTS</p>`` becomes ``{'text': 'CONTENTS'}```
         * Any ``href`` will be converted to its full ``django-sphinx-hosting`` path
 
         Args:
             version: the version whose global table of contents we are parsing
-            html: the lxml parsed HTML of the global table of contents from Sphinx
+            html: the lxml parsed HTML of the global table of contents from
+                Sphinx
         """
-        items: List[Dict[str, Any]] = []
+        root_url = reverse(
+            'sphinx_hosting:sphinxpage--detail',
+            kwargs={
+                'project_slug': self.version.project.machine_name,
+                'version': self.version.version,
+                'path': self.version.head.relative_path
+            }
+        )
+        items: List[Dict[str, Any]] = [
+            {
+                'text': 'Home',
+                'url': root_url,
+                'icon': None,
+                'items': []
+            }
+        ]
         for elem in html.iterchildren():
             if elem.tag == 'p' and 'caption' in elem.classes:
                 # Captions only appear at the top level, even if you assign
