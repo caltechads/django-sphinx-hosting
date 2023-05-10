@@ -135,6 +135,7 @@ class VersionUploadView(APIView):
                 -F 'file=@path/to/yourdocs.tar.gz' \\
                 https://sphinx-hosting.example.com/api/v1/version/import/
     """
+    serializer_class = VersionUploadSerializer
     permission_classes = [permissions.IsAuthenticated]
     parser_classes = (MultiPartParser,)
 
