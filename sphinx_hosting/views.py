@@ -14,8 +14,8 @@ from django.contrib.auth.models import AbstractUser
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Model, QuerySet
 from django.forms import ModelForm, Form
-from django.http import HttpResponse, HttpRequest
-from django.shortcuts import redirect
+from django.http import HttpResponse, HttpRequest, Http404
+from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import gettext as _
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import BaseFormView
@@ -212,6 +212,16 @@ class ProjectCreateView(
         return f'Added Project "{obj.title}"'
 
     def form_invalid(self, form: ModelForm) -> HttpResponse:
+        """
+        If the form is invalid, we want to display the errors to the user and
+        redirect them back to the project list page.
+
+        Args:
+            form: The form that was submitted
+
+        Returns:
+            The redirect response
+        """
         for k, errors in form.errors.as_data().items():
             for error in errors:
                 messages.error(self.request, f"{k}: {error.message}")
@@ -338,6 +348,31 @@ class VersionDetailView(
     model: Type[Model] = Version
     slug_field: str = 'version'
     slug_url_kwarg: str = 'version'
+
+    def get_object(self, queryset: QuerySet = None) -> Version:
+        """
+        If ``version`` is ``latest``, return the latest version of the
+        :py:class:`sphinx_hosting.models.Project` whose ``machine_name`` is
+        ``project_slug``.  Otherwise, return the version identified by
+        ``version``.
+
+        Raises:
+            Http404: if the project has no versions, or the ``project_slug`` does
+                not match any :py:class:`sphinx_hosting.models.Project` objects.
+
+        Returns:
+            The latest version of the project identified by ``project_slug``
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+        if self.kwargs['version'] == 'latest':
+            project_slug = self.kwargs.get('project_slug', None)
+            project = get_object_or_404(Project, machine_name=project_slug)
+            version = project.latest_version
+            if not version:
+                raise Http404(f'Project "{project_slug}" has no versions')
+            return version
+        return super().get_object(queryset=queryset)
 
     def get_queryset(self) -> QuerySet[Version]:
         """
@@ -515,7 +550,10 @@ class SphinxPageDetailView(
         Pre-filter our default queryset so that we only are able to get
         :py:class:`sphinx_hosting.models.SphinxPage` objects associated with the
         :py:class:`sphinx_hosting.models.Version` identified by our ``project_slug``
-        and ``version`` URLPath kwargs:
+        and ``version`` URLPath kwargs.
+
+        If ``version`` is ``latest``, return the latest version of the
+        :py:class:`sphinx_hosting.models.Project`.
 
         Parameters:
             project_slug: the :py:attr:`sphinx_hosting.models.Project.machine_name`
@@ -523,12 +561,23 @@ class SphinxPageDetailView(
             version: the :py:attr:`sphinx_hosting.models.Version.version` string
                 of our version
 
+        Raises:
+            Http404: if ``version`` is ``latest`` and the project has no
+                versions, or the ``project_slug`` does not match any
+                :py:class:`sphinx_hosting.models.Project` objects.
+
         Returns:
             A queryset of ``SphinxPage`` objects filtered to a particular version of
             a particular project.
         """
         project_slug = self.kwargs.get('project_slug', None)
         version = self.kwargs.get('version', None)
+        if version == 'latest':
+            project = get_object_or_404(Project, machine_name=project_slug)
+            version_obj = project.latest_version
+            if not version_obj:
+                raise Http404(f'Project "{project_slug}" has no versions')
+            version = version_obj.version
         return super().get_queryset().filter(
             version__version=version,
             version__project__machine_name=project_slug
