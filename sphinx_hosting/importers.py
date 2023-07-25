@@ -279,6 +279,34 @@ class SphinxPackageImporter:
             else:
                 data['title'] = SphinxPage.SPECIAL_PAGES[path]
 
+    def _fix_link_hrefs(self, body: str) -> str:
+        """
+        Given an HTML body of a Sphinx page, update the ``<a href="path">``
+        references to be absolute.  If we don't do this, any links on the
+        index page the version will be relative to the index page, instead of
+        being relative to the root of the docs, and won't work.
+
+        Args:
+            body: the HTML body of a Sphinx document
+
+        Returns:
+            ``body`` with its ``<a>`` urls and updated
+        """
+        if not body:
+            return ''
+        html = lxml.html.fromstring(body)
+        links = html.cssselect('a.reference.internal')
+        for link in links:
+            href = link.attrib['href']
+            if href.endswith('/'):
+                href = href[:-1]
+            link.attrib['href'] = "{{% url 'sphinx_hosting:sphinxpage--detail' '{}' '{}' '{}' %}}".format(
+                self.config['project'],
+                self.config['release'],
+                href
+            )
+        return lxml.html.tostring(html).decode('utf-8')
+
     def _fix_page_body(self, path: str, data: Dict[str, Any]) -> None:
         """
         Do any work needed to prepare the page body before inserting into the
@@ -301,6 +329,10 @@ class SphinxPackageImporter:
             # Update the img src for any images in data['body'] for to point to our
             # Django storage locations
             data['body'] = self._update_image_src(data['body'])
+            # Update the hrefs for any <a> links to be absolute.  The relative
+            # paths we get from Sphinx end up being relative to the Sphinx index
+            # document instead of to the root of the docs
+            data['body'] = self._fix_link_hrefs(data['body'])
             html = lxml.html.fromstring(data['body'])
             # remove the first <h1> -- we'll display the page title another way
             first_h1 = html.cssselect('h1')
@@ -337,7 +369,12 @@ class SphinxPackageImporter:
             #
             #     %7B%%20sphinximage_url%2026%20%%7D
             html = re.sub(r'%7B%%20', r'{% ', data['body'])
+            # This handles fixing the sphinximage_url template tag
             data['body'] = re.sub(r'%20([0-9]+)%20%%7D', r' \1 %}', html)
+            # These handle fixing the sphinxpage--detail template tag
+            data['body'] = re.sub(r"url%20'", r"url '", data['body'])
+            data['body'] = re.sub(r"'%20'", r"' '", data['body'])
+            data['body'] = re.sub(r"'%20%%7D", r"' %}", data['body'])
             # Convert the weird paragraph symbols to actual paragraph symbols
             data['body'] = re.sub(r'#61633;', r'para;', data['body'])
 
