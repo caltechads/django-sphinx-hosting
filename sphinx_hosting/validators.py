@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 @deconstructible
 class NoHTMLValidator:
     """
-    Verify that field contains no HTML
+    Raises a ValidationError if the given value contains any HTML.
     """
     message: str = 'Cannot contain any HTML'
     code: str = 'invalid'
