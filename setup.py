@@ -15,7 +15,7 @@ setup(
         "django-filter >= 22.1",
         "django-haystack >= 3.2.1",
         "django-rest-framework-helpers >= 8.5.0",
-        "django-theme-academy >= 0.3.0",
+        "django-theme-academy >= 0.3.5",
         "django-wildewidgets >= 0.16.7",
         "djangorestframework >= 3.14.0",
         "drf-spectacular >= 0.25.1",
