@@ -202,7 +202,7 @@ class SphinxPageTreeProcessor:
 
     def run(self, version: "Version") -> List[Dict[str, Any]]:
         """
-        Parse the :py:func:`Version.page_tree` and return a struct that looks like:
+        Parse the :py:func:`Version.page_tree` and return a struct that works
         with
         :py:class:`sphinx_hosting.wildewidgets.SphinxPageGlobalTableOfContentsMenu.parse_obj`
 
@@ -402,12 +402,12 @@ class SphinxGlobalTOCHTMLProcessor:
             html = lxml.html.fromstring(global_toc_html)
             if verbose:
                 print(
-                    etree.tostring(
+                    etree.tostring(  # pylint: disable=c-extension-no-member
                         html,
                         method='xml',
                         encoding='unicode',
                         pretty_print=True
-                    )  # pylint: disable=c-extension-no-member
+                    )
                 )
             return self.parse_globaltoc(html)
         else:

@@ -41,7 +41,7 @@ class Command(BaseCommand):
     Print the page tree for a :py:class:`Version`
     """
     args = '<tarfile>'
-    help = ('Print the deduced page hierarchy for a version of a project.')
+    help = 'Print the deduced page hierarchy for a version of a project.'
 
     def add_arguments(self, parser: ArgumentParser) -> None:
         parser.add_argument(

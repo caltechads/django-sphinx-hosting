@@ -48,7 +48,7 @@ class Command(BaseCommand):
 
     """
     args = '<tarfile>'
-    help = ('Imports a tarfile of Sphinx documentation into a pre-existing project.')
+    help = 'Imports a tarfile of Sphinx documentation into a pre-existing project.'
 
     def add_arguments(self, parser: ArgumentParser) -> None:
         parser.add_argument(
