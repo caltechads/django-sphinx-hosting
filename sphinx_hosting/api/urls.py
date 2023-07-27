@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from django.urls import include, path, re_path, URLPattern, URLResolver
+from django.urls import include, path, URLPattern, URLResolver
 
 from drf_spectacular.views import (
     SpectacularAPIView,

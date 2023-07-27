@@ -215,7 +215,7 @@ class ProjectDetailWidget(
 # ProjectRelatedLink related widgets
 #------------------------------------------------------
 
-class ProjectRelatedLinkListWidget(HorizontalLayoutBlock):
+class ProjectRelatedLinkListItemWidget(HorizontalLayoutBlock):
 
     def __init__(self, object: ProjectRelatedLink):  # pylint: disable=redefined-builtin
         modal_id = f"projectrelatedlink__update__{object.pk}"
@@ -250,7 +250,7 @@ class ProjectRelatedLinksWidget(CardWidget):
         super().__init__(
             widget=ListModelWidget(
                 queryset=self.project.related_links,
-                model_widget=ProjectRelatedLinkListWidget,
+                model_widget=ProjectRelatedLinkListItemWidget,
             ),
             **kwargs,
         )

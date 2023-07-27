@@ -61,6 +61,24 @@ These widgets are used on the project listing and details pages.
 .. autoclass:: ProjectVersionTable
     :members:
 
+ProjectRelatedLinks
+-------------------
+
+.. autoclass:: ProjectRelatedLinkCreateModalWidget
+    :members:
+
+.. autoclass:: ProjectRelatedLinkUpdateModalWidget
+    :members:
+
+.. autoclass:: ProjectRelatedLinksListWidget
+    :members:
+
+.. autoclass:: ProjectRelatedLinksWidget
+    :members:
+
+.. autoclass:: ProjectRelatedLinkListItemWidget
+    :members:
+
 
 Search
 ------
