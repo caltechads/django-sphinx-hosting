@@ -1,10 +1,8 @@
 import re
-from typing import cast
+import urllib.parse
 
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 import lxml.html
-from rich.tree import Tree
 
 from sphinx_hosting.models import SphinxPage
 
@@ -38,23 +36,23 @@ class Command(BaseCommand):
         links = html.cssselect('a.reference.internal')
         for link in links:
             href = link.attrib['href']
+            anchor = None
+            if '#' in href:
+                href, anchor = href.split('#')
             if href.endswith('/'):
                 href = href[:-1]
-            link.attrib['href'] = "{{% url 'sphinx_hosting:sphinxpage--detail' '{}' '{}' '{}' %}}".format(
+            href = re.sub('^(../)*', '', href)
+            link.attrib['href'] = "{{% url 'sphinx_hosting:sphinxpage--detail' project_slug='{}' version='{}' path='{}' %}}".format(
                 project_machine_name,
                 version,
                 href
             )
+            if anchor:
+                link.attrib['href'] += f'#{anchor}'
         body = lxml.html.tostring(html).decode('utf-8')
-        # Unescape our template tags after lxml has converted our {% %}
-        # to entities.  The pattern we're looking for looks something
-        # like this::
-        #
-        #     %7B%%20sphinximage_url%2026%20%%7D
-        body = re.sub(r'%7B%%20', r'{% ', body)
-        body = re.sub(r"url%20'", r"url '", body)
-        body = re.sub(r"'%20'", r"' '", body)
-        body = re.sub(r"'%20%%7D", r"' %}", body)
+        tags = [m.group() for m in re.finditer(r'%7B%%20.*?%20%%7D', body)]
+        for tag in tags:
+            body = body.replace(tag, urllib.parse.unquote(tag))
         return body
 
     def handle(self, *args, **options) -> None:
@@ -70,5 +68,5 @@ class Command(BaseCommand):
                 page.save()
                 print(
                     f'Fixed page {page.version.project.machine_name}-{page.version.version}:'
-                    '{page.title}'
+                    f'{page.title}'
                 )

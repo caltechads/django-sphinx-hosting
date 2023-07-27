@@ -5,6 +5,8 @@ from pathlib import Path
 import re
 import tarfile
 from typing import Any, Dict, IO, List, Optional, cast
+import urllib.parse
+
 
 from django.utils.text import slugify
 import lxml.html
@@ -298,13 +300,19 @@ class SphinxPackageImporter:
         links = html.cssselect('a.reference.internal')
         for link in links:
             href = link.attrib['href']
+            anchor = None
+            if '#' in href:
+                href, anchor = href.split('#')
             if href.endswith('/'):
                 href = href[:-1]
-            link.attrib['href'] = "{{% url 'sphinx_hosting:sphinxpage--detail' '{}' '{}' '{}' %}}".format(
+            href = re.sub('^(../)*', '', href)
+            link.attrib['href'] = "{{% url 'sphinx_hosting:sphinxpage--detail' project_slug='{}' version='{}' path='{}' %}}".format(
                 self.config['project'],
                 self.config['release'],
                 href
             )
+            if anchor:
+                link.attrib['href'] += f'#{anchor}'
         return lxml.html.tostring(html).decode('utf-8')
 
     def _fix_page_body(self, path: str, data: Dict[str, Any]) -> None:
@@ -364,17 +372,10 @@ class SphinxPackageImporter:
                     div.classes.add('text-start')
             data['body'] = lxml.html.tostring(html).decode('utf-8')
             # Unescape our template tags after lxml has converted our {% %}
-            # to entities.  The pattern we're looking for looks something
-            # like this::
-            #
-            #     %7B%%20sphinximage_url%2026%20%%7D
-            html = re.sub(r'%7B%%20', r'{% ', data['body'])
-            # This handles fixing the sphinximage_url template tag
-            data['body'] = re.sub(r'%20([0-9]+)%20%%7D', r' \1 %}', html)
-            # These handle fixing the sphinxpage--detail template tag
-            data['body'] = re.sub(r"url%20'", r"url '", data['body'])
-            data['body'] = re.sub(r"'%20'", r"' '", data['body'])
-            data['body'] = re.sub(r"'%20%%7D", r"' %}", data['body'])
+            # to entities.
+            tags = [m.group() for m in re.finditer(r'%7B%%20.*?%20%%7D', data['body'])]
+            for tag in tags:
+                data['body'] = data['body'].replace(tag, urllib.parse.unquote(tag))
             # Convert the weird paragraph symbols to actual paragraph symbols
             data['body'] = re.sub(r'#61633;', r'para;', data['body'])
 
