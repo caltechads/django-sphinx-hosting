@@ -70,4 +70,5 @@ RUN pip install -e . && \
 
 EXPOSE 443
 
+ENTRYPOINT ["/bin/bash", "/app/bin/entrypoint.sh"]
 CMD ["/opt/python/bin/supervisord", "-c", "/etc/supervisord.conf"]

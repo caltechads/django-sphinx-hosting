@@ -88,5 +88,13 @@
             "groups": [4, 5],
             "user_permissions": []
         }
-    }
+    },
+    {
+        "model": "authtoken.token",
+        "pk": "1e23ef078227977802e97a47fed942eb3f805f53",
+        "fields": {
+          "user": 2,
+          "created": "2023-07-26T23:49:45.372Z"
+        }
+      }
 ]

@@ -27,6 +27,9 @@ env = environ.Env()
 DEBUG = env.bool('DEBUG', default=False)
 DEVELOPMENT = env.bool('DEVELOPMENT', default=False)
 TESTING = env.bool('TESTING', default=False)
+# Set BOOTSTRAP_ALWAYS_MIGRATE to True if you want to always run pending
+# migrations on container boot up
+BOOTSTRAP_ALWAYS_MIGRATE = env.bool('BOOTSTRAP_ALWAYS_MIGRATE', default=True)
 
 # GENERAL
 # ------------------------------------------------------------------------------
