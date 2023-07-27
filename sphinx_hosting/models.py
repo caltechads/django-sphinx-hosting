@@ -965,3 +965,39 @@ class SphinxImage(TimeStampedModel, models.Model):
         verbose_name = _('sphinx image')
         verbose_name_plural = _('sphinx images')
         unique_together = ('version', 'orig_path')
+
+
+class ProjectRelatedLink(TimeStampedModel, models.Model):
+    """
+    A ``ProjectRelatedLink`` is a link to an external resource that is related
+    to a :py:class:`Project`.
+    """
+
+    title: F = models.CharField(
+        'Link Title',
+        max_length=100,
+        help_text=_('The title for this link')
+    )
+    uri: F = models.URLField(
+        'Link URL',
+        max_length=256,
+        help_text=_('The URL for this link')
+    )
+    project: FK = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name='related_links',
+        help_text=_('The project to which this link is related')
+    )
+
+    def get_update_url(self) -> str:
+        return reverse("sphinx_hosting:projectrelatedlink--update", kwargs={'pk': self.pk})
+
+    def get_delete_url(self) -> str:
+        return reverse("sphinx_hosting:projectrelatedlink--delete", kwargs={'pk': self.pk})
+
+    class Meta:
+        verbose_name = _('project related link')
+        verbose_name_plural = _('project related links')
+        unique_together = ('project', 'uri')
+        ordering = ('title',)

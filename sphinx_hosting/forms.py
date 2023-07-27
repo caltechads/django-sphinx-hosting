@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Type, cast
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field, Fieldset, HTML, ButtonHolder
@@ -9,7 +9,7 @@ from django.db.models import Model
 from django.urls import reverse, reverse_lazy
 from haystack.forms import SearchForm
 
-from .models import Project
+from .models import Project, ProjectRelatedLink
 
 
 class GlobalSearchForm(SearchForm):
@@ -166,6 +166,52 @@ class ProjectReadonlyUpdateForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class ProjectRelatedLinkBaseForm(forms.ModelForm):
+
+    def __init__(self, *args, project_machine_name: str = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-3'
+        self.helper.field_class = 'col'
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                Field('title'),
+                Field('uri'),
+            ),
+            ButtonHolder(
+                Submit('submit', 'Save', css_class='btn btn-primary'),
+                css_class='d-flex flex-row justify-content-end button-holder'
+            )
+        )
+
+    class Meta:
+        model: Type[Model] = ProjectRelatedLink
+        fields = (
+            'title',
+            'uri',
+        )
+
+
+class ProjectRelatedLinkCreateForm(ProjectRelatedLinkBaseForm):
+
+    def __init__(self, *args, project: Project = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper.form_action = reverse(
+            'sphinx_hosting:projectrelatedlink--create',
+            args=[cast(Project, project).machine_name]
+        )
+
+
+class ProjectRelatedLinkUpdateForm(ProjectRelatedLinkBaseForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper.form_action = self.instance.get_update_url()
 
 
 class VersionUploadForm(forms.Form):

@@ -32,6 +32,10 @@ Models
     :members:
     :undoc-members:
 
+.. autoclass:: ProjectRelatedLink
+    :members:
+    :undoc-members:
+
 .. autoclass:: Version
     :members:
     :undoc-members:

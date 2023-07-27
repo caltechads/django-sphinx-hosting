@@ -12,6 +12,7 @@ from rest_framework import routers
 from .views import (
     ClassifierViewSet,
     ProjectViewSet,
+    ProjectRelatedLinkViewSet,
     VersionViewSet,
     SphinxPageViewSet,
     SphinxImageViewSet,
@@ -27,6 +28,7 @@ router.register(r'projects', ProjectViewSet)
 router.register(r'versions', VersionViewSet)
 router.register(r'pages', SphinxPageViewSet)
 router.register(r'images', SphinxImageViewSet)
+router.register(r'related-links', ProjectRelatedLinkViewSet)
 
 urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path('', include(router.urls)),

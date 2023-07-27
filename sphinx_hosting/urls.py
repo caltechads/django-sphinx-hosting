@@ -10,6 +10,9 @@ from .views import (
     ProjectDetailView,
     ProjectListView,
     ProjectUpdateView,
+    ProjectRelatedLinkCreateView,
+    ProjectRelatedLinkUpdateView,
+    ProjectRelatedLinkDeleteView,
     SphinxPageDetailView,
     VersionDeleteView,
     VersionDetailView,
@@ -27,6 +30,21 @@ urlpatterns: List[URLPattern] = [
     path('project/<str:slug>/update/', ProjectUpdateView.as_view(), name='project--update'),
     path('project/<str:slug>/upload/', VersionUploadView.as_view(), name='version--upload'),
     path('project/<str:slug>/delete/', ProjectDeleteView.as_view(), name='project--delete'),
+    path(
+        'project/<str:project_slug>/link/',
+        ProjectRelatedLinkCreateView.as_view(),
+        name='projectrelatedlink--create'
+    ),
+    path(
+        'project/link/<int:pk>/update/',
+        ProjectRelatedLinkUpdateView.as_view(),
+        name='projectrelatedlink--update'
+    ),
+    path(
+        'project/link/<int:pk>/delete/',
+        ProjectRelatedLinkDeleteView.as_view(),
+        name='projectrelatedlink--delete'
+    ),
     path('project/<str:project_slug>/<str:version>/', VersionDetailView.as_view(), name='version--detail'),
     path('project/<str:project_slug>/<str:version>/delete/', VersionDeleteView.as_view(), name='version--delete'),
     re_path(

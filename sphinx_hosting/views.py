@@ -18,7 +18,11 @@ from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import gettext as _
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import BaseFormView
+from django.views.generic.edit import (
+    BaseFormView,
+    BaseCreateView,
+    BaseUpdateView
+)
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -43,6 +47,8 @@ from .forms import (
     ProjectCreateForm,
     ProjectUpdateForm,
     ProjectReadonlyUpdateForm,
+    ProjectRelatedLinkCreateForm,
+    ProjectRelatedLinkUpdateForm,
     VersionUploadForm
 )
 from .importers import SphinxPackageImporter
@@ -50,6 +56,7 @@ from .logging import logger
 from .models import (
     Classifier,
     Project,
+    ProjectRelatedLink,
     Version,
     SphinxPage
 )
@@ -60,6 +67,9 @@ from .wildewidgets import (
     ProjectCreateModalWidget,
     ProjectDetailWidget,
     ProjectInfoWidget,
+    ProjectRelatedLinkCreateModalWidget,
+    ProjectRelatedLinksWidget,
+    ProjectRelatedLinksListWidget,
     ProjectVersionsTableWidget,
     ProjectTableWidget,
     PagedSearchLayout,
@@ -159,6 +169,7 @@ class ProjectDetailView(
                 form=ProjectReadonlyUpdateForm(instance=self.object)
             )
         )
+        layout.add_widget(ProjectRelatedLinksListWidget(queryset=self.object.related_links.all()))
         layout.add_widget(ProjectClassifierListWidget(queryset=self.object.classifiers.all()))
         layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
         user = cast(AbstractUser, self.request.user)
@@ -262,8 +273,10 @@ class ProjectUpdateView(
         layout = WidgetListLayout(self.object.title)
         layout.add_widget(ProjectInfoWidget(self.object))
         layout.add_widget(ProjectDetailWidget(self.object))
+        layout.add_widget(ProjectRelatedLinksWidget(self.object))
         layout.add_widget(ProjectClassifierSelectorWidget(self.object))
         layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
+        layout.add_widget(ProjectRelatedLinkCreateModalWidget(self.object))
         version = self.object.latest_version
         user = cast(AbstractUser, self.request.user)
         if version and version.head:
@@ -324,6 +337,98 @@ class ProjectDeleteView(
             self.object.pk
         )
         return response
+
+
+# ===========================
+# ProjectRelatedLinks
+# ===========================
+
+class ProjectRelatedLinkCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    FormValidMessageMixin,
+    BaseCreateView
+):
+    form_class = ProjectRelatedLinkCreateForm
+    model: Type[Model] = ProjectRelatedLink
+    permission_required: str = 'sphinxhostingcore.change_project'
+
+    def get_form_kwargs(self) -> Dict[str, str]:
+        self.project: Project = get_object_or_404(Project, machine_name=self.kwargs['project_slug'])
+        kwargs = super().get_form_kwargs()
+        kwargs['project'] = self.project
+        return kwargs
+
+    def form_valid(self, form: Form) -> HttpResponse:
+        form.instance.project = self.project  # type: ignore
+        return super().form_valid(form)
+
+    def get_form_valid_message(self) -> str:
+        link = cast(ProjectRelatedLink, self.object)
+        return f'Created Related Link "{link.title}" for project "{link.project.machine_name}"'
+
+    def get_success_url(self) -> str:
+        link = cast(ProjectRelatedLink, self.object)
+        logger.info(
+            'project.relatedlink.create.success project=%s link_id=%s link_title=%s link_url=%s',
+            link.project.machine_name,
+            link.id,
+            link.title,
+            link.uri
+        )
+        return reverse('sphinx_hosting:project--update', args=[link.project.machine_name])
+
+
+class ProjectRelatedLinkUpdateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    FormValidMessageMixin,
+    BaseUpdateView
+):
+    form_class = ProjectRelatedLinkUpdateForm
+    model: Type[Model] = ProjectRelatedLink
+    permission_required: str = 'sphinxhostingcore.change_project'
+
+    def get_form_kwargs(self) -> Dict[str, str]:
+        kwargs = super().get_form_kwargs()
+        kwargs['project_machine_name'] = self.object.project.machine_name
+        return kwargs
+
+    def get_form_valid_message(self) -> str:
+        return f'Updated Related Link "{self.object.title}" for project "{self.object.project.machine_name}"'
+
+    def get_success_url(self) -> str:
+        logger.info(
+            'project.relatedlink.update.success project=%s link_id=%s link_title=%s link_url=%s',
+            self.object.project.machine_name,
+            self.object.id,
+            self.object.title,
+            self.object.uri
+        )
+        return reverse('sphinx_hosting:project--update', args=[self.object.project.machine_name])
+
+
+class ProjectRelatedLinkDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView
+):
+    model: Type[Model] = ProjectRelatedLink
+    permission_required: str = 'sphinxhostingcore.change_project'
+
+    def delete(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        response = super().delete(request, *args, **kwargs)
+        logger.info(
+            'project.relatedlink.delete.success project=%s link_id=%s link_title=%s link_url=%s',
+            self.object.project.machine_name,
+            self.object.id,
+            self.object.title,
+            self.object.uri
+        )
+        return response
+
+    def get_success_url(self) -> str:
+        return reverse('sphinx_hosting:project--update', args=[self.object.project.machine_name])
 
 
 # ===========================
@@ -537,7 +642,7 @@ class SphinxPageDetailView(
 
     def get_navbar(self) -> Navbar:
         navbar = super().get_navbar()
-        globaltoc = SphinxPageGlobalTableOfContentsMenu.parse_obj(self.object.version.globaltoc)
+        globaltoc = SphinxPageGlobalTableOfContentsMenu.parse_obj(self.object.version)
         globaltoc.title = self.object.version.project.title
         navbar.add_to_menu_section(globaltoc)
         return navbar

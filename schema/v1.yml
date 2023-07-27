@@ -81,6 +81,7 @@ paths:
         name: name
         schema:
           type: string
+        description: Filter by classifier name [case insensitive, partial match]
       - name: offset
         required: false
         in: query
@@ -219,6 +220,7 @@ paths:
         name: archived
         schema:
           type: boolean
+        description: Filter by archived status
       - name: limit
         required: false
         in: query
@@ -235,34 +237,44 @@ paths:
         name: orig_path
         schema:
           type: string
+        description: Filter by original path [case insensitive, partial match]
       - in: query
         name: project
         schema:
           type: integer
+        description: Filter by project ID
       - in: query
         name: project_classifier
         schema:
           type: string
+        description: Filter by project classifier name [case insensitive, partial
+          match]
       - in: query
         name: project_machine_name
         schema:
           type: string
+        description: Filter by project machine name [case insensitive, partial match]
       - in: query
         name: project_title
         schema:
           type: string
+        description: Filter by project title [case insensitive, partial match]
       - in: query
         name: sphinx_version
         schema:
           type: string
+        description: Filter by Sphinx version [case insensitive, partial match to
+          start of string]
       - in: query
         name: version
         schema:
           type: integer
+        description: Filter by version ID
       - in: query
         name: version_number
         schema:
           type: string
+        description: Filter by version number [case insensitive, exact match]
       tags:
       - images
       security:
@@ -317,6 +329,7 @@ paths:
         name: archived
         schema:
           type: boolean
+        description: Filter by archived status
       - name: limit
         required: false
         in: query
@@ -333,38 +346,49 @@ paths:
         name: project
         schema:
           type: integer
+        description: Filter by project ID
       - in: query
         name: project_classifier
         schema:
           type: string
+        description: Filter by project classifier name [case insensitive, partial
+          match]
       - in: query
         name: project_machine_name
         schema:
           type: string
+        description: Filter by project machine name [case insensitive, partial match]
       - in: query
         name: project_title
         schema:
           type: string
+        description: Filter by project title [case insensitive, partial match]
       - in: query
         name: relative_path
         schema:
           type: string
+        description: Filter by page relative path [case insensitive, partial match]
       - in: query
         name: sphinx_version
         schema:
           type: string
+        description: Filter by Sphinx version [case insensitive, partial match to
+          start of string]
       - in: query
         name: title
         schema:
           type: string
+        description: Filter by page title [case insensitive, partial match]
       - in: query
         name: version
         schema:
           type: integer
+        description: Filter by version ID
       - in: query
         name: version_number
         schema:
           type: string
+        description: Filter by version number [case insensitive, exact match]
       tags:
       - pages
       security:
@@ -413,10 +437,13 @@ paths:
         name: classifier
         schema:
           type: string
+        description: Filter by project classifier name [case insensitive, partial
+          match]]
       - in: query
         name: description
         schema:
           type: string
+        description: Filter by project description, [case insensitive, partial match]
       - name: limit
         required: false
         in: query
@@ -427,6 +454,7 @@ paths:
         name: machine_name
         schema:
           type: string
+        description: Filter by project machine name, [case insensitive, partial match]
       - name: offset
         required: false
         in: query
@@ -437,6 +465,7 @@ paths:
         name: title
         schema:
           type: string
+        description: Filter by project title, [case insensitive, partial match]
       tags:
       - projects
       security:
@@ -576,6 +605,166 @@ paths:
               schema:
                 $ref: '#/components/schemas/Project'
           description: ''
+  /api/v1/related-links/:
+    get:
+      operationId: related_links_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: project_classifier
+        schema:
+          type: string
+        description: Filter by project classifier name [case insensitive, partial
+          match]]
+      - in: query
+        name: project_description
+        schema:
+          type: string
+        description: Filter by project description, [case insensitive, partial match]
+      - in: query
+        name: project_machine_name
+        schema:
+          type: string
+        description: Filter by project machine name, [case insensitive, partial match]
+      - in: query
+        name: project_title
+        schema:
+          type: string
+        description: Filter by project title, [case insensitive, partial match]
+      - in: query
+        name: title
+        schema:
+          type: string
+        description: Filter by link title, [case insensitive, partial match]
+      tags:
+      - related-links
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProjectRelatedLinkList'
+          description: ''
+    post:
+      operationId: related_links_create
+      tags:
+      - related-links
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRelatedLink'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectRelatedLink'
+          description: ''
+  /api/v1/related-links/{id}/:
+    get:
+      operationId: related_links_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project related link.
+        required: true
+      tags:
+      - related-links
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectRelatedLink'
+          description: ''
+    put:
+      operationId: related_links_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project related link.
+        required: true
+      tags:
+      - related-links
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRelatedLink'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectRelatedLink'
+          description: ''
+    patch:
+      operationId: related_links_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project related link.
+        required: true
+      tags:
+      - related-links
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProjectRelatedLink'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectRelatedLink'
+          description: ''
+    delete:
+      operationId: related_links_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project related link.
+        required: true
+      tags:
+      - related-links
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
   /api/v1/schema/:
     get:
       operationId: schema_retrieve
@@ -636,15 +825,28 @@ paths:
 
             To upload a file with ``curl`` to the endpoint for this view::
 
-                curl                 -XPOST                 -H "Authorization: Token __THE_API_TOKEN__"
-                    -F 'file=@path/to/yourdocs.tar.gz'                 https://sphinx-hosting.example.com/api/v1/version/import/
+                curl \
+                    -XPOST \
+                    -H "Authorization: Token __THE_API_TOKEN__" \
+                    -F 'file=@path/to/yourdocs.tar.gz' \
+                    https://sphinx-hosting.example.com/api/v1/version/import/
       tags:
       - version
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VersionUpload'
+        required: true
       security:
       - tokenAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionUpload'
+          description: ''
   /api/v1/versions/:
     get:
       operationId: versions_list
@@ -656,6 +858,7 @@ paths:
         name: archived
         schema:
           type: boolean
+        description: Filter by archived status
       - name: limit
         required: false
         in: query
@@ -676,18 +879,24 @@ paths:
         name: project_classifier
         schema:
           type: string
+        description: Filter by project classifier name [case insensitive, partial
+          match]
       - in: query
         name: project_machine_name
         schema:
           type: string
+        description: Filter by project machine name [case insensitive, partial match]
       - in: query
         name: project_title
         schema:
           type: string
+        description: Filter by project title [case insensitive, partial match]
       - in: query
         name: sphinx_version
         schema:
           type: string
+        description: Filter by Sphinx version [case insensitive, partial match to
+          start of string]
       - in: query
         name: version
         schema:
@@ -696,6 +905,7 @@ paths:
         name: version_number
         schema:
           type: string
+        description: Filter by version number [case insensitive, exact match]
       tags:
       - versions
       security:
@@ -812,6 +1022,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Project'
+    PaginatedProjectRelatedLinkList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectRelatedLink'
     PaginatedSphinxImageList:
       type: object
       properties:
@@ -915,6 +1145,12 @@ components:
           title: Brief Description
           description: A brief description of this project
           maxLength: 256
+        related_links:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
         classifiers:
           type: array
           items:
@@ -925,6 +1161,30 @@ components:
             type: string
             format: uri
           readOnly: true
+    PatchedProjectRelatedLink:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: Link Title
+          description: The title for this link
+          maxLength: 100
+        uri:
+          type: string
+          format: uri
+          title: Link URL
+          description: The URL for this link
+          maxLength: 256
+        project:
+          type: string
+          format: uri
     Project:
       type: object
       properties:
@@ -952,6 +1212,12 @@ components:
           title: Brief Description
           description: A brief description of this project
           maxLength: 256
+        related_links:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
         classifiers:
           type: array
           items:
@@ -966,9 +1232,40 @@ components:
       - classifiers
       - id
       - machine_name
+      - related_links
       - title
       - url
       - versions
+    ProjectRelatedLink:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: Link Title
+          description: The title for this link
+          maxLength: 100
+        uri:
+          type: string
+          format: uri
+          title: Link URL
+          description: The URL for this link
+          maxLength: 256
+        project:
+          type: string
+          format: uri
+      required:
+      - id
+      - project
+      - title
+      - uri
+      - url
     SphinxImage:
       type: object
       properties:
@@ -1026,12 +1323,13 @@ components:
           type: string
           title: Body (Original)
           description: The original body for the page, extracted from the page JSON.
-            Some pages have no body.We save this here in case we need to reprocess
+            Some pages have no body. We save this here in case we need to reprocess
             the body at some later date.
         body:
           type: string
           description: The body for the page, extracted from the page JSON, and modified
-            to suit us.  Some pages have no body.
+            to suit us.  Some pages have no body.  The body is actually stored as
+            a Django template.
         orig_local_toc:
           type: string
           nullable: true
@@ -1130,6 +1428,19 @@ components:
       - project
       - url
       - version
+    VersionUpload:
+      type: object
+      description: |-
+        The actual work of importing the file is done in
+        :py:class:`sphinx_hosting.api.views.VersionUploadView`.  We're defining our
+        :py:meth:`create` and :py:meth:`create` here as NOOP functions to make the
+        linters happy because they're abstract in :py:class:`serializers.Serializer`.
+      properties:
+        file:
+          type: string
+          format: uri
+      required:
+      - file
   securitySchemes:
     tokenAuth:
       type: apiKey

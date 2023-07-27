@@ -14,7 +14,7 @@ from wildewidgets import (
     Row,
     TwoColumnLayout
 )
-from ..models import SphinxPage
+from ..models import SphinxPage, Version
 
 
 #------------------------------------------------------
@@ -119,9 +119,14 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
     title_css_classes: str = 'mt-3'
 
     @classmethod
-    def parse_obj(cls, data: Dict[str, Any]) -> "SphinxPageGlobalTableOfContentsMenu":
+    def parse_obj(cls, version: Version) -> "SphinxPageGlobalTableOfContentsMenu":
         """
-        Given a dict like this::
+        Parse the globaltoc of a :py:class:`sphinx_hosting.models.Version` into
+        a :py:class:`wildewidgets.Menu` suitable for insertion into a
+        :py:class:`wildewidgets.Navbar`
+
+        The :py:attr:`sphinx_hosting.models.Version.globaltoc` is a dict that
+        looks like this::
 
             {
                 items: [
@@ -132,13 +137,39 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
                 ]
             }
 
-        Return a fully configured :py:class:`SphinxPageGlobalTableOfContentsMenu` suitable
-        for insertion into a :py:class:`wildewidgets.Navbar`.
+        Args:
+            version: the ``Version`` for which we are building the menu
 
         Returns:
             A configured  ``SphinxPageGlobalTableOfContentsMenu``.
         """
+        data = version.globaltoc
         menu_items = cls._load_menuitems(data['items'])
+        if version.project.related_links.exists():
+            link_items: List[MenuItem] = [MenuItem(text="Related Links")]
+            for link in version.project.related_links.all():
+                link_items.append(MenuItem(text=link.title, url=link.uri, icon="link"))
+            if len(menu_items) == 1:
+                # There's only a single page in this version, so we can
+                # just extend the list of menu items with the link items
+                menu_items.extend(link_items)
+            else:
+                if (
+                    menu_items[1].url is not None and
+                    menu_items[1].items is not None
+                ):
+                    # Insert a "Content" heading after the "Home" link
+                    # to separate it from the links
+                    menu_items.insert(1, MenuItem(text="Content"))
+                link_items.reverse()
+                for item in link_items:
+                    menu_items.insert(1, item)
+        if menu_items[0].text != 'Home':
+            # Let's be consistent about naming the top page of the
+            # version "Home".  The globaltoc adds a Home link if there
+            # isn't one, but those without globaltoc will have their
+            # top page named after the project.
+            menu_items[0].text = 'Home'
         return cls(*menu_items)
 
     @classmethod

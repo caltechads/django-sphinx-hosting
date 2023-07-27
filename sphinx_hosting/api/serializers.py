@@ -7,6 +7,7 @@ from rest_framework.relations import RelatedField
 from sphinx_hosting.models import (
     Classifier,
     Project,
+    ProjectRelatedLink,
     SphinxImage,
     SphinxPage,
     Version,
@@ -35,6 +36,11 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         view_name='sphinx_hosting_api:version-detail'
     )
     classifiers: serializers.Serializer = ClassifierSerializer(many=True)
+    related_links: RelatedField = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='sphinx_hosting_api:projectrelatedlink-detail'
+    )
 
     class Meta:
         model: Type[Model] = Project
@@ -45,11 +51,33 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
             'title',
             'machine_name',
             'description',
+            'related_links',
             'classifiers',
             'versions',
         )
         extra_kwargs = {
             'url': {'view_name': 'sphinx_hosting_api:project-detail'},
+        }
+
+
+class ProjectRelatedLinkSerializer(serializers.HyperlinkedModelSerializer):
+
+    project: RelatedField = serializers.HyperlinkedRelatedField(
+        queryset=Project.objects.all(),
+        view_name='sphinx_hosting_api:project-detail'
+    )
+
+    class Meta:
+        model: Type[Model] = ProjectRelatedLink
+        fields: Tuple[str, ...] = (
+            'url',
+            'id',
+            'title',
+            'uri',
+            'project',
+        )
+        extra_kwargs = {
+            'url': {'view_name': 'sphinx_hosting_api:projectrelatedlink-detail'},
         }
 
 

@@ -6,11 +6,15 @@ from wildewidgets import (
     ActionButtonModelTable,
     BasicModelTable,
     Block,
+    CardWidget,
     CrispyFormModalWidget,
     CrispyFormWidget,
-    CardWidget,
     Datagrid,
+    HorizontalLayoutBlock,
+    Link,
+    FormButton,
     ListModelWidget,
+    ModalButton,
     RowActionButton,
     RowEditButton,
     RowModelUrlButton,
@@ -20,8 +24,12 @@ from wildewidgets import (
     WidgetListLayoutHeader,
 )
 
-from ..forms import ProjectCreateForm
-from ..models import Classifier, Project, Version
+from ..forms import (
+    ProjectCreateForm,
+    ProjectRelatedLinkCreateForm,
+    ProjectRelatedLinkUpdateForm,
+)
+from ..models import Classifier, Project, Version, ProjectRelatedLink
 
 from .classifier import ClassifierFilterBlock
 
@@ -41,6 +49,39 @@ class ProjectCreateModalWidget(CrispyFormModalWidget):
 
     def __init__(self, *args, **kwargs):
         form = ProjectCreateForm()
+        super().__init__(form=form, *args, **kwargs)
+
+
+class ProjectRelatedLinkCreateModalWidget(CrispyFormModalWidget):
+    """
+    This is a modal dialog that holds the
+    :py:class:`sphinx_hosting.forms.ProjectRelatedLinkForm` for
+    creating links.
+    """
+
+    modal_id: str = "projectrelatedlink__create"
+    modal_title: str = "Add Related Link"
+
+    def __init__(self, project: Project, *args, **kwargs):
+        form = ProjectRelatedLinkCreateForm(project=project)
+        super().__init__(form=form, *args, **kwargs)
+
+
+class ProjectRelatedLinkUpdateModalWidget(CrispyFormModalWidget):
+    """
+    This is a modal dialog that holds the
+    :py:class:`sphinx_hosting.forms.ProjectRelatedLinkForm` for
+    updating links.
+
+    One of these is created for each
+    :py:class:`sphinx_hosting.models.ProjectRelatedLink` object, and lives in
+    the :py:class:`sphinx_hosting.widgets.ProjectRelatedLinksWidget`.
+    """
+
+    modal_title: str = "Update Related Link"
+
+    def __init__(self, link: ProjectRelatedLink, *args, **kwargs):
+        form = ProjectRelatedLinkUpdateForm(instance=link)
         super().__init__(form=form, *args, **kwargs)
 
 
@@ -87,7 +128,7 @@ class ProjectTableWidget(Block):
         )
         self.add_block(layout)
 
-    def get_title(self, user: AbstractUser) -> WidgetListLayoutHeader:
+    def get_title(self, user: AbstractUser) -> WidgetListLayoutHeader:  # pylint: disable=arguments-differ
         header = WidgetListLayoutHeader(
             header_text="Projects",
             badge_text=Project.objects.count(),
@@ -168,6 +209,74 @@ class ProjectDetailWidget(
     modifier: str = 'general'
     icon: str = "card-checklist"
     css_class: str = CrispyFormWidget.css_class + " p-4"
+
+
+#------------------------------------------------------
+# ProjectRelatedLink related widgets
+#------------------------------------------------------
+
+class ProjectRelatedLinkListWidget(HorizontalLayoutBlock):
+
+    def __init__(self, object: ProjectRelatedLink):  # pylint: disable=redefined-builtin
+        modal_id = f"projectrelatedlink__update__{object.pk}"
+        super().__init__(
+            Link(object.title, url=object.uri, title=object.title),
+            Block(
+                ModalButton(text='Edit', color="azure", target=f'#{modal_id}'),
+                FormButton(
+                    text='Delete',
+                    color="outline-secondary",
+                    css_class="d-inline",
+                    action=object.get_delete_url(),
+                    confirm_text="Are you sure you want to delete this link?",
+                ),
+            ),
+            ProjectRelatedLinkUpdateModalWidget(object, modal_id=modal_id),
+        )
+
+
+class ProjectRelatedLinksWidget(CardWidget):
+    """
+    This is a :py:class:`wildewidgets.CardWidget` that allows us to
+    manage the :py:class:`sphinx_hosting.models.ProjectRelatedLink` objects
+    for this :py:class:`sphinx_hosting.models.Project`.
+    """
+
+    title: str = "Related Links"
+    icon: str = "box-arrow-up-right"
+
+    def __init__(self, project: Project, **kwargs):
+        self.project = project
+        super().__init__(
+            widget=ListModelWidget(
+                queryset=self.project.related_links,
+                model_widget=ProjectRelatedLinkListWidget,
+            ),
+            **kwargs,
+        )
+
+    def get_title(self) -> WidgetListLayoutHeader:
+        header = WidgetListLayoutHeader(
+            header_text="Related Links",
+            badge_text=self.project.related_links.count(),
+        )
+        header.add_modal_button(
+            text="Add Related Link",
+            color="primary",
+            target=f'#{ProjectRelatedLinkCreateModalWidget.modal_id}'
+        )
+        return header
+
+
+class ProjectRelatedLinksListWidget(ListModelWidget):
+
+    paginate_by: int = 100
+    item_label: str = 'Related Link'
+    title: str = 'Related Links'
+    icon: str = "external-link"
+
+    def get_model_subblock(self, instance: ProjectRelatedLink) -> Block:
+        return Link(instance.title, url=instance.uri)
 
 
 #------------------------------------------------------

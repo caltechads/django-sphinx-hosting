@@ -16,6 +16,7 @@ from rest_framework.views import APIView
 from sphinx_hosting.models import (
     Classifier,
     Project,
+    ProjectRelatedLink,
     Version,
     SphinxPage,
     SphinxImage,
@@ -25,6 +26,7 @@ from sphinx_hosting.importers import SphinxPackageImporter
 from .serializers import (
     ClassifierSerializer,
     ProjectSerializer,
+    ProjectRelatedLinkSerializer,
     VersionSerializer,
     VersionUploadSerializer,
     SphinxPageSerializer,
@@ -349,3 +351,49 @@ class SphinxImageViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = SphinxImageSerializer
     queryset = SphinxImage.objects.all()
     filterset_class = SphinxImageFilter
+
+
+class ProjectRelatedLinkFilter(filters.FilterSet):
+
+    title: Filter = CharFilter(
+        lookup_expr="icontains",
+        help_text="Filter by link title, [case insensitive, partial match]",
+    )
+    project_title: Filter = CharFilter(
+        field_name="project__title",
+        lookup_expr="icontains",
+        help_text="Filter by project title, [case insensitive, partial match]",
+    )
+    project_machine_name: Filter = CharFilter(
+        field_name="project__machine_name",
+        lookup_expr="icontains",
+        help_text="Filter by project machine name, [case insensitive, partial match]",
+    )
+    project_description: Filter = CharFilter(
+        field_name="project__description",
+        lookup_expr="icontains",
+        help_text="Filter by project description, [case insensitive, partial match]",
+    )
+    project_classifier: Filter = CharFilter(
+        field_name="project__classifiers__name",
+        lookup_expr="icontains",
+        help_text="Filter by project classifier name [case insensitive, partial match]]",
+    )
+
+    class Meta:
+        model: Type[Model] = ProjectRelatedLink
+        fields: List[str] = [
+            "title",
+            "project_title",
+            "project_machine_name",
+            "project_description",
+            "project_classifier"
+        ]
+
+
+class ProjectRelatedLinkViewSet(viewsets.ModelViewSet):
+
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ProjectRelatedLinkSerializer
+    queryset = ProjectRelatedLink.objects.all()
+    filterset_class = ProjectRelatedLinkFilter
