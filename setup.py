@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setup(
     name="django-sphinx-hosting",
-    version="1.2.0",
+    version="1.2.1",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -22,7 +22,7 @@ setup(
         "crispy-bootstrap5",
         "humanize",
         "lxml >= 4.9.1",
-        "cssselect >= 1.2.0",
+        "cssselect >= 1.2.1",
         "rich"
     ],
     author="Caltech IMSS ADS",
