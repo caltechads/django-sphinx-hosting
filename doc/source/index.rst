@@ -10,6 +10,7 @@ django-sphinx-hosting
    overview/packaging
    overview/authoring
    overview/importing
+   overview/api
 
 .. toctree::
    :caption: Runbook
@@ -224,6 +225,8 @@ documentation are uploaded, add this to ``settings.py``:
    # saved or deleted.
    HAYSTACK_SIGNAL_PROCESSOR = 'sphinx_hosting.signals.SphinxHostingSignalProcessor'
 
+
+.. _configure-django-rest-framework:
 
 Configure Django REST Framework
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
