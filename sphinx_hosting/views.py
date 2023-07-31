@@ -293,7 +293,7 @@ class ProjectUpdateView(
                 color='orange',
                 css_class='mb-3'
             )
-        if user.has_perm('sphinxhostingcore.change_project'):
+        if user.has_perm('sphinxhostingcore.add_version'):
             layout.add_sidebar_bare_widget(
                 VersionUploadBlock(form=VersionUploadForm(project=self.object))
             )
@@ -522,7 +522,7 @@ class VersionDetailView(
                 css_class='mb-3'
             )
         user = cast(AbstractUser, self.request.user)
-        if user.has_perm('sphinxhostingcore.change_project'):
+        if user.has_perm('sphinxhostingcore.delete_version'):
             layout.add_sidebar_form_button(
                 'Delete Version',
                 reverse('sphinx_hosting:version--delete', args=[self.object.project.machine_name, self.object.version]),
@@ -545,7 +545,7 @@ class VersionUploadView(
     FormValidMessageMixin,
     BaseFormView
 ):
-    permission_required: str = 'sphinxhostingcore.change_project'
+    permission_required: str = 'sphinxhostingcore.add_version'
     form_class = VersionUploadForm
 
     def get_form_valid_message(self) -> str:
@@ -589,7 +589,7 @@ class VersionDeleteView(
     PermissionRequiredMixin,
     DeleteView
 ):
-    permission_required: str = 'sphinxhostingcore.change_project'
+    permission_required: str = 'sphinxhostingcore.delete_version'
     model: Type[Model] = Version
     slug_field: str = 'version'
     slug_url_kwarg: str = 'version'

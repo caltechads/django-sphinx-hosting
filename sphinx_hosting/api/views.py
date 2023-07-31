@@ -23,6 +23,7 @@ from sphinx_hosting.models import (
 )
 from sphinx_hosting.importers import SphinxPackageImporter
 
+from .permissions import ChangeProjectPermission, AddVersionPermission
 from .serializers import (
     ClassifierSerializer,
     ProjectSerializer,
@@ -49,7 +50,10 @@ class ClassifierFilter(filters.FilterSet):
 
 class ClassifierViewSet(viewsets.ModelViewSet):
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        permissions.DjangoModelPermissions,
+    ]
     serializer_class = ClassifierSerializer
     queryset = Classifier.objects.all()
     filterset_class = ClassifierFilter
@@ -82,7 +86,10 @@ class ProjectFilter(filters.FilterSet):
 
 class ProjectViewSet(viewsets.ModelViewSet):
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        permissions.DjangoModelPermissions,
+    ]
     serializer_class = ProjectSerializer
     queryset = Project.objects.all()
     filterset_class = ProjectFilter
@@ -149,7 +156,10 @@ class VersionViewSet(
     but they can't create or update them the normal Django way.
     """
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        permissions.DjangoModelPermissions | ChangeProjectPermission,
+    ]
     serializer_class = VersionSerializer
     queryset = Version.objects.all()
     filterset_class = VersionFilter
@@ -180,7 +190,10 @@ class VersionUploadView(APIView):
     """
 
     serializer_class = VersionUploadSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        AddVersionPermission
+    ]
     parser_classes = (MultiPartParser,)
 
     def post(self, request: Request) -> Response:
@@ -393,7 +406,10 @@ class ProjectRelatedLinkFilter(filters.FilterSet):
 
 class ProjectRelatedLinkViewSet(viewsets.ModelViewSet):
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        ChangeProjectPermission
+    ]
     serializer_class = ProjectRelatedLinkSerializer
     queryset = ProjectRelatedLink.objects.all()
     filterset_class = ProjectRelatedLinkFilter

@@ -284,9 +284,10 @@ class SphinxPackageImporter:
     def _fix_link_hrefs(self, body: str) -> str:
         """
         Given an HTML body of a Sphinx page, update the ``<a href="path">``
-        references to be absolute.  If we don't do this, any links on the
-        index page the version will be relative to the index page, instead of
-        being relative to the root of the docs, and won't work.
+        references for "path" to be rendered at page render time.  If we don't
+        do this, a lot of links won't work, because they do
+        index page, instead of being relative to the root of the docs, and won't
+        work.
 
         Args:
             body: the HTML body of a Sphinx document
@@ -296,8 +297,14 @@ class SphinxPackageImporter:
         """
         if not body:
             return ''
+
+        # Parse the HTML body into an lxml tree
         html = lxml.html.fromstring(body)
+
+        # Find all internal references
         links = html.cssselect('a.reference.internal')
+
+        # For each link, update its URL to be rendered at page render time
         for link in links:
             href = link.attrib['href']
             anchor = None
@@ -313,19 +320,24 @@ class SphinxPackageImporter:
             )
             if anchor:
                 link.attrib['href'] += f'#{anchor}'
+
+        # Return the updated HTML body
         return lxml.html.tostring(html).decode('utf-8')
 
-    def _fix_page_body(self, path: str, data: Dict[str, Any]) -> None:
+    def _fix_page_body(self, data: Dict[str, Any]) -> None:
         """
         Do any work needed to prepare the page body before inserting into the
-        database.  This means
+        database.  This means:
 
         * Ensure the ``body`` key exists in ``data``
         * Update the ``img`` sources to point to our Django storage location.
           We uploaded them to our storage during :py:meth:`import_images`.
+        * Update the ``href``s for any ``<a>`` links to be rendered at page
+          render time.
+        * Update the ``<table>``s to have the CSS classes we need for them to
+          display nicely.
 
         Args:
-            path: the file path in the tarfile
             data: the JSON data from our file
         """
         if 'body' not in data or data['body'] is None:
@@ -476,7 +488,7 @@ class SphinxPackageImporter:
                 fd = cast(io.BufferedReader, package.extractfile(member))
                 data = json.loads(fd.read())
                 self._fix_page_title(path, data)
-                self._fix_page_body(path, data)
+                self._fix_page_body(data)
                 self._fix_toc(data)
                 page = SphinxPage(
                     version=version,
