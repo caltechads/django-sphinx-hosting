@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setup(
     name="django-sphinx-hosting",
-    version="1.2.1",
+    version="1.2.2",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
