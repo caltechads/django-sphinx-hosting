@@ -22,7 +22,7 @@ setup(
         "crispy-bootstrap5",
         "humanize",
         "lxml >= 4.9.1",
-        "cssselect >= 1.2.1",
+        "cssselect >= 1.2.0",
         "rich"
     ],
     author="Caltech IMSS ADS",
