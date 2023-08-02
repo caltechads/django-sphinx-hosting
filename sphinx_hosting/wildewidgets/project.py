@@ -216,6 +216,7 @@ class ProjectDetailWidget(
 #------------------------------------------------------
 
 class ProjectRelatedLinkListItemWidget(HorizontalLayoutBlock):
+    css_class: str = "mb-2"
 
     def __init__(self, object: ProjectRelatedLink):  # pylint: disable=redefined-builtin
         modal_id = f"projectrelatedlink__update__{object.pk}"
