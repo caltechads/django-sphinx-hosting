@@ -41,17 +41,6 @@ class SphinxHostingMainMenu(Menu):
         )
     ]
 
-
-class SphinxHostingLookupsMenu(Menu):
-    """
-    This is a second menu that appears in :py:class:`SphinxHostingSidebar` below
-    the main menu, :py:class:`SphinxHostingMainMenu`.  This gives access to our
-    various lookup models like :py:class:`sphinx_hosting.models.Classifier` for
-    those users that have rights to work with them directly.
-    """
-    title: Optional[str] = "Lookups"
-    css_class: str = 'mt-3'
-
     def __init__(self, *items, **kwargs) -> None:
         self.active_item: Optional[str] = None
         super().__init__(*items, **kwargs)
@@ -59,11 +48,11 @@ class SphinxHostingLookupsMenu(Menu):
     def build_menu(self, items: List[MenuItem]) -> None:
         """
         Programatically build our menu here.  We have this code because the
-        presence of items in this menu depends on the user's permissions.
+        presence of some items in this menu depends on the user's permissions.
 
         We have to do it here because if we do it in ``__init__``, that's too
         early in the Django boostrap and the global Django ``urlpatterns`` have
-        not finished building.
+        not finished building, and even ``reverse_lazy`` fails.
         """
         request: HttpRequest = CrequestMiddleware.get_request()
         user: AbstractUser = cast(AbstractUser, request.user)
@@ -73,13 +62,10 @@ class SphinxHostingLookupsMenu(Menu):
                 icon='bookshelf',
                 url=reverse_lazy('sphinx_hosting:classifier--index')
             )
+            items.append(item)
+        for item in items:
             if self.active_item is not None:
                 item.set_active(self.active_item)
-            items.append(item)
-        if not items:
-            # If there's nothing left, hide the title so that the menu
-            # doesn't show up at all
-            self.title = None
         super().build_menu(items)
 
     def activate(self, text: str) -> bool:
@@ -87,9 +73,9 @@ class SphinxHostingLookupsMenu(Menu):
         Normally, how activate works is that it looks through our menu items,
         finds the one whose ``text`` or ``url`` matches ``text``.
 
-        In our case, we're building the menu items in :py:meth:`build_menu`, which
-        occurs after :py:meth:`activate` would be called, so we have to save the
-        ``text`` here, and use it later in :py:meth:`build_menu`.
+        In our case, we're building the menu items in :py:meth:`build_menu`,
+        which occurs after :py:meth:`activate` would be called, so we have to
+        save the ``text`` here, and use it later in :py:meth:`build_menu`.
 
         Args:
             text: the text to search for among our :py:attr:`items`
@@ -127,7 +113,6 @@ class SphinxHostingSidebar(TablerVerticalNavbar):
     )
     contents = [
         SphinxHostingMainMenu(),
-        SphinxHostingLookupsMenu(),
     ]
     wide: bool = True
 
