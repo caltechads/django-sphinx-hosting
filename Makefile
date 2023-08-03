@@ -18,3 +18,7 @@ tox:
 	# install tox and tox-pyenv in that ve
 	# activate that ve before running this
 	@tox
+
+release: clean
+	@python setup.py sdist bdist_wheel
+	@twine upload dist/*
