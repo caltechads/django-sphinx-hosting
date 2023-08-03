@@ -167,6 +167,12 @@ class ProjectVersionsTableWidget(CardWidget):
 
 
 class ProjectClassifierSelectorWidget(ToggleableManyToManyFieldBlock):
+    """
+    This is an editable listing of :py:class:`sphinx_hosting.models.Classifier`
+    objects for a particular :py:class:`sphinx_hosting.models.Project`.
+
+    It is used in the project edit view.
+    """
 
     model = Project
     field_name = 'classifiers'
@@ -175,6 +181,13 @@ class ProjectClassifierSelectorWidget(ToggleableManyToManyFieldBlock):
 
 
 class ProjectClassifierListWidget(ListModelWidget):
+    """
+    This is a :py:class:`wildewidgets.ListModelWidget` that renders a list of
+    :py:class:`sphinx_hosting.models.Classifier` objects.  It is used in the
+    project detail view as a read-only list of classifiers.
+
+    The editable version of this widget is :py:class:`ProjectClassifierSelectorWidget`.
+    """
 
     paginate_by: int = 100
     item_label: str = 'Classifier'
@@ -193,7 +206,8 @@ class ProjectDetailWidget(
     Widget
 ):
     """
-    This widget renders an update form for a :py:class:`sphinx_hosting.models.Project`.
+    This widget renders an update form for a
+    :py:class:`sphinx_hosting.models.Project`.
 
     Use directly it like so::
 
@@ -216,6 +230,12 @@ class ProjectDetailWidget(
 #------------------------------------------------------
 
 class ProjectRelatedLinkListItemWidget(HorizontalLayoutBlock):
+    """
+    This is used by :py:class:`ProjectRelatedLinksWidget` to render a single
+    :py:class:`sphinx_hosting.models.ProjectRelatedLink` object in its list.
+    """
+
+    css_class: str = "mb-2"
 
     def __init__(self, object: ProjectRelatedLink):  # pylint: disable=redefined-builtin
         modal_id = f"projectrelatedlink__update__{object.pk}"
@@ -240,6 +260,12 @@ class ProjectRelatedLinksWidget(CardWidget):
     This is a :py:class:`wildewidgets.CardWidget` that allows us to
     manage the :py:class:`sphinx_hosting.models.ProjectRelatedLink` objects
     for this :py:class:`sphinx_hosting.models.Project`.
+
+    It renders a list of :py:class:`ProjectRelatedLinkListItemWidget` objects
+    and a "Add Related Link" button that opens a modal dialog.
+
+    This is used on the project update page, and is the editable version of
+    :py:class:`ProjectRelatedLinksListWidget`.
     """
 
     title: str = "Related Links"
@@ -269,6 +295,14 @@ class ProjectRelatedLinksWidget(CardWidget):
 
 
 class ProjectRelatedLinksListWidget(ListModelWidget):
+    """
+    This widget renders a list of
+    :py:class:`sphinx_hosting.models.ProjectRelatedLink` objects as a list of
+    :py:class:`wildewidgets.Link` objects.
+
+    This is used on the project detail page, and is the read-only version of
+    :py:class:`ProjectRelatedLinksWidget`.
+    """
 
     paginate_by: int = 100
     item_label: str = 'Related Link'
