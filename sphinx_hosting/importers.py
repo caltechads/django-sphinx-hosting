@@ -281,7 +281,7 @@ class SphinxPackageImporter:
             else:
                 data['title'] = SphinxPage.SPECIAL_PAGES[path]
 
-    def _fix_link_hrefs(self, body: str) -> str:
+    def _fix_link_hrefs(self, path: str, body: str) -> str:
         """
         Given an HTML body of a Sphinx page, update the ``<a href="path">``
         references for "path" to be rendered at page render time.  If we don't
@@ -290,6 +290,7 @@ class SphinxPackageImporter:
         work.
 
         Args:
+            path: the path to the current page
             body: the HTML body of a Sphinx document
 
         Returns:
@@ -312,8 +313,13 @@ class SphinxPackageImporter:
                 href, anchor = href.split('#')
             if href.endswith('/'):
                 href = href[:-1]
-            href = re.sub('^(../)*', '', href)
-            link.attrib['href'] = "{{% url 'sphinx_hosting:sphinxpage--detail' project_slug='{}' version='{}' path='{}' %}}".format(
+            # To deal with relative links, we need to know our current path
+            # and then compute the absolute path from that.
+            levels = href.count('../')
+            if levels:
+                href = re.sub('^(../)*', '', href)
+                href = '/'.join(path.split('/')[:-(levels)] + [href])
+            link.attrib['href'] = "{{% url 'sphinx_hosting:sphinxpage--detail' project_slug='{}' version='{}' path='{}' %}}".format(  # noqa:E501  # pylint: disable=line-too-long
                 self.config['project'],
                 self.config['release'],
                 href
@@ -324,7 +330,7 @@ class SphinxPackageImporter:
         # Return the updated HTML body
         return lxml.html.tostring(html).decode('utf-8')
 
-    def _fix_page_body(self, data: Dict[str, Any]) -> None:
+    def _fix_page_body(self, path: str, data: Dict[str, Any]) -> None:
         """
         Do any work needed to prepare the page body before inserting into the
         database.  This means:
@@ -338,6 +344,7 @@ class SphinxPackageImporter:
           display nicely.
 
         Args:
+            path: the path to the current page
             data: the JSON data from our file
         """
         if 'body' not in data or data['body'] is None:
@@ -352,7 +359,7 @@ class SphinxPackageImporter:
             # Update the hrefs for any <a> links to be absolute.  The relative
             # paths we get from Sphinx end up being relative to the Sphinx index
             # document instead of to the root of the docs
-            data['body'] = self._fix_link_hrefs(data['body'])
+            data['body'] = self._fix_link_hrefs(path, data['body'])
             html = lxml.html.fromstring(data['body'])
             # remove the first <h1> -- we'll display the page title another way
             first_h1 = html.cssselect('h1')
@@ -488,7 +495,7 @@ class SphinxPackageImporter:
                 fd = cast(io.BufferedReader, package.extractfile(member))
                 data = json.loads(fd.read())
                 self._fix_page_title(path, data)
-                self._fix_page_body(data)
+                self._fix_page_body(path, data)
                 self._fix_toc(data)
                 page = SphinxPage(
                     version=version,
