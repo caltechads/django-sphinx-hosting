@@ -489,6 +489,11 @@ class SphinxPackageImporter:
         """
         for member in package.getmembers():
             path: str = str(Path(*Path(member.name).parts[1:]))
+            if path.split('/')[-1].startswith('._'):
+                # This is a Mac OS X AppleDouble hidden file.  Ignore it and
+                # move on.  It just has MacOS specific metadata we don't care
+                # about.
+                continue
             if path.endswith('.fjson'):
                 # files that contain page data will have a .fjson extension
                 path = path.replace('.fjson', '')
