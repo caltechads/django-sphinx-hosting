@@ -36,7 +36,7 @@ class SphinxHostingMainMenu(Menu):
     items = [
         MenuItem(
             text='Projects',
-            icon='bookshelf',
+            icon='stack',
             url=reverse_lazy('sphinx_hosting:project--list')
         )
     ]
@@ -59,7 +59,7 @@ class SphinxHostingMainMenu(Menu):
         if user.has_perm('sphinxhostingcore.view_classifier'):
             item = MenuItem(
                 text='Classifiers',
-                icon='bookshelf',
+                icon='sliders',
                 url=reverse_lazy('sphinx_hosting:classifier--index')
             )
             items.append(item)
