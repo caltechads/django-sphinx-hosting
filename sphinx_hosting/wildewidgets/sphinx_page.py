@@ -1,5 +1,6 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
+from crequest.middleware import CrequestMiddleware
 from django.template import Context, Template
 from wildewidgets import (
     Block,
@@ -8,6 +9,7 @@ from wildewidgets import (
     Column,
     FontIcon,
     HTMLWidget,
+    Link,
     LinkButton,
     Menu,
     MenuItem,
@@ -65,6 +67,65 @@ class SphinxPagePagination(Row):
                     css_class='bg-azure-lt'
                 )
             )
+
+
+class PermalinkWidget(CardWidget):
+    """
+    This widget draws the "Permalink" button that is found at the top of the
+    right-hand column of each :py:class:`sphinx_hosting.views.SphinxPageDetailView`.
+
+    Args:
+        page: the ``SphinxPage`` we are rendering
+    """
+
+    def __init__(self, page: SphinxPage, **kwargs):
+        super().__init__(**kwargs)
+        self.page = page
+        self.widget = Block(
+            # This is the button that will be clicked to copy the permalink to the
+            # clipboard.
+            Link(
+                FontIcon('share', css_class='me-2'),
+                'Permalink',
+                css_id='page-permalink',
+                css_class='btn btn-outline-primary ms-auto',
+            ),
+            # This is the alert that will be displayed when the permalink is
+            # successfully copied to the clipboard.  It starts hidden.
+            Block(
+                "Permalink copied to clipboard!",
+                css_id='permalink-success-alert',
+                css_class='alert alert-success mt-2',
+                attributes={
+                    'role': 'alert',
+                    'style': 'display: none !important;'
+                }
+            ),
+            css_class='d-flex flex-column'
+        )
+
+    def get_script(self) -> Optional[str]:
+        """
+        Return the Javascript that will be executed when the "Permalink" button
+        is clicked.  This will copy the permalink to the browser clipboard.
+
+        Returns:
+            The javascript for this block.
+        """
+        request = CrequestMiddleware.get_request()
+        return f"""
+$('#page-permalink').click(function() {{
+    navigator.clipboard.writeText("https://{request.get_host()}{self.page.get_permalink()}").then(
+        () => {{
+            $('#permalink-success-alert').show("slow");
+            $('#permalink-success-alert').delay(3000).hide("slow");
+        }},
+        () => {{
+            alert("Copy failed!");
+        }}
+    );
+}});
+"""
 
 
 class SphinxPageBodyWidget(CardWidget):
@@ -252,6 +313,7 @@ class SphinxPageLayout(Block):
         self.add_block(SphinxPagePagination(page, css_class='mb-4'))
         self.add_block(SphinxPageTitle(page))
         layout = TwoColumnLayout(left_column_width=self.left_column_width)
+        layout.add_to_right(PermalinkWidget(page))
         if page.local_toc:
             layout.add_to_right(SphinxPageTableOfContentsWidget(page))
         layout.add_to_left(SphinxPageBodyWidget(page))

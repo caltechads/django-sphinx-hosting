@@ -929,6 +929,23 @@ class SphinxPage(TimeStampedModel, models.Model):
             ]
         )
 
+    def get_permalink(self) -> str:
+        """
+        Return the permalink for this page.  This is the URL for the page
+        with the version number replaced with "latest".
+
+        Returns:
+            The permalink for this page.
+        """
+        return reverse(
+            'sphinx_hosting:sphinxpage--detail',
+            args=[
+                self.version.project.machine_name,
+                "latest",
+                self.relative_path
+            ]
+        )
+
     class Meta:
         verbose_name = _('sphinx page')
         verbose_name_plural = _('sphinx pages')

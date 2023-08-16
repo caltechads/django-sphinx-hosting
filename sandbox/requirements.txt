@@ -1,12 +1,11 @@
 # Django and third-party apps
 # ------------------------------------------------------------------------------
 # When you update django in this file, update the links in settings.py, too!
-django==4.2.3                                 # https://www.djangoproject.com/
+django==4.2.4                                 # https://www.djangoproject.com/
 django-environ==0.10.0                         # https://github.com/joke2k/django-environ
 django-xff==1.3.0                             # https://github.com/ferrix/xff/
 django-compressor==4.3.1                      # https://github.com/django-compressor/django-compressor
 django-crequest==2018.5.11                    # https://github.com/Alir3z4/django-crequest
-
 
 # Web server
 # ------------------------------------------------------------------------------
