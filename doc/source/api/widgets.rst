@@ -150,6 +150,9 @@ Sphinx Pages
 .. autoclass:: SphinxPageTitle
     :members:
 
+.. autoclass:: SphinxPagePermalinkWidget
+    :members:
+
 .. autoclass:: SphinxPageBodyWidget
     :members:
 

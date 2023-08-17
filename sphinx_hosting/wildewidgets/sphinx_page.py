@@ -69,7 +69,7 @@ class SphinxPagePagination(Row):
             )
 
 
-class PermalinkWidget(CardWidget):
+class SphinxPagePermalinkWidget(CardWidget):
     """
     This widget draws the "Permalink" button that is found at the top of the
     right-hand column of each :py:class:`sphinx_hosting.views.SphinxPageDetailView`.
@@ -313,7 +313,7 @@ class SphinxPageLayout(Block):
         self.add_block(SphinxPagePagination(page, css_class='mb-4'))
         self.add_block(SphinxPageTitle(page))
         layout = TwoColumnLayout(left_column_width=self.left_column_width)
-        layout.add_to_right(PermalinkWidget(page))
+        layout.add_to_right(SphinxPagePermalinkWidget(page))
         if page.local_toc:
             layout.add_to_right(SphinxPageTableOfContentsWidget(page))
         layout.add_to_left(SphinxPageBodyWidget(page))
