@@ -371,8 +371,9 @@ class ProjectTable(ActionButtonModelTable):
     #: A list of names of columns that will will not be searched when doing a
     #: **global** search
     unsearchable: List[str] = [
-        'lastest_version',
-        'latest_version_date',
+        'classifiers',
+        'latest_version',
+        'latest_version_date'
     ]
     #: A dict of column name to column label.  We use it to override the
     #: default labels for the named columns
