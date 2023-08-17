@@ -512,6 +512,10 @@ class ProjectVersionTable(BasicModelTable):
         'created',
         'modified',
     ]
+    unsortable: List[str] = [
+        'num_pages',
+        'num_images',
+    ]
     #: A list of names of columns that will will not be searched when doing a
     #: **global** search
     unsearchable: List[str] = [
