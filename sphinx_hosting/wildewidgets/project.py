@@ -362,6 +362,12 @@ class ProjectTable(ActionButtonModelTable):
         'machine_name',
         'latest_version_date',
     ]
+    #: A list of names of columns that will will not be sortable
+    #: (i.e. clicking on the column header will not sort the table)
+    unsortable: List[str] = [
+        'latest_version',
+        'latest_version_date',
+    ]
     #: A list of names of columns that will will not be searched when doing a
     #: **global** search
     unsearchable: List[str] = [
