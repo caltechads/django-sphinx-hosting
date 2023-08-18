@@ -540,8 +540,6 @@ class ProjectVersionTable(BasicModelTable):
         'created': 'left',
         'modified': 'left'
     }
-    #: Order by version number
-    order_columns: List[str] = ['version']
     #: Sort so that the highest version number is on top
     sort_ascending: bool = False
 
@@ -568,7 +566,7 @@ class ProjectVersionTable(BasicModelTable):
         Returns:
             A filtered :py:class:`QuerySet` on :py:class:`sphinx_hosting.models.Version`
         """
-        return super().get_initial_queryset().filter(project_id=self.project_id)
+        return super().get_initial_queryset().filter(project_id=self.project_id).order_by('-version')
 
     def render_num_pages_column(self, row: Version, column: str) -> str:
         """
