@@ -522,6 +522,8 @@ class ProjectVersionTable(BasicModelTable):
     unsearchable: List[str] = [
         'num_pages',
         'num_images',
+        'created',
+        'modified',
     ]
     #: A dict of column name to column label.  We use it to override the
     #: default labels for the named columns
