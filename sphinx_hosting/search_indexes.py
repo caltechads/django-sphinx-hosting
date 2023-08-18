@@ -1,9 +1,9 @@
-from typing import List, Type
+from typing import List, Type, Optional
 
 from django.db.models import Model, QuerySet
-from haystack import indexes
+from haystack import indexes, connection_router
 
-from .models import SphinxPage
+from .models import SphinxPage, Project, Version
 
 
 class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
@@ -44,3 +44,33 @@ class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
         Used when the entire index for model is updated.
         """
         return self.get_model().objects.filter(searchable=True)
+
+    def reindex_project(
+        self,
+        project: Project,
+        exclude: Optional[Version] = None,
+    ) -> None:
+        """
+        Reindex all pages for a project.  We need to do this whenever a
+        :py:class:`sphinx_hosting.models.Version` is published,
+        unpublished, or deleted.
+
+        .. note::
+            If we have a lot of pages in a lot of versions for this project,
+            this could take a while.  We should probably look into a way to
+            do this asynchronously.
+
+        Args:
+            project: The project whose pages we want to reindex.
+
+        Keyword Args:
+            exclude: A version to exclude from the reindexing.  This is used
+                when a version has just been imported because it will have
+                already been indexed by the import process.
+        """
+        qs = self.index_queryset().filter(version__project=project)
+        if exclude:
+            qs = qs.exclude(version=exclude)
+        backend = self.get_backend(None)
+        if backend is not None:
+            backend.update(self, qs)

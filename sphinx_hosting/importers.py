@@ -15,6 +15,7 @@ from lxml.etree import XML  #: pylint: disable=no-name-in-module
 from .exc import VersionAlreadyExists
 from .logging import logger
 from .models import Project, Version, SphinxPage, SphinxImage
+from .search_indexes import SphinxPageIndex
 
 ImageMap = Dict[str, SphinxImage]
 
@@ -601,4 +602,11 @@ class SphinxPackageImporter:
         version.save()
         # Mark the appropriate pages as indexable
         version.mark_searchable_pages()
+        # Reindex the project.  We do this here because we want to reindex the
+        # update the "is_latest" flag on all pages in all versions of the
+        # project in case this is now the latest version.
+        SphinxPageIndex().reindex_project(
+            version.project,
+            exclude=version
+        )
         return version
