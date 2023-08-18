@@ -128,6 +128,15 @@ class PagedSearchResultsBlock(PagedModelWidget):
     """
     This is a paged listing of :py:class:`SearchResultBlock` entries describing
     our search results.
+
+    Args:
+        results: the Haystack search queryset containing our search results
+        query: the text entered into the search form that got us to this results
+        page
+
+    Keyword Args:
+        facets: a dictionary of facet names to lists of facet values that were
+            selected on the search results page
     """
 
     model: Type[Model] = SphinxPage
@@ -135,9 +144,18 @@ class PagedSearchResultsBlock(PagedModelWidget):
     paginate_by: int = 10
     model_widget: Block = SearchResultBlock
 
-    def __init__(self, results: SearchQuerySet, query: Optional[str], **kwargs):
+    def __init__(
+        self,
+        results: SearchQuerySet,
+        query: Optional[str],
+        facets: Optional[Dict[str, List[str]]] = None,
+        **kwargs
+    ):
         if query is not None:
             kwargs['extra_url'] = {'q': query}
+            if facets:
+                for key, value in facets.items():
+                    kwargs['extra_url'][key] = ",".join(value)
         super().__init__(queryset=results, **kwargs)
 
 
@@ -330,7 +348,7 @@ class PagedSearchLayout(Block):
         row = Row()
         row.add_column(
             Column(
-                PagedSearchResultsBlock(results, query),
+                PagedSearchResultsBlock(results, query, facets=facets),
                 name='middle',
                 base_width=8
             )
