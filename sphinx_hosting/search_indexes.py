@@ -1,7 +1,7 @@
 from typing import List, Type, Optional
 
 from django.db.models import Model, QuerySet
-from haystack import indexes, connection_router
+from haystack import indexes
 
 from .models import SphinxPage, Project, Version
 
@@ -73,4 +73,11 @@ class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
             qs = qs.exclude(version=exclude)
         backend = self.get_backend(None)
         if backend is not None:
-            backend.update(self, qs)
+            batch_size: int = backend.batch_size
+            total: int = qs.count()
+            # We need to update the index in batches because we can run into
+            # backend transport errors if we try to update too many documents at
+            # once.
+            for start in range(0, total, batch_size):
+                end = min(start + batch_size, total)
+                backend.update(self, qs[start:end])
