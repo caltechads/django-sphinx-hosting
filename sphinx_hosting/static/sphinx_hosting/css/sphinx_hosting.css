@@ -1018,6 +1018,69 @@ span.linenos.special {
   border-bottom: dotted 1px;
   cursor: help;
 }
+.sphinxpage-body .wildewidgets_html_container dl.footnote, .sphinxpage-body .wildewidgets_html_container dl.citation {
+  font-size: 0.9rem;
+}
+.sphinxpage-body .wildewidgets_html_container dl.footnote > dt, .sphinxpage-body .wildewidgets_html_container dl.citation > dt {
+  margin: 0rem 0.5rem 0.5rem 0rem;
+  line-height: 1.2rem;
+  word-break: break-all;
+  font-weight: normal;
+}
+.sphinxpage-body .wildewidgets_html_container dl.footnote > span.brackets:before, .sphinxpage-body .wildewidgets_html_container dl.citation > span.brackets:before {
+  content: "[";
+}
+.sphinxpage-body .wildewidgets_html_container dl.footnote > span.brackets:after, .sphinxpage-body .wildewidgets_html_container dl.citation > span.brackets:after {
+  content: "]";
+}
+.sphinxpage-body .wildewidgets_html_container dl.footnote > dd, .sphinxpage-body .wildewidgets_html_container dl.citation > dd {
+  margin: 0rem 0rem 0.5rem 0rem;
+  line-height: 1.2rem;
+}
+.sphinxpage-body .wildewidgets_html_container dl.footnote p, .sphinxpage-body .wildewidgets_html_container dl.citation p {
+  font-size: 0.9rem;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote, .sphinxpage-body .wildewidgets_html_container aside.citation, .sphinxpage-body .wildewidgets_html_container div.citation {
+  color: #666;
+  display: grid;
+  grid-template-columns: auto auto minmax(0.65rem, auto) minmax(40%, 95%);
+  margin-bottom: 1.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote > dt, .sphinxpage-body .wildewidgets_html_container aside.citation > dt, .sphinxpage-body .wildewidgets_html_container div.citation > dt {
+  padding-left: 1rem;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote > dt, .sphinxpage-body .wildewidgets_html_container aside.footnote > dd, .sphinxpage-body .wildewidgets_html_container aside.citation > dt, .sphinxpage-body .wildewidgets_html_container aside.citation > dd, .sphinxpage-body .wildewidgets_html_container div.citation > dt, .sphinxpage-body .wildewidgets_html_container div.citation > dd {
+  margin-bottom: 0rem;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote > span.backrefs, .sphinxpage-body .wildewidgets_html_container aside.citation > span.backrefs, .sphinxpage-body .wildewidgets_html_container div.citation > span.backrefs {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote > span.label, .sphinxpage-body .wildewidgets_html_container aside.citation > span.label, .sphinxpage-body .wildewidgets_html_container div.citation > span.label {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote > p, .sphinxpage-body .wildewidgets_html_container aside.citation > p, .sphinxpage-body .wildewidgets_html_container div.citation > p {
+  grid-column-start: 4;
+  grid-column-end: 5;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote p, .sphinxpage-body .wildewidgets_html_container aside.citation p, .sphinxpage-body .wildewidgets_html_container div.citation p {
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote span.label, .sphinxpage-body .wildewidgets_html_container aside.citation span.label, .sphinxpage-body .wildewidgets_html_container div.citation span.label {
+  line-height: 1.2rem;
+}
+.sphinxpage-body .wildewidgets_html_container aside.footnote-list, .sphinxpage-body .wildewidgets_html_container aside.citation-list, .sphinxpage-body .wildewidgets_html_container div.citation-list {
+  margin-bottom: 1.2rem;
+}
 .sphinxpage-body .wildewidgets_html_container pre {
   overflow: auto;
   overflow-y: hidden;

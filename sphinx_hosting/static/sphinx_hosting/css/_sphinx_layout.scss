@@ -457,9 +457,6 @@
         font-style: italic;
     }
 
-    table caption span.caption-text {
-    }
-
     table.docutils td, table.docutils th {
         padding: 1px 8px 1px 5px;
         border-top: 0;
@@ -506,10 +503,6 @@
     .figure p.caption span.caption-number,
     figcaption span.caption-number {
         font-style: italic;
-    }
-
-    .figure p.caption span.caption-text,
-    figcaption span.caption-text {
     }
 
     /* -- field list styles ----------------------------------------------------- */
@@ -780,6 +773,74 @@
         cursor: help;
     }
 
+    dl.footnote, dl.citation {
+        font-size: .9rem;
+        > dt {
+            margin: 0rem 0.5rem 0.5rem 0rem;
+            line-height: 1.2rem;
+            word-break: break-all;
+            font-weight: normal;
+        }
+        > span.brackets {
+            &:before {
+                content: "[";
+            }
+            &:after {
+                content: "]";
+            }
+        }
+        > dd {
+            margin: 0rem 0rem 0.5rem 0rem;
+            line-height: 1.2rem;
+        }
+        p  {
+            font-size: 0.9rem;
+        }
+    }
+
+    aside.footnote, aside.citation, div.citation {
+        color: #666;
+        display: grid;
+        grid-template-columns: auto auto minmax(0.65rem, auto) minmax(40%, 95%);
+        margin-bottom: 1.2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+        > dt {
+            padding-left: 1rem;
+        }
+        > dt, > dd {
+            margin-bottom: 0rem;
+        }
+        & > span.backrefs {
+            grid-column-start: 2;
+            grid-column-end: 3;
+            grid-row-start: 1;
+            grid-row-end: 3;
+        }
+        & > span.label {
+            grid-column-start: 1;
+            grid-column-end: 2;
+        }
+        & > p {
+            grid-column-start: 4;
+            grid-column-end: 5;
+        }
+        p {
+            font-size: 0.9rem;
+            line-height: 1.2rem;
+            margin-bottom: 0.6rem;
+        }
+        span.label {
+            line-height: 1.2rem;
+        }
+    }
+
+    aside.footnote-list, aside.citation-list, div.citation-list {
+        margin-bottom: 1.2rem;
+    }
+
     /* -- code displays --------------------------------------------------------- */
 
     pre {
@@ -861,19 +922,16 @@
     table.highlighttable td.linenos,
     span.linenos,
     .highlight span.gp {  /* gp: Generic.Prompt */
-    user-select: none;
-    -webkit-user-select: text; /* Safari fallback only */
-    -webkit-user-select: none; /* Chrome/Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+ */
+        user-select: none;
+        -webkit-user-select: text; /* Safari fallback only */
+        -webkit-user-select: none; /* Chrome/Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+ */
     }
 
     .code-block-caption span.caption-number {
         padding: 0.1em 0.3em;
         font-style: italic;
-    }
-
-    .code-block-caption span.caption-text {
     }
 
     .literal-block-wrapper {
