@@ -644,6 +644,7 @@ class SphinxPageDetailView(
         navbar = super().get_navbar()
         globaltoc = SphinxPageGlobalTableOfContentsMenu.parse_obj(self.object.version)
         globaltoc.title = self.object.version.project.title
+        globaltoc.activate(self.object.get_absolute_url())
         navbar.add_to_menu_section(globaltoc)
         return navbar
 
