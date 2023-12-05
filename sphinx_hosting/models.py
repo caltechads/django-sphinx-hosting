@@ -645,7 +645,7 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
         Returns:
             The latest version of our project.
         """
-        return self.versions.order_by('-version').first()
+        return self.versions.order_by('-modified').first()
 
     def get_absolute_url(self) -> str:
         return reverse('sphinx_hosting:project--detail', args=[self.machine_name])
