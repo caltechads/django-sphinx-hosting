@@ -538,7 +538,7 @@ class Classifier(ViewSetMixin, models.Model):
             name = parts[0]
             for part in parts[1:-1]:
                 name = f'{name} :: {part}'
-                if not self.objects.filter(name=name).exists():
+                if not Classifier.objects.filter(name=name).exists():
                     new_classifiier = Classifier(name=name)
                     new_classifiier.save(using=kwargs.get('using', settings.DEFAULT_DB_ALIAS))
         # Rejoin our parts to ensure we always get a classifier that looks like
