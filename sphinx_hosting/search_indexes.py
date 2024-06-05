@@ -1,8 +1,11 @@
+import time
 from typing import List, Type, Optional
 
 from django.db.models import Model, QuerySet
+import elasticsearch.exceptions
 from haystack import indexes
 
+from .logging import logger
 from .models import SphinxPage, Project, Version
 
 
@@ -80,4 +83,21 @@ class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
             # once.
             for start in range(0, total, batch_size):
                 end = min(start + batch_size, total)
-                backend.update(self, qs[start:end])
+                while True:
+                    try:
+                        backend.update(self, qs[start:end])
+                    except elasticsearch.exceptions.TransportError as e:
+                        # We're using the Elasticsearch backend, check the status_code
+                        # from the exception to see if we can recover from it.
+                        #
+                        if e.status_code == 429:
+                            # We're being rate limited, so sleep for a bit and try again.
+                            # The problem here is we could sleep so long we exceed our gunicorn,
+                            # nginx, or other timeout.  We should probably look into a way to
+                            # do this asynchronously.
+                            logger.warning(
+                                'Elasticsearch rate limit reached.  Sleeping for 5 seconds.'
+                            )
+                            time.sleep(5)
+                    else:
+                        break
