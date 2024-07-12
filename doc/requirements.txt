@@ -1,6 +1,6 @@
 # Documentation
 # ------------------------------------------------------------------------------
-Sphinx==5.2.3                                 # https://github.com/sphinx-doc/sphinx
-sphinx_rtd_theme==1.0.0
-sphinxcontrib-django2                         # https://github.com/timoludwig/sphinxcontrib-django2
+Sphinx==6.2.1                                 # https://github.com/sphinx-doc/sphinx
+sphinx_rtd_theme
+git+https://github.com/sphinx-doc/sphinxcontrib-django@e9d43085ffc9b921fd7d880ff38d4e1d24d8d791
 sphinxcontrib-openapi                         # https://github.com/sphinx-contrib/openapi

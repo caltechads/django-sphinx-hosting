@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import fnmatch
 import io
 import json
 from pathlib import Path
@@ -11,11 +12,13 @@ import urllib.parse
 from django.utils.text import slugify
 import lxml.html
 from lxml.etree import XML  #: pylint: disable=no-name-in-module
+import semver
 
 from .exc import VersionAlreadyExists
 from .logging import logger
 from .models import Project, Version, SphinxPage, SphinxImage
 from .search_indexes import SphinxPageIndex
+from .settings import EXCLUDE_FROM_LATEST
 
 ImageMap = Dict[str, SphinxImage]
 
@@ -393,7 +396,7 @@ class SphinxPackageImporter:
             data['body'] = lxml.html.tostring(html).decode('utf-8')
             # Unescape our template tags after lxml has converted our {% %}
             # to entities.
-            tags = [m.group() for m in re.finditer(r'%7B%%20.*?%20%%7D', data['body'])]
+            tags = [m.group() for m in re.finditer(r'{%%20.*?%20%}', data['body'])]
             for tag in tags:
                 data['body'] = data['body'].replace(tag, urllib.parse.unquote(tag))
             # Convert the weird paragraph symbols to actual paragraph symbols
@@ -602,11 +605,26 @@ class SphinxPackageImporter:
         version.save()
         # Mark the appropriate pages as indexable
         version.mark_searchable_pages()
-        # Reindex the project.  We do this here because we want to reindex the
-        # update the "is_latest" flag on all pages in all versions of the
-        # project in case this is now the latest version.
-        SphinxPageIndex().reindex_project(
-            version.project,
-            exclude=version
-        )
+        project = version.project
+        changed: bool = False
+        if project.latest_version is None:
+            project.latest_version = version
+            project.save()
+            changed = True
+        else:
+            if not any(fnmatch.fnmatch(version.version, glob) for glob in EXCLUDE_FROM_LATEST):
+                if semver.compare(project.latest_version.version, version.version) < 0:
+                    # The new version is greater than the current latest version,
+                    # so update the latest version to be this new version
+                    SphinxPageIndex().remove_version(project.latest_version)
+                    project.latest_version = version
+                    project.save()
+                    changed = True
+        if changed:
+            # Reindex the project.  We do this here because we want to reindex the
+            # update the "is_latest" flag on all pages in all versions of the
+            # project in case this is now the latest version.
+            #
+            # In the logs you may see two reindexing events for the same project.  The first
+            SphinxPageIndex().reindex_project(version.project)
         return version

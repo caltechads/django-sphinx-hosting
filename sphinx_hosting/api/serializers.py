@@ -35,6 +35,11 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True,
         view_name='sphinx_hosting_api:version-detail'
     )
+    latest_version: RelatedField = serializers.HyperlinkedRelatedField(
+        many=False,
+        read_only=True,
+        view_name='sphinx_hosting_api:version-detail'
+    )
     classifiers: serializers.Serializer = ClassifierSerializer(many=True)
     related_links: RelatedField = serializers.HyperlinkedRelatedField(
         many=True,
@@ -53,6 +58,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
             'description',
             'related_links',
             'classifiers',
+            'latest_version',
             'versions',
         )
         extra_kwargs = {

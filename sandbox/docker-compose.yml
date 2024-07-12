@@ -14,16 +14,17 @@ services:
     ports:
       - "443:443"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     volumes:
       - .:/app
-      - ../sphinx_hosting:/ve/lib/python3.10/site-packages/sphinx_hosting
-      #- ../../django-theme-academy/academy_theme:/ve/lib/python3.10/site-packages/academy_theme
-      #- ../../django-wildewidgets/wildewidgets:/ve/lib/python3.10/site-packages/wildewidgets
+      - ../sphinx_hosting:/ve/lib/python3.11/site-packages/sphinx_hosting
+      #- ../../django-theme-academy/academy_theme:/ve/lib/python3.11/site-packages/academy_theme
+      #- ../../django-wildewidgets/wildewidgets:/ve/lib/python3.11/site-packages/wildewidgets
       - sphinx_hosting_demo_media:/media
 
   mysql:
-    image: mysql:8.0.23
+    image: mysql:8.0
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: root_password
@@ -36,6 +37,11 @@ services:
       - ./sql/docker/my.cnf:/etc/mysql/conf.d/dev.cnf
       - ./sql/docker:/docker-entrypoint-initdb.d
       - sphinx_hosting_demo_data:/var/lib/mysql
+    healthcheck:
+      test: mysql --user=root --password=root_password --execute "SHOW DATABASES;"
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 
   elastic:

@@ -34,9 +34,11 @@ from haystack.forms import ModelSearchForm
 from haystack.query import SearchQuerySet
 from haystack.generic_views import SearchView
 from wildewidgets import (
+    Block,
     Navbar,
     NavbarMixin,
     StandardWidgetMixin,
+    TagBlock,
     WidgetListLayout,
     Widget,
     WidgetStream
@@ -49,7 +51,8 @@ from .forms import (
     ProjectReadonlyUpdateForm,
     ProjectRelatedLinkCreateForm,
     ProjectRelatedLinkUpdateForm,
-    VersionUploadForm
+    VersionUploadForm,
+    VersionMakeLatestForm
 )
 from .importers import SphinxPackageImporter
 from .logging import logger
@@ -117,7 +120,7 @@ class WildewidgetsMixin(StandardWidgetMixin):  # pylint: disable=abstract-method
 # ===========================
 
 
-class ProjectListView(
+class ProjectListView(   # type: ignore[misc]
     LoginRequiredMixin,
     WildewidgetsMixin,
     SphinxHostingMenuMixin,
@@ -143,7 +146,7 @@ class ProjectListView(
         return breadcrumbs
 
 
-class ProjectDetailView(
+class ProjectDetailView(  # type: ignore[misc]
     LoginRequiredMixin,
     WildewidgetsMixin,
     SphinxHostingMenuMixin,
@@ -248,7 +251,7 @@ class ProjectCreateView(
         return _("Couldn't create this project due to validation errors; see below.")
 
 
-class ProjectUpdateView(
+class ProjectUpdateView(  # type: ignore[misc]
     LoginRequiredMixin,
     PermissionRequiredMixin,
     FormValidMessageMixin,
@@ -436,7 +439,7 @@ class ProjectRelatedLinkDeleteView(
 # ===========================
 
 
-class VersionDetailView(
+class VersionDetailView(  # type: ignore[misc]
     LoginRequiredMixin,
     WildewidgetsMixin,
     SphinxHostingMenuMixin,
@@ -503,7 +506,15 @@ class VersionDetailView(
         Returns:
             A populated page layout
         """
-        layout = WidgetListLayout(f'{self.object.project.title} {self.object.version}')
+        title = Block(
+            f'{self.object.project.title} {self.object.version}',
+            tag='span'
+        )
+        if self.object.project.latest_version == self.object:
+            title.blocks.append(
+                TagBlock('Latest', color='green-lt', css_class='ms-2 rounded-pill')
+            )
+        layout = WidgetListLayout(title)
         layout.add_widget(VersionInfoWidget(self.object))
         layout.add_widget(VersionSphinxPageTableWidget(version_id=self.object.pk))
         layout.add_widget(VersionSphinxImageTableWidget(version_id=self.object.pk))
@@ -521,6 +532,21 @@ class VersionDetailView(
                 color='primary',
                 css_class='mb-3'
             )
+            if self.object.project.latest_version != self.object:
+                layout.add_sidebar_form_button(
+                    'Set This As Latest',
+                    reverse(
+                        'sphinx_hosting:project--set-latest',
+                        args=[self.object.project.machine_name]
+                    ),
+                    color='lime mb-2',
+                    confirm_text=_(
+                        "Are you sure you want to make this the latest version "
+                        f"for {self.object.project.machine_name}?  The latest version "
+                        f"is currently {self.object.project.latest_version.version}."
+                    ),
+                    data={'version': self.object.pk}
+                )
         user = cast(AbstractUser, self.request.user)
         if user.has_perm('sphinxhostingcore.delete_version'):
             layout.add_sidebar_form_button(
@@ -584,6 +610,29 @@ class VersionUploadView(
         return reverse('sphinx_hosting:project--update', args=[self.kwargs['slug']])
 
 
+class VersionMakeLatestView(
+    BaseFormView,
+    PermissionRequiredMixin,
+    FormInvalidMessageMixin,
+    FormValidMessageMixin,
+    LoginRequiredMixin,
+):
+    permission_required: str = 'sphinxhostingcore.update_project'
+    form_class = VersionMakeLatestForm
+
+    def get_form_valid_message(self) -> str:
+        version = cast(Version, self.version)
+        return f'Uploaded version "{version.version}" to project "{version.project.title}"'
+
+    def form_valid(self, form: Form):
+        form = cast(VersionMakeLatestForm, form)
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse('sphinx_hosting:project--update', args=[self.kwargs['slug']])
+
+
 class VersionDeleteView(
     LoginRequiredMixin,
     PermissionRequiredMixin,
@@ -624,7 +673,7 @@ class VersionDeleteView(
 # Pages
 # ===========================
 
-class SphinxPageDetailView(
+class SphinxPageDetailView(  # type: ignore[misc]
     LoginRequiredMixin,
     WildewidgetsMixin,
     SphinxHostingMenuMixin,
@@ -736,7 +785,7 @@ class GlobalSphinxPageSearchView(
         return self.render_to_response(context)
 
     def form_valid(self, form: ModelSearchForm) -> HttpResponse:
-        self.queryset = form.search().filter(is_latest='true')
+        self.queryset = form.search()
         self.facets: Dict[str, List[str]] = {}
         if project_id := self.request.GET.get('project_id', None):
             self.queryset = self.queryset.filter(project_id=project_id)

@@ -66,7 +66,7 @@ class Command(BaseCommand):
                 )
                 user.save()
                 user.refresh_from_db()
-                print(f'Created APIUser object for {user.fullname} ({user.username}): ID={user.id}')
+                print(f'Created APIUser object for {user.first_name} {user.last_name} ({user.username}): ID={user.id}')
                 print(f'Token for {user.username}: {user.auth_token.key}')
         else:
             if options['show_token']:

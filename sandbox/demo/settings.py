@@ -319,7 +319,6 @@ structlog.configure(
 
 pre_chain = [
     structlog.processors.StackInfoRenderer(),
-    structlog.processors.format_exc_info,
     structlog.stdlib.add_logger_name,
     structlog.stdlib.add_log_level,
     structlog.processors.TimeStamper(fmt='iso'),
@@ -402,7 +401,7 @@ HAYSTACK_CONNECTIONS = {
 }
 # This will cause the search index to be updated whenever a SphinxPage is
 # saved or deleted.
-HAYSTACK_SIGNAL_PROCESSOR = 'sphinx_hosting.signals.SphinxHostingSignalProcessor'
+#HAYSTACK_SIGNAL_PROCESSOR = 'sphinx_hosting.signals.SphinxHostingSignalProcessor'
 
 # crispy-forms
 # ------------------------------------------------------------------------------

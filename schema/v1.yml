@@ -984,6 +984,9 @@ components:
       - url
     PaginatedClassifierList:
       type: object
+      required:
+      - count
+      - results
       properties:
         count:
           type: integer
@@ -1004,6 +1007,9 @@ components:
             $ref: '#/components/schemas/Classifier'
     PaginatedProjectList:
       type: object
+      required:
+      - count
+      - results
       properties:
         count:
           type: integer
@@ -1024,6 +1030,9 @@ components:
             $ref: '#/components/schemas/Project'
     PaginatedProjectRelatedLinkList:
       type: object
+      required:
+      - count
+      - results
       properties:
         count:
           type: integer
@@ -1044,6 +1053,9 @@ components:
             $ref: '#/components/schemas/ProjectRelatedLink'
     PaginatedSphinxImageList:
       type: object
+      required:
+      - count
+      - results
       properties:
         count:
           type: integer
@@ -1064,6 +1076,9 @@ components:
             $ref: '#/components/schemas/SphinxImage'
     PaginatedSphinxPageList:
       type: object
+      required:
+      - count
+      - results
       properties:
         count:
           type: integer
@@ -1084,6 +1099,9 @@ components:
             $ref: '#/components/schemas/SphinxPage'
     PaginatedVersionList:
       type: object
+      required:
+      - count
+      - results
       properties:
         count:
           type: integer
@@ -1155,6 +1173,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Classifier'
+        latest_version:
+          type: string
+          format: uri
+          readOnly: true
         versions:
           type: array
           items:
@@ -1222,6 +1244,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Classifier'
+        latest_version:
+          type: string
+          format: uri
+          readOnly: true
         versions:
           type: array
           items:
@@ -1231,6 +1257,7 @@ components:
       required:
       - classifiers
       - id
+      - latest_version
       - machine_name
       - related_links
       - title

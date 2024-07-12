@@ -9,7 +9,9 @@ from django.db.models import Model
 from django.urls import reverse, reverse_lazy
 from haystack.forms import SearchForm
 
-from .models import Project, ProjectRelatedLink
+from .logging import logger
+from .search_indexes import SphinxPageIndex
+from .models import Project, ProjectRelatedLink, Version
 
 
 class GlobalSearchForm(SearchForm):
@@ -245,3 +247,41 @@ class VersionUploadForm(forms.Form):
                 css_class='d-flex flex-row justify-content-end button-holder'
             )
         )
+
+
+class VersionMakeLatestForm(forms.Form):
+    """
+    This is the form we use to force a version to be the latest version of a project.
+    """
+
+    version = forms.IntegerField(widget=forms.HiddenInput())
+
+    def clean_version(self):
+        """
+        Ensure that the version exists.
+        """
+        version_id = self.cleaned_data['version']
+        try:
+            _ = Version.objects.get(pk=version_id)
+        except Version.DoesNotExist as e:
+            raise forms.ValidationError("The specified version does not exist.") from e
+        return version_id
+
+    def save(self):
+        """
+        Make the version the latest version.
+        """
+        version = Version.objects.get(pk=self.cleaned_data['version'])
+        # Remove the old latest version from the search index
+        SphinxPageIndex().remove_version(version.project.latest_version)
+        version.project.latest_version = version
+        version.project.save()
+        # Add the new latest version to the search index
+        SphinxPageIndex().reindex_project(version.project)
+        logger.info(
+            'version.make-latest.success project_id=%s project_title=%s version=%s',
+            version.project.id,
+            version.project.title,
+            version.version
+        )
+        return version

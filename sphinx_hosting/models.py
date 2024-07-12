@@ -624,6 +624,17 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
         )
     )
 
+    latest_version: FK = models.ForeignKey(
+        "Version",
+        help_text=_(
+            'The latest version of this project.  '
+            'This is the version that will be shown when you click '
+            '"Read Docs" on the project page.'),
+        null=True,
+        related_name='+',
+        on_delete=models.SET_NULL,
+    )
+
     permission_groups: M2M = models.ManyToManyField(
         ProjectPermissionGroup,
         related_name='projects',
@@ -635,17 +646,6 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
 
     def __str__(self) -> str:  # pylint: disable=invalid-str-returned
         return self.title
-
-    @property
-    def latest_version(self) -> "Optional[Version]":
-        """
-        Return the latest version (by version number) of our project
-        documentation, if any.
-
-        Returns:
-            The latest version of our project.
-        """
-        return self.versions.order_by('-modified').first()
 
     def get_absolute_url(self) -> str:
         return reverse('sphinx_hosting:project--detail', args=[self.machine_name])

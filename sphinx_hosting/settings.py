@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from django.conf import settings
 from django.templatetags.static import static
@@ -20,3 +20,6 @@ LOGO_WIDTH: str = app_settings.get('LOGO_WIDTH', '100%')
 #: The name of the site to use in the title of the page.
 SITE_NAME: str = app_settings.get('SITE_NAME', 'Sphinx Hosting')
 MAX_GLOBAL_TOC_TREE_DEPTH: int = app_settings.get('MAX_GLOBAL_TOC_TREE_DEPTH', 2)
+#: Version glob patterns that if matched, will exlude the version from being
+#: marked as latest.  This is primarily for .dev. versions.j
+EXCLUDE_FROM_LATEST: List[str] = app_settings.get('EXCLUDE_FROM_LATEST', ['*-dev*', '*-alpha*', '*-beta*', '*-rc*'])

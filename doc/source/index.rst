@@ -124,6 +124,7 @@ Full example:
       'LOGO_WIDTH': '75%',
       'LOGO_URL': 'https://www.example.com',
       'SITE_NAME': 'MyOrg Documentation'
+      'EXCLUDE_FROM_LATEST': ['*.dev*', '*.beta*']
    }
 
 ``LOGO_IMAGE``
@@ -139,6 +140,12 @@ Full example:
 ``SITE_NAME``
    This will be used in the HTML title tags for each page, and wil be used as
    the ``alt`` tag for the ``LOGO_IMAGE``.
+
+``EXCLUDE_FROM_LATEST``
+   This is a list of glob patterns to apply to version numbers.  If the version
+   number matches any of these patterns, it will not be marked as latest in the
+   database and will not be indexed in the search engine.  The default list of
+   patterns is ``['*.dev*', '*.alpha*', '*.beta*', '*.rc*']``.
 
 Configure django-wildewidgets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -215,15 +222,6 @@ Here is example ``settings.py`` code for using Elasticsearch 7.x as our search b
          'INDEX_NAME': 'sphinx_hosting',
       },
    }
-
-If you want your search index to be updated automatically when versions of your
-documentation are uploaded, add this to ``settings.py``:
-
-.. code-block:: python
-
-   # This will cause the search index to be updated whenever a SphinxPage is
-   # saved or deleted.
-   HAYSTACK_SIGNAL_PROCESSOR = 'sphinx_hosting.signals.SphinxHostingSignalProcessor'
 
 
 .. _configure-django-rest-framework:

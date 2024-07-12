@@ -42,7 +42,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.intersphinx',
     'sphinx_rtd_theme',
-    "sphinxcontrib_django2",
+    "sphinxcontrib_django",
     "sphinxcontrib.openapi",
 ]
 

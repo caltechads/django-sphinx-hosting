@@ -16,6 +16,7 @@ from .views import (
     SphinxPageDetailView,
     VersionDeleteView,
     VersionDetailView,
+    VersionMakeLatestView,
     VersionUploadView
 )
 from .wildewidgets import ProjectClassifierSelectorWidget
@@ -44,6 +45,11 @@ urlpatterns: List[URLPattern] = [
         'project/link/<int:pk>/delete/',
         ProjectRelatedLinkDeleteView.as_view(),
         name='projectrelatedlink--delete'
+    ),
+    path(
+        'project/<str:slug>/set-latest/',
+        VersionMakeLatestView.as_view(),
+        name='project--set-latest'
     ),
     path('project/<str:project_slug>/<str:version>/', VersionDetailView.as_view(), name='version--detail'),
     path('project/<str:project_slug>/<str:version>/delete/', VersionDeleteView.as_view(), name='version--delete'),

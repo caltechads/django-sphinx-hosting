@@ -423,7 +423,7 @@ class ProjectTable(ActionButtonModelTable):
             The version string of the most recently published version, or empty
             string.
         """
-        version = row.versions.order_by('-modified').first()
+        version = row.latest_version
         if version:
             return version.version
         return ''
@@ -445,7 +445,7 @@ class ProjectTable(ActionButtonModelTable):
             The of the most recently published version, or empty
             string.
         """
-        version = row.versions.order_by('-modified').first()
+        version = row.latest_version
         if version:
             return self.render_datetime_type_column(version.modified)
         return ''

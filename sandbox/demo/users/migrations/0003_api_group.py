@@ -12,7 +12,8 @@ def apply_migration(apps, schema_editor):
     api_users_group = Group.objects.using(db_alias).get(name="API Users")
     User = apps.get_model("users", "User")
     users = User.objects.filter(username__startswith="api-")
-    api_users_group.user_set.add(*users)
+    for user in users:
+        user.groups.add(api_users_group)
 
 
 def revert_migration(apps, schema_editor):
