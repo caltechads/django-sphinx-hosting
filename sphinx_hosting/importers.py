@@ -397,6 +397,7 @@ class SphinxPackageImporter:
             # Unescape our template tags after lxml has converted our {% %}
             # to entities.
             tags = [m.group() for m in re.finditer(r'{%%20.*?%20%}', data['body'])]
+            tags.extend([m.group() for m in re.finditer(r'%7B%%20.*?%20%%7D', data['body'])])
             for tag in tags:
                 data['body'] = data['body'].replace(tag, urllib.parse.unquote(tag))
             # Convert the weird paragraph symbols to actual paragraph symbols
