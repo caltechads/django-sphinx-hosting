@@ -631,6 +631,7 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
             'This is the version that will be shown when you click '
             '"Read Docs" on the project page.'),
         null=True,
+        blank=True,
         related_name='+',
         on_delete=models.SET_NULL,
     )
