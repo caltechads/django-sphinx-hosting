@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Type
+from typing import Dict, Final, List, Optional, Type  # noqa: UP035
 
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Model, QuerySet
@@ -10,9 +10,9 @@ from wildewidgets import (
     CrispyFormModalWidget,
     CrispyFormWidget,
     Datagrid,
+    FormButton,
     HorizontalLayoutBlock,
     Link,
-    FormButton,
     ListModelWidget,
     ModalButton,
     RowActionButton,
@@ -29,18 +29,17 @@ from ..forms import (
     ProjectRelatedLinkCreateForm,
     ProjectRelatedLinkUpdateForm,
 )
-from ..models import Classifier, Project, Version, ProjectRelatedLink
-
+from ..models import Classifier, Project, ProjectRelatedLink, Version
 from .classifier import ClassifierFilterBlock
 
-
-#------------------------------------------------------
+# ------------------------------------------------------
 # Modals
-#------------------------------------------------------
+# ------------------------------------------------------
+
 
 class ProjectCreateModalWidget(CrispyFormModalWidget):
     """
-    This is a modal dialog that holds the
+    A modal dialog that holds the
     :py:class:`sphinx_hosting.forms.ProjectCreateForm`.
     """
 
@@ -49,12 +48,12 @@ class ProjectCreateModalWidget(CrispyFormModalWidget):
 
     def __init__(self, *args, **kwargs):
         form = ProjectCreateForm()
-        super().__init__(form=form, *args, **kwargs)
+        super().__init__(*args, form=form, **kwargs)
 
 
 class ProjectRelatedLinkCreateModalWidget(CrispyFormModalWidget):
     """
-    This is a modal dialog that holds the
+    A modal dialog that holds the
     :py:class:`sphinx_hosting.forms.ProjectRelatedLinkForm` for
     creating links.
     """
@@ -64,12 +63,12 @@ class ProjectRelatedLinkCreateModalWidget(CrispyFormModalWidget):
 
     def __init__(self, project: Project, *args, **kwargs):
         form = ProjectRelatedLinkCreateForm(project=project)
-        super().__init__(form=form, *args, **kwargs)
+        super().__init__(*args, form=form, **kwargs)
 
 
 class ProjectRelatedLinkUpdateModalWidget(CrispyFormModalWidget):
     """
-    This is a modal dialog that holds the
+    A modal dialog that holds the
     :py:class:`sphinx_hosting.forms.ProjectRelatedLinkForm` for
     updating links.
 
@@ -82,16 +81,17 @@ class ProjectRelatedLinkUpdateModalWidget(CrispyFormModalWidget):
 
     def __init__(self, link: ProjectRelatedLink, *args, **kwargs):
         form = ProjectRelatedLinkUpdateForm(instance=link)
-        super().__init__(form=form, *args, **kwargs)
+        super().__init__(*args, form=form, **kwargs)
 
 
-#------------------------------------------------------
+# ------------------------------------------------------
 # Project related widgets
-#------------------------------------------------------
+# ------------------------------------------------------
+
 
 class ProjectInfoWidget(CardWidget):
     """
-    This is a :py:class:`wildewidgets.CardWidget` containing a Tabler datagrid
+    A :py:class:`wildewidgets.CardWidget` containing a Tabler datagrid
     that gives information about a :py:class:`sphinx_hosting.models.Project`.
     """
 
@@ -101,15 +101,20 @@ class ProjectInfoWidget(CardWidget):
     def __init__(self, project: Project, **kwargs):
         super().__init__(**kwargs)
         grid = Datagrid()
-        grid.add_item(title='Machine Name', content=project.machine_name)
-        grid.add_item(title='Created', content=project.created.strftime('%Y-%m-%d %H:%M %Z'))
-        grid.add_item(title='Last Modified', content=project.modified.strftime('%Y-%m-%d %H:%M %Z'))
+        grid.add_item(title="Machine Name", content=project.machine_name)
+        grid.add_item(
+            title="Created", content=project.created.strftime("%Y-%m-%d %H:%M %Z")
+        )
+        grid.add_item(
+            title="Last Modified",
+            content=project.modified.strftime("%Y-%m-%d %H:%M %Z"),
+        )
         self.set_widget(grid)
 
 
 class ProjectTableWidget(Block):
     """
-    This is a :py:class:`wildewidgets.CardWidget` that gives our
+    A :py:class:`wildewidgets.CardWidget` that gives our
     :py:class:`ProjectTable` dataTable a nice header with a total book count and
     an "Add Project" button that opens a modal dialog.
     """
@@ -123,7 +128,7 @@ class ProjectTableWidget(Block):
         layout.add_to_right(
             ClassifierFilterBlock(
                 table_name=table.table_name,
-                column_number=table.get_column_number('classifiers')
+                column_number=table.get_column_number("classifiers"),
             )
         )
         self.add_block(layout)
@@ -133,21 +138,22 @@ class ProjectTableWidget(Block):
             header_text="Projects",
             badge_text=Project.objects.count(),
         )
-        if user.has_perm('sphinxhostingcore.add_project'):
+        if user.has_perm("sphinxhostingcore.add_project"):
             header.add_modal_button(
                 text="New Project",
                 color="primary",
-                target=f'#{ProjectCreateModalWidget.modal_id}'
+                target=f"#{ProjectCreateModalWidget.modal_id}",
             )
         return header
 
 
 class ProjectVersionsTableWidget(CardWidget):
     """
-    This is a :py:class:`wildewidgets.CardWidget` that gives our
+    A :py:class:`wildewidgets.CardWidget` that gives our
     :py:class:`ProjectVersionTable` dataTable a nice header with a total version
     count.
     """
+
     title: str = "Versions"
     icon: str = "bookmark-star"
 
@@ -159,55 +165,51 @@ class ProjectVersionsTableWidget(CardWidget):
         )
 
     def get_title(self) -> WidgetListLayoutHeader:
-        header = WidgetListLayoutHeader(
+        return WidgetListLayoutHeader(
             header_text="Versions",
             badge_text=Project.objects.get(pk=self.project_id).versions.count(),
         )
-        return header
 
 
 class ProjectClassifierSelectorWidget(ToggleableManyToManyFieldBlock):
     """
-    This is an editable listing of :py:class:`sphinx_hosting.models.Classifier`
+    An editable listing of :py:class:`sphinx_hosting.models.Classifier`
     objects for a particular :py:class:`sphinx_hosting.models.Project`.
 
     It is used in the project edit view.
     """
 
-    model = Project
-    field_name = 'classifiers'
-    title = 'Classifiers'
-    icon = 'collection'
+    model: Type[Model] = Project
+    field_name: str = "classifiers"
+    title: str = "Classifiers"
+    icon: str = "collection"
 
 
 class ProjectClassifierListWidget(ListModelWidget):
     """
-    This is a :py:class:`wildewidgets.ListModelWidget` that renders a list of
+    A :py:class:`wildewidgets.ListModelWidget` that renders a list of
     :py:class:`sphinx_hosting.models.Classifier` objects.  It is used in the
     project detail view as a read-only list of classifiers.
 
-    The editable version of this widget is :py:class:`ProjectClassifierSelectorWidget`.
+    The editable version of this widget is
+    :py:class:`ProjectClassifierSelectorWidget`.
     """
 
     paginate_by: int = 100
-    item_label: str = 'Classifier'
-    title = 'Classifiers'
-    icon = 'collection'
+    item_label: str = "Classifier"
+    title = "Classifiers"
+    icon = "collection"
 
     def get_object_text(self, instance: Classifier) -> str:
         return instance.name
 
     def get_model_subblock(self, instance: Classifier) -> Block:
-        return Block(self.get_object_text(instance), tag='label')
+        return Block(self.get_object_text(instance), tag="label")
 
 
-class ProjectDetailWidget(
-    CrispyFormWidget,
-    Widget
-):
+class ProjectDetailWidget(CrispyFormWidget, Widget):
     """
-    This widget renders an update form for a
-    :py:class:`sphinx_hosting.models.Project`.
+    Renders an update form for a :py:class:`sphinx_hosting.models.Project`.
 
     Use directly it like so::
 
@@ -218,33 +220,35 @@ class ProjectDetailWidget(
     Or you can simply add the form to your view context and
     :py:class:`ProjectDetailWidget` will pick it up automatically.
     """
+
     title: str = "General Settings"
-    name: str = 'project-detail__section'
-    modifier: str = 'general'
+    name: str = "project-detail__section"
+    modifier: str = "general"
     icon: str = "card-checklist"
     css_class: str = CrispyFormWidget.css_class + " p-4"
 
 
-#------------------------------------------------------
+# ------------------------------------------------------
 # ProjectRelatedLink related widgets
-#------------------------------------------------------
+# ------------------------------------------------------
+
 
 class ProjectRelatedLinkListItemWidget(HorizontalLayoutBlock):
     """
-    This is used by :py:class:`ProjectRelatedLinksWidget` to render a single
+    Used by :py:class:`ProjectRelatedLinksWidget` to render a single
     :py:class:`sphinx_hosting.models.ProjectRelatedLink` object in its list.
     """
 
     css_class: str = "mb-2"
 
-    def __init__(self, object: ProjectRelatedLink):  # pylint: disable=redefined-builtin
+    def __init__(self, object: ProjectRelatedLink):  # noqa: A002
         modal_id = f"projectrelatedlink__update__{object.pk}"
         super().__init__(
             Link(object.title, url=object.uri, title=object.title),
             Block(
-                ModalButton(text='Edit', color="azure", target=f'#{modal_id}'),
+                ModalButton(text="Edit", color="azure", target=f"#{modal_id}"),
                 FormButton(
-                    text='Delete',
+                    text="Delete",
                     color="outline-secondary",
                     css_class="d-inline",
                     action=object.get_delete_url(),
@@ -257,9 +261,9 @@ class ProjectRelatedLinkListItemWidget(HorizontalLayoutBlock):
 
 class ProjectRelatedLinksWidget(CardWidget):
     """
-    This is a :py:class:`wildewidgets.CardWidget` that allows us to
-    manage the :py:class:`sphinx_hosting.models.ProjectRelatedLink` objects
-    for this :py:class:`sphinx_hosting.models.Project`.
+    A :py:class:`wildewidgets.CardWidget` that allows us to manage the
+    :py:class:`sphinx_hosting.models.ProjectRelatedLink` objects for this
+    :py:class:`sphinx_hosting.models.Project`.
 
     It renders a list of :py:class:`ProjectRelatedLinkListItemWidget` objects
     and a "Add Related Link" button that opens a modal dialog.
@@ -289,39 +293,38 @@ class ProjectRelatedLinksWidget(CardWidget):
         header.add_modal_button(
             text="Add Related Link",
             color="primary",
-            target=f'#{ProjectRelatedLinkCreateModalWidget.modal_id}'
+            target=f"#{ProjectRelatedLinkCreateModalWidget.modal_id}",
         )
         return header
 
 
 class ProjectRelatedLinksListWidget(ListModelWidget):
     """
-    This widget renders a list of
-    :py:class:`sphinx_hosting.models.ProjectRelatedLink` objects as a list of
-    :py:class:`wildewidgets.Link` objects.
+    Renders a list of :py:class:`sphinx_hosting.models.ProjectRelatedLink`
+    objects as a list of :py:class:`wildewidgets.Link` objects.
 
     This is used on the project detail page, and is the read-only version of
     :py:class:`ProjectRelatedLinksWidget`.
     """
 
     paginate_by: int = 100
-    item_label: str = 'Related Link'
-    title: str = 'Related Links'
+    item_label: str = "Related Link"
+    title: str = "Related Links"
     icon: str = "external-link"
 
     def get_model_subblock(self, instance: ProjectRelatedLink) -> Block:
         return Link(instance.title, url=instance.uri)
 
 
-#------------------------------------------------------
+# ------------------------------------------------------
 # Datatables
-#------------------------------------------------------
+# ------------------------------------------------------
+
 
 class LatestVersionButton(RowModelUrlButton):
-
-    attribute: str = 'get_latest_version_url'
-    text: str = 'Read Docs'
-    color: str = 'orange'
+    attribute: str = "get_latest_version_url"
+    text: str = "Read Docs"
+    color: str = "orange"
 
     def is_visible(self, row: Project, user: AbstractUser) -> bool:
         if row.latest_version is None:
@@ -331,7 +334,7 @@ class LatestVersionButton(RowModelUrlButton):
 
 class ProjectTable(ActionButtonModelTable):
     """
-    This widget displays a `dataTable <https://datatables.net>`_ of our
+    Displays a `dataTable <https://datatables.net>`_ of our
     :py:class:`sphinx_hosting.models.Project` instances.
 
     It's used as a the main widget in by :py:class:`ProjectTableWidget`.
@@ -343,70 +346,65 @@ class ProjectTable(ActionButtonModelTable):
     page_length: int = 25
     #: Set to ``True`` to stripe our table rows
     striped: bool = True
-    default_action_button_label = 'Edit'
-    default_action_button_color_class = 'outline-secondary'
+    default_action_button_label: str = "Edit"
+    default_action_button_color_class: str = "outline-secondary"
     #: A list of fields that we will list as columns.  These are either fields
     #: on our :py:attr:`model`, or defined as ``render_FIELD_NAME_column`` methods
     #: on this class
-    fields: List[str] = [
-        'title',
-        'machine_name',
-        'classifiers',
-        'latest_version',
-        'description',
-        'latest_version_date',
+    fields: Final[List[str]] = [
+        "title",
+        "machine_name",
+        "classifiers",
+        "latest_version",
+        "description",
+        "latest_version_date",
     ]
     #: A list of names of columns to hide by default.
-    hidden: List[str] = [
-        'classifiers',
-        'machine_name',
-        'latest_version_date',
+    hidden: Final[List[str]] = [
+        "classifiers",
+        "machine_name",
+        "latest_version_date",
     ]
     #: A list of names of columns that will will not be sortable
     #: (i.e. clicking on the column header will not sort the table)
-    unsortable: List[str] = [
-        'latest_version',
-        'latest_version_date',
+    unsortable: Final[List[str]] = [
+        "latest_version",
+        "latest_version_date",
     ]
     #: A list of names of columns that will will not be searched when doing a
     #: **global** search
-    unsearchable: List[str] = [
-        'classifiers',
-        'latest_version',
-        'latest_version_date'
+    unsearchable: Final[List[str]] = [
+        "classifiers",
+        "latest_version",
+        "latest_version_date",
     ]
     #: A dict of column name to column label.  We use it to override the
     #: default labels for the named columns
-    verbose_names: Dict[str, str] = {
-        'title': 'Project Name',
-        'machine_name': 'Machine Name',
-        'latest_version': 'Latest Version',
-        'latest_version_date': 'Import Date',
+    verbose_names: Final[Dict[str, str]] = {
+        "title": "Project Name",
+        "machine_name": "Machine Name",
+        "latest_version": "Latest Version",
+        "latest_version_date": "Import Date",
     }
     #: A dict of column names to alignment ("left", "right", "center")
-    alignment: Dict[str, str] = {
-        'title': 'left',
-        'description': 'left',
-        'classifiers': 'left',
-        'machine_name': 'left',
-        'latest_version': 'left',
-        'latest_version_date': 'left'
+    alignment: Final[Dict[str, str]] = {
+        "title": "left",
+        "description": "left",
+        "classifiers": "left",
+        "machine_name": "left",
+        "latest_version": "left",
+        "latest_version_date": "left",
     }
 
-    actions: List[RowActionButton] = [
+    actions: Final[List[RowActionButton]] = [
         LatestVersionButton(),
         RowModelUrlButton(
-            attribute='get_absolute_url',
-            text='View',
-            color='outline-secondary'
+            attribute="get_absolute_url", text="View", color="outline-secondary"
         ),
-        RowEditButton(
-            permission='sphinxhostingcore.change_project',
-            color='azure'
-        ),
+        RowEditButton(permission="sphinxhostingcore.change_project", color="azure"),
     ]
 
-    def render_latest_version_column(self, row: Project, column: str) -> str:
+    def render_latest_version_column(self, row: Project, _: str) -> str:
         """
         Render our ``latest_version`` column.  This is the version string of the
         :py:class:`sphinx_hosting.models.Version` that has the most recent
@@ -422,13 +420,14 @@ class ProjectTable(ActionButtonModelTable):
         Returns:
             The version string of the most recently published version, or empty
             string.
+
         """
         version = row.latest_version
         if version:
-            return version.version
-        return ''
+            return version.version  # type: ignore[attr-defined]
+        return ""
 
-    def render_latest_version_date_column(self, row: Project, column: str) -> str:
+    def render_latest_version_date_column(self, row: Project, _: str) -> str:
         """
         Render our ``latest_version_date`` column.  This is the last modified
         date of the :py:class:`sphinx_hosting.models.Version` that has the most
@@ -444,13 +443,14 @@ class ProjectTable(ActionButtonModelTable):
         Returns:
             The of the most recently published version, or empty
             string.
+
         """
         version = row.latest_version
         if version:
-            return self.render_datetime_type_column(version.modified)
-        return ''
+            return self.render_datetime_type_column(version.modified)  # type: ignore[attr-defined]
+        return ""
 
-    def render_classifiers_column(self, row: Project, column: str) -> str:
+    def render_classifiers_column(self, row: Project, _: str) -> str:
         """
         Render our ``classifiers`` column.
 
@@ -460,15 +460,11 @@ class ProjectTable(ActionButtonModelTable):
 
         Returns:
             A ``<br>`` separated list of classifier names
-        """
-        return '<br>'.join(row.classifiers.values_list('name', flat=True))
 
-    def filter_classifiers_column(
-        self,
-        qs: QuerySet,
-        column: str,
-        value: str
-    ) -> QuerySet:
+        """
+        return "<br>".join(row.classifiers.values_list("name", flat=True))
+
+    def filter_classifiers_column(self, qs: QuerySet, _: str, value: str) -> QuerySet:
         """
         Filter our results by the ``value``, a comma separated list of
         :py:class:`sphinx_hosting.models.Classifier` names.
@@ -481,14 +477,15 @@ class ProjectTable(ActionButtonModelTable):
         Returns:
             A :py:class:`QuerySet` filtered for rows that contain the selected
             classifiers.
+
         """
-        classifier_ids = value.split(',')
+        classifier_ids = value.split(",")
         return qs.filter(classifiers__id__in=classifier_ids).distinct()
 
 
 class ProjectVersionTable(BasicModelTable):
     """
-    This widget displays a `dataTable <https://datatables.net>`_ of our
+    Displays a `dataTable <https://datatables.net>`_ of our
     :py:class:`sphinx_hosting.models.Version` instances for a particular
     :py:class:`sphinx_hosting.models.Project`.
 
@@ -506,39 +503,39 @@ class ProjectVersionTable(BasicModelTable):
     #: A list of fields that we will list as columns.  These are either fields
     #: on our :py:attr:`model`, or defined as ``render_FIELD_NAME_column`` methods
     #: on this class
-    fields: List[str] = [
-        'version',
-        'num_pages',
-        'num_images',
-        'created',
-        'modified',
+    fields: Final[List[str]] = [
+        "version",
+        "num_pages",
+        "num_images",
+        "created",
+        "modified",
     ]
-    unsortable: List[str] = [
-        'num_pages',
-        'num_images',
+    unsortable: Final[List[str]] = [
+        "num_pages",
+        "num_images",
     ]
     #: A list of names of columns that will will not be searched when doing a
     #: **global** search
-    unsearchable: List[str] = [
-        'num_pages',
-        'num_images',
-        'created',
-        'modified',
+    unsearchable: Final[List[str]] = [
+        "num_pages",
+        "num_images",
+        "created",
+        "modified",
     ]
     #: A dict of column name to column label.  We use it to override the
     #: default labels for the named columns
-    verbose_names: Dict[str, str] = {
-        'title': 'Version',
-        'num_pages': '# Pages',
-        'num_images': '# Images',
+    verbose_names: Final[Dict[str, str]] = {
+        "title": "Version",
+        "num_pages": "# Pages",
+        "num_images": "# Images",
     }
     #: A dict of column names to alignment ("left", "right", "center")
-    alignment: Dict[str, str] = {
-        'version': 'left',
-        'num_pages': 'right',
-        'num_images': 'right',
-        'created': 'left',
-        'modified': 'left'
+    alignment: Final[Dict[str, str]] = {
+        "version": "left",
+        "num_pages": "right",
+        "num_images": "right",
+        "created": "left",
+        "modified": "left",
     }
     #: Sort so that the highest version number is on top
     sort_ascending: bool = False
@@ -552,11 +549,12 @@ class ProjectVersionTable(BasicModelTable):
         This will get added to the :py:attr:`extra_data` dict in the ``kwargs``
         key, from which we reference it.
         """
-        #: The pk of the :py:class:`sphinx_hosting.models.Project` for which to list versions
-        self.project_id: Optional[int] = kwargs.get('project_id', None)
+        #: The pk of the :py:class:`sphinx_hosting.models.Project` for which to
+        #: list versions
+        self.project_id: Optional[int] = kwargs.get("project_id", None)  # noqa: FA100
         super().__init__(*args, **kwargs)
-        if 'project_id' in self.extra_data['kwargs']:
-            self.project_id = int(self.extra_data['kwargs']['project_id'])
+        if "project_id" in self.extra_data["kwargs"]:
+            self.project_id = int(self.extra_data["kwargs"]["project_id"])
 
     def get_initial_queryset(self) -> QuerySet[Version]:
         """
@@ -565,10 +563,16 @@ class ProjectVersionTable(BasicModelTable):
 
         Returns:
             A filtered :py:class:`QuerySet` on :py:class:`sphinx_hosting.models.Version`
-        """
-        return super().get_initial_queryset().filter(project_id=self.project_id).order_by('-version')
 
-    def render_num_pages_column(self, row: Version, column: str) -> str:
+        """
+        return (
+            super()
+            .get_initial_queryset()
+            .filter(project_id=self.project_id)
+            .order_by("-version")
+        )
+
+    def render_num_pages_column(self, row: Version, _: str) -> str:
         """
         Render our ``num_pages`` column.  This is the number of
         :py:class:`sphinx_hosting.models.SphinxPage` objects imported for this
@@ -580,10 +584,11 @@ class ProjectVersionTable(BasicModelTable):
 
         Returns:
             The number of pages for this version.
+
         """
         return row.pages.count()
 
-    def render_num_images_column(self, row: Version, column: str) -> str:
+    def render_num_images_column(self, row: Version, _: str) -> str:
         """
         Render our ``num_images`` column.  This is the number of
         :py:class:`sphinx_hosting.models.SphinxImage` objects imported for this
@@ -595,5 +600,6 @@ class ProjectVersionTable(BasicModelTable):
 
         Returns:
             The number of images for this version.
+
         """
         return row.images.count()

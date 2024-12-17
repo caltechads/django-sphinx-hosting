@@ -1,8 +1,7 @@
-from typing import List, Optional, cast
+from typing import TYPE_CHECKING, ClassVar, Final, List, Optional, cast  # noqa: UP035
 
 from crequest.middleware import CrequestMiddleware
 from django.contrib.auth.models import AbstractUser
-from django.http.request import HttpRequest
 from django.urls import reverse_lazy
 from wildewidgets import (
     Block,
@@ -11,38 +10,37 @@ from wildewidgets import (
     LinkedImage,
     Menu,
     MenuItem,
-    TablerVerticalNavbar
+    TablerVerticalNavbar,
 )
 
-from ..settings import (
-    LOGO_IMAGE,
-    LOGO_URL,
-    LOGO_WIDTH,
-    SITE_NAME
-)
+from ..settings import LOGO_IMAGE, LOGO_URL, LOGO_WIDTH, SITE_NAME
 from .search import GlobalSearchFormWidget
+
+if TYPE_CHECKING:
+    from django.http.request import HttpRequest
 
 
 class SphinxHostingMainMenu(Menu):
     """
-    This is the primary menu that appears in :py:class:`SphinxHostingSidebar`
+    The primary menu that appears in :py:class:`SphinxHostingSidebar`
     directly underneath the "Search" form,
     :py:class:`sphinx_hosting.wildewidgets.search.GlobalSearchFormWidget`.
 
     It gives access to all the views that normal, non privileged users should be
     allowed to use.
     """
+
     title: str = "Main"
-    items = [
+    items: Final[List[MenuItem]] = [
         MenuItem(
-            text='Projects',
-            icon='stack',
-            url=reverse_lazy('sphinx_hosting:project--list')
+            text="Projects",
+            icon="stack",
+            url=reverse_lazy("sphinx_hosting:project--list"),
         )
     ]
 
     def __init__(self, *items, **kwargs) -> None:
-        self.active_item: Optional[str] = None
+        self.active_item: Optional[str] = None  # noqa: FA100
         super().__init__(*items, **kwargs)
 
     def build_menu(self, items: List[MenuItem]) -> None:
@@ -56,11 +54,11 @@ class SphinxHostingMainMenu(Menu):
         """
         request: HttpRequest = CrequestMiddleware.get_request()
         user: AbstractUser = cast(AbstractUser, request.user)
-        if user.has_perm('sphinxhostingcore.view_classifier'):
+        if user.has_perm("sphinxhostingcore.view_classifier"):
             item = MenuItem(
-                text='Classifiers',
-                icon='sliders',
-                url=reverse_lazy('sphinx_hosting:classifier--index')
+                text="Classifiers",
+                icon="sliders",
+                url=reverse_lazy("sphinx_hosting:classifier--index"),
             )
             items.append(item)
         for item in items:
@@ -83,6 +81,7 @@ class SphinxHostingMainMenu(Menu):
         Returns:
             We always return ``True`` here, since we won't know if we match
             until later.
+
         """
         self.active_item = text
         return True
@@ -90,38 +89,38 @@ class SphinxHostingMainMenu(Menu):
 
 class SphinxHostingSidebar(TablerVerticalNavbar):
     """
-    This is the vertical menu area on the left of the page.  It houses our
-    search form,
+    The vertical menu area on the left of the page.  It houses our search form,
     :py:class:`sphinx_hosting.wildewidgets.search.GlobalSearchFormWidget`, our
     main menu :py:class:`SphinxHostingMainMenu`, possibly our utility menu
-    :py:class:`SphinxHostingLookupsMenu` and finally the global navigation
-    for a :py:class:`sphinx_hosting.models.Version` when we're reading our
+    :py:class:`SphinxHostingLookupsMenu` and finally the global navigation for a
+    :py:class:`sphinx_hosting.models.Version` when we're reading our
     documentation.
     """
 
-    hide_below_viewport: str = 'xl'
-    branding = Block(
+    hide_below_viewport: str = "xl"
+    branding: Block = Block(
         LinkedImage(
             image_src=LOGO_IMAGE,
             image_width=LOGO_WIDTH,
             image_alt=SITE_NAME,
-            css_class='d-flex justify-content-center',
-            url=LOGO_URL
+            css_class="d-flex justify-content-center",
+            url=LOGO_URL,
         ),
-        GlobalSearchFormWidget(css_class='ms-auto ms-xl-0 align-self-center mt-3'),
-        css_class='d-flex flex-row flex-xl-column justify-content-between flex-grow-1 flex-xl-grow-0'
+        GlobalSearchFormWidget(css_class="ms-auto ms-xl-0 align-self-center mt-3"),
+        css_class=(
+            "d-flex flex-row flex-xl-column justify-content-between "
+            "flex-grow-1 flex-xl-grow-0"
+        ),
     )
-    contents = [
+    contents: Final[List[Block]] = [
         SphinxHostingMainMenu(),
     ]
     wide: bool = True
 
 
 class SphinxHostingBreadcrumbs(BreadcrumbBlock):
-
-    items: List[BreadcrumbItem] = [
+    items: ClassVar[List[BreadcrumbItem]] = [
         BreadcrumbItem(
-            title=SITE_NAME,
-            url=reverse_lazy('sphinx_hosting:project--list')
+            title=SITE_NAME, url=reverse_lazy("sphinx_hosting:project--list")
         )
     ]

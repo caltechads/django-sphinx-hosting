@@ -1,12 +1,11 @@
-from typing import Dict
+from typing import Dict  # noqa: UP035
 
 from django.utils.text import slugify
-
 from wildewidgets import (
     Block,
     CardWidget,
-    CollapseWidget,
     CheckboxInputBlock,
+    CollapseWidget,
     HorizontalLayoutBlock,
     LinkButton,
     NavLinkToggle,
@@ -18,7 +17,7 @@ from ..models import Classifier, ClassifierNode
 
 class ClassifierFilterForm(Block):
     """
-    This is the tree-like classifier filter form that appears to the right of
+    The tree-like classifier filter form that appears to the right of
     the :py:class:`sphinx_hosting.wildewidgets.project.ProjectTable`.  It
     is embedded in :py:class:`ClassifierFilterBlock`.
 
@@ -26,7 +25,7 @@ class ClassifierFilterForm(Block):
     projects listing table.
     """
 
-    SCRIPT = """
+    SCRIPT: str = """
 $(document).ready(function() {{
     function classifier_filter_check_parents($li, state) {{
         var $siblings = $li.siblings();
@@ -83,8 +82,8 @@ $(document).ready(function() {{
 }});
 """
 
-    block: str = 'classifiers__filter__form'
-    tag: str = 'form'
+    block: str = "classifiers__filter__form"
+    tag: str = "form"
 
     def __init__(self, table_name: str, column_number: int, **kwargs):
         self.table_name = table_name
@@ -92,47 +91,57 @@ $(document).ready(function() {{
         super().__init__(**kwargs)
         self._css_id = self.block
         self.script = self.SCRIPT.format(
-            block_id=f'#{self._css_id}',
+            block_id=f"#{self._css_id}",
             column_number=self.column_number,
-            table_name=self.table_name
+            table_name=self.table_name,
         )
-        self._attributes['method'] = 'get'
-        self._attributes['name'] = self.block
+        self._attributes["method"] = "get"
+        self._attributes["name"] = self.block
         self.tree: Dict[str, ClassifierNode] = Classifier.objects.tree()
         for node in self.tree.values():
             name = slugify(node.title)
-            target = f'#{name}'
-            self.add_block(NavLinkToggle(node.title, collapse_id=target, css_class='my-2'))
+            target = f"#{name}"
+            self.add_block(
+                NavLinkToggle(node.title, collapse_id=target, css_class="my-2")
+            )
             contents = UnorderedList()
             self.add_block(CollapseWidget(contents, css_id=name))
             self.add_subtree(contents, node.items)
         self.add_block(
             HorizontalLayoutBlock(
-                LinkButton(name='classifier--submit', text='Filter Projects', color='primary'),
                 LinkButton(
-                    name='classifier--clear',
-                    text='Clear',
-                    color='outline-secondary',
-                    css_class="mt-2 mt-xl-0"
+                    name="classifier--submit", text="Filter Projects", color="primary"
                 ),
-                css_class='my-3',
-                justify='between',
-                flex_size='xl'
+                LinkButton(
+                    name="classifier--clear",
+                    text="Clear",
+                    color="outline-secondary",
+                    css_class="mt-2 mt-xl-0",
+                ),
+                css_class="my-3",
+                justify="between",
+                flex_size="xl",
             )
         )
 
-    def add_subtree(self, contents: UnorderedList, nodes: Dict[str, ClassifierNode]) -> None:
+    def add_subtree(
+        self, contents: UnorderedList, nodes: Dict[str, ClassifierNode]
+    ) -> None:
         """
         Add a subtree of classifier checkboxes.
 
         Args:
-            contents: the ``<ul>`` block to which to add our list of classifier checkboxes
-            nodes (_type_): _description_
+            contents: the ``<ul>`` block to which to add our list of classifier
+                checkboxes nodes (_type_): _description_
+            nodes: the classifier nodes to add to the list.  The key is the
+                classifier id, and the value is the :py:class:`ClassifierNode`
+                instance.
+
         """
         for node in nodes.values():
             checkbox = self.get_checkbox(node)
             if node.items:
-                container = Block(tag='li')
+                container = Block(tag="li")
                 container.add_block(checkbox)
                 sub_contents = UnorderedList()
                 container.add_block(sub_contents)
@@ -151,13 +160,14 @@ $(document).ready(function() {{
 
         Returns:
             A configured :py:class:`wildewidgets.CheckboxInputBlock`
+
         """
-        value = node.classifier.id if node.classifier else 'empty'
+        value = node.classifier.id if node.classifier else "empty"
         return CheckboxInputBlock(
             label_text=node.title,
             bold=False,
             input_name=slugify(node.title),
-            value=value
+            value=value,
         )
 
 
@@ -173,11 +183,12 @@ class ClassifierFilterBlock(CardWidget):
         table_name: the name of the dataTables table to control
         column_number: the number of the column in the dataTable that contains
             classifier names
+
     """
 
-    name: str = 'classifiers__filter'
+    name: str = "classifiers__filter"
 
-    card_title: str = 'Filter by classifier'
+    card_title: str = "Filter by classifier"
 
     def __init__(self, table_name: str, column_number: int, **kwargs):
         self.table_name = table_name
@@ -185,7 +196,6 @@ class ClassifierFilterBlock(CardWidget):
         super().__init__(**kwargs)
         self.set_widget(
             ClassifierFilterForm(
-                table_name=self.table_name,
-                column_number=column_number
+                table_name=self.table_name, column_number=column_number
             )
         )

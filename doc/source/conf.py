@@ -1,6 +1,6 @@
-import os
+import os  # noqa: INP001
 import sys
-from typing import List, Dict, Tuple, Optional
+from typing import Dict, List, Optional, Tuple  # noqa: UP035
 
 import sphinx_rtd_theme  # pylint: disable=unused-import  # noqa:F401
 
@@ -16,19 +16,19 @@ import sphinx_rtd_theme  # pylint: disable=unused-import  # noqa:F401
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-sys.path.insert(0, os.path.abspath('../../sandbox'))
+sys.path.insert(0, os.path.abspath("../../sandbox"))  # noqa: PTH100
 
 # -- Project information -----------------------------------------------------
 
 # the master toctree document
-master_doc = "index"
+master_doc: str = "index"
 
-project = 'django-sphinx-hosting'
-copyright = '2022, Caltech IMSS ADS'  # pylint: disable=redefined-builtin
-author = 'Caltech IMSS ADS'
+project: str = "django-sphinx-hosting"
+copyright: str = "2022, Caltech IMSS ADS"  # noqa: A001
+author: str = "Caltech IMSS ADS"
 
 # The full version, including alpha/beta/rc tags
-release = '1.5.2'
+release: str = "1.5.2"
 
 
 # -- General configuration ---------------------------------------------------
@@ -36,12 +36,12 @@ release = '1.5.2'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.intersphinx',
-    'sphinx_rtd_theme',
+extensions: List[str] = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.intersphinx",
+    "sphinx_rtd_theme",
     "sphinxcontrib_django",
     "sphinxcontrib.openapi",
 ]
@@ -49,27 +49,30 @@ extensions = [
 source_suffix: str = ".rst"
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path: List[str] = ['_templates']
+templates_path: List[str] = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns: List[str] = ['_build']
+exclude_patterns: List[str] = ["_build"]
 
 add_function_parentheses: bool = False
 add_module_names: bool = True
 
 
-autodoc_member_order = 'groupwise'
+autodoc_member_order: str = "groupwise"
 
 # Make Sphinx not expand all our Type Aliases
 autodoc_type_aliases: Dict[str, str] = {}
 
 # the locations and names of other projects that should be linked to this one
-intersphinx_mapping: Dict[str, Tuple[str, Optional[str]]] = {
-    'python': ('https://docs.python.org/3', None),
-    'django': ('http://docs.djangoproject.com/en/dev/', 'http://docs.djangoproject.com/en/dev/_objects/'),
-    'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
+intersphinx_mapping: Dict[str, Tuple[str, Optional[str]]] = {  # noqa: FA100
+    "python": ("https://docs.python.org/3", None),
+    "django": (
+        "http://docs.djangoproject.com/en/dev/",
+        "http://docs.djangoproject.com/en/dev/_objects/",
+    ),
+    "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
 }
 
 # Configure the path to the Django settings module
@@ -83,13 +86,7 @@ django_show_db_tables: bool = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme: str = 'sphinx_rtd_theme'
-
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-#html_static_path = ['_static']
-
+html_theme: str = "sphinx_rtd_theme"
 html_show_sourcelink = False
 html_show_sphinx = False
 html_show_copyright = True

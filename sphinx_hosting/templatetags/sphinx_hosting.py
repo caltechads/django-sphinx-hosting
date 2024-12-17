@@ -16,5 +16,6 @@ def sphinximage_url(pk: int):
 
     Returns:
         The URL for the image file
+
     """
     return SphinxImage.objects.get(pk=pk).file.url

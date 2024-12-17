@@ -1,44 +1,60 @@
 import time
-from typing import List, Type
+from typing import List, Optional, Type  # noqa: UP035
 
-from django.db.models import Model, QuerySet, F
 import elasticsearch.exceptions
+from django.db.models import F, Model, QuerySet
 from haystack import indexes
 
 from .logging import logger
-from .models import SphinxPage, Project, Version
+from .models import Project, SphinxPage, Version
 
 
 class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
-
     text = indexes.CharField(document=True, use_template=True)
-    project_id = indexes.CharField(model_attr='version__project__id', faceted=True)
-    project = indexes.CharField(model_attr='version__project__machine_name')
-    version_id = indexes.CharField(model_attr='version__id')
+    project_id = indexes.CharField(model_attr="version__project__id", faceted=True)
+    project = indexes.CharField(model_attr="version__project__machine_name")
+    version_id = indexes.CharField(model_attr="version__id")
     classifiers = indexes.MultiValueField(faceted=True)
-    modified = indexes.DateTimeField(model_attr='modified')
+    modified = indexes.DateTimeField(model_attr="modified")
 
     def get_model(self) -> Type[Model]:
         return SphinxPage
 
     def prepare_classifiers(self, obj: SphinxPage) -> List[str]:
-        return [classifier.name for classifier in obj.version.project.classifiers.all()]
+        return [classifier.name for classifier in obj.version.project.classifiers.all()]  # type: ignore[attr-defined]
 
-    def index_queryset(self, using=None) -> QuerySet:
+    def index_queryset(self, using: Optional[str] = None) -> QuerySet:  # noqa: ARG002, FA100
         """
         Used when the entire index for model is updated.
+
+        Keyword Args:
+            using: The alias of the database to use. (unused)
+
         """
-        return self.get_model().objects.filter(searchable=True).filter(version__project__latest_version=F('version'))
+        return (
+            self.get_model()
+            .objects.filter(searchable=True)
+            .filter(version__project__latest_version=F("version"))
+        )
 
     def remove_version(self, version: Version) -> None:
         """
         Remove all pages for a version from the index.
 
         Args:
-            version_id: The version whose pages we want to remove from the index.
+            version: The version whose pages we want to remove from the index.
+
         """
-        qs = self.get_model().objects.filter(version__id=version.pk).filter(searchable=True)
-        logger.info('Removing %d pages from the search index for version %s', qs.count(), version)
+        qs = (
+            self.get_model()
+            .objects.filter(version__id=version.pk)
+            .filter(searchable=True)
+        )
+        logger.info(
+            "Removing %d pages from the search index for version %s",
+            qs.count(),
+            version,
+        )
         for obj in qs:
             self.remove_object(obj)
 
@@ -54,16 +70,14 @@ class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
 
         Args:
             project: The project whose pages we want to reindex.
+
         """
         # This should only ever return a QuerySet of SphinxPage objects
         # that match the latest version of a project.
 
         # self.index_queryset() is a queryset of SphinxPage objects, so
         # our filters are on SphinxPage fields.
-        qs = (
-            self.index_queryset()
-            .filter(version__project=project)
-        )
+        qs = self.index_queryset().filter(version__project=project)
         backend = self.get_backend(None)
         if backend is not None:
             batch_size: int = backend.batch_size
@@ -76,17 +90,19 @@ class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
                 while True:
                     try:
                         backend.update(self, qs[start:end])
-                    except elasticsearch.exceptions.TransportError as e:
+                    except elasticsearch.exceptions.TransportError as e:  # noqa: PERF203
                         # We're using the Elasticsearch backend, check the status_code
                         # from the exception to see if we can recover from it.
                         #
-                        if e.status_code == 429:
-                            # We're being rate limited, so sleep for a bit and try again.
-                            # The problem here is we could sleep so long we exceed our gunicorn,
-                            # nginx, or other timeout.  We should probably look into a way to
-                            # do this asynchronously.
+                        if e.status_code == 429:  # noqa: PLR2004
+                            # We're being rate limited, so sleep for a bit and
+                            # try again.  The problem here is we could sleep so
+                            # long we exceed our gunicorn, nginx, or other
+                            # timeout.  We should probably look into a way to do
+                            # this asynchronously.
                             logger.warning(
-                                'Elasticsearch rate limit reached.  Sleeping for 5 seconds.'
+                                "Elasticsearch rate limit reached.  Sleeping for 5 "
+                                "seconds."
                             )
                             time.sleep(5)
                     else:

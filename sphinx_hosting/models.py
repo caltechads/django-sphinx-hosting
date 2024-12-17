@@ -1,23 +1,24 @@
+import re
+from contextlib import suppress
 from dataclasses import dataclass, field
 from pathlib import Path
-import re
-from typing import cast, Any, List, Dict, Optional
-from urllib.parse import urlparse, unquote
+from typing import Any, Dict, Final, List, Optional, cast  # noqa: UP035
+from urllib.parse import unquote, urlparse
+
+import lxml.html
 from django.conf import settings
 from django.db import models
-from django.utils.translation import gettext_lazy as _
-from django.utils.functional import cached_property
 from django.urls import reverse
+from django.utils.functional import cached_property
+from django.utils.translation import gettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 from lxml import etree
-import lxml.html
 from lxml.html import HtmlElement
 from wildewidgets.models import ViewSetMixin
 
 from .fields import MachineNameField
 from .settings import MAX_GLOBAL_TOC_TREE_DEPTH
 from .validators import NoHTMLValidator
-
 
 F = models.Field
 M2M = models.ManyToManyField
@@ -28,10 +29,11 @@ FK = models.ForeignKey
 # Dataclasses
 # --------------------------
 
+
 @dataclass
 class TreeNode:
     """
-    This is a :py:class:`dataclass` that we use with :py:class:`SphinxPageTree`
+    A :py:class:`dataclass` that we use with :py:class:`SphinxPageTree`
     to build out the global navigation structure for a set of documentation for
     a :py:class:`Version`.
     """
@@ -63,19 +65,19 @@ class TreeNode:
 
         Returns:
             A configured node.
+
         """
         return cls(
             page=page,
             title=page.title,
-            next=page.next_page,
+            next=page.next_page,  # type: ignore[arg-type]
             prev=page.previous_page.first(),
-            parent=page.parent
+            parent=page.parent,  # type: ignore[arg-type]
         )
 
 
 @dataclass
 class ClassifierNode:
-
     title: str
     classifier: Optional["Classifier"] = None
     items: Dict[str, "ClassifierNode"] = field(default_factory=dict)
@@ -85,6 +87,7 @@ class ClassifierNode:
 # Helper classes
 # --------------------------
 
+
 class SphinxPageTree:
     """
     A class that holds the page hierarchy for the set of :py:class:`SphinxPage`
@@ -93,7 +96,8 @@ class SphinxPageTree:
 
     The page heirarchy is built by starting at :py:attr:`Version.head` and
     following the page linkages by looking at :py:attr:`SphinxPage.next_page`,
-    stopping the traversal when we find a :py:attr:`SphinxPage.next_page` that is ``None``.
+    stopping the traversal when we find a :py:attr:`SphinxPage.next_page` that
+    is ``None``.
 
     As we traverse, if a :py:attr:`SphinxPage.parent` is not ``None``, find the
     :py:class:`TreeNode` for that parent, and add the page to
@@ -120,13 +124,13 @@ class SphinxPageTree:
         #: The :py:class:`Version that this tree examines
         self.version: Version = version
         self.nodes: Dict[int, TreeNode] = {}
-        self.nodes[self.version.head.id] = TreeNode.from_page(self.version.head)
+        self.nodes[self.version.head.id] = TreeNode.from_page(self.version.head)  # type: ignore[attr-defined, arg-type]
         #: The top page in the page hierarchy
-        self.head: TreeNode = self.nodes[self.version.head.id]
+        self.head: TreeNode = self.nodes[self.version.head.id]  # type: ignore[attr-defined]
         self.build(version)
 
     def build(self, version: "Version"):
-        self.add_page(version.head)
+        self.add_page(version.head)  # type: ignore[arg-type]
 
     def add_page(self, page: "SphinxPage"):
         node = TreeNode.from_page(page)
@@ -134,11 +138,10 @@ class SphinxPageTree:
         if node.parent:
             if node.parent.id in self.nodes:
                 self.nodes[node.parent.id].children.append(node)
-        else:
+        elif node != self.head:
             # The top level pages that are not head will not have any parent
             # because Sphinx doesn't think that way
-            if node != self.head:
-                self.head.children.append(node)
+            self.head.children.append(node)
         if node.next:
             self.add_page(node.next)
 
@@ -153,13 +156,12 @@ class SphinxPageTree:
         """
         Return a list of the pages represented in this tree.
         """
-        pages: List["SphinxPage"] = [cast("SphinxPage", self.head.page)]
+        pages: List["SphinxPage"] = [cast("SphinxPage", self.head.page)]  # noqa: UP037
         self._traverse_level(pages, self.head.children)
         return pages
 
 
 class SphinxPageTreeProcessor:
-
     def build_item(self, node: TreeNode) -> Dict[str, Any]:
         """
         Build a :py:class:`wildewdigets.MenuItem` compatible
@@ -170,15 +172,16 @@ class SphinxPageTreeProcessor:
 
         Returns:
             A dict suitable for loading into a :py:class:`wildewidgets.MenuItem`.
+
         """
         item: Dict[str, Any] = {
-            'text': node.title,
-            'url': None,
-            'icon': None,
-            'items': []
+            "text": node.title,
+            "url": None,
+            "icon": None,
+            "items": [],
         }
         if node.page:
-            item['url'] = node.page.get_absolute_url()
+            item["url"] = node.page.get_absolute_url()
         return item
 
     def build(self, items: List[Dict[str, Any]], node: TreeNode) -> None:
@@ -193,11 +196,12 @@ class SphinxPageTreeProcessor:
             items: the current list of ``MenuItem`` compatible dicts for the
                 current level of the menu
             node: the current node in our page tree
+
         """
         item = self.build_item(node)
         if node.children:
             for child in node.children:
-                self.build(item['items'], child)
+                self.build(item["items"], child)
         items.append(item)
 
     def run(self, version: "Version") -> List[Dict[str, Any]]:
@@ -220,7 +224,8 @@ class SphinxPageTreeProcessor:
 
         Returns:
             A list of dicts representing the global menu structure
-        """
+
+        """  # noqa: E501
         self.sphinx_tree = version.page_tree
         items: List[Dict[str, Any]] = []
         items.append(self.build_item(self.sphinx_tree.head))
@@ -243,10 +248,10 @@ class SphinxGlobalTOCHTMLProcessor:
     ``..toctree`` as the ``globaltoc`` key in the `.fjson` output.
 
     Note:
-
         Sphinx ``.. toctree:`` are ad-hoc -- they're up to how the author wants
         to organize their content, and may not reflect how files are filled out
         in the filesystem.
+
     """
 
     def __init__(self, max_level: int = 2) -> None:
@@ -256,15 +261,15 @@ class SphinxGlobalTOCHTMLProcessor:
     def fix_href(self, href: str) -> str:
         p = urlparse(unquote(href))
         url = reverse(
-            'sphinx_hosting:sphinxpage--detail',
+            "sphinx_hosting:sphinxpage--detail",
             kwargs={
-                'project_slug': self.version.project.machine_name,
-                'version': self.version.version,
-                'path': p.path.strip('/')
-            }
+                "project_slug": self.version.project.machine_name,  # type: ignore[attr-defined]
+                "version": self.version.version,
+                "path": p.path.strip("/"),
+            },
         )
         if p.fragment:
-            url += f'#{p.fragment}'
+            url += f"#{p.fragment}"
         return url
 
     def parse_ul(self, html: HtmlElement, level: int = 1) -> List[Dict[str, Any]]:
@@ -290,22 +295,23 @@ class SphinxGlobalTOCHTMLProcessor:
 
         Returns:
             The ``<ul>`` contents as a list of dicts
+
         """
         items: List[Dict[str, Any]] = []
         if level <= self.max_level:
             for li in html.iterchildren():
                 item: Dict[str, Any] = {
-                    'text': 'placeholder',
-                    'url': None,
-                    'icon': None,
-                    'items': []
+                    "text": "placeholder",
+                    "url": None,
+                    "icon": None,
+                    "items": [],
                 }
                 for elem in li:
-                    if elem.tag == 'a':
-                        item['text'] = elem.text_content()
-                        item['url'] = self.fix_href(elem.attrib['href'])
-                    if elem.tag == 'ul':
-                        item['items'].extend(self.parse_ul(elem, level=level + 1))
+                    if elem.tag == "a":
+                        item["text"] = elem.text_content()
+                        item["url"] = self.fix_href(elem.attrib["href"])
+                    if elem.tag == "ul":
+                        item["items"].extend(self.parse_ul(elem, level=level + 1))
                 items.append(item)
         return items
 
@@ -328,38 +334,30 @@ class SphinxGlobalTOCHTMLProcessor:
             version: the version whose global table of contents we are parsing
             html: the lxml parsed HTML of the global table of contents from
                 Sphinx
+
         """
         root_url = reverse(
-            'sphinx_hosting:sphinxpage--detail',
+            "sphinx_hosting:sphinxpage--detail",
             kwargs={
-                'project_slug': self.version.project.machine_name,
-                'version': self.version.version,
-                'path': self.version.head.relative_path
-            }
+                "project_slug": self.version.project.machine_name,  # type: ignore[attr-defined]
+                "version": self.version.version,
+                "path": self.version.head.relative_path,  # type: ignore[attr-defined]
+            },
         )
         items: List[Dict[str, Any]] = [
-            {
-                'text': 'Home',
-                'url': root_url,
-                'icon': None,
-                'items': []
-            }
+            {"text": "Home", "url": root_url, "icon": None, "items": []}
         ]
         for elem in html.iterchildren():
-            if elem.tag == 'p' and 'caption' in elem.classes:
+            if elem.tag == "p" and "caption" in elem.classes:
                 # Captions only appear at the top level, even if you assign
                 # captions in your toctree declaration in your sub levels with
                 # :caption:, so we only process them here.
-                items.append({'text': elem.text_content()})
-            if elem.tag == 'ul':
+                items.append({"text": elem.text_content()})
+            if elem.tag == "ul":
                 items.extend(self.parse_ul(elem))
         return items
 
-    def run(
-        self,
-        version: "Version",
-        verbose: bool = False
-    ) -> List[Dict[str, Any]]:
+    def run(self, version: "Version", verbose: bool = False) -> List[Dict[str, Any]]:
         """
         Parse the global table of contents found as
         ``version.head.orig_global_toc`` into a data struct suitable for use
@@ -392,26 +390,24 @@ class SphinxGlobalTOCHTMLProcessor:
 
         Returns:
             A list of dicts representing the global menu structure
-        """
+
+        """  # noqa: E501
         self.version = version
-        if self.version.head.orig_global_toc:
+        if self.version.head.orig_global_toc:  # type: ignore[attr-defined]
             # This is really only necessary to get the pretty printer below to
             # work properly.  If the \n chars are not removed, lxml won't indent
             # properly
-            global_toc_html = re.sub(r'\n', '', self.version.head.orig_global_toc)
+            global_toc_html = re.sub(r"\n", "", self.version.head.orig_global_toc)  # type: ignore[attr-defined]
             html = lxml.html.fromstring(global_toc_html)
             if verbose:
                 print(
                     etree.tostring(  # pylint: disable=c-extension-no-member
-                        html,
-                        method='xml',
-                        encoding='unicode',
-                        pretty_print=True
+                        html, method="xml", encoding="unicode", pretty_print=True
                     )
                 )
             return self.parse_globaltoc(html)
-        else:
-            return []
+        return []
+
 
 # --------------------------
 # FileField upload functions
@@ -431,10 +427,16 @@ def sphinx_image_upload_to(instance: "SphinxImage", filename: str) -> str:
 
     Returns:
         The properly formatted path to the file
+
     """
-    path = Path(instance.version.project.machine_name) / Path(instance.version.version) / 'images'
+    path = (
+        Path(instance.version.project.machine_name)  # type: ignore[attr-defined]
+        / Path(instance.version.version)  # type: ignore[attr-defined]
+        / "images"
+    )
     path = path / Path(filename).name
     return str(path)
+
 
 # --------------------------
 # Managers
@@ -442,7 +444,6 @@ def sphinx_image_upload_to(instance: "SphinxImage", filename: str) -> str:
 
 
 class ClassifierManager(models.Manager):
-
     def tree(self) -> Dict[str, ClassifierNode]:
         """
         Given our classifiers, which are ``::`` separated lists of terms
@@ -477,9 +478,9 @@ class ClassifierManager(models.Manager):
             }
         """
         nodes: Dict[str, ClassifierNode] = {}
-        current: Optional[ClassifierNode] = None
+        current: Optional[ClassifierNode] = None  # noqa: FA100
         for classifier in self.get_queryset().all():
-            parts = classifier.name.split(' :: ')
+            parts = classifier.name.split(" :: ")
             if parts[0] not in nodes:
                 nodes[parts[0]] = ClassifierNode(title=parts[0])
             current = nodes[parts[0]]
@@ -511,11 +512,14 @@ class Classifier(ViewSetMixin, models.Model):
         Language :: Python
         Owner :: DevOps :: AWS
     """
+
     objects = ClassifierManager()
 
     name: F = models.CharField(
-        'Classifier Name',
-        help_text=_('The classifier spec for this classifier, e.g. "Language :: Python"'),
+        "Classifier Name",
+        help_text=_(
+            'The classifier spec for this classifier, e.g. "Language :: Python"'
+        ),
         max_length=255,
         unique=True,
     )
@@ -533,32 +537,30 @@ class Classifier(ViewSetMixin, models.Model):
         creating ``Foo :: Bar :: Baz``.  We do this so that when we filter our projects
         by classifier, we can filter by ``Foo :: Bar`` and ``Foo :: Bar :: Baz``.
         """
-        parts = [p.strip() for p in self.name.split('::')]
-        if len(parts) > 2:
+        parts = [p.strip() for p in self.name.split("::")]
+        if len(parts) > 2:  # noqa: PLR2004
             name = parts[0]
             for part in parts[1:-1]:
-                name = f'{name} :: {part}'
+                name = f"{name} :: {part}"
                 if not Classifier.objects.filter(name=name).exists():
                     new_classifiier = Classifier(name=name)
-                    new_classifiier.save(using=kwargs.get('using', settings.DEFAULT_DB_ALIAS))
+                    new_classifiier.save(
+                        using=kwargs.get("using", settings.DEFAULT_DB_ALIAS)
+                    )
         # Rejoin our parts to ensure we always get a classifier that looks like
         # "part :: part :: part" instead of "part:: part::part"
-        self.name = ' :: '.join(parts)
+        self.name = " :: ".join(parts)
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return str(self.name)
 
     class Meta:
-        verbose_name = _('classifier')
-        verbose_name_plural = _('classifiers')
+        verbose_name = _("classifier")
+        verbose_name_plural = _("classifiers")
 
 
-class ProjectPermissionGroup(
-    ViewSetMixin,
-    TimeStampedModel,
-    models.Model
-):
+class ProjectPermissionGroup(ViewSetMixin, TimeStampedModel, models.Model):
     """
     A :py:class:`Project` can be assigned to one or more
     :py:class:`ProjectPermissionGroup` groups.  This restricts viewing of the
@@ -570,29 +572,29 @@ class ProjectPermissionGroup(
         Language :: Python
         Owner :: DevOps :: AWS
     """
+
     name: F = models.CharField(
-        'Permission Group Name',
-        help_text=_('The name for this permission group'),
+        "Permission Group Name",
+        help_text=_("The name for this permission group"),
         max_length=100,
         unique=True,
     )
     description: F = models.CharField(
-        'Brief Description',
+        "Brief Description",
         max_length=256,
         null=True,
         blank=True,
-        help_text=_('A brief description of this permission group'),
-        validators=[NoHTMLValidator()]
+        help_text=_("A brief description of this permission group"),
+        validators=[NoHTMLValidator()],
     )
 
     users: M2M = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        related_name='project_permission_groups'
+        settings.AUTH_USER_MODEL, related_name="project_permission_groups"
     )
 
     class Meta:
-        verbose_name = _('project permission group')
-        verbose_name_plural = _('project permission groups')
+        verbose_name = _("project permission group")
+        verbose_name_plural = _("project permission groups")
 
 
 class Project(ViewSetMixin, TimeStampedModel, models.Model):
@@ -604,71 +606,71 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
     """
 
     title: F = models.CharField(
-        'Project Name',
-        help_text=_('The human name for this project'),
-        max_length=100
+        "Project Name", help_text=_("The human name for this project"), max_length=100
     )
     description: F = models.CharField(
-        'Brief Description',
+        "Brief Description",
         max_length=256,
         null=True,
         blank=True,
-        help_text=_('A brief description of this project'),
-        validators=[NoHTMLValidator()]
+        help_text=_("A brief description of this project"),
+        validators=[NoHTMLValidator()],
     )
     machine_name: F = MachineNameField(
-        'Machine Name',
+        "Machine Name",
         unique=True,
         help_text=_(
-            """Must be unique.  Set this to the slugified value of "project" in Sphinx's. conf.py"""
-        )
+            """Must be unique.  Set this to the slugified value of "project" in """
+            """Sphinx's. conf.py"""
+        ),
     )
 
     latest_version: FK = models.ForeignKey(
         "Version",
         help_text=_(
-            'The latest version of this project.  '
-            'This is the version that will be shown when you click '
-            '"Read Docs" on the project page.'),
+            "The latest version of this project.  "
+            "This is the version that will be shown when you click "
+            '"Read Docs" on the project page.'
+        ),
         null=True,
         blank=True,
-        related_name='+',
+        related_name="+",
         on_delete=models.SET_NULL,
     )
 
     permission_groups: M2M = models.ManyToManyField(
         ProjectPermissionGroup,
-        related_name='projects',
+        related_name="projects",
     )
     classifiers: M2M = models.ManyToManyField(
         Classifier,
-        related_name='projects',
+        related_name="projects",
     )
 
     def __str__(self) -> str:  # pylint: disable=invalid-str-returned
         return self.title
 
     def get_absolute_url(self) -> str:
-        return reverse('sphinx_hosting:project--detail', args=[self.machine_name])
+        return reverse("sphinx_hosting:project--detail", args=[self.machine_name])
 
     def get_update_url(self) -> str:
-        return reverse('sphinx_hosting:project--update', args=[self.machine_name])
+        return reverse("sphinx_hosting:project--update", args=[self.machine_name])
 
-    def get_latest_version_url(self) -> Optional[str]:
+    def get_latest_version_url(self) -> Optional[str]:  # noqa: FA100
         if self.latest_version:
             return reverse(
-                'sphinx_hosting:sphinxpage--detail',
+                "sphinx_hosting:sphinxpage--detail",
                 args=[
                     self.machine_name,
-                    self.latest_version.version,
-                    self.latest_version.head.relative_path
-                ]
+                    self.latest_version.version,  # type: ignore[attr-defined]
+                    self.latest_version.head.relative_path,  # type: ignore[attr-defined]
+                ],
             )
         return None
 
     class Meta:
-        verbose_name = _('project')
-        verbose_name_plural = _('projects')
+        verbose_name = _("project")
+        verbose_name_plural = _("projects")
 
 
 class Version(TimeStampedModel, models.Model):
@@ -680,45 +682,45 @@ class Version(TimeStampedModel, models.Model):
     project: FK = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
-        related_name='versions',
-        help_text=_('The Project to which this Version belongs'),
+        related_name="versions",
+        help_text=_("The Project to which this Version belongs"),
     )
     version: F = models.CharField(
-        'Version',
+        "Version",
         max_length=64,
         null=False,
-        help_text=_('The version number for this release of the Project'),
+        help_text=_("The version number for this release of the Project"),
     )
     sphinx_version: F = models.CharField(
-        'Sphinx Version',
+        "Sphinx Version",
         max_length=64,
         null=True,
         blank=True,
         default=None,
-        help_text=_('The version of Sphinx used to create this documentation set')
+        help_text=_("The version of Sphinx used to create this documentation set"),
     )
     archived: F = models.BooleanField(
-        'Archived?',
+        "Archived?",
         default=False,
-        help_text=_(
-            'Whether this version should be excluded from search indexes'
-        )
+        help_text=_("Whether this version should be excluded from search indexes"),
     )
 
     head: FK = models.OneToOneField(
         "SphinxPage",
         on_delete=models.SET_NULL,
         null=True,
-        related_name='+',  # disable our related_name for this one
-        help_text=_('The top page of the documentation set for this version of our project'),
+        related_name="+",  # disable our related_name for this one
+        help_text=_(
+            "The top page of the documentation set for this version of our project"
+        ),
     )
 
     def __str__(self) -> str:
-        return f'{self.project.title}-{self.version}'
+        return f"{self.project.title}-{self.version}"  # type: ignore[attr-defined]
 
     @property
     def is_latest(self) -> bool:
-        return self == self.project.latest_version
+        return self == self.project.latest_version  # type: ignore[attr-defined]
 
     @property
     def page_tree(self) -> SphinxPageTree:
@@ -731,6 +733,7 @@ class Version(TimeStampedModel, models.Model):
 
         Returns:
             The page hierarchy for this version.
+
         """
         return SphinxPageTree(self)
 
@@ -751,9 +754,9 @@ class Version(TimeStampedModel, models.Model):
         ignored_paths = list(SphinxPage.SPECIAL_PAGES.keys())
         for page in self.pages.all():
             if (
-                page.relative_path not in ignored_paths and
-                not page.relative_path.startswith('_') and
-                '/_' not in page.relative_path
+                page.relative_path not in ignored_paths
+                and not page.relative_path.startswith("_")
+                and "/_" not in page.relative_path
             ):
                 page.searchable = True
             else:
@@ -778,26 +781,27 @@ class Version(TimeStampedModel, models.Model):
         :py:class:`sphinx_hosting.wildewidgets.SphinxPageGlobalTableOfContentsMenu`
         for this :py:class:`Version`.
 
-        """
-        items = SphinxGlobalTOCHTMLProcessor(max_level=MAX_GLOBAL_TOC_TREE_DEPTH).run(self)
+        """  # noqa: E501
+        items = SphinxGlobalTOCHTMLProcessor(max_level=MAX_GLOBAL_TOC_TREE_DEPTH).run(
+            self
+        )
         if not items:
             items = SphinxPageTreeProcessor().run(self)
-        return {'items': items}
+        return {"items": items}
 
     def purge_cached_globaltoc(self) -> None:
         """
         Purge the cached output from our :py:meth:`globaltoc` property.
         """
-        try:
+        with suppress(AttributeError):
+            # If we get AttributeError, this means self.globaltoc hasn't been
+            # accessed yet
             del self.globaltoc
-        except AttributeError:
-            # This means self.globaltoc hasn't been accessed yet
-            pass
 
     def get_absolute_url(self) -> str:
         return reverse(
-            'sphinx_hosting:version--detail',
-            args=[self.project.machine_name, self.version]
+            "sphinx_hosting:version--detail",
+            args=[self.project.machine_name, self.version],  # type: ignore[attr-defined]
         )
 
     def save(self, *args, **kwargs):
@@ -820,83 +824,87 @@ class SphinxPage(TimeStampedModel, models.Model):
     #: special pages that Sphinx produces on its own and gives them
     #: reasonable titles.  These pages have no ``title`` key in their
     #: json data, but ``title`` is required for pages
-    SPECIAL_PAGES: Dict[str, str] = {
-        'genindex': 'General Index',
-        'py-modindex': 'Module Index',
-        'np-modindex': 'Module Index',
-        'search': 'Search',
-        '_modules/index': 'Module code'
+    SPECIAL_PAGES: Final[Dict[str, str]] = {
+        "genindex": "General Index",
+        "py-modindex": "Module Index",
+        "np-modindex": "Module Index",
+        "search": "Search",
+        "_modules/index": "Module code",
     }
 
     version: FK = models.ForeignKey(
         Version,
         on_delete=models.CASCADE,
-        related_name='pages',
-        help_text=_('The Version to which this page belongs'),
+        related_name="pages",
+        help_text=_("The Version to which this page belongs"),
     )
     relative_path: F = models.CharField(
-        'Relative page path',
-        help_text=_('The path to the page under our top slug'),
-        max_length=255
+        "Relative page path",
+        help_text=_("The path to the page under our top slug"),
+        max_length=255,
     )
     content: F = models.TextField(
-        'Content',
-        help_text=_('The full JSON payload for the page')
+        "Content", help_text=_("The full JSON payload for the page")
     )
     title: F = models.CharField(
-        'Title',
+        "Title",
         max_length=255,
-        help_text=_('Just the title for the page, extracted from the page JSON')
+        help_text=_("Just the title for the page, extracted from the page JSON"),
     )
     orig_body: F = models.TextField(
-        'Body (Original)',
+        "Body (Original)",
         blank=True,
         help_text=_(
-            'The original body for the page, extracted from the page JSON. Some pages have no body. '
-            'We save this here in case we need to reprocess the body at some later date.'
+            "The original body for the page, extracted from the page JSON. Some pages "
+            "have no body. We save this here in case we need to reprocess the body at "
+            "some later date."
         ),
     )
     body: F = models.TextField(
-        'Body',
+        "Body",
         blank=True,
         help_text=_(
-            'The body for the page, extracted from the page JSON, and modified to suit us.  '
-            'Some pages have no body.  The body is actually stored as a Django template.'
+            "The body for the page, extracted from the page JSON, and modified to "
+            "suit us. Some pages have no body.  The body is actually stored as a "
+            "Django template."
         ),
     )
     orig_local_toc: F = models.TextField(
-        'Local Table of Contents (original)',
+        "Local Table of Contents (original)",
         blank=True,
         null=True,
         default=None,
         help_text=_(
-            'The original table of contents for headings in this page.'
-            'We save this here in case we need to reprocess the table of contents '
-            'at some later date.'
+            "The original table of contents for headings in this page."
+            "We save this here in case we need to reprocess the table of contents "
+            "at some later date."
         ),
     )
     local_toc: F = models.TextField(
-        'Local Table of Contents',
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Table of Contents for headings in this page, modified to work in our templates'),
-    )
-    orig_global_toc: F = models.TextField(
-        'Global Table of Contents (original)',
+        "Local Table of Contents",
         blank=True,
         null=True,
         default=None,
         help_text=_(
-            'The original global table of contents HTML attached to this page, if any.  This '
-            'will only be present if you had "sphinxcontrib-jsonglobaltoc" installed in your "extensions" '
-            'in the Sphinx conf.py'
+            "Table of Contents for headings in this page, modified to work in "
+            "our templates"
+        ),
+    )
+    orig_global_toc: F = models.TextField(
+        "Global Table of Contents (original)",
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_(
+            "The original global table of contents HTML attached to this page, if any. "
+            ' This will only be present if you had "sphinxcontrib-jsonglobaltoc"'
+            'installed in your "extensions" in the Sphinx conf.py'
         ),
     )
     searchable: F = models.BooleanField(
-        'Searchable',
+        "Searchable",
         default=False,
-        help_text=_('Should this page be included in the search index?')
+        help_text=_("Should this page be included in the search index?"),
     )
 
     parent: FK = models.ForeignKey(
@@ -904,7 +912,7 @@ class SphinxPage(TimeStampedModel, models.Model):
         on_delete=models.CASCADE,
         null=True,
         related_name="children",
-        help_text=_('The parent page of this page'),
+        help_text=_("The parent page of this page"),
     )
 
     # This has to be a ForeignKey here and not a OneToOneField becuase
@@ -914,20 +922,22 @@ class SphinxPage(TimeStampedModel, models.Model):
         on_delete=models.CASCADE,
         null=True,
         related_name="previous_page",
-        help_text=_('The next page in the documentation set'),
+        help_text=_("The next page in the documentation set"),
     )
 
-    def __str__(self) -> str:  # pylint: disable=invalid-str-returned
-        return f'{self.version.project.title}-{self.version.version}: {self.relative_path}'
+    def __str__(self) -> str:
+        return (
+            f"{self.version.project.title}-{self.version.version}: {self.relative_path}"  # type: ignore[attr-defined]
+        )
 
     def get_absolute_url(self) -> str:
         return reverse(
-            'sphinx_hosting:sphinxpage--detail',
+            "sphinx_hosting:sphinxpage--detail",
             args=[
-                self.version.project.machine_name,
-                self.version.version,
-                self.relative_path
-            ]
+                self.version.project.machine_name,  # type: ignore[attr-defined]
+                self.version.version,  # type: ignore[attr-defined]
+                self.relative_path,
+            ],
         )
 
     def get_permalink(self) -> str:
@@ -937,20 +947,17 @@ class SphinxPage(TimeStampedModel, models.Model):
 
         Returns:
             The permalink for this page.
+
         """
         return reverse(
-            'sphinx_hosting:sphinxpage--detail',
-            args=[
-                self.version.project.machine_name,
-                "latest",
-                self.relative_path
-            ]
+            "sphinx_hosting:sphinxpage--detail",
+            args=[self.version.project.machine_name, "latest", self.relative_path],  # type: ignore[attr-defined]
         )
 
     class Meta:
-        verbose_name = _('sphinx page')
-        verbose_name_plural = _('sphinx pages')
-        unique_together = ('version', 'relative_path')
+        verbose_name = _("sphinx page")
+        verbose_name_plural = _("sphinx pages")
+        unique_together = ("version", "relative_path")
 
 
 class SphinxImage(TimeStampedModel, models.Model):
@@ -965,24 +972,29 @@ class SphinxImage(TimeStampedModel, models.Model):
     version: FK = models.ForeignKey(
         Version,
         on_delete=models.CASCADE,
-        related_name='images',
-        help_text=_('The version of our project documentation with which this image is associated')
+        related_name="images",
+        help_text=_(
+            "The version of our project documentation with which this image is "
+            "associated"
+        ),
     )
     orig_path: F = models.CharField(
-        _('Original Path'),
+        _("Original Path"),
         max_length=256,
-        help_text=_('The original path to this file in the Sphinx documentation package')
+        help_text=_(
+            "The original path to this file in the Sphinx documentation package"
+        ),
     )
     file: F = models.FileField(
-        _('An image file'),
+        _("An image file"),
         upload_to=sphinx_image_upload_to,
-        help_text=_('The actual image file')
+        help_text=_("The actual image file"),
     )
 
     class Meta:
-        verbose_name = _('sphinx image')
-        verbose_name_plural = _('sphinx images')
-        unique_together = ('version', 'orig_path')
+        verbose_name = _("sphinx image")
+        verbose_name_plural = _("sphinx images")
+        unique_together = ("version", "orig_path")
 
 
 class ProjectRelatedLink(TimeStampedModel, models.Model):
@@ -992,30 +1004,30 @@ class ProjectRelatedLink(TimeStampedModel, models.Model):
     """
 
     title: F = models.CharField(
-        'Link Title',
-        max_length=100,
-        help_text=_('The title for this link')
+        "Link Title", max_length=100, help_text=_("The title for this link")
     )
     uri: F = models.URLField(
-        'Link URL',
-        max_length=256,
-        help_text=_('The URL for this link')
+        "Link URL", max_length=256, help_text=_("The URL for this link")
     )
     project: FK = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
-        related_name='related_links',
-        help_text=_('The project to which this link is related')
+        related_name="related_links",
+        help_text=_("The project to which this link is related"),
     )
 
     def get_update_url(self) -> str:
-        return reverse("sphinx_hosting:projectrelatedlink--update", kwargs={'pk': self.pk})
+        return reverse(
+            "sphinx_hosting:projectrelatedlink--update", kwargs={"pk": self.pk}
+        )
 
     def get_delete_url(self) -> str:
-        return reverse("sphinx_hosting:projectrelatedlink--delete", kwargs={'pk': self.pk})
+        return reverse(
+            "sphinx_hosting:projectrelatedlink--delete", kwargs={"pk": self.pk}
+        )
 
     class Meta:
-        verbose_name = _('project related link')
-        verbose_name_plural = _('project related links')
-        unique_together = ('project', 'uri')
-        ordering = ('title',)
+        verbose_name = _("project related link")
+        verbose_name_plural = _("project related links")
+        unique_together = ("project", "uri")
+        ordering = ("title",)

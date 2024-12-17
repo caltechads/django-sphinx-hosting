@@ -47,34 +47,35 @@ class Command(BaseCommand):
         ...
 
     """
-    args = '<tarfile>'
-    help = 'Imports a tarfile of Sphinx documentation into a pre-existing project.'
+
+    args: str = "<tarfile>"
+    help: str = "Imports a tarfile of Sphinx documentation into a pre-existing project."
 
     def add_arguments(self, parser: ArgumentParser) -> None:
         parser.add_argument(
-            'tarfile',
-            metavar='tarfile',
+            "tarfile",
+            metavar="tarfile",
             type=str,
-            help='The filename of the tarfile to import.'
+            help="The filename of the tarfile to import.",
         )
         parser.add_argument(
-            '--force',
-            action='store_true',
+            "--force",
+            action="store_true",
             default=False,
-            help='Overwrite documentation for any matching existing version.'
+            help="Overwrite documentation for any matching existing version.",
         )
 
-    def handle(self, *args, **options) -> None:
+    def handle(self, *args, **options) -> None:  # noqa: ARG002
         importer = SphinxPackageImporter()
         try:
-            version = importer.run(filename=options['tarfile'], force=options['force'])
+            version = importer.run(filename=options["tarfile"], force=options["force"])
         except VersionAlreadyExists as e:
             self.stdout.write(self.style.ERROR(str(e)))
         except Project.DoesNotExist as e:
             self.stdout.write(self.style.ERROR(str(e)))
         self.stdout.write(
             self.style.SUCCESS(
-                f'Imported to Version(id={version.id}) of '
-                f'Project(id={version.project.id}, title={version.project.title})'
+                f"Imported to Version(id={version.id}) of "  # type: ignore[attr-defined]
+                f"Project(id={version.project.id}, title={version.project.title})"
             )
         )

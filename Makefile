@@ -10,6 +10,12 @@ dist: clean
 pypi: dist
 	@twine upload dist/*
 
+compile: uv.lock
+	@uv pip compile --extra=docs pyproject.toml -o requirements.txt
+
+sync:
+	@uv sync -U --extra=docs --extra=sandbox
+
 update_schema:
 	@curl -XGET --insecure -o schema/v1.yml https://localhost/api/v1/schema/
 

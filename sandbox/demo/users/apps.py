@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class UsersConfig(AppConfig):
-    name = 'demo.users'
-    label = 'users'
+    name: str = "demo.users"
+    label: str = "users"

@@ -1,4 +1,4 @@
-from typing import Type, Tuple, Dict, Any
+from typing import Any, Dict, Final, Tuple, Type  # noqa: UP035
 
 from django.db.models import Model
 from rest_framework import serializers
@@ -15,114 +15,95 @@ from sphinx_hosting.models import (
 
 
 class ClassifierSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model: Type[Model] = Classifier
-        fields: Tuple[str, ...] = (
-            'url',
-            'id',
-            'name'
-        )
-        extra_kwargs = {
-            'url': {'view_name': 'sphinx_hosting_api:classifier-detail'},
+        fields: Tuple[str, ...] = ("url", "id", "name")
+        extra_kwargs: Final[Dict[str, Any]] = {
+            "url": {"view_name": "sphinx_hosting_api:classifier-detail"},
         }
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-
     versions: RelatedField = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='sphinx_hosting_api:version-detail'
+        many=True, read_only=True, view_name="sphinx_hosting_api:version-detail"
     )
     latest_version: RelatedField = serializers.HyperlinkedRelatedField(
-        many=False,
-        read_only=True,
-        view_name='sphinx_hosting_api:version-detail'
+        many=False, read_only=True, view_name="sphinx_hosting_api:version-detail"
     )
     classifiers: serializers.Serializer = ClassifierSerializer(many=True)
     related_links: RelatedField = serializers.HyperlinkedRelatedField(
         many=True,
         read_only=True,
-        view_name='sphinx_hosting_api:projectrelatedlink-detail'
+        view_name="sphinx_hosting_api:projectrelatedlink-detail",
     )
 
     class Meta:
         model: Type[Model] = Project
-        read_only_fields: Tuple[str, ...] = ('machine_name', )
+        read_only_fields: Tuple[str, ...] = ("machine_name",)
         fields: Tuple[str, ...] = (
-            'url',
-            'id',
-            'title',
-            'machine_name',
-            'description',
-            'related_links',
-            'classifiers',
-            'latest_version',
-            'versions',
+            "url",
+            "id",
+            "title",
+            "machine_name",
+            "description",
+            "related_links",
+            "classifiers",
+            "latest_version",
+            "versions",
         )
-        extra_kwargs = {
-            'url': {'view_name': 'sphinx_hosting_api:project-detail'},
+        extra_kwargs: Final[Dict[str, Any]] = {
+            "url": {"view_name": "sphinx_hosting_api:project-detail"},
         }
 
 
 class ProjectRelatedLinkSerializer(serializers.HyperlinkedModelSerializer):
-
     project: RelatedField = serializers.HyperlinkedRelatedField(
-        queryset=Project.objects.all(),
-        view_name='sphinx_hosting_api:project-detail'
+        queryset=Project.objects.all(), view_name="sphinx_hosting_api:project-detail"
     )
 
     class Meta:
         model: Type[Model] = ProjectRelatedLink
         fields: Tuple[str, ...] = (
-            'url',
-            'id',
-            'title',
-            'uri',
-            'project',
+            "url",
+            "id",
+            "title",
+            "uri",
+            "project",
         )
-        extra_kwargs = {
-            'url': {'view_name': 'sphinx_hosting_api:projectrelatedlink-detail'},
+        extra_kwargs: Final[Dict[str, Any]] = {
+            "url": {"view_name": "sphinx_hosting_api:projectrelatedlink-detail"},
         }
 
 
 class VersionSerializer(serializers.HyperlinkedModelSerializer):
-
     project: RelatedField = serializers.HyperlinkedRelatedField(
-        read_only=True,
-        view_name='sphinx_hosting_api:project-detail'
+        read_only=True, view_name="sphinx_hosting_api:project-detail"
     )
     head: RelatedField = serializers.HyperlinkedRelatedField(
-        read_only=True,
-        view_name='sphinx_hosting_api:sphinxpage-detail'
+        read_only=True, view_name="sphinx_hosting_api:sphinxpage-detail"
     )
     pages: RelatedField = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='sphinx_hosting_api:sphinxpage-detail'
+        many=True, read_only=True, view_name="sphinx_hosting_api:sphinxpage-detail"
     )
     images: RelatedField = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='sphinx_hosting_api:sphinximage-detail'
+        many=True, read_only=True, view_name="sphinx_hosting_api:sphinximage-detail"
     )
 
     class Meta:
         model: Type[Model] = Version
         fields: Tuple[str, ...] = (
-            'url',
-            'id',
-            'project',
-            'version',
-            'sphinx_version',
-            'archived',
-            'head',
-            'pages',
-            'images',
+            "url",
+            "id",
+            "project",
+            "version",
+            "sphinx_version",
+            "archived",
+            "head",
+            "pages",
+            "images",
         )
-        extra_kwargs = {
-            'url': {'view_name': 'sphinx_hosting_api:version-detail'},
+        extra_kwarg: Final[Dict[str, Any]] = {
+            "url": {"view_name": "sphinx_hosting_api:version-detail"},
         }
 
 
@@ -143,68 +124,60 @@ class VersionUploadSerializer(serializers.Serializer):
         pass
 
     class Meta:
-        fields = ('file', )
+        fields = ("file",)
 
 
 class SphinxPageSerializer(serializers.HyperlinkedModelSerializer):
-
     version: RelatedField = serializers.HyperlinkedRelatedField(
-        read_only=True,
-        view_name='sphinx_hosting_api:version-detail'
+        read_only=True, view_name="sphinx_hosting_api:version-detail"
     )
-    parent: RelatedField = serializers.HyperlinkedRelatedField(   # type: ignore
-        read_only=True,
-        view_name='sphinx_hosting_api:sphinxpage-detail'
+    parent: RelatedField = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name="sphinx_hosting_api:sphinxpage-detail"
     )
     previous_page: RelatedField = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='sphinx_hosting_api:sphinxpage-detail'
+        many=True, read_only=True, view_name="sphinx_hosting_api:sphinxpage-detail"
     )
     next_page: RelatedField = serializers.HyperlinkedRelatedField(
-        read_only=True,
-        view_name='sphinx_hosting_api:sphinxpage-detail'
+        read_only=True, view_name="sphinx_hosting_api:sphinxpage-detail"
     )
 
     class Meta:
         model: Type[Model] = SphinxPage
         fields: Tuple[str, ...] = (
-            'url',
-            'id',
-            'version',
-            'title',
-            'relative_path',
-            'content',
-            'orig_body',
-            'body',
-            'orig_local_toc',
-            'local_toc',
-            'orig_global_toc',
-            'searchable',
-            'parent',
-            'next_page',
-            'previous_page',
+            "url",
+            "id",
+            "version",
+            "title",
+            "relative_path",
+            "content",
+            "orig_body",
+            "body",
+            "orig_local_toc",
+            "local_toc",
+            "orig_global_toc",
+            "searchable",
+            "parent",
+            "next_page",
+            "previous_page",
         )
-        extra_kwargs = {
-            'url': {'view_name': 'sphinx_hosting_api:sphinxpage-detail'},
+        extra_kwargs: Final[Dict[str, Any]] = {
+            "url": {"view_name": "sphinx_hosting_api:sphinxpage-detail"},
         }
 
 
 class SphinxImageSerializer(serializers.HyperlinkedModelSerializer):
     version: RelatedField = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='sphinx_hosting_api:version-detail'
+        many=True, read_only=True, view_name="sphinx_hosting_api:version-detail"
     )
 
     class Meta:
         model: Type[Model] = SphinxImage
         fields: Tuple[str, ...] = (
-            'url',
-            'id',
-            'version',
-            'orig_path',
+            "url",
+            "id",
+            "version",
+            "orig_path",
         )
-        extra_kwargs = {
-            'url': {'view_name': 'sphinx_hosting_api:sphinximage-detail'},
+        extra_kwargs: Final[Dict[str, Any]] = {
+            "url": {"view_name": "sphinx_hosting_api:sphinximage-detail"},
         }

@@ -1,12 +1,12 @@
-from typing import Dict, List, Optional, Type, cast
+from typing import Dict, List, Optional, Type, cast  # noqa: UP035
 
+import humanize
 from django.db.models import Model
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
-from django.urls import reverse
 from haystack.models import SearchResult
 from haystack.query import SearchQuerySet
-import humanize
 from wildewidgets import (
     Block,
     Column,
@@ -17,7 +17,7 @@ from wildewidgets import (
     LinkButton,
     PagedModelWidget,
     Row,
-    TagBlock
+    TagBlock,
 )
 
 from ..forms import GlobalSearchForm
@@ -26,10 +26,11 @@ from ..models import Classifier, Project, SphinxPage
 
 class GlobalSearchFormWidget(CrispyFormWidget):
     """
-    This widget encapsulates the :py:class:`sphinx_hosting.forms.GlobalSearchForm`.
+    Encapsulates the :py:class:`sphinx_hosting.forms.GlobalSearchForm`.
     """
-    name: str = 'global-search'
-    css_class: str = 'mb-3'
+
+    name: str = "global-search"
+    css_class: str = "mb-3"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,65 +40,65 @@ class GlobalSearchFormWidget(CrispyFormWidget):
 
 class SearchResultBlock(Block):
     """
-    This is the block we use for rendering a particular search result on the search
+    Block we use for rendering a particular search result on the search
     results page.
 
     Keyword Args:
         object: the :py:class:`haystack.models.SearchResult` object to render
+
     """
 
-    block: str = 'search-result'
+    block: str = "search-result"
     max_text_length: int = 200
 
     class Header(Block):
-        name: str = 'search-result__header'
+        name: str = "search-result__header"
 
         def __init__(self, result: SearchResult, **kwargs):
             super().__init__(**kwargs)
-            self.add_class('mb-3')
+            self.add_class("mb-3")
             now = timezone.now()
             ago = humanize.naturaldelta(
-                now - result.object.version.modified,
-                minimum_unit='seconds'
+                now - result.object.version.modified, minimum_unit="seconds"
             )
             self.add_block(
                 HorizontalLayoutBlock(
                     Block(
                         str(result.object.version),
-                        name='search-result__header__subtitle',
-                        css_class='fs-6 text-muted font-bold'
+                        name="search-result__header__subtitle",
+                        css_class="fs-6 text-muted font-bold",
                     ),
                     Block(
-                        f'{ago} ago',
-                        name='search-result__header__ago',
-                        css_class='text-muted fs-6 text-uppercase'
+                        f"{ago} ago",
+                        name="search-result__header__ago",
+                        css_class="text-muted fs-6 text-uppercase",
                     ),
-                    justify='between',
-                    align='baseline'
+                    justify="between",
+                    align="baseline",
                 )
             )
-            self.add_block(Block(result.object.title, tag='h3'))
+            self.add_block(Block(result.object.title, tag="h3"))
 
-    def __init__(self, object: SearchResult = None, **kwargs):  # pylint: disable=redefined-builtin
+    def __init__(self, object: SearchResult = None, **kwargs):  # noqa: A002
         result = cast(SearchResult, object)
         super().__init__(**kwargs)
-        self.add_class('shadow')
-        self.add_class('border')
-        self.add_class('p-4')
-        self.add_class('mb-4')
+        self.add_class("shadow")
+        self.add_class("border")
+        self.add_class("p-4")
+        self.add_class("mb-4")
         self.add_block(SearchResultBlock.Header(result))
         page = cast(SphinxPage, result.object)
         text = strip_tags(page.body)
-        text = text[:self.max_text_length].rsplit(' ', 1)[0] + '...'
+        text = text[: self.max_text_length].rsplit(" ", 1)[0] + "..."
         self.add_block(
-            Block(text, name='search-result_snippet', css_class='fs-8 text-muted mb-3')
+            Block(text, name="search-result_snippet", css_class="fs-8 text-muted mb-3")
         )
         self.add_block(
             HorizontalLayoutBlock(
-                LinkButton(text='Read', url=page.get_absolute_url()),
-                Block(f'Rank: {result.score}', css_class='fs-6 text-muted'),
-                justify='between',
-                align='baseline'
+                LinkButton(text="Read", url=page.get_absolute_url()),
+                Block(f"Rank: {result.score}", css_class="fs-6 text-muted"),
+                justify="between",
+                align="baseline",
             )
         )
 
@@ -109,24 +110,25 @@ class SearchResultsHeader(HorizontalLayoutBlock):
 
     Args:
         results: the Haystack search queryset containing our search results
+
     """
 
-    name: str = 'search-results__title'
-    justify: str = 'between'
+    name: str = "search-results__title"
+    justify: str = "between"
 
     def __init__(self, results: SearchQuerySet, **kwargs):
         super().__init__(**kwargs)
         self.add_block(
             Block(
                 str(f"Search Results: {results.count()}"),
-                css_class='fs-6 font-bold mb-3'
+                css_class="fs-6 font-bold mb-3",
             )
         )
 
 
 class PagedSearchResultsBlock(PagedModelWidget):
     """
-    This is a paged listing of :py:class:`SearchResultBlock` entries describing
+    Paged listing of :py:class:`SearchResultBlock` entries describing
     our search results.
 
     Args:
@@ -137,31 +139,32 @@ class PagedSearchResultsBlock(PagedModelWidget):
     Keyword Args:
         facets: a dictionary of facet names to lists of facet values that were
             selected on the search results page
+
     """
 
     model: Type[Model] = SphinxPage
-    page_kwarg: str = 'p'
+    page_kwarg: str = "p"
     paginate_by: int = 10
     model_widget: Block = SearchResultBlock
 
     def __init__(
         self,
         results: SearchQuerySet,
-        query: Optional[str],
-        facets: Optional[Dict[str, List[str]]] = None,
-        **kwargs
+        query: Optional[str],  # noqa: FA100
+        facets: Optional[Dict[str, List[str]]] = None,  # noqa: FA100
+        **kwargs,
     ):
         if query is not None:
-            kwargs['extra_url'] = {'q': query}
+            kwargs["extra_url"] = {"q": query}
             if facets:
                 for key, value in facets.items():
-                    kwargs['extra_url'][key] = ",".join(value)
+                    kwargs["extra_url"][key] = ",".join(value)
         super().__init__(queryset=results, **kwargs)
 
 
 class FacetBlock(Block):
     """
-    This is a base class for blocks that appear to the right of the search
+    Base class for blocks that appear to the right of the search
     results listing on the search results page that allows you to refine your
     results by a particular facet that is present in the result set.
 
@@ -173,6 +176,7 @@ class FacetBlock(Block):
         results: the Haystack search queryset containing our search results
         query: the text entered into the search form that got us to this results
             page
+
     """
 
     #: The model class which our facet is related to
@@ -184,34 +188,39 @@ class FacetBlock(Block):
     #: The field on :py:attr:`model` that we will filter by
     model_field: str
 
-    def __init__(self, results: SearchQuerySet, query: Optional[str], **kwargs):
+    def __init__(self, results: SearchQuerySet, query: Optional[str], **kwargs):  # noqa: FA100
         self.query = query
         super().__init__(**kwargs)
-        self.add_class('border')
-        self.add_class('bg-white')
+        self.add_class("border")
+        self.add_class("bg-white")
         facet_qs = results.facet(self.facet)
         stats = facet_qs.facet_counts()
-        self.add_block(Block(self.title, tag='h3', css_class='p-3'))
-        body = Block(name='list-group', css_class='list-group-flush')
-        for identifier, count in stats['fields'][self.facet]:
+        self.add_block(Block(self.title, tag="h3", css_class="p-3"))
+        body = Block(name="list-group", css_class="list-group-flush")
+        for identifier, count in stats["fields"][self.facet]:
             kwargs = {self.model_field: identifier}
             instance = self.model.objects.get(**kwargs)
             body.add_block(
                 Block(
                     HorizontalLayoutBlock(
-                        Link(str(instance), url=instance.get_absolute_url(), css_class='fs-5'),  # type: ignore
+                        Link(
+                            str(instance),
+                            url=instance.get_absolute_url(),  # type: ignore[attr-defined]
+                            css_class="fs-5",
+                        ),
                         HorizontalLayoutBlock(
-                            TagBlock(count, color='cyan', css_class='me-2'),
+                            TagBlock(count, color="cyan", css_class="me-2"),
                             LinkButton(
-                                text='Filter',
-                                url=reverse('sphinx_hosting:search') + f"?q={query}&{self.facet}={identifier}",
-                                color='outline-secondary',
-                                size='sm'
+                                text="Filter",
+                                url=reverse("sphinx_hosting:search")
+                                + f"?q={query}&{self.facet}={identifier}",
+                                color="outline-secondary",
+                                size="sm",
                             ),
-                        )
+                        ),
                     ),
-                    tag='li',
-                    name='list-group-item'
+                    tag="li",
+                    name="list-group-item",
                 )
             )
         self.add_block(body)
@@ -219,13 +228,14 @@ class FacetBlock(Block):
 
 class SearchResultsClassifiersFacet(FacetBlock):
     """
-    A :py:class:`FacetBlock` that allows the user to filter search results by classifier.
+    A :py:class:`FacetBlock` that allows the user to filter search results by
+    classifier.
     """
 
     model: Type[Model] = Classifier
-    title: str = 'Classifiers'
-    facet: str = 'classifiers'
-    model_field: str = 'name'
+    title: str = "Classifiers"
+    facet: str = "classifiers"
+    model_field: str = "name"
 
 
 class SearchResultsProjectFacet(FacetBlock):
@@ -234,9 +244,9 @@ class SearchResultsProjectFacet(FacetBlock):
     """
 
     model: Type[Model] = Project
-    title: str = 'Projects'
-    facet: str = 'project_id'
-    model_field: str = 'pk'
+    title: str = "Projects"
+    facet: str = "project_id"
+    model_field: str = "pk"
 
 
 class SearchResultsPageHeader(Block):
@@ -252,62 +262,63 @@ class SearchResultsPageHeader(Block):
     Keyword Args:
         facets: the active facet filters.  This will be a dict where the key is the
             facet name, and the value is a list of facet values to filter by.
+
     """
 
-    block: str = 'search-results__header'
-    css_class: str = 'mb-5'
+    block: str = "search-results__header"
+    css_class: str = "mb-5"
 
     def __init__(
         self,
-        query: Optional[str],
-        facets: Optional[Dict[str, List[str]]] = None,
-        **kwargs
+        query: Optional[str],  # noqa: FA100
+        facets: Optional[Dict[str, List[str]]] = None,  # noqa: FA100
+        **kwargs,
     ):
         if facets is None:
             facets = {}
         super().__init__(**kwargs)
-        self.add_class('mb-4')
+        self.add_class("mb-4")
         self.add_block(
             Block(
                 "Search Results",
-                tag='h1',
-                name='search-results__header__title',
+                tag="h1",
+                name="search-results__header__title",
             )
         )
         self.add_block(
             Block(
                 f'Query: "{query}"',
-                name='search-results__header__subtitle',
-                css_class='text-muted fs-6 text-uppercase'
+                name="search-results__header__subtitle",
+                css_class="text-muted fs-6 text-uppercase",
             )
         )
         if facets:
             buttons = HorizontalLayoutBlock(
-                Block('Filters:', tag='h3', css_class='me-3'),
-                justify='start',
-                align='baseline',
-                css_class='mt-3'
+                Block("Filters:", tag="h3", css_class="me-3"),
+                justify="start",
+                align="baseline",
+                css_class="mt-3",
             )
             for facet, identifiers in facets.items():
                 for identifier in identifiers:
-                    if facet == 'project_id':
+                    if facet == "project_id":
                         project = Project.objects.get(pk=identifier)
                         label = Block(
-                            FontIcon(icon='file-excel-fill'),
-                            f'Project: {project.title}'
+                            FontIcon(icon="file-excel-fill"),
+                            f"Project: {project.title}",
                         )
-                    elif facet == 'classifiers':
+                    elif facet == "classifiers":
                         classifier = Classifier.objects.get(name=identifier)
                         label = Block(
-                            FontIcon(icon='file-excel-fill'),
-                            f'Classifier: {classifier.name}'
+                            FontIcon(icon="file-excel-fill"),
+                            f"Classifier: {classifier.name}",
                         )
                     buttons.add_block(
                         LinkButton(
                             text=label,
-                            url=reverse('sphinx_hosting:search') + f"?q={query}",
-                            color='outline-azure',
-                            css_class='me-3'
+                            url=reverse("sphinx_hosting:search") + f"?q={query}",
+                            color="outline-azure",
+                            css_class="me-3",
                         )
                     )
             self.add_block(buttons)
@@ -315,7 +326,7 @@ class SearchResultsPageHeader(Block):
 
 class PagedSearchLayout(Block):
     """
-    This is the page layout for the entire search results page.
+    The page layout for the entire search results page.
 
     Args:
         query: the text entered into the search form that got us to this results
@@ -327,17 +338,18 @@ class PagedSearchLayout(Block):
             page
         facets: the active facet filters.  This will be a dict where the key is
             the facet name, and the value is a list of facet values to filter by.
+
     """
 
-    name: str = 'search-layout'
-    modifier: str = 'paged'
+    name: str = "search-layout"
+    modifier: str = "paged"
 
     def __init__(
         self,
         results: SearchQuerySet,
-        query: Optional[str] = None,
-        facets: Optional[Dict[str, List[str]]] = None,
-        **kwargs
+        query: Optional[str] = None,  # noqa: FA100
+        facets: Optional[Dict[str, List[str]]] = None,  # noqa: FA100
+        **kwargs,
     ):
         self.query = query
         if facets is None:
@@ -349,16 +361,16 @@ class PagedSearchLayout(Block):
         row.add_column(
             Column(
                 PagedSearchResultsBlock(results, query, facets=facets),
-                name='middle',
-                base_width=8
+                name="middle",
+                base_width=8,
             )
         )
         row.add_column(
             Column(
-                SearchResultsProjectFacet(results, query, css_class='mb-4'),
+                SearchResultsProjectFacet(results, query, css_class="mb-4"),
                 SearchResultsClassifiersFacet(results, query),
-                name='right',
-                base_width=4
+                name="right",
+                base_width=4,
             )
         )
         self.add_block(row)

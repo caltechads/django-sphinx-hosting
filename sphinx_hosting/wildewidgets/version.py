@@ -1,26 +1,22 @@
-from typing import Dict, List, Optional, Type
+from typing import Dict, Final, List, Optional, Type  # noqa: UP035
 
 from django.db.models import Model, QuerySet
 from django.db.models.functions import Length
 from wildewidgets import (
-    Block,
     BasicModelTable,
+    Block,
     CardWidget,
     CrispyFormWidget,
     Datagrid,
-    WidgetListLayoutHeader
+    WidgetListLayoutHeader,
 )
 
-from ..models import (
-    SphinxImage,
-    SphinxPage,
-    Version
-)
+from ..models import SphinxImage, SphinxPage, Version
 
 
 class VersionInfoWidget(CardWidget):
     """
-    This widget gives a :py:class:`wildewidget.Datagrid` type overview of
+    Gives a :py:class:`wildewidget.Datagrid` type overview of
     information about this version:
 
     * A link to the project that owns this
@@ -30,6 +26,7 @@ class VersionInfoWidget(CardWidget):
 
     Args:
         version: the ``Version`` object we're describing
+
     """
 
     title: str = "Version Info"
@@ -39,22 +36,29 @@ class VersionInfoWidget(CardWidget):
         super().__init__(**kwargs)
         grid = Datagrid()
         grid.add_item(
-            title='Project',
-            content=version.project.title,
-            url=version.project.get_absolute_url()
+            title="Project",
+            content=version.project.title,  # type: ignore[attr-defined]
+            url=version.project.get_absolute_url(),  # type: ignore[attr-defined]
         )
-        grid.add_item(title='Version Created', content=version.created.strftime('%Y-%m-%d %H:%M %Z'))
-        grid.add_item(title='Version Last Modified', content=version.modified.strftime('%Y-%m-%d %H:%M %Z'))
-        grid.add_item(title='Sphinx Version', content=version.sphinx_version)
+        grid.add_item(
+            title="Version Created",
+            content=version.created.strftime("%Y-%m-%d %H:%M %Z"),
+        )
+        grid.add_item(
+            title="Version Last Modified",
+            content=version.modified.strftime("%Y-%m-%d %H:%M %Z"),
+        )
+        grid.add_item(title="Sphinx Version", content=version.sphinx_version)
         self.set_widget(grid)
 
 
 class VersionSphinxPageTableWidget(CardWidget):
     """
-    This is a :py:class:`wildewidgets.CardWidget` that gives our
+    A :py:class:`wildewidgets.CardWidget` that gives our
     :py:class:`VersionSphinxPageTable` dataTable a nice header with a total
     page count.
     """
+
     title: str = "Pages"
     icon: str = "bookmark-star"
 
@@ -66,16 +70,15 @@ class VersionSphinxPageTableWidget(CardWidget):
         )
 
     def get_title(self) -> WidgetListLayoutHeader:
-        header = WidgetListLayoutHeader(
+        return WidgetListLayoutHeader(
             header_text="Pages",
             badge_text=Version.objects.get(pk=self.version_id).pages.count(),
         )
-        return header
 
 
 class VersionUploadBlock(CardWidget):
     """
-    This block holds the upload form for uploading documentation tarballs.  Once
+    Holds the upload form for uploading documentation tarballs.  Once
     uploaded, the tarball will be run through
     :py:class:`sphinx_hosting.importers.SphinxPackageImporter` to actually
     import it into the database.
@@ -83,20 +86,20 @@ class VersionUploadBlock(CardWidget):
 
     css_class: str = "my-3 border"
 
-    def __init__(self, *blocks, form=None, **kwargs):
+    def __init__(self, *blocks, form=None, **kwargs):  # noqa: ARG002
         super().__init__(
-            widget=CrispyFormWidget(form=form, name='project__upload_docs'),
-            **kwargs
+            widget=CrispyFormWidget(form=form, name="project__upload_docs"), **kwargs
         )
-        self.set_header(Block("Import Docs", tag='h3'))
+        self.set_header(Block("Import Docs", tag="h3"))
 
 
 class VersionSphinxImageTableWidget(CardWidget):
     """
-    This is a :py:class:`wildewidgets.CardWidget` that gives our
+    A :py:class:`wildewidgets.CardWidget` that gives our
     :py:class:`VersionSphinxImageTable` dataTable a nice header with a total
     image count.
     """
+
     title: str = "Images"
     icon: str = "bookmark-star"
 
@@ -108,20 +111,20 @@ class VersionSphinxImageTableWidget(CardWidget):
         )
 
     def get_title(self) -> WidgetListLayoutHeader:
-        header = WidgetListLayoutHeader(
+        return WidgetListLayoutHeader(
             header_text="Images",
             badge_text=Version.objects.get(pk=self.version_id).images.count(),
         )
-        return header
 
 
-#------------------------------------------------------
+# ------------------------------------------------------
 # Datatables
-#------------------------------------------------------
+# ------------------------------------------------------
+
 
 class VersionSphinxPageTable(BasicModelTable):
     """
-    This widget displays a `dataTable <https://datatables.net>`_ of our
+    Displays a `dataTable <https://datatables.net>`_ of our
     :py:class:`sphinx_hosting.models.SphinxPage` instances for a particular
     :py:class:`sphinx_hosting.models.Version`.
 
@@ -129,73 +132,24 @@ class VersionSphinxPageTable(BasicModelTable):
     """
 
     model: Type[Model] = SphinxPage
-
-    page_length: int = 25  #: Show this many books per page
-    striped: bool = True   #: Set to ``True`` to stripe our table rows
+    #: Show this many books per page
+    page_length: int = 25
+    #: Set to ``True`` to stripe our table rows
+    striped: bool = True
     actions: bool = True
 
-    fields: List[str] = [  #: These are the fields on our model (or which are computed) that we will list as columns
-        'title',
-        'relative_path',
-        'size',
+    #: These are the fields on our model (or which are computed) that we will
+    #: list as columns
+    fields: Final[List[str]] = [
+        "title",
+        "relative_path",
+        "size",
     ]
-    alignment: Dict[str, str] = {  #: declare how we horizontally align our columns
-        'title': 'left',
-        'relative_path': 'left',
-        'size': 'right',
-    }
-
-    def __init__(self, *args,  **kwargs) -> None:
-        """
-        One of our ``kwargs`` must be ``version_id``, the ``pk`` of the
-        :py:class:`sphinx_hosting.models.Version` for which we want to list
-        :py:class:`sphinx_hosting.models.SphinxPage` objects.
-
-        This will get added to the :py:attr:`extra_data` dict in the ``kwargs``
-        key, from which we reference it.
-        """
-        #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to list pages
-        self.version_id: Optional[int] = kwargs.get('version_id', None)
-        super().__init__(*args, **kwargs)
-        if 'version_id' in self.extra_data['kwargs']:
-            self.version_id = int(self.extra_data['kwargs']['version_id'])
-
-    def get_initial_queryset(self) -> QuerySet[SphinxPage]:
-        """
-        Filter our :py:class:`sphinx_hosting.models.SphinxPage` objects by
-        :py:attr:`version_id`.
-        """
-        qs = (
-            super().get_initial_queryset()
-            .filter(version_id=self.version_id)
-            .annotate(size=Length('body'))
-        )
-        return qs.order_by('title')
-
-
-class VersionSphinxImageTable(BasicModelTable):
-    """
-    This widget displays a `dataTable <https://datatables.net>`_ of our
-    :py:class:`sphinx_hosting.models.SphinxImage` instances for a particular
-    :py:class:`sphinx_hosting.models.Version`.
-
-    It's used as a the main widget in by :py:class:`VersionSphinxImageTableWidget`.
-    """
-
-    model: Type[Model] = SphinxImage
-
-    page_length: int = 25  #: Show this many books per page
-    striped: bool = True   #: Set to ``True`` to stripe our table rows
-
-    fields: List[str] = [  #: These are the fields on our model (or which are computed) that we will list as columns
-        'orig_path',
-        'file_path',
-        'size',
-    ]
-    alignment: Dict[str, str] = {  #: declare how we horizontally align our columns
-        'orig_path': 'left',
-        'file_path': 'left',
-        'size': 'right',
+    #: Declare how we horizontally align our columns
+    alignment: Final[Dict[str, str]] = {
+        "title": "left",
+        "relative_path": "left",
+        "size": "right",
     }
 
     def __init__(self, *args, **kwargs) -> None:
@@ -207,11 +161,12 @@ class VersionSphinxImageTable(BasicModelTable):
         This will get added to the :py:attr:`extra_data` dict in the ``kwargs``
         key, from which we reference it.
         """
-        #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to list pages
-        self.version_id: Optional[int] = kwargs.get('version_id', None)
+        #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to
+        #: list pages
+        self.version_id: Optional[int] = kwargs.get("version_id", None)  # noqa: FA100
         super().__init__(*args, **kwargs)
-        if 'version_id' in self.extra_data['kwargs']:
-            self.version_id = int(self.extra_data['kwargs']['version_id'])
+        if "version_id" in self.extra_data["kwargs"]:
+            self.version_id = int(self.extra_data["kwargs"]["version_id"])
 
     def get_initial_queryset(self) -> QuerySet[SphinxPage]:
         """
@@ -219,12 +174,69 @@ class VersionSphinxImageTable(BasicModelTable):
         :py:attr:`version_id`.
         """
         qs = (
-            super().get_initial_queryset()
+            super()
+            .get_initial_queryset()
             .filter(version_id=self.version_id)
+            .annotate(size=Length("body"))
         )
-        return qs.order_by('orig_path')
+        return qs.order_by("title")
 
-    def render_size_column(self, row: Version, column: str) -> str:
+
+class VersionSphinxImageTable(BasicModelTable):
+    """
+    Displays a `dataTable <https://datatables.net>`_ of our
+    :py:class:`sphinx_hosting.models.SphinxImage` instances for a particular
+    :py:class:`sphinx_hosting.models.Version`.
+
+    It's used as a the main widget in by
+    :py:class:`VersionSphinxImageTableWidget`.
+    """
+
+    model: Type[Model] = SphinxImage
+    #: Show this many books per page
+    page_length: int = 25
+    #: Set to ``True`` to stripe our table rows
+    striped: bool = True
+
+    #: These are the fields on our model (or which are computed) that we will
+    #: list as columns
+    fields: Final[List[str]] = [
+        "orig_path",
+        "file_path",
+        "size",
+    ]
+    #: Declare how we horizontally align our columns
+    alignment: Final[Dict[str, str]] = {
+        "orig_path": "left",
+        "file_path": "left",
+        "size": "right",
+    }
+
+    def __init__(self, *args, **kwargs) -> None:
+        """
+        One of our ``kwargs`` must be ``version_id``, the ``pk`` of the
+        :py:class:`sphinx_hosting.models.Version` for which we want to list
+        :py:class:`sphinx_hosting.models.SphinxPage` objects.
+
+        This will get added to the :py:attr:`extra_data` dict in the ``kwargs``
+        key, from which we reference it.
+        """
+        #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to
+        #: list pages
+        self.version_id: Optional[int] = kwargs.get("version_id", None)  # noqa: FA100
+        super().__init__(*args, **kwargs)
+        if "version_id" in self.extra_data["kwargs"]:
+            self.version_id = int(self.extra_data["kwargs"]["version_id"])
+
+    def get_initial_queryset(self) -> QuerySet[SphinxPage]:
+        """
+        Filter our :py:class:`sphinx_hosting.models.SphinxPage` objects by
+        :py:attr:`version_id`.
+        """
+        qs = super().get_initial_queryset().filter(version_id=self.version_id)
+        return qs.order_by("orig_path")
+
+    def render_size_column(self, row: Version, _: str) -> str:
         """
         Render our ``size`` column.  This is the size in bytes of the
         :py:attr:`sphinx_hosting.models.SphinxImage.file` field.
@@ -235,10 +247,11 @@ class VersionSphinxImageTable(BasicModelTable):
 
         Returns:
             The size in bytes of the uploaded file.
+
         """
         return str(row.file.size)
 
-    def render_file_path_column(self, row: Version, column: str) -> str:
+    def render_file_path_column(self, row: Version, _: str) -> str:
         """
         Render our ``file_path`` column.  This is the path to the file in
         ``MEDIA_ROOT``.
@@ -249,5 +262,6 @@ class VersionSphinxImageTable(BasicModelTable):
 
         Returns:
             The size in bytes of the uploaded file.
+
         """
         return str(row.file.name)

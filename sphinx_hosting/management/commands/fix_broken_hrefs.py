@@ -1,8 +1,8 @@
 import re
 import urllib.parse
 
-from django.core.management.base import BaseCommand
 import lxml.html
+from django.core.management.base import BaseCommand
 
 from sphinx_hosting.models import SphinxPage
 
@@ -19,7 +19,9 @@ class Command(BaseCommand):
     Print the page tree for a :py:class:`Version`
     """
 
-    def _fix_link_hrefs(self, body: str, project_machine_name: str, version: str) -> str:
+    def _fix_link_hrefs(
+        self, body: str, project_machine_name: str, version: str
+    ) -> str:
         """
         Given an HTML body of a Sphinx page, update the ``<a href="path">``
         references to be absolute.  If we don't do this, any links on the
@@ -28,45 +30,46 @@ class Command(BaseCommand):
 
         Args:
             body: the HTML body of a Sphinx document
+            project_machine_name: the machine name of the project
+            version: the version of the project
 
         Returns:
             ``body`` with its ``<a>`` urls and updated
+
         """
         html = lxml.html.fromstring(body)
-        links = html.cssselect('a.reference.internal')
+        links = html.cssselect("a.reference.internal")
         for link in links:
-            href = link.attrib['href']
+            href = link.attrib["href"]
             anchor = None
-            if '#' in href:
-                href, anchor = href.split('#')
-            if href.endswith('/'):
+            if "#" in href:
+                href, anchor = href.split("#")
+            if href.endswith("/"):
                 href = href[:-1]
-            href = re.sub('^(../)*', '', href)
-            link.attrib['href'] = "{{% url 'sphinx_hosting:sphinxpage--detail' project_slug='{}' version='{}' path='{}' %}}".format(
-                project_machine_name,
-                version,
-                href
+            href = re.sub("^(../)*", "", href)
+            link.attrib["href"] = (
+                f"{{% url 'sphinx_hosting:sphinxpage--detail' project_slug='{project_machine_name}' version='{version}' path='{href}' %}}"  # noqa: E501
             )
             if anchor:
-                link.attrib['href'] += f'#{anchor}'
-        body = lxml.html.tostring(html).decode('utf-8')
-        tags = [m.group() for m in re.finditer(r'%7B%%20.*?%20%%7D', body)]
+                link.attrib["href"] += f"#{anchor}"
+        body = lxml.html.tostring(html).decode("utf-8")
+        tags = [m.group() for m in re.finditer(r"%7B%%20.*?%20%%7D", body)]
         for tag in tags:
             body = body.replace(tag, urllib.parse.unquote(tag))
         return body
 
-    def handle(self, *args, **options) -> None:
+    def handle(self, *args, **options) -> None:  # noqa: ARG002
         for page in SphinxPage.objects.all():
             if page.relative_path not in SphinxPage.SPECIAL_PAGES:
                 if not page.body:
                     continue
                 page.body = self._fix_link_hrefs(
                     page.body,
-                    page.version.project.machine_name,
-                    page.version.version
+                    page.version.project.machine_name,  # type: ignore[attr-defined]
+                    page.version.version,  # type: ignore[attr-defined]
                 )
                 page.save()
                 print(
-                    f'Fixed page {page.version.project.machine_name}-{page.version.version}:'
-                    f'{page.title}'
+                    f"Fixed page {page.version.project.machine_name}-"  # type: ignore[attr-defined]
+                    f"{page.version.version}:{page.title}"
                 )

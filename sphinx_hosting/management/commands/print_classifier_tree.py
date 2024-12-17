@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from rich.tree import Tree
 from rich import print as rich_print
+from rich.tree import Tree
 
 from sphinx_hosting.models import Classifier, ClassifierNode
 
@@ -14,14 +14,14 @@ class TreePrinter:
 
     def __init__(self) -> None:
         self.classifier_tree = Classifier.objects.tree()
-        self.tree: Tree = Tree('Classifiers')
+        self.tree: Tree = Tree("Classifiers")
         for node in self.classifier_tree.values():
             branch = self.tree.add(self.title(node))
             self.build(branch, node)
 
     def title(self, node: ClassifierNode) -> str:
         if node.classifier:
-            return f'{node.title} (ID: {node.classifier.id})'
+            return f"{node.title} (ID: {node.classifier.id})"
         return node.title
 
     def build(self, branch: Tree, node: ClassifierNode) -> None:
@@ -40,7 +40,8 @@ class Command(BaseCommand):
 
     Print the :py:class:`Classifier` hierarchy.
     """
-    help = ('Print the Classifier hierarchy.')
 
-    def handle(self, *args, **options) -> None:
+    help = "Print the Classifier hierarchy."
+
+    def handle(self, *args, **options) -> None:  # noqa: ARG002
         TreePrinter().print()
