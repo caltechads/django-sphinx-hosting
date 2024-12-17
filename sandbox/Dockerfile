@@ -70,6 +70,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         /var/tmp/nginx/uwsgi \
         /var/tmp/nginx/scgi \
     && \
+    chown -R app:app /var/tmp/nginx && \
     # Generate a self-signed SSL cert for nginx to use.
     mkdir -p /certs && \
     openssl req -x509 -nodes \
@@ -92,6 +93,7 @@ RUN python manage.py compilescss --settings=demo.settings_docker -v0 --skip-chec
     python manage.py collectstatic --settings=demo.settings_docker --noinput -v0 && \
     chown -R app:app /app && \
     chown -R app:app /static && \
+    mkdir -p /media/acrunner && \
     chown -R app:app /media && \
     # Symlink our configs into their default system locations.
     ln -sf /app/etc/supervisord.conf /etc/supervisord.conf && \
