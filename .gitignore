@@ -136,3 +136,4 @@ config.codekit3
 local_storage
 
 django-sphinx-hosting.tar.gz
+docs.tar.gz

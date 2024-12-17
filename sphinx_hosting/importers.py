@@ -6,7 +6,7 @@ import tarfile
 import urllib.parse
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Any, Dict, Final, List, Optional, cast  # noqa: UP035
+from typing import IO, Any, Dict, Final, List, Optional, TypeAlias, cast  # noqa: UP035
 
 import lxml.html
 import semver
@@ -15,11 +15,12 @@ from lxml.etree import XML  #: pylint: disable=no-name-in-module
 
 from .exc import VersionAlreadyExists
 from .logging import logger
-from .models import Project, SphinxImage, SphinxPage, Version
+from .models import Project, SphinxDocument, SphinxImage, SphinxPage, Version
 from .search_indexes import SphinxPageIndex
 from .settings import EXCLUDE_FROM_LATEST
 
-ImageMap = Dict[str, SphinxImage]
+ImageMap: TypeAlias = Dict[str, SphinxImage]
+DocumentMap: TypeAlias = Dict[str, SphinxDocument]
 
 
 @dataclass
@@ -102,6 +103,8 @@ class SphinxPackageImporter:
     def __init__(self) -> None:
         #: Used to map original Sphinx image paths to our Django storage path
         self.image_map: ImageMap = {}
+        #: Used to map original Sphinx document paths to our Django storage path
+        self.document_map: DocumentMap = {}
         #: Used to link pages to their parent pages, and to their next pages
         self.page_tree: Dict[str, PageTreeNode] = {}
         self.name_map: Dict[str, str] = {}
@@ -164,7 +167,10 @@ class SphinxPackageImporter:
         html = lxml.html.fromstring(body)
         images = html.cssselect("img")
         for image in images:
-            src = re.sub(r"\.\./", "", image.attrib["src"])
+            # The image path is relative to the Sphinx page itself, so we need to
+            # remove any "../" from the path so we can match the remainder to
+            # our image_map
+            src = re.sub(r"(\.\./)+", "", image.attrib["src"])
             if src in self.image_map:
                 image.attrib["src"] = (
                     f"{{% sphinximage_url {self.image_map[src].id} %}}"
@@ -185,6 +191,41 @@ class SphinxPackageImporter:
                 )
         return lxml.html.tostring(html).decode("utf-8")
 
+    def _update_document_href(self, body: str) -> str:
+        """
+        Given an HTML body of a Sphinx page, update the ``<a class="reference
+        download internal download="" href="__the_orig_path__">`` references to
+        template tag expressions that load the actual document URL from the
+        :py:class:`sphinx_hosting.models.SphinxDocument` objects at render time.
+
+        We need to defer filling in the href of the document until render time
+        because of things like storing documents in S3 and using time-limited S3
+        auth parameters to retrieve the image from a private bucket.  Those
+        parameters expire typically after an hour, so if we don't defer figuring
+        out the URL for our documents, we end up storing a stale URL.
+
+        Args:
+            body: the HTML body of a Sphinx document
+
+        Returns:
+            ``body`` with its ``<a>`` hrefs updated
+
+        """
+        if not body:
+            return ""
+        html = lxml.html.fromstring(body)
+        docs = html.cssselect("a.download")
+        for doc in docs:
+            # The document path is relative to the Sphinx page itself, so we need to
+            # remove any "../" from the path so we can match the remainder to
+            # our image_map
+            src = re.sub(r"(\.\./)+", "", doc.attrib["href"])
+            if src in self.document_map:
+                doc.attrib["href"] = (
+                    f"{{% sphinxdocument_url {self.document_map[src].id} %}}"
+                )
+        return lxml.html.tostring(html).decode("utf-8")
+
     def load_config(self, package: tarfile.TarFile) -> None:
         """
         Load the ``globalcontext.json`` file for later reference.
@@ -195,8 +236,7 @@ class SphinxPackageImporter:
         """
         self.config = json.loads(self._get_file(package, "globalcontext.json").read())
 
-    # TODO: remove the package argument and just use self.config
-    def get_version(self, package: tarfile.TarFile, force: bool = False) -> Version:  # noqa: ARG002
+    def get_version(self, force: bool = False) -> Version:
         """
         Look in ``package`` for a member named ``globalcontext.json``, and load
         that file as JSON.
@@ -209,9 +249,6 @@ class SphinxPackageImporter:
               key
 
         Return a new :py:class:`Version` instance on the project.
-
-        Args:
-            package: the opened Sphinx documentation tarfile
 
         Keyword Args:
             force: if ``True``, re-use an existing version, purging any docs and
@@ -249,6 +286,40 @@ class SphinxPackageImporter:
             v.save()
         return v
 
+    def import_documents(self, package: tarfile.TarFile, version: Version) -> None:
+        """
+        Import all downloadable documents in our Sphinx documentation into the
+        database (and our Django storage) before importing any pages.
+
+        Args:
+            package: the opened Sphinx documentation tarfile
+            version: the :py:class:`Version` which which to associate our documents
+
+        """
+        for member in package.getmembers():
+            if not member.isfile():
+                continue
+            path = Path(*Path(member.name).parts[1:])
+            if path.suffix == "":
+                continue
+            if path.match("_downloads/*/*") and not path.name.startswith("."):
+                fd = package.extractfile(member)
+                orig_path: str = str(path)
+                doc = SphinxDocument(version=version, orig_path=orig_path)
+                doc.file.save(path.name, fd)
+                doc.save()
+                self.document_map[orig_path] = doc
+                logger.info(
+                    "%s.document.imported project=%s version=%s orig_path=%s "
+                    "url=%s id=%s",
+                    self.__class__.__name__,
+                    version.project.machine_name,  # type: ignore[attr-defined]
+                    version.version,
+                    doc.orig_path,
+                    doc.file.url,
+                    doc.id,
+                )
+
     def import_images(self, package: tarfile.TarFile, version: Version) -> None:
         """
         Import all images in our Sphinx documentation into the database before
@@ -261,8 +332,10 @@ class SphinxPackageImporter:
 
         """
         for member in package.getmembers():
+            if not member.isfile():
+                continue
             path = Path(*Path(member.name).parts[1:])
-            if path.match("_images/*"):
+            if path.match("_images/*") and not path.name.startswith("."):
                 fd = package.extractfile(member)
                 orig_path: str = str(path)
                 image = SphinxImage(version=version, orig_path=orig_path)
@@ -326,8 +399,8 @@ class SphinxPackageImporter:
         # Parse the HTML body into an lxml tree
         html = lxml.html.fromstring(body)
 
-        # Find all internal references
-        links = html.cssselect("a.reference.internal")
+        # Find all internal references except for download directives
+        links = html.cssselect("a.reference.internal:not(.download)")
 
         # For each link, update its URL to be rendered at page render time
         for link in links:
@@ -381,6 +454,9 @@ class SphinxPackageImporter:
             # Update the img src for any images in data['body'] for to point to our
             # Django storage locations
             data["body"] = self._update_image_src(data["body"])
+            # Update the img src for any images in data['body'] for to point to our
+            # Django storage locations
+            data["body"] = self._update_document_href(data["body"])
             # Update the hrefs for any <a> links to be absolute.  The relative
             # paths we get from Sphinx end up being relative to the Sphinx index
             # document instead of to the root of the docs
@@ -625,8 +701,9 @@ class SphinxPackageImporter:
         ), 'provide either "filename" or "file_obj" but not both'
         with tarfile.open(name=filename, fileobj=file_obj) as package:
             self.load_config(package)
-            version = self.get_version(package, force=force)
+            version = self.get_version(force=force)
             self.import_images(package, version)
+            self.import_documents(package, version)
             self.import_pages(package, version)
             self.link_pages()
         # Point version.head at the top page of the documentation set

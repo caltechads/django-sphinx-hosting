@@ -438,6 +438,30 @@ def sphinx_image_upload_to(instance: "SphinxImage", filename: str) -> str:
     return str(path)
 
 
+def sphinx_document_upload_to(instance: "SphinxDocument", filename: str) -> str:
+    """
+    Set the upload path within our ``MEDIA_ROOT`` for any images used by our Sphinx
+    documentation to be::
+
+        {project machine_name}/{version}/document/{image basename}
+
+    Args:
+        instance: the :py:class:`SphinxDocument` object
+        filename: the original path to the file
+
+    Returns:
+        The properly formatted path to the file
+
+    """
+    path = (
+        Path(instance.version.project.machine_name)  # type: ignore[attr-defined]
+        / Path(instance.version.version)  # type: ignore[attr-defined]
+        / "documents"
+    )
+    path = path / Path(filename).name
+    return str(path)
+
+
 # --------------------------
 # Managers
 # --------------------------
@@ -994,6 +1018,43 @@ class SphinxImage(TimeStampedModel, models.Model):
     class Meta:
         verbose_name = _("sphinx image")
         verbose_name_plural = _("sphinx images")
+        unique_together = ("version", "orig_path")
+
+
+class SphinxDocument(TimeStampedModel, models.Model):
+    """
+    A ``SphinxDocument`` is an downloadable document file referenced in a Sphinx
+    document.  When importing documenation packages, we extract all such
+    document from the package, upload them into Django storage and update the
+    Sphinx HTML in :py:attr:`SphinxPage.body` to reference the URL for the
+    uploaded document instead of its original url.
+    """
+
+    version: FK = models.ForeignKey(
+        Version,
+        on_delete=models.CASCADE,
+        related_name="documents",
+        help_text=_(
+            "The version of our project documentation with which this document is "
+            "associated"
+        ),
+    )
+    orig_path: F = models.CharField(
+        _("Original Path"),
+        max_length=256,
+        help_text=_(
+            "The original path to this file in the Sphinx documentation package"
+        ),
+    )
+    file: F = models.FileField(
+        _("An image file"),
+        upload_to=sphinx_document_upload_to,
+        help_text=_("The actual document file"),
+    )
+
+    class Meta:
+        verbose_name = _("sphinx document")
+        verbose_name_plural = _("sphinx documents")
         unique_together = ("version", "orig_path")
 
 
