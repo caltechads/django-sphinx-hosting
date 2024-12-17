@@ -3,13 +3,6 @@ clean:
 	find . -name "*.pyc" | xargs rm
 	find . -name "__pycache__" | xargs rm -rf
 
-dist: clean
-	@python setup.py sdist
-	@python setup.py bdist_wheel --universal
-
-pypi: dist
-	@twine upload dist/*
-
 compile: uv.lock
 	@uv pip compile --extra=docs pyproject.toml -o requirements.txt
 
@@ -26,5 +19,5 @@ tox:
 	@tox
 
 release: clean
-	@python setup.py sdist bdist_wheel
+	@uv build --sdist --wheel
 	@twine upload dist/*
