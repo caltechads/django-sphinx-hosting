@@ -606,7 +606,7 @@ class VersionUploadView(
             except Exception as e:
                 logger.error("version.upload.failed.unknown, error=%s", str(e))
                 # We're saving the problematic file to /tmp so we can inspect it
-                os.rename(path, "/tmp/uploaded_file")  # noqa: PTH104
+                os.rename(path, "/tmp/uploaded_file")  # noqa: PTH104, S108
                 raise
         version = cast(Version, self.version)
         logger.info(

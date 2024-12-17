@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.utils.deconstruct import deconstructible
@@ -21,7 +19,7 @@ class NoHTMLValidator:
         if not value == strip_tags(value):
             raise ValidationError(self.message, code=self.code)
 
-    def __eq__(self, other: Any) -> bool:
+    def __eq__(self, other: object) -> bool:
         return isinstance(other, NoHTMLValidator)
 
 
@@ -30,7 +28,8 @@ validate_machine_name = RegexValidator(
     machine_name_re,
     # Translators: "letters" means latin letters: a-z and A-Z.
     _(
-        "Enter a valid “machine name” consisting of letters, numbers, underscores, hyphens or periods."
+        "Enter a valid “machine name” consisting of letters, numbers, underscores, "
+        "hyphens or periods."
     ),
     "invalid",
 )
