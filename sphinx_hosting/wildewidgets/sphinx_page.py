@@ -17,6 +17,7 @@ from wildewidgets import (
     TwoColumnLayout,
 )
 
+from ..logging import logger
 from ..models import SphinxPage, Version
 
 # ------------------------------------------------------
@@ -121,9 +122,11 @@ class SphinxPagePermalinkWidget(CardWidget):
 
         """
         request = CrequestMiddleware.get_request()
+        host = request.get_host()
+        # nosemgrep: python.flask.security.audit.directly-returned-format-string.directly-returned-format-string  # noqa: E501, ERA001
         return f"""
 $('#page-permalink').click(function() {{
-    navigator.clipboard.writeText("https://{request.get_host()}{self.page.get_permalink()}").then(
+    navigator.clipboard.writeText("https://{host}{self.page.get_permalink()}").then(
         () => {{
             $('#permalink-success-alert').show("slow");
             $('#permalink-success-alert').delay(3000).hide("slow");
