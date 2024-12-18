@@ -21,7 +21,7 @@ compile: uv.lock
 
 package:
 	(cd ..; uv build --sdist)
-	cp ../dist/django-sphinx-hosting-${VERSION}.tar.gz django-sphinx-hosting.tar.gz
+	cp ../dist/django_sphinx_hosting-${VERSION}.tar.gz django-sphinx-hosting.tar.gz
 
 build: package compile
 	docker build -t ${PACKAGE}:${VERSION} .
