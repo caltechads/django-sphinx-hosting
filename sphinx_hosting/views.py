@@ -71,6 +71,7 @@ from .wildewidgets import (
     SphinxPageGlobalTableOfContentsMenu,
     SphinxPageLayout,
     VersionInfoWidget,
+    VersionSphinxDocumentTableWidget,
     VersionSphinxImageTableWidget,
     VersionSphinxPageTableWidget,
     VersionUploadBlock,
@@ -519,6 +520,7 @@ class VersionDetailView(  # type: ignore[misc]
         layout.add_widget(VersionInfoWidget(self.object))
         layout.add_widget(VersionSphinxPageTableWidget(version_id=self.object.pk))
         layout.add_widget(VersionSphinxImageTableWidget(version_id=self.object.pk))
+        layout.add_widget(VersionSphinxDocumentTableWidget(version_id=self.object.pk))
         if self.object.head:
             layout.add_sidebar_link_button(
                 "Read Docs",

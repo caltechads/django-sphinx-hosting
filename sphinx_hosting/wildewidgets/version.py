@@ -11,7 +11,7 @@ from wildewidgets import (
     WidgetListLayoutHeader,
 )
 
-from ..models import SphinxImage, SphinxPage, Version
+from ..models import SphinxDocument, SphinxImage, SphinxPage, Version
 
 
 class VersionInfoWidget(CardWidget):
@@ -101,7 +101,7 @@ class VersionSphinxImageTableWidget(CardWidget):
     """
 
     title: str = "Images"
-    icon: str = "bookmark-star"
+    icon: str = "images"
 
     def __init__(self, version_id: int, **kwargs):
         self.version_id = version_id
@@ -114,6 +114,30 @@ class VersionSphinxImageTableWidget(CardWidget):
         return WidgetListLayoutHeader(
             header_text="Images",
             badge_text=Version.objects.get(pk=self.version_id).images.count(),
+        )
+
+
+class VersionSphinxDocumentTableWidget(CardWidget):
+    """
+    A :py:class:`wildewidgets.CardWidget` that gives our
+    :py:class:`VersionSphinxDocumentTable` dataTable a nice header with a total
+    image count.
+    """
+
+    title: str = "Documents"
+    icon: str = "files"
+
+    def __init__(self, version_id: int, **kwargs):
+        self.version_id = version_id
+        super().__init__(
+            widget=VersionSphinxDocumentTable(version_id=version_id),
+            **kwargs,
+        )
+
+    def get_title(self) -> WidgetListLayoutHeader:
+        return WidgetListLayoutHeader(
+            header_text="Documents",
+            badge_text=Version.objects.get(pk=self.version_id).documents.count(),
         )
 
 
@@ -240,6 +264,91 @@ class VersionSphinxImageTable(BasicModelTable):
         """
         Render our ``size`` column.  This is the size in bytes of the
         :py:attr:`sphinx_hosting.models.SphinxImage.file` field.
+
+        Args:
+            row: the ``Version`` we are rendering
+            colunn: the name of the column to render
+
+        Returns:
+            The size in bytes of the uploaded file.
+
+        """
+        return str(row.file.size)
+
+    def render_file_path_column(self, row: Version, _: str) -> str:
+        """
+        Render our ``file_path`` column.  This is the path to the file in
+        ``MEDIA_ROOT``.
+
+        Args:
+            row: the ``Version`` we are rendering
+            colunn: the name of the column to render
+
+        Returns:
+            The size in bytes of the uploaded file.
+
+        """
+        return str(row.file.name)
+
+
+class VersionSphinxDocumentTable(BasicModelTable):
+    """
+    Displays a `dataTable <https://datatables.net>`_ of our
+    :py:class:`sphinx_hosting.models.SphinxDocument` instances for a particular
+    :py:class:`sphinx_hosting.models.Version`.
+
+    It's used as a the main widget in by
+    :py:class:`VersionSphinxDocumentTableWidget`.
+    """
+
+    model: Type[Model] = SphinxDocument
+    #: Show this many books per page
+    page_length: int = 25
+    #: Set to ``True`` to stripe our table rows
+    striped: bool = True
+
+    #: These are the fields on our model (or which are computed) that we will
+    #: list as columns
+    fields: Final[List[str]] = [
+        "orig_path",
+        "file_path",
+        "size",
+    ]
+    #: Declare how we horizontally align our columns
+    alignment: Final[Dict[str, str]] = {
+        "orig_path": "left",
+        "file_path": "left",
+        "size": "right",
+    }
+
+    def __init__(self, *args, **kwargs) -> None:
+        """
+        One of our ``kwargs`` must be ``version_id``, the ``pk`` of the
+        :py:class:`sphinx_hosting.models.Version` for which we want to list
+        :py:class:`sphinx_hosting.models.SphinxPage` objects.
+
+        This will get added to the :py:attr:`extra_data` dict in the ``kwargs``
+        key, from which we reference it.
+        """
+        #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to
+        #: list pages
+        self.version_id: Optional[int] = kwargs.get("version_id", None)  # noqa: FA100
+        super().__init__(*args, **kwargs)
+        if "version_id" in self.extra_data["kwargs"]:
+            self.version_id = int(self.extra_data["kwargs"]["version_id"])
+
+    def get_initial_queryset(self) -> QuerySet[SphinxPage]:
+        """
+        Filter our :py:class:`sphinx_hosting.models.SphinxPage` objects by
+        :py:attr:`version_id`.
+        """
+        qs = super().get_initial_queryset().filter(version_id=self.version_id)
+        return qs.order_by("orig_path")
+
+    def render_size_column(self, row: Version, _: str) -> str:
+        """
+        Render our ``size`` column.  This is the size in bytes of the
+        :py:attr:`sphinx_hosting.models.SphinxDocument.file` field.
 
         Args:
             row: the ``Version`` we are rendering
