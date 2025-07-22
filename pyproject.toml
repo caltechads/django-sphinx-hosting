@@ -69,13 +69,9 @@ dev-dependencies = [
 [project.optional-dependencies]
 docs = [
   "Sphinx<7",
-  "sphinx_rtd_theme == 2.0.0",
-  "sphinxcontrib-jsonglobaltoc==0.1.1",
-  "sphinxcontrib-images >= 0.9.4",
-  "sphinx-terraform",
-  "diagrams>=0.23.3",
-  "setuptools>=75.1.0",
-  "sphinx-click>=6.0.0",
+  "sphinx_rtd_theme <= 2.0.0",
+  "sphinxcontrib-django>=2.5",
+  "sphinxcontrib-openapi>=0.8.4",
 ]
 
 [tool.setuptools]

@@ -14,16 +14,14 @@ certifi==2024.12.14
     # via requests
 charset-normalizer==3.4.0
     # via requests
-click==8.1.7
-    # via sphinx-click
 crispy-bootstrap5==2024.10
     # via
     #   django-sphinx-hosting (pyproject.toml)
     #   django-wildewidgets
 cssselect==1.2.0
     # via django-sphinx-hosting (pyproject.toml)
-diagrams==0.24.1
-    # via django-sphinx-hosting (pyproject.toml)
+deepmerge==2.0
+    # via sphinxcontrib-openapi
 django==5.1.4
     # via
     #   django-sphinx-hosting (pyproject.toml)
@@ -36,6 +34,7 @@ django==5.1.4
     #   django-rest-framework-helpers
     #   djangorestframework
     #   drf-spectacular
+    #   sphinxcontrib-django
 django-braces==1.16.0
     # via django-sphinx-hosting (pyproject.toml)
 django-crispy-forms==2.3
@@ -65,13 +64,10 @@ djangorestframework==3.15.2
 docutils==0.19
     # via
     #   sphinx
-    #   sphinx-click
+    #   sphinx-mdinclude
     #   sphinx-rtd-theme
-    #   sphinx-terraform
 drf-spectacular==0.28.0
     # via django-sphinx-hosting (pyproject.toml)
-graphviz==0.20.3
-    # via diagrams
 humanize==4.11.0
     # via django-sphinx-hosting (pyproject.toml)
 idna==3.10
@@ -81,11 +77,11 @@ imagesize==1.4.1
 inflection==0.5.1
     # via drf-spectacular
 jinja2==3.1.4
-    # via
-    #   diagrams
-    #   sphinx
+    # via sphinx
 jsonschema==4.23.0
-    # via drf-spectacular
+    # via
+    #   drf-spectacular
+    #   sphinxcontrib-openapi
 jsonschema-specifications==2024.10.1
     # via jsonschema
 lxml==5.3.0
@@ -96,24 +92,31 @@ markupsafe==3.0.2
     # via jinja2
 mdurl==0.1.2
     # via markdown-it-py
+mistune==3.1.3
+    # via sphinx-mdinclude
 packaging==24.2
     # via
     #   django-haystack
     #   sphinx
+picobox==4.0.0
+    # via sphinxcontrib-openapi
+pprintpp==0.4.0
+    # via sphinxcontrib-django
 pygments==2.18.0
     # via
     #   rich
     #   sphinx
+    #   sphinx-mdinclude
 pyyaml==6.0.2
-    # via drf-spectacular
+    # via
+    #   drf-spectacular
+    #   sphinxcontrib-openapi
 referencing==0.35.1
     # via
     #   jsonschema
     #   jsonschema-specifications
 requests==2.32.3
-    # via
-    #   sphinx
-    #   sphinxcontrib-images
+    # via sphinx
 rich==13.9.4
     # via django-sphinx-hosting (pyproject.toml)
 rpds-py==0.22.3
@@ -122,45 +125,43 @@ rpds-py==0.22.3
     #   referencing
 semver==3.0.2
     # via django-sphinx-hosting (pyproject.toml)
-setuptools==75.6.0
-    # via django-sphinx-hosting (pyproject.toml)
+six==1.17.0
+    # via sphinxcontrib-httpdomain
 snowballstemmer==2.2.0
     # via sphinx
 sphinx==6.2.1
     # via
     #   django-sphinx-hosting (pyproject.toml)
-    #   sphinx-click
+    #   sphinx-mdinclude
     #   sphinx-rtd-theme
-    #   sphinx-terraform
-    #   sphinxcontrib-images
+    #   sphinxcontrib-django
+    #   sphinxcontrib-httpdomain
     #   sphinxcontrib-jquery
-    #   sphinxcontrib-jsonglobaltoc
-sphinx-click==6.0.0
-    # via django-sphinx-hosting (pyproject.toml)
+    #   sphinxcontrib-openapi
+sphinx-mdinclude==0.6.2
+    # via sphinxcontrib-openapi
 sphinx-rtd-theme==2.0.0
-    # via django-sphinx-hosting (pyproject.toml)
-sphinx-terraform==0.2
     # via django-sphinx-hosting (pyproject.toml)
 sphinxcontrib-applehelp==2.0.0
     # via sphinx
 sphinxcontrib-devhelp==2.0.0
     # via sphinx
+sphinxcontrib-django==2.5
+    # via django-sphinx-hosting (pyproject.toml)
 sphinxcontrib-htmlhelp==2.1.0
     # via sphinx
-sphinxcontrib-images==0.9.4
-    # via django-sphinx-hosting (pyproject.toml)
+sphinxcontrib-httpdomain==1.8.1
+    # via sphinxcontrib-openapi
 sphinxcontrib-jquery==4.1
     # via sphinx-rtd-theme
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
-sphinxcontrib-jsonglobaltoc==0.1.1
+sphinxcontrib-openapi==0.8.4
     # via django-sphinx-hosting (pyproject.toml)
 sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
-    # via
-    #   sphinx
-    #   sphinxcontrib-jsonglobaltoc
+    # via sphinx
 sqlparse==0.5.3
     # via django
 uritemplate==4.1.1
