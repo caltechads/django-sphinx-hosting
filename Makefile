@@ -4,7 +4,7 @@ clean:
 	find . -name "__pycache__" | xargs rm -rf
 
 compile: uv.lock
-	@uv pip compile --extra=docs pyproject.toml -o requirements.txt
+	@uv pip compile --extra=demo --extra=docs --extra=test pyproject.toml -o requirements.txt
 
 sync:
 	@uv sync -U --extra=docs --extra=sandbox
