@@ -10,7 +10,7 @@ attrs==24.3.0
     #   referencing
 certifi==2024.12.14
     # via elasticsearch
-crispy-bootstrap5==2024.10
+crispy-bootstrap5==2025.6
     # via
     #   django-sphinx-hosting
     #   django-wildewidgets
@@ -32,6 +32,7 @@ django==5.2.7
     #   django-haystack
     #   django-rest-framework-helpers
     #   django-sphinx-hosting
+    #   django-wildewidgets
     #   django-xff
     #   djangorestframework
     #   drf-spectacular
@@ -43,7 +44,7 @@ django-compressor==4.5.1
     # via sphinx-hosting-demo (pyproject.toml)
 django-crequest==2018.5.11
     # via sphinx-hosting-demo (pyproject.toml)
-django-crispy-forms==2.3
+django-crispy-forms==2.4
     # via
     #   crispy-bootstrap5
     #   django-sphinx-hosting
@@ -66,7 +67,7 @@ django-sass-processor==1.4.1
     # via sphinx-hosting-demo (pyproject.toml)
 django-theme-academy==0.3.11
     # via django-sphinx-hosting
-django-wildewidgets==0.16.16
+django-wildewidgets==1.2.3
     # via
     #   django-sphinx-hosting
     #   django-theme-academy
@@ -161,8 +162,6 @@ traitlets==5.14.3
     # via
     #   ipython
     #   matplotlib-inline
-typing-extensions==4.12.2
-    # via ipython
 uritemplate==4.1.1
     # via drf-spectacular
 urllib3==1.26.20

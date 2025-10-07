@@ -321,7 +321,7 @@ wheels = [
 
 [[package]]
 name = "django-sphinx-hosting"
-version = "1.6.1"
+version = "1.6.2"
 source = { editable = "." }
 dependencies = [
     { name = "crispy-bootstrap5" },
@@ -375,7 +375,7 @@ docs = [
 requires-dist = [
     { name = "crispy-bootstrap5", specifier = ">=2024.10" },
     { name = "cssselect", specifier = ">=1.2.0" },
-    { name = "django", specifier = ">=5.2" },
+    { name = "django", specifier = ">=4.2" },
     { name = "django-braces", specifier = ">=1.15.0" },
     { name = "django-crispy-forms", specifier = ">=2.3" },
     { name = "django-extensions", specifier = ">=3.2.3" },
@@ -432,16 +432,16 @@ wheels = [
 
 [[package]]
 name = "django-wildewidgets"
-version = "1.2.2"
+version = "1.2.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "crispy-bootstrap5" },
     { name = "django" },
     { name = "django-crispy-forms" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/18/c7/189025c8b0b7072a66c2452f949e774967ce042194f6ecf306a902de28c8/django_wildewidgets-1.2.2.tar.gz", hash = "sha256:2f5ae31cf18cbe9c469039148e52b59c8b5603d239b9bbacb5fc78aa64c60b60", size = 179936, upload-time = "2025-09-06T02:28:36.044Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/8f/50/0c1bfeed0c06649a3cce5fad0864e4706824e256a5d2b11ff04d3d011736/django_wildewidgets-1.2.3.tar.gz", hash = "sha256:7cc530e48626c5a5b4fea38429ad6ebc185e3f3c2163b6885eb8e80d184d9e94", size = 178747, upload-time = "2025-10-07T20:36:10.822Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/22/e8/2e30405f252ca127ba66a72507d305305aa332909346786ad7908c9cb2b6/django_wildewidgets-1.2.2-py3-none-any.whl", hash = "sha256:0efc526a6691b647d698e2e6911ec60ffbcd15aefdeba68a11ca4f1d17fc6f88", size = 216543, upload-time = "2025-09-06T02:28:34.69Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/1e/9da9fbf3ce52d64f3fee3a62b3e84869b2469c9f738d584ba492cb75b592/django_wildewidgets-1.2.3-py3-none-any.whl", hash = "sha256:62e2be04bf9fb1dae5f8b751ef261e6b184936ea1e474a3f7908d37b874831c3", size = 214860, upload-time = "2025-10-07T20:36:09.015Z" },
 ]
 
 [[package]]
