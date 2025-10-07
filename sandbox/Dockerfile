@@ -1,4 +1,4 @@
-FROM python:3.11.10-slim AS build
+FROM python:3.13-slim AS build
 
 # This part builds the virtual environment and installs the system dependencies
 # needed to do so.
@@ -21,37 +21,43 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     ln -sf /bin/bash /bin/sh && \
     /usr/local/bin/pip install --upgrade supervisor uv pip setuptools wheel
 
-COPY pyproject.toml /_lock/
-COPY uv.lock /_lock/
-COPY django-sphinx-hosting.tar.gz /_lock/
-RUN cd /_lock && \
-    uv sync --frozen --no-dev
+RUN --mount=type=cache,target=/uv-cache \
+    --mount=from=ghcr.io/astral-sh/uv,source=/uv,target=/bin/uv \
+    --mount=type=bind,source=../pyproject.toml,target=pyproject.toml \
+    --mount=type=bind,source=../uv.lock,target=uv.lock \
+    --mount=type=bind,source=./django-sphinx-hosting.tar.gz,target=django-sphinx-hosting.tar.gz \
+    uv --cache-dir=/uv-cache sync --frozen --no-install-project
 
-FROM python:3.11.10-slim
+FROM python:3.13-slim
 
 ENV HISTCONTROL=ignorespace:ignoredups  \
     IPYTHONDIR=/etc/ipython             \
-    LANG=en_US.UTF-8                    \
-    LANGUAGE=en_US.UTF-8                \
-    LC_ALL=en_US.UTF-8                  \
-    LOGGING_MODE=print                  \
-    # Disable the pip cache to reduce layer size.
-    PIP_NO_CACHE_DIR=1                  \
+    # Add the venv's binaries, and the /app folder, to the PATH.
+    PATH=/ve/bin:/app:$PATH             \
     PYCURL_SSL_LIBRARY=nss              \
     SHELL_PLUS=ipython                  \
-    # This env var overrides other system timezone settings.
-    TZ=America/Los_Angeles
+    # Setting this env var is all you need to do to set the timezone in Debian.
+    TZ=America/Los_Angeles              \
+    # Tell uv where the venv is, and to always copy instead of hardlink, which
+    # is needed for a mounted uv cache.
+    UV_PROJECT_ENVIRONMENT=/ve          \
+    UV_LINK_MODE=copy                   \
+    # Tell python which venv to use.
+    VIRTUAL_ENV=/ve
 
-
-# We set this env var for this command only, so that installers know we're not running them interactively.
-RUN export DEBIAN_FRONTEND=noninteractive && \
+# We set this env var for this command only, so that installers know we're not
+# running them interactively.
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/var/lib/apt \
+    export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get upgrade -y && \
     apt-get install --yes --no-install-recommends \
         nginx \
-        git \
-        # We need these mariadb packages for python to connect to mysql. mysqlclient also depends on pkg-config.
+        # We need these mariadb packages for python to connect to mysql.
+        # mysqlclient also depends on pkg-config.
         mariadb-client libmariadb-dev pkg-config \
+        # App specific dependencies
         sqlite3 \
         # Various dependencies for common requirements.
         locales-all \
@@ -60,7 +66,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     && \
     apt-get clean && \
     ln -sf /bin/bash /bin/sh && \
-    /usr/local/bin/pip install --upgrade supervisor setuptools pip && \
+    /usr/local/bin/pip install --upgrade supervisor setuptools pip uv && \
     # Add the user under which supervisord, gunicorn, and nginx will run.
     adduser --disabled-password app && \
     # Create the directories that nginx needs to run.
@@ -79,21 +85,25 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
       -newkey rsa:2048 \
       -keyout /certs/localhost.key \
       -out /certs/localhost.crt && \
-    chown -R app:app /certs/*
+    chown -R app:app /certs/* && \
+    # Clean out the apt-get caches to reduce the size of this layer
+    apt-get clean && \
+    apt-get autoremove -yqq &&  \
+    apt-get autoclean -yqq
 
 COPY --from=build --chown=app:app /ve /ve
-ENV PATH=/ve/bin:/usr/local/bin:$PATH
 
 COPY . /app
 WORKDIR /app
 
-RUN python manage.py compilescss --settings=demo.settings_docker -v0 --skip-checks --use-storage && \
+RUN --mount=type=cache,target=/uv-cache \
+    uv --cache-dir=/uv-cache sync --frozen && \
+    python manage.py compilescss --settings=demo.settings_docker -v0 --skip-checks --use-storage && \
     # Run collectstatic to symlink all the static files into /static, which is
     # where the webserver expects them.
     python manage.py collectstatic --settings=demo.settings_docker --noinput -v0 && \
     chown -R app:app /app && \
     chown -R app:app /static && \
-    mkdir -p /media/acrunner && \
     chown -R app:app /media && \
     # Symlink our configs into their default system locations.
     ln -sf /app/etc/supervisord.conf /etc/supervisord.conf && \

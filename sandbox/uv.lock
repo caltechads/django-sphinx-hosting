@@ -240,7 +240,7 @@ wheels = [
 
 [[package]]
 name = "django-sphinx-hosting"
-version = "1.6.0"
+version = "1.6.1"
 source = { path = "django-sphinx-hosting.tar.gz" }
 dependencies = [
     { name = "crispy-bootstrap5" },

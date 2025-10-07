@@ -18,7 +18,7 @@ cssselect==1.2.0
     # via django-sphinx-hosting
 decorator==5.1.1
     # via ipython
-django==5.1.4
+django==5.2.7
     # via
     #   crispy-bootstrap5
     #   django-appconf
