@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Type, cast  # noqa: UP035
+from typing import Dict, List, Type, cast  # noqa: UP035
 
 import humanize
 from django.db.models import Model
@@ -80,14 +80,14 @@ class SearchResultBlock(Block):
             self.add_block(Block(result.object.title, tag="h3"))
 
     def __init__(self, object: SearchResult = None, **kwargs):  # noqa: A002
-        result = cast(SearchResult, object)
+        result = cast("SearchResult", object)
         super().__init__(**kwargs)
         self.add_class("shadow")
         self.add_class("border")
         self.add_class("p-4")
         self.add_class("mb-4")
         self.add_block(SearchResultBlock.Header(result))
-        page = cast(SphinxPage, result.object)
+        page = cast("SphinxPage", result.object)
         text = strip_tags(page.body)
         text = text[: self.max_text_length].rsplit(" ", 1)[0] + "..."
         self.add_block(
@@ -142,7 +142,6 @@ class PagedSearchResultsBlock(PagedModelWidget):
 
     """
 
-    model: Type[Model] = SphinxPage
     page_kwarg: str = "p"
     paginate_by: int = 10
     model_widget: Block = SearchResultBlock
@@ -150,8 +149,8 @@ class PagedSearchResultsBlock(PagedModelWidget):
     def __init__(
         self,
         results: SearchQuerySet,
-        query: Optional[str],  # noqa: FA100
-        facets: Optional[Dict[str, List[str]]] = None,  # noqa: FA100
+        query: str | None,
+        facets: Dict[str, List[str]] | None = None,
         **kwargs,
     ):
         if query is not None:
@@ -188,7 +187,7 @@ class FacetBlock(Block):
     #: The field on :py:attr:`model` that we will filter by
     model_field: str
 
-    def __init__(self, results: SearchQuerySet, query: Optional[str], **kwargs):  # noqa: FA100
+    def __init__(self, results: SearchQuerySet, query: str | None, **kwargs):
         self.query = query
         super().__init__(**kwargs)
         self.add_class("border")
@@ -270,8 +269,8 @@ class SearchResultsPageHeader(Block):
 
     def __init__(
         self,
-        query: Optional[str],  # noqa: FA100
-        facets: Optional[Dict[str, List[str]]] = None,  # noqa: FA100
+        query: str | None,
+        facets: Dict[str, List[str]] | None = None,
         **kwargs,
     ):
         if facets is None:
@@ -347,8 +346,8 @@ class PagedSearchLayout(Block):
     def __init__(
         self,
         results: SearchQuerySet,
-        query: Optional[str] = None,  # noqa: FA100
-        facets: Optional[Dict[str, List[str]]] = None,  # noqa: FA100
+        query: str | None = None,
+        facets: Dict[str, List[str]] | None = None,
         **kwargs,
     ):
         self.query = query
