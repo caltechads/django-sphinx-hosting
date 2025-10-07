@@ -110,13 +110,17 @@ $(document).ready(function() {{
         self.add_block(
             HorizontalLayoutBlock(
                 LinkButton(
-                    name="classifier--submit", text="Filter Projects", color="primary"
+                    name="classifier--submit",
+                    text="Filter Projects",
+                    color="primary",
+                    url="#",
                 ),
                 LinkButton(
                     name="classifier--clear",
                     text="Clear",
                     color="outline-secondary",
                     css_class="mt-2 mt-xl-0",
+                    url="#",
                 ),
                 css_class="my-3",
                 justify="between",
