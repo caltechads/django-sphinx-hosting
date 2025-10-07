@@ -1,7 +1,7 @@
-from typing import Dict, Final, List, Optional, Type  # noqa: UP035
+from __future__ import annotations
 
-from django.contrib.auth.models import AbstractUser
-from django.db.models import Model, QuerySet
+from typing import TYPE_CHECKING, Dict, Final, List, Type  # noqa: UP035
+
 from wildewidgets import (
     ActionButtonModelTable,
     BasicModelTable,
@@ -31,6 +31,10 @@ from ..forms import (
 )
 from ..models import Classifier, Project, ProjectRelatedLink, Version
 from .classifier import ClassifierFilterBlock
+
+if TYPE_CHECKING:
+    from django.contrib.auth.models import AbstractUser
+    from django.db.models import Model, QuerySet
 
 # ------------------------------------------------------
 # Modals
@@ -462,7 +466,7 @@ class ProjectTable(ActionButtonModelTable):
             A ``<br>`` separated list of classifier names
 
         """
-        return "<br>".join(row.classifiers.values_list("name", flat=True))
+        return "<br>".join(row.classifiers.values_list("name", flat=True))  # type: ignore[attr-defined]
 
     def filter_classifiers_column(self, qs: QuerySet, _: str, value: str) -> QuerySet:
         """
@@ -551,7 +555,7 @@ class ProjectVersionTable(BasicModelTable):
         """
         #: The pk of the :py:class:`sphinx_hosting.models.Project` for which to
         #: list versions
-        self.project_id: Optional[int] = kwargs.get("project_id", None)  # noqa: FA100
+        self.project_id: int | None = kwargs.get("project_id")
         super().__init__(*args, **kwargs)
         if "project_id" in self.extra_data["kwargs"]:
             self.project_id = int(self.extra_data["kwargs"]["project_id"])
