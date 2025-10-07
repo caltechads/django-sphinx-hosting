@@ -15,7 +15,7 @@ services:
         condition: service_healthy
     volumes:
       - .:/app
-      - ../sphinx_hosting:/ve/lib/python3.11/site-packages/sphinx_hosting
+      - ../sphinx_hosting:/ve/lib/python3.13/site-packages/sphinx_hosting
       #- ../../django-theme-academy/academy_theme:/ve/lib/python3.11/site-packages/academy_theme
       #- ../../django-wildewidgets/wildewidgets:/ve/lib/python3.11/site-packages/wildewidgets
       - sphinx_hosting_demo_media:/media
