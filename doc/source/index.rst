@@ -211,13 +211,13 @@ backend you want to configure.  See `Haystack: Configuration
 <https://django-haystack.readthedocs.io/en/master/tutorial.html#configuration>`_
 for instructions on how to configure Haystack for different backends.
 
-Here is example ``settings.py`` code for using Elasticsearch 7.x as our search backend:
+Here is example ``settings.py`` code for using OpenSearch as our search backend:
 
 .. code-block:: python
 
    HAYSTACK_CONNECTIONS = {
       'default': {
-         'ENGINE': 'haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine',
+         'ENGINE': 'django_haystack_opensearch.haystack.OpenSearchSearchEngine',
          'URL': 'http://sphinx-hosting-search.example.com:9200/',
          'INDEX_NAME': 'sphinx_hosting',
       },

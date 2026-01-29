@@ -389,9 +389,9 @@ logging.config.dictConfig(LOGGING)
 
 # django-haystack
 # ------------------------------------------------------------------------------
-HAYSTACK_CONNECTIONS: Dict[str, Any] = {
+HAYSTACK_CONNECTIONS: dict[str, Any] = {
     "default": {
-        "ENGINE": "haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine",
+        "ENGINE": "django_haystack_opensearch.haystack.OpenSearchSearchEngine",
         "URL": "http://search:9200/",
         "INDEX_NAME": "sphinx_hosting",
     },

@@ -13,6 +13,8 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+      opensearch:
+        condition: service_healthy
     volumes:
       - .:/app
       - ../sphinx_hosting:/ve/lib/python3.13/site-packages/sphinx_hosting
@@ -41,32 +43,40 @@ services:
       retries: 5
 
 
-  elastic:
-    image: elasticsearch:7.10.1
+  opensearch:
+    image: opensearchproject/opensearch:3
     container_name: search
     hostname: search
+    command: >
+      /bin/bash -c "
+        if ! bin/opensearch-plugin list | grep -q ingest-attachment; then
+          bin/opensearch-plugin install --batch ingest-attachment
+        fi
+        /usr/share/opensearch/opensearch-docker-entrypoint.sh
+      "
     environment:
-      - xpack.security.enabled=false
       - discovery.type=single-node
-      - cluster.name=docker-cluster
+      - "DISABLE_SECURITY_PLUGIN=true"
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    deploy:
-      resources:
-        limits:
-          memory: 1500m
-    cap_add:
-      - IPC_LOCK
+    ports:
+      - "9200:9200"
+    volumes:
+      - sphinx_hosting_demo_opensearch_data:/usr/share/opensearch/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 
 volumes:
   # The Docker volume in which the database's files are stored. Works in tandem
   # with the "demo_data:/var/lib/mysql" volume mount defined above.
   sphinx_hosting_demo_data:
   sphinx_hosting_demo_media:
+  sphinx_hosting_demo_opensearch_data:

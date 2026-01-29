@@ -78,7 +78,6 @@ demo = [
     "django-crequest>=2018.5.11",
     "django-debug-toolbar>=4.4.2",
     "gunicorn >= 22.0.0",
-    "elasticsearch~=7.13.3",
     "ipython>=7.27.0",
     "mysqlclient==2.2.6",
     "redis~=5.2.1",
@@ -86,6 +85,7 @@ demo = [
     "tabulate==0.9.0",
     "django-sass-processor>=1.4.1",
     "libsass>=0.23.0",
+    "opensearch-py>=3.1.0",
 ]
 dev = [
     "ipython>=7.23.0",
