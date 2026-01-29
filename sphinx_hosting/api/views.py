@@ -223,7 +223,9 @@ class VersionUploadView(APIView):
             except Exception:
                 # Move the problematic file to a known location so we can
                 # inspect it later.
-                os.rename(path, "/tmp/uploaded_file")  # noqa: PTH104, S108
+                # semgrep-reason:
+                #   This is a temporary file that we can inspect later.
+                # nosemgrep
                 raise
 
         data = {

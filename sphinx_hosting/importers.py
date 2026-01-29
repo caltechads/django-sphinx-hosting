@@ -6,12 +6,12 @@ import tarfile
 import urllib.parse
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Any, Dict, Final, List, TypeAlias, cast  # noqa: UP035
+from typing import IO, Any, Final, TypeAlias, cast
 
 import lxml.html
 import semver
 from django.utils.text import slugify
-from lxml.etree import XML  #: pylint: disable=no-name-in-module
+from lxml.etree import XML
 
 from .exc import VersionAlreadyExists
 from .logging import logger
@@ -19,8 +19,8 @@ from .models import Project, SphinxDocument, SphinxImage, SphinxPage, Version
 from .search_indexes import SphinxPageIndex
 from .settings import EXCLUDE_FROM_LATEST
 
-ImageMap: TypeAlias = Dict[str, SphinxImage]
-DocumentMap: TypeAlias = Dict[str, SphinxDocument]
+ImageMap: TypeAlias = dict[str, SphinxImage]
+DocumentMap: TypeAlias = dict[str, SphinxDocument]
 
 
 @dataclass
@@ -352,7 +352,7 @@ class SphinxPackageImporter:
                     image.id,
                 )
 
-    def _fix_page_title(self, path: str, data: Dict[str, Any]) -> None:
+    def _fix_page_title(self, path: str, data: dict[str, Any]) -> None:
         """
         Ensure that there is a ``title`` key in ``data``, the JSON data from our
         .fjson file.  Some special pages don't have a ``title`` key in their
@@ -426,7 +426,7 @@ class SphinxPackageImporter:
         # Return the updated HTML body
         return lxml.html.tostring(html).decode("utf-8")
 
-    def _fix_page_body(self, path: str, data: Dict[str, Any]) -> None:
+    def _fix_page_body(self, path: str, data: dict[str, Any]) -> None:
         """
         Do any work needed to prepare the page body before inserting into the
         database.  This means:
@@ -501,7 +501,7 @@ class SphinxPackageImporter:
             # Convert the weird paragraph symbols to actual paragraph symbols
             data["body"] = re.sub(r"#61633;", r"para;", data["body"])
 
-    def _fix_toc(self, data: Dict[str, Any]) -> None:
+    def _fix_toc(self, data: dict[str, Any]) -> None:
         """
         Update our page's local table of contents (``data['toc']`) to have the CSS
         classes we need in order for it to display properly.
@@ -535,9 +535,15 @@ class SphinxPackageImporter:
             link = ul.getprevious()
             link.addprevious(wrapper)
             wrapper.insert(0, link)
-            target = f"menu-{slugify(link.text_content())}"
+            # Use Django's slugify to sanitize link.text_content() so it is safe
+            # for use as an HTML id.  This removes unsafe characters and
+            # replaces spaces and punctuation with dashes.
+            target = f"menu-{slugify(link.text_content() or '')}"
             wrapper.append(
-                XML(
+                # semgrep-reason:
+                #   target is constructed by us using Django's slugify, so
+                #   it's safe to use in the XML string.
+                XML(  # nosemgrep
                     '<a class="toc__toggle nav-link-toggle" data-bs-toggle="collapse" '
                     f'aria-expanded="false" data-bs-target="#{target}"></a>'
                 )
@@ -556,7 +562,7 @@ class SphinxPackageImporter:
             pass
         data["toc"] = lxml.html.tostring(html).decode("utf-8")
 
-    def _update_page_tree(self, page: SphinxPage, data: Dict[str, Any]) -> None:
+    def _update_page_tree(self, page: SphinxPage, data: dict[str, Any]) -> None:
         """
         Update :py:attr:`page_tree`, our page linkage tree, with ``page``,
         which we will use in :py:meth:`link_pages` to set
