@@ -1,7 +1,7 @@
 import os
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Optional, Type, cast  # noqa: UP035
+from typing import TYPE_CHECKING, Dict, List, Type, cast  # noqa: UP035
 
 from braces.views import (
     FormInvalidMessageMixin,
@@ -11,7 +11,6 @@ from braces.views import (
     PermissionRequiredMixin,
 )
 from django.contrib import messages
-from django.contrib.auth.models import AbstractUser
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Model, QuerySet
 from django.forms import Form, ModelForm
@@ -77,6 +76,9 @@ from .wildewidgets import (
     VersionUploadBlock,
 )
 
+if TYPE_CHECKING:
+    from django.contrib.auth.models import AbstractUser
+
 # ===========================
 # Viewsets
 # ===========================
@@ -125,7 +127,7 @@ class ProjectListView(  # type: ignore[misc]
 
     def get_content(self) -> Widget:
         layout = WidgetStream()
-        user = cast(AbstractUser, self.request.user)
+        user = cast("AbstractUser", self.request.user)
         layout.add_widget(ProjectTableWidget(user))
         if user.has_perm("sphinxhostingcore.add_project"):
             layout.add_widget(ProjectCreateModalWidget())
@@ -164,7 +166,7 @@ class ProjectDetailView(  # type: ignore[misc]
             ProjectClassifierListWidget(queryset=self.object.classifiers.all())
         )
         layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
-        user = cast(AbstractUser, self.request.user)
+        user = cast("AbstractUser", self.request.user)
         version = self.object.latest_version
         if version and version.head:
             layout.add_sidebar_link_button(
@@ -214,7 +216,7 @@ class ProjectCreateView(
     form_class: Type[ModelForm] = ProjectCreateForm
 
     def get_form_valid_message(self) -> str:
-        obj = cast(Project, self.object)
+        obj = cast("Project", self.object)
         return f'Added Project "{obj.title}"'
 
     def form_invalid(self, form: ModelForm) -> HttpResponse:
@@ -235,7 +237,7 @@ class ProjectCreateView(
         return redirect("sphinx_hosting:project--list")
 
     def get_success_url(self) -> str:
-        obj = cast(Project, self.object)
+        obj = cast("Project", self.object)
         logger.info("project.create.success project=%s id=%s", obj.machine_name, obj.id)
         return reverse("sphinx_hosting:project--update", args=[obj.machine_name])
 
@@ -274,7 +276,7 @@ class ProjectUpdateView(  # type: ignore[misc]
         layout.add_widget(ProjectVersionsTableWidget(project_id=self.object.pk))
         layout.add_widget(ProjectRelatedLinkCreateModalWidget(self.object))
         version = self.object.latest_version
-        user = cast(AbstractUser, self.request.user)
+        user = cast("AbstractUser", self.request.user)
         if version and version.head:
             layout.add_sidebar_link_button(
                 "Read Docs",
@@ -364,14 +366,14 @@ class ProjectRelatedLinkCreateView(
         return super().form_valid(form)
 
     def get_form_valid_message(self) -> str:
-        link = cast(ProjectRelatedLink, self.object)
+        link = cast("ProjectRelatedLink", self.object)
         return (
             f'Created Related Link "{link.title}" for project '  # type: ignore[attr-defined]
-            f'"{link.project.machine_name}"'
+            f'"{link.project.machine_name}"'  # type: ignore[attr-defined]
         )
 
     def get_success_url(self) -> str:
-        link = cast(ProjectRelatedLink, self.object)
+        link = cast("ProjectRelatedLink", self.object)
         logger.info(
             "project.relatedlink.create.success project=%s link_id=%s "
             "link_title=%s link_url=%s",
@@ -486,7 +488,7 @@ class VersionDetailView(  # type: ignore[misc]
             if not version:
                 msg = f'Project "{project_slug}" has no versions'
                 raise Http404(msg)
-            return cast(Version, version)
+            return cast("Version", version)
         return super().get_object(queryset=queryset)
 
     def get_queryset(self) -> QuerySet[Version]:
@@ -550,7 +552,7 @@ class VersionDetailView(  # type: ignore[misc]
                     ),
                     data={"version": self.object.pk},
                 )
-        user = cast(AbstractUser, self.request.user)
+        user = cast("AbstractUser", self.request.user)
         if user.has_perm("sphinxhostingcore.delete_version"):
             layout.add_sidebar_form_button(
                 "Delete Version",
@@ -583,7 +585,7 @@ class VersionUploadView(
     form_class: Type[Form] = VersionUploadForm
 
     def get_form_valid_message(self) -> str:
-        version = cast(Version, self.version)
+        version = cast("Version", self.version)
         return (
             f'Uploaded version "{version.version}" to project "{version.project.title}"'  # type: ignore[attr-defined]
         )
@@ -593,7 +595,7 @@ class VersionUploadView(
             fs = FileSystemStorage(tmpdir)
             filename = fs.save("docs.tar.gz", content=self.request.FILES["file"])  # type: ignore[arg-type]
             path = Path(fs.location) / filename
-            self.version: Optional[Version] = None  # noqa: FA100
+            self.version: Version | None = None
             try:
                 self.version = SphinxPackageImporter().run(
                     filename=str(path), force=True
@@ -610,7 +612,7 @@ class VersionUploadView(
                 # We're saving the problematic file to /tmp so we can inspect it
                 os.rename(path, "/tmp/uploaded_file")  # noqa: PTH104, S108
                 raise
-        version = cast(Version, self.version)
+        version = cast("Version", self.version)
         logger.info(
             "version.upload.success project_id=%s project_title=%s version=%s",
             version.project.id,  # type: ignore[attr-defined]
@@ -634,13 +636,13 @@ class VersionMakeLatestView(
     form_class: Type[Form] = VersionMakeLatestForm
 
     def get_form_valid_message(self) -> str:
-        version = cast(Version, self.version)
+        version = cast("Version", self.version)
         return (
             f'Uploaded version "{version.version}" to project "{version.project.title}"'  # type: ignore[attr-defined]
         )
 
     def form_valid(self, form: Form):
-        form = cast(VersionMakeLatestForm, form)
+        form = cast("VersionMakeLatestForm", form)
         form.save()
         return super().form_valid(form)
 
@@ -795,7 +797,7 @@ class GlobalSphinxPageSearchView(
     Renders our search results.
     """
 
-    query: Optional[str] = None  # noqa: FA100
+    query: str | None = None
     queryset: SearchQuerySet
 
     def form_invalid(self, _: ModelSearchForm) -> HttpResponse:

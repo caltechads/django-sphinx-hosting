@@ -1,34 +1,62 @@
 import time
-from typing import List, Optional, Type  # noqa: UP035
+from typing import List, Type  # noqa: UP035
 
-import elasticsearch.exceptions
 from django.db.models import F, Model, QuerySet
 from haystack import indexes
+
+try:
+    from opensearchpy.exceptions import TransportError
+except ImportError:
+    from elasticsearch.exceptions import (  # type: ignore[import-not-found] # pyright: ignore[reportMissingImports]
+        TransportError,
+    )
 
 from .logging import logger
 from .models import Project, SphinxPage, Version
 
 
 class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
+    """Search index for SphinxPage model."""
+
+    #: The text of the SphinxPage
     text = indexes.CharField(document=True, use_template=True)
+    #: The ID of the project
     project_id = indexes.CharField(model_attr="version__project__id", faceted=True)
+    #: The machine name of the project
     project = indexes.CharField(model_attr="version__project__machine_name")
+    #: The ID of the version
     version_id = indexes.CharField(model_attr="version__id")
+    #: The classifiers of the SphinxPage
     classifiers = indexes.MultiValueField(faceted=True)
+    #: The modified date of the SphinxPage
     modified = indexes.DateTimeField(model_attr="modified")
 
     def get_model(self) -> Type[Model]:
+        """Return the SphinxPage model class."""
         return SphinxPage
 
     def prepare_classifiers(self, obj: SphinxPage) -> List[str]:
+        """
+        Prepare the classifiers for the SphinxPage.
+
+        Args:
+            obj: The SphinxPage object being indexed.
+
+        Returns:
+            List of classifier names.
+
+        """
         return [classifier.name for classifier in obj.version.project.classifiers.all()]  # type: ignore[attr-defined]
 
-    def index_queryset(self, using: Optional[str] = None) -> QuerySet:  # noqa: ARG002, FA100
+    def index_queryset(self, using: str | None = None) -> QuerySet:  # noqa: ARG002
         """
         Used when the entire index for model is updated.
 
         Keyword Args:
             using: The alias of the database to use. (unused)
+
+        Returns:
+            QuerySet of SphinxPage objects.
 
         """
         return (
@@ -90,8 +118,8 @@ class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
                 while True:
                     try:
                         backend.update(self, qs[start:end])
-                    except elasticsearch.exceptions.TransportError as e:  # noqa: PERF203
-                        # We're using the Elasticsearch backend, check the status_code
+                    except TransportError as e:  # noqa: PERF203
+                        # We're using the OpenSearch backend, check the status_code
                         # from the exception to see if we can recover from it.
                         #
                         if e.status_code == 429:  # noqa: PLR2004
@@ -101,7 +129,7 @@ class SphinxPageIndex(indexes.SearchIndex, indexes.Indexable):
                             # timeout.  We should probably look into a way to do
                             # this asynchronously.
                             logger.warning(
-                                "Elasticsearch rate limit reached.  Sleeping for 5 "
+                                "OpenSearch rate limit reached.  Sleeping for 5 "
                                 "seconds."
                             )
                             time.sleep(5)

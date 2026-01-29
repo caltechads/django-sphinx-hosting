@@ -1,4 +1,4 @@
-from typing import Any, Dict, Final, Tuple, Type  # noqa: UP035
+from typing import Any, Final
 
 from django.db.models import Model
 from rest_framework import serializers
@@ -16,9 +16,9 @@ from sphinx_hosting.models import (
 
 class ClassifierSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model: Type[Model] = Classifier
-        fields: Tuple[str, ...] = ("url", "id", "name")
-        extra_kwargs: Final[Dict[str, Any]] = {
+        model: type[Model] = Classifier
+        fields: tuple[str, ...] = ("url", "id", "name")
+        extra_kwargs: Final[dict[str, Any]] = {
             "url": {"view_name": "sphinx_hosting_api:classifier-detail"},
         }
 
@@ -38,9 +38,9 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model: Type[Model] = Project
-        read_only_fields: Tuple[str, ...] = ("machine_name",)
-        fields: Tuple[str, ...] = (
+        model: type[Model] = Project
+        read_only_fields: tuple[str, ...] = ("machine_name",)
+        fields: tuple[str, ...] = (
             "url",
             "id",
             "title",
@@ -51,7 +51,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
             "latest_version",
             "versions",
         )
-        extra_kwargs: Final[Dict[str, Any]] = {
+        extra_kwargs: Final[dict[str, Any]] = {
             "url": {"view_name": "sphinx_hosting_api:project-detail"},
         }
 
@@ -62,15 +62,15 @@ class ProjectRelatedLinkSerializer(serializers.HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model: Type[Model] = ProjectRelatedLink
-        fields: Tuple[str, ...] = (
+        model: type[Model] = ProjectRelatedLink
+        fields: tuple[str, ...] = (
             "url",
             "id",
             "title",
             "uri",
             "project",
         )
-        extra_kwargs: Final[Dict[str, Any]] = {
+        extra_kwargs: Final[dict[str, Any]] = {
             "url": {"view_name": "sphinx_hosting_api:projectrelatedlink-detail"},
         }
 
@@ -90,8 +90,8 @@ class VersionSerializer(serializers.HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model: Type[Model] = Version
-        fields: Tuple[str, ...] = (
+        model: type[Model] = Version
+        fields: tuple[str, ...] = (
             "url",
             "id",
             "project",
@@ -102,7 +102,7 @@ class VersionSerializer(serializers.HyperlinkedModelSerializer):
             "pages",
             "images",
         )
-        extra_kwarg: Final[Dict[str, Any]] = {
+        extra_kwarg: Final[dict[str, Any]] = {
             "url": {"view_name": "sphinx_hosting_api:version-detail"},
         }
 
@@ -117,7 +117,7 @@ class VersionUploadSerializer(serializers.Serializer):
 
     file = serializers.FileField()
 
-    def create(self, validated_data: Dict[str, Any]) -> None:
+    def create(self, validated_data: dict[str, Any]) -> None:
         pass
 
     def update(self, instance, validated_data):
@@ -142,8 +142,8 @@ class SphinxPageSerializer(serializers.HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model: Type[Model] = SphinxPage
-        fields: Tuple[str, ...] = (
+        model: type[Model] = SphinxPage
+        fields: tuple[str, ...] = (
             "url",
             "id",
             "version",
@@ -160,7 +160,7 @@ class SphinxPageSerializer(serializers.HyperlinkedModelSerializer):
             "next_page",
             "previous_page",
         )
-        extra_kwargs: Final[Dict[str, Any]] = {
+        extra_kwargs: Final[dict[str, Any]] = {
             "url": {"view_name": "sphinx_hosting_api:sphinxpage-detail"},
         }
 
@@ -171,13 +171,13 @@ class SphinxImageSerializer(serializers.HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model: Type[Model] = SphinxImage
-        fields: Tuple[str, ...] = (
+        model: type[Model] = SphinxImage
+        fields: tuple[str, ...] = (
             "url",
             "id",
             "version",
             "orig_path",
         )
-        extra_kwargs: Final[Dict[str, Any]] = {
+        extra_kwargs: Final[dict[str, Any]] = {
             "url": {"view_name": "sphinx_hosting_api:sphinximage-detail"},
         }

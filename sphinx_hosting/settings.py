@@ -1,9 +1,9 @@
-from typing import Any, Dict, List  # noqa: UP035
+from typing import Any
 
 from django.conf import settings
 from django.templatetags.static import static
 
-app_settings: Dict[str, Any] = getattr(settings, "SPHINX_HOSTING_SETTINGS", {})
+app_settings: dict[str, Any] = getattr(settings, "SPHINX_HOSTING_SETTINGS", {})
 
 #: The django path to the logo image.
 LOGO_IMAGE: str = static(
@@ -21,6 +21,6 @@ SITE_NAME: str = app_settings.get("SITE_NAME", "Sphinx Hosting")
 MAX_GLOBAL_TOC_TREE_DEPTH: int = app_settings.get("MAX_GLOBAL_TOC_TREE_DEPTH", 2)
 #: Version glob patterns that if matched, will exlude the version from being
 #: marked as latest.  This is primarily for .dev. versions.j
-EXCLUDE_FROM_LATEST: List[str] = app_settings.get(
+EXCLUDE_FROM_LATEST: list[str] = app_settings.get(
     "EXCLUDE_FROM_LATEST", ["*-dev*", "*-alpha*", "*-beta*", "*-rc*"]
 )

@@ -2,7 +2,7 @@ import re
 from contextlib import suppress
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Final, List, Optional, cast  # noqa: UP035
+from typing import Any, Dict, Final, List, TypeAlias, cast  # noqa: UP035
 from urllib.parse import unquote, urlparse
 
 import lxml.html
@@ -20,9 +20,9 @@ from .fields import MachineNameField
 from .settings import MAX_GLOBAL_TOC_TREE_DEPTH
 from .validators import NoHTMLValidator
 
-F = models.Field
-M2M = models.ManyToManyField
-FK = models.ForeignKey
+F: TypeAlias = models.Field
+M2M: TypeAlias = models.ManyToManyField
+FK: TypeAlias = models.ForeignKey
 
 
 # --------------------------
@@ -41,15 +41,15 @@ class TreeNode:
     #: The page title
     title: str
     #: This page
-    page: Optional["SphinxPage"] = None
+    page: "SphinxPage | None" = None
     #: The :py:class:`SphinxPage` after this one
-    prev: Optional["SphinxPage"] = None
+    prev: "SphinxPage | None" = None
     #: The :py:class:`SphinxPage` before this one
-    next: Optional["SphinxPage"] = None
+    next: "SphinxPage | None" = None
     #: The :py:class:`SphinxPage` that is this page's parent
-    parent: Optional["SphinxPage"] = None
+    parent: "SphinxPage | None" = None
     #: The :py:class:`TreeNode` objects that are this page's children
-    children: List["TreeNode"] = field(default_factory=list)
+    children: list["TreeNode"] = field(default_factory=list)
 
     @classmethod
     def from_page(cls, page: "SphinxPage") -> "TreeNode":
@@ -78,9 +78,12 @@ class TreeNode:
 
 @dataclass
 class ClassifierNode:
+    # The title of the classifier node
     title: str
-    classifier: Optional["Classifier"] = None
-    items: Dict[str, "ClassifierNode"] = field(default_factory=dict)
+    # The classifier for the classifier node
+    classifier: "Classifier | None" = None
+    # The items for the classifier node
+    items: dict[str, "ClassifierNode"] = field(default_factory=dict)
 
 
 # --------------------------
@@ -116,11 +119,12 @@ class SphinxPageTree:
     :py:attr:`SphinxPageTree.head`, looking at its children, then looking at
     their children, etc..
 
-        >>>
+    Args:
+        version: the :py:class:`Version` to build the tree for
 
     """
 
-    def __init__(self, version: "Version"):
+    def __init__(self, version: "Version") -> None:
         #: The :py:class:`Version that this tree examines
         self.version: Version = version
         self.nodes: Dict[int, TreeNode] = {}
@@ -152,7 +156,7 @@ class SphinxPageTree:
                 if node.children:
                     self._traverse_level(pages, node.children)
 
-    def traverse(self) -> List["SphinxPage"]:
+    def traverse(self) -> list["SphinxPage"]:
         """
         Return a list of the pages represented in this tree.
         """
@@ -468,6 +472,10 @@ def sphinx_document_upload_to(instance: "SphinxDocument", filename: str) -> str:
 
 
 class ClassifierManager(models.Manager):
+    """
+    Manager for :py:class:`Classifier` models.
+    """
+
     def tree(self) -> Dict[str, ClassifierNode]:
         """
         Given our classifiers, which are ``::`` separated lists of terms
@@ -502,7 +510,7 @@ class ClassifierManager(models.Manager):
             }
         """
         nodes: Dict[str, ClassifierNode] = {}
-        current: Optional[ClassifierNode] = None  # noqa: FA100
+        current: ClassifierNode | None = None
         for classifier in self.get_queryset().all():
             parts = classifier.name.split(" :: ")
             if parts[0] not in nodes:
@@ -560,6 +568,12 @@ class Classifier(ViewSetMixin, models.Model):
         But ``Foo :: Bar`` does not yet exist in the database, create that before
         creating ``Foo :: Bar :: Baz``.  We do this so that when we filter our projects
         by classifier, we can filter by ``Foo :: Bar`` and ``Foo :: Bar :: Baz``.
+
+        Args:
+            args: the arguments to pass to :py:meth:`django.db.models.Model.save`
+            kwargs: the keyword arguments to pass to
+                :py:meth:`django.db.models.Model.save`
+
         """
         parts = [p.strip() for p in self.name.split("::")]
         if len(parts) > 2:  # noqa: PLR2004
@@ -590,11 +604,13 @@ class ProjectPermissionGroup(ViewSetMixin, TimeStampedModel, models.Model):
     :py:class:`ProjectPermissionGroup` groups.  This restricts viewing of the
     project to users which belong to those groups.
 
-    Examples::
+    Examples:
+        .. code-block:: text
 
-        Ecosystem :: CMS
-        Language :: Python
-        Owner :: DevOps :: AWS
+            Ecosystem :: CMS
+            Language :: Python
+            Owner :: DevOps :: AWS
+
     """
 
     name: F = models.CharField(
@@ -680,7 +696,7 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
     def get_update_url(self) -> str:
         return reverse("sphinx_hosting:project--update", args=[self.machine_name])
 
-    def get_latest_version_url(self) -> Optional[str]:  # noqa: FA100
+    def get_latest_version_url(self) -> str | None:
         if self.latest_version:
             return reverse(
                 "sphinx_hosting:sphinxpage--detail",

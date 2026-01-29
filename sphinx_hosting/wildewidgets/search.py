@@ -1,4 +1,4 @@
-from typing import Dict, List, Type, cast  # noqa: UP035
+from typing import cast
 
 import humanize
 from django.db.models import Model
@@ -150,7 +150,7 @@ class PagedSearchResultsBlock(PagedModelWidget):
         self,
         results: SearchQuerySet,
         query: str | None,
-        facets: Dict[str, List[str]] | None = None,
+        facets: dict[str, list[str]] | None = None,
         **kwargs,
     ):
         if query is not None:
@@ -179,7 +179,7 @@ class FacetBlock(Block):
     """
 
     #: The model class which our facet is related to
-    model: Type[Model]
+    model: type[Model]
     #: The title for our block
     title: str
     #: The name of the facet
@@ -231,7 +231,7 @@ class SearchResultsClassifiersFacet(FacetBlock):
     classifier.
     """
 
-    model: Type[Model] = Classifier
+    model: type[Model] = Classifier
     title: str = "Classifiers"
     facet: str = "classifiers"
     model_field: str = "name"
@@ -242,7 +242,7 @@ class SearchResultsProjectFacet(FacetBlock):
     A :py:class:`FacetBlock` that allows the user to filter search results by project.
     """
 
-    model: Type[Model] = Project
+    model: type[Model] = Project
     title: str = "Projects"
     facet: str = "project_id"
     model_field: str = "pk"
@@ -270,7 +270,7 @@ class SearchResultsPageHeader(Block):
     def __init__(
         self,
         query: str | None,
-        facets: Dict[str, List[str]] | None = None,
+        facets: dict[str, list[str]] | None = None,
         **kwargs,
     ):
         if facets is None:
@@ -347,7 +347,7 @@ class PagedSearchLayout(Block):
         self,
         results: SearchQuerySet,
         query: str | None = None,
-        facets: Dict[str, List[str]] | None = None,
+        facets: dict[str, list[str]] | None = None,
         **kwargs,
     ):
         self.query = query

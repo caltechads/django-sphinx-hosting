@@ -19,6 +19,10 @@ class NoHTMLValidator:
         if not value == strip_tags(value):
             raise ValidationError(self.message, code=self.code)
 
+    def __hash__(self) -> int:
+        """Add a unique hash for the validator."""
+        return hash((self.message, self.code))
+
     def __eq__(self, other: object) -> bool:
         return isinstance(other, NoHTMLValidator)
 

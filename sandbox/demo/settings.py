@@ -1,6 +1,6 @@
 import logging
 import logging.config
-from typing import Any, Dict, List, Optional, Tuple  # noqa: UP035
+from typing import Any
 
 import environ
 import structlog
@@ -41,7 +41,7 @@ SECRET_KEY: str = env(
     default="Z4peQSPAoo8fruA7pRXt2LefJD2lqYvXtgPFxF2hAeUd7NGOpA8fAt3UpnXpJ019",
 )
 # https://docs.djangoproject.com/en/3.2/ref/settings/#allowed-hosts
-ALLOWED_HOSTS: List[str] = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
+ALLOWED_HOSTS: list[str] = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 
 # INTERNATIONALIZATION (i18n) AND LOCALIZATION (l10n)
 # Change these values to suit this project.
@@ -57,7 +57,7 @@ USE_TZ: bool = True
 # -----------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if TESTING:
-    DATABASES: Dict[str, Dict[str, Any]] = {
+    DATABASES: dict[str, dict[str, Any]] = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR.path("db.sqlite3"),
@@ -85,7 +85,7 @@ DEFAULT_AUTO_FIELD: str = "django.db.models.AutoField"
 # ------------------------------------------------------------------------------
 # Disable all caching if the optional DISABLE_CACHE env var is True.
 if env.bool("DISABLE_CACHE", default=False):
-    CACHES: Dict[str, Any] = {
+    CACHES: dict[str, Any] = {
         "default": {
             "BACKEND": "django.core.cache.backends.dummy.DummyCache",
         }
@@ -107,7 +107,7 @@ WSGI_APPLICATION: str = f"{PROJECT_NAME}.wsgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
-DJANGO_APPS: List[str] = [
+DJANGO_APPS: list[str] = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -116,7 +116,7 @@ DJANGO_APPS: List[str] = [
     # 'django.contrib.humanize', # Handy template tags
     "django.contrib.admin",
 ]
-THIRD_PARTY_APPS: List[str] = [
+THIRD_PARTY_APPS: list[str] = [
     "django_extensions",
     "rest_framework",
     "rest_framework.authtoken",
@@ -131,17 +131,17 @@ THIRD_PARTY_APPS: List[str] = [
     "sphinx_hosting",
     "sphinx_hosting.api",
 ]
-LOCAL_APPS: List[str] = [
+LOCAL_APPS: list[str] = [
     "demo.users",
     "demo.core",
 ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#installed-apps
-INSTALLED_APPS: List[str] = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS: list[str] = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#authentication-backends
-AUTHENTICATION_BACKENDS: List[str] = [
+AUTHENTICATION_BACKENDS: list[str] = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
@@ -150,7 +150,7 @@ AUTHENTICATION_BACKENDS: List[str] = [
 AUTH_USER_MODEL: str = "users.User"
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
-AUTH_PASSWORD_VALIDATORS: List[Dict[str, str]] = [
+AUTH_PASSWORD_VALIDATORS: list[dict[str, str]] = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"  # noqa: E501
     },
@@ -161,7 +161,7 @@ AUTH_PASSWORD_VALIDATORS: List[Dict[str, str]] = [
 
 # MIDDLEWARE
 # ------------------------------------------------------------------------
-MIDDLEWARE: List[str] = [
+MIDDLEWARE: list[str] = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -181,9 +181,9 @@ STATIC_ROOT: str = "/static"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#static-url
 STATIC_URL: str = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS: List[str] = []
+STATICFILES_DIRS: list[str] = []
 # https://docs.djangoproject.com/en/3.2/ref/contrib/staticfiles/#staticfiles-finders
-STATICFILES_FINDERS: List[str] = [
+STATICFILES_FINDERS: list[str] = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     "sass_processor.finders.CssFinder",
@@ -202,7 +202,7 @@ MEDIA_URL: str = "/media/"
 # TEMPLATES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#templates
-TEMPLATES: List[Dict[str, Any]] = [
+TEMPLATES: list[dict[str, Any]] = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "OPTIONS": {
@@ -238,7 +238,7 @@ TEMPLATES: List[Dict[str, Any]] = [
 # FIXTURES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.2/ref/settings/#fixture-dirs
-FIXTURE_DIRS: Tuple[str, ...] = (str(APPS_DIR.path("fixtures")),)
+FIXTURE_DIRS: tuple[str, ...] = (str(APPS_DIR.path("fixtures")),)
 
 # SECURITY
 # ------------------------------------------------------------------------------
@@ -259,7 +259,7 @@ CSRF_COOKIE_NAME: str = f"{PROJECT_NAME}_csrftoken"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#csrf-cookie-secure
 CSRF_COOKIE_SECURE: bool = True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#csrf-trusted-origins
-CSRF_TRUSTED_ORIGINS: List[str] = []
+CSRF_TRUSTED_ORIGINS: list[str] = []
 # https://docs.djangoproject.com/en/3.2/ref/settings/#secure-browser-xss-filter
 SECURE_BROWSER_XSS_FILTER: bool = True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#x-frame-options
@@ -286,8 +286,8 @@ EMAIL_SUBJECT_PREFIX: str = env(
 )
 EMAIL_BACKEND: str = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST: str = env("EMAIL_HOST", default="mail")
-EMAIL_HOST_USER: Optional[str] = env("EMAIL_HOST_USER", default=None)  # noqa: FA100
-EMAIL_HOST_PASSWORD: Optional[str] = env("EMAIL_HOST_PASSWORD", default=None)  # noqa: FA100
+EMAIL_HOST_USER: str | None = env("EMAIL_HOST_USER", default=None)
+EMAIL_HOST_PASSWORD: str | None = env("EMAIL_HOST_PASSWORD", default=None)
 EMAIL_USE_TLS: bool = env.bool("EMAIL_USE_TLS", default=False)
 EMAIL_PORT: int = env.int("EMAIL_PORT", default=1025)
 
@@ -296,7 +296,7 @@ EMAIL_PORT: int = env.int("EMAIL_PORT", default=1025)
 # Django Admin URL.
 ADMIN_URL: str = env("DJANGO_ADMIN_URL", default="admin/")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#admins
-ADMINS: List[Tuple[str, str]] = [
+ADMINS: list[tuple[str, str]] = [
     ("Sphinx Hosting Demo Admins", "sphinx-hosting-demo@example.com")
 ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#managers
@@ -334,8 +334,8 @@ pre_chain = [
 ]
 
 # Build our custom logging config.
-LOGGING_CONFIG: Optional[Dict[str, Any]] = None  # noqa: FA100
-LOGGING: Dict[str, Any] = {
+LOGGING_CONFIG: dict[str, Any] | None = None
+LOGGING: dict[str, Any] = {
     "version": 1,
     "disable_existing_loggers": False,
     "root": {
@@ -405,7 +405,7 @@ CRISPY_TEMPLATE_PACK: str = "bootstrap5"
 
 # django-theme-academy
 # ------------------------------------------------------------------------------
-ACADEMY_THEME_SETTINGS: Dict[str, Any] = {
+ACADEMY_THEME_SETTINGS: dict[str, Any] = {
     # Header
     "APPLE_TOUCH_ICON": "core/images/apple-touch-icon.png",
     "FAVICON_32": "core/images/favicon-32x32.png",
@@ -432,7 +432,7 @@ XFF_HEADER_REQUIRED: bool = env.bool("XFF_HEADER_REQUIRED", default=False)
 # Django REST Framework
 # ------------------------------------------------------------------------------
 # REST Framework
-REST_FRAMEWORK: Dict[str, Any] = {
+REST_FRAMEWORK: dict[str, Any] = {
     # https://www.django-rest-framework.org/api-guide/throttling/
     "DEFAULT_THROTTLE_CLASSES": ("rest_framework.throttling.UserRateThrottle",),
     "DEFAULT_THROTTLE_RATES": {
@@ -456,7 +456,7 @@ REST_FRAMEWORK: Dict[str, Any] = {
 # drf-spectacular
 # ------------------------------------------------------------------------------
 # https://drf-spectacular.readthedocs.io/en/latest/settings.html
-SPECTACULAR_SETTINGS: Dict[str, Any] = {
+SPECTACULAR_SETTINGS: dict[str, Any] = {
     "SCHEMA_PATH_PREFIX": r"/api/v1",
     "SERVERS": [{"url": "https://localhost", "description": "Django Sphinx Hosting"}],
     "TITLE": "Django Sphinx Hosting",

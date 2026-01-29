@@ -1,7 +1,6 @@
-from typing import TYPE_CHECKING, ClassVar, Final, List, Optional, cast  # noqa: UP035
+from typing import TYPE_CHECKING, ClassVar, Final, cast
 
 from crequest.middleware import CrequestMiddleware
-from django.contrib.auth.models import AbstractUser
 from django.urls import reverse_lazy
 from wildewidgets import (
     Block,
@@ -17,6 +16,7 @@ from ..settings import LOGO_IMAGE, LOGO_URL, LOGO_WIDTH, SITE_NAME
 from .search import GlobalSearchFormWidget
 
 if TYPE_CHECKING:
+    from django.contrib.auth.models import AbstractUser
     from django.http.request import HttpRequest
 
 
@@ -28,10 +28,15 @@ class SphinxHostingMainMenu(Menu):
 
     It gives access to all the views that normal, non privileged users should be
     allowed to use.
+
+    Args:
+        items: the items to add to the menu
+        kwargs: the keyword arguments to pass to the menu
+
     """
 
     title: str = "Main"
-    items: Final[List[MenuItem]] = [
+    items: Final[list[MenuItem]] = [
         MenuItem(
             text="Projects",
             icon="stack",
@@ -40,10 +45,11 @@ class SphinxHostingMainMenu(Menu):
     ]
 
     def __init__(self, *items, **kwargs) -> None:
-        self.active_item: Optional[str] = None  # noqa: FA100
+        #: The active item in the menu.
+        self.active_item: str | None = None
         super().__init__(*items, **kwargs)
 
-    def build_menu(self, items: List[MenuItem]) -> None:
+    def build_menu(self, items: list[MenuItem]) -> None:
         """
         Programatically build our menu here.  We have this code because the
         presence of some items in this menu depends on the user's permissions.
@@ -53,7 +59,7 @@ class SphinxHostingMainMenu(Menu):
         not finished building, and even ``reverse_lazy`` fails.
         """
         request: HttpRequest = CrequestMiddleware.get_request()
-        user: AbstractUser = cast(AbstractUser, request.user)
+        user: AbstractUser = cast("AbstractUser", request.user)
         if user.has_perm("sphinxhostingcore.view_classifier"):
             item = MenuItem(
                 text="Classifiers",
@@ -112,14 +118,18 @@ class SphinxHostingSidebar(TablerVerticalNavbar):
             "flex-grow-1 flex-xl-grow-0"
         ),
     )
-    contents: Final[List[Block]] = [
+    contents: Final[list[Block]] = [
         SphinxHostingMainMenu(),
     ]
     wide: bool = True
 
 
 class SphinxHostingBreadcrumbs(BreadcrumbBlock):
-    items: ClassVar[List[BreadcrumbItem]] = [
+    """
+    The breadcrumbs that appear at the top of the page.
+    """
+
+    items: ClassVar[list[BreadcrumbItem]] = [
         BreadcrumbItem(
             title=SITE_NAME, url=reverse_lazy("sphinx_hosting:project--list")
         )

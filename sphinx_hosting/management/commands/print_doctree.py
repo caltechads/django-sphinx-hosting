@@ -19,10 +19,10 @@ class TreePrinter:
     def __init__(self, version: Version):
         self.sphinx_tree = version.page_tree
         self.tree: Tree = Tree(self.title(self.sphinx_tree.head))
-        self.build(self.tree, cast(TreeNode, self.sphinx_tree.head))
+        self.build(self.tree, cast("TreeNode", self.sphinx_tree.head))
 
     def title(self, node: TreeNode) -> str:
-        return f"{node.title} [{cast(SphinxPage, node.page).id}]"
+        return f"{node.title} [{cast('SphinxPage', node.page).id}]"
 
     def build(self, branch: Tree, node: TreeNode):
         if node.children:

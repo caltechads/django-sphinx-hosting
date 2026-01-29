@@ -87,7 +87,7 @@ def set_new_latest_version(sender: Type[Model], instance: Version, **kwargs):  #
         instance.project.latest_version = new_latest  # type: ignore[attr-defined]
         instance.project.save()  # type: ignore[attr-defined]
         # Log the new latest version
-        version: Optional[str] = None  # noqa: FA100
+        version: str | None = None
         if new_latest:
             version = new_latest.version
             # Index the new latest version

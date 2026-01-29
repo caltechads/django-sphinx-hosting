@@ -1,7 +1,7 @@
 import os
 import tempfile
 from pathlib import Path
-from typing import Final, List, Optional, Tuple, Type  # noqa: UP035
+from typing import Final
 
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Model
@@ -47,12 +47,12 @@ class ClassifierFilter(filters.FilterSet):
     )
 
     class Meta:
-        model: Type[Model] = Classifier
-        fields: Final[List[str]] = ["name"]
+        model: type[Model] = Classifier
+        fields: Final[list[str]] = ["name"]
 
 
 class ClassifierViewSet(viewsets.ModelViewSet):
-    permission_classes: Final[List[Type[BasePermission]]] = [
+    permission_classes: Final[list[type[BasePermission]]] = [
         permissions.IsAuthenticated,
         permissions.DjangoModelPermissions,
     ]
@@ -83,8 +83,8 @@ class ProjectFilter(filters.FilterSet):
     )
 
     class Meta:
-        model: Type[Model] = Project
-        fields: Final[List[str]] = [
+        model: type[Model] = Project
+        fields: Final[list[str]] = [
             "title",
             "machine_name",
             "description",
@@ -93,16 +93,16 @@ class ProjectFilter(filters.FilterSet):
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
-    permission_classes: Final[List[Type[BasePermission]]] = [
+    permission_classes: Final[list[type[BasePermission]]] = [
         permissions.IsAuthenticated,
         permissions.DjangoModelPermissions,
     ]
-    serializer_class: Type[Serializer] = ProjectSerializer
+    serializer_class: type[Serializer] = ProjectSerializer
     queryset: QuerySet = Project.objects.all()
-    filterset_class: Type[filters.FilterSet] = ProjectFilter
+    filterset_class: type[filters.FilterSet] = ProjectFilter
 
     @action(detail=True)
-    def latest_version(self, request: Request, pk: Optional[int] = None) -> Response:  # noqa: ARG002, FA100
+    def latest_version(self, request: Request, pk: int | None = None) -> Response:  # noqa: ARG002
         project = self.get_object()
         serializer = VersionSerializer(
             project.latest_version, context={"request": request}
@@ -141,8 +141,8 @@ class VersionFilter(filters.FilterSet):
     archived: Filter = filters.BooleanFilter(help_text="Filter by archived status")
 
     class Meta:
-        model: Type[Model] = Version
-        fields: Final[List[str]] = [
+        model: type[Model] = Version
+        fields: Final[list[str]] = [
             "project",
             "project_title",
             "project_machine_name",
@@ -165,13 +165,13 @@ class VersionViewSet(
     but they can't create or update them the normal Django way.
     """
 
-    permission_classes: Final[List[Type[BasePermission]]] = [
+    permission_classes: Final[list[type[BasePermission]]] = [
         permissions.IsAuthenticated,
         permissions.DjangoModelPermissions | ChangeProjectPermission,
     ]
-    serializer_class: Type[Serializer] = VersionSerializer
+    serializer_class: type[Serializer] = VersionSerializer
     queryset: QuerySet = Version.objects.all()
-    filterset_class: Type[filters.FilterSet] = VersionFilter
+    filterset_class: type[filters.FilterSet] = VersionFilter
 
 
 class VersionUploadView(APIView):
@@ -201,11 +201,11 @@ class VersionUploadView(APIView):
     """
 
     serializer_class: Serializer = VersionUploadSerializer
-    permission_classes: Final[List[Type[BasePermission]]] = [
+    permission_classes: Final[list[type[BasePermission]]] = [
         permissions.IsAuthenticated,
         AddVersionPermission,
     ]
-    parser_classes: Final[Tuple[BaseParser, ...]] = (MultiPartParser,)
+    parser_classes: Final[tuple[BaseParser, ...]] = (MultiPartParser,)
 
     def post(self, request: Request) -> Response:
         serializer = VersionUploadSerializer(data=request.data)
@@ -223,7 +223,7 @@ class VersionUploadView(APIView):
             except Exception:
                 # Move the problematic file to a known location so we can
                 # inspect it later.
-                os.rename(path, "/tmp/uploaded_file")  # noqa: PTH104
+                os.rename(path, "/tmp/uploaded_file")  # noqa: PTH104, S108
                 raise
 
         data = {
@@ -280,8 +280,8 @@ class SphinxPageFilter(filters.FilterSet):
     )
 
     class Meta:
-        model: Type[Model] = SphinxPage
-        fields: Final[List[str]] = [
+        model: type[Model] = SphinxPage
+        fields: Final[list[str]] = [
             "project",
             "project_title",
             "project_machine_name",
@@ -305,7 +305,7 @@ class SphinxPageViewSet(viewsets.ReadOnlyModelViewSet):
     lot of interdependencies that need to be accounted for while editing.
     """
 
-    permission_classes: Final[List[Type[BasePermission]]] = [
+    permission_classes: Final[list[type[BasePermission]]] = [
         permissions.IsAuthenticated
     ]
     serializer_class = SphinxPageSerializer
@@ -355,8 +355,8 @@ class SphinxImageFilter(filters.FilterSet):
     )
 
     class Meta:
-        model: Type[Model] = SphinxImage
-        fields: Final[List[str]] = [
+        model: type[Model] = SphinxImage
+        fields: Final[list[str]] = [
             "project",
             "version",
             "sphinx_version",
@@ -377,12 +377,12 @@ class SphinxImageViewSet(viewsets.ReadOnlyModelViewSet):
     sense to update them independently.
     """
 
-    permission_classes: Final[List[Type[BasePermission]]] = [
+    permission_classes: Final[list[type[BasePermission]]] = [
         permissions.IsAuthenticated
     ]
-    serializer_class: Type[Serializer] = SphinxImageSerializer
+    serializer_class: type[Serializer] = SphinxImageSerializer
     queryset: QuerySet = SphinxImage.objects.all()
-    filterset_class: Type[filters.FilterSet] = SphinxImageFilter
+    filterset_class: type[filters.FilterSet] = SphinxImageFilter
 
 
 class ProjectRelatedLinkFilter(filters.FilterSet):
@@ -414,8 +414,8 @@ class ProjectRelatedLinkFilter(filters.FilterSet):
     )
 
     class Meta:
-        model: Type[Model] = ProjectRelatedLink
-        fields: Final[List[str]] = [
+        model: type[Model] = ProjectRelatedLink
+        fields: Final[list[str]] = [
             "title",
             "project_title",
             "project_machine_name",
@@ -425,10 +425,10 @@ class ProjectRelatedLinkFilter(filters.FilterSet):
 
 
 class ProjectRelatedLinkViewSet(viewsets.ModelViewSet):
-    permission_classes: Final[List[Type[BasePermission]]] = [
+    permission_classes: Final[list[type[BasePermission]]] = [
         permissions.IsAuthenticated,
         ChangeProjectPermission,
     ]
-    serializer_class: Type[Serializer] = ProjectRelatedLinkSerializer
+    serializer_class: type[Serializer] = ProjectRelatedLinkSerializer
     queryset: QuerySet = ProjectRelatedLink.objects.all()
-    filterset_class: Type[filters.FilterSet] = ProjectRelatedLinkFilter
+    filterset_class: type[filters.FilterSet] = ProjectRelatedLinkFilter

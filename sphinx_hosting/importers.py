@@ -6,7 +6,7 @@ import tarfile
 import urllib.parse
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Any, Dict, Final, List, Optional, TypeAlias, cast  # noqa: UP035
+from typing import IO, Any, Dict, Final, List, TypeAlias, cast  # noqa: UP035
 
 import lxml.html
 import semver
@@ -41,9 +41,9 @@ class PageTreeNode:
     #: The page for this node
     page: SphinxPage
     #: The title of the parent page for this node, if any
-    parent_title: Optional[str] = None  # noqa: FA100
+    parent_title: str | None = None
     #: The title of the next page for this node, if any
-    next_title: Optional[str] = None  # noqa: FA100
+    next_title: str | None = None
 
 
 class SphinxPackageImporter:
@@ -98,7 +98,7 @@ class SphinxPackageImporter:
     """
 
     # Sometimes pages have weird titles -- replace them with their filename
-    ODD_TITLES: Final[List[str]] = ["&lt;no title&gt;"]
+    ODD_TITLES: Final[list[str]] = ["&lt;no title&gt;"]
 
     def __init__(self) -> None:
         #: Used to map original Sphinx image paths to our Django storage path
@@ -106,10 +106,10 @@ class SphinxPackageImporter:
         #: Used to map original Sphinx document paths to our Django storage path
         self.document_map: DocumentMap = {}
         #: Used to link pages to their parent pages, and to their next pages
-        self.page_tree: Dict[str, PageTreeNode] = {}
-        self.name_map: Dict[str, str] = {}
+        self.page_tree: dict[str, PageTreeNode] = {}
+        self.name_map: dict[str, str] = {}
         #: the contents of globalcontext.json
-        self.config: Dict[str, Any] = {}
+        self.config: dict[str, Any] = {}
 
     def _get_file(self, package: tarfile.TarFile, filename: str) -> io.BufferedReader:
         """
@@ -138,7 +138,7 @@ class SphinxPackageImporter:
         if filename not in self.name_map:
             msg = f'Sphinx docs TarFile has no file named "{filename}"'
             raise KeyError(msg)
-        return cast(io.BufferedReader, package.extractfile(self.name_map[filename]))
+        return cast("io.BufferedReader", package.extractfile(self.name_map[filename]))
 
     def _update_image_src(self, body: str) -> str:
         """
@@ -269,7 +269,7 @@ class SphinxPackageImporter:
         if v:
             if not force:
                 msg = (
-                    f"""Version {self.config['release']} of Project(machine_name="""
+                    f"""Version {self.config["release"]} of Project(machine_name="""
                     f""""{machine_name}") already exists."""
                 )
                 raise VersionAlreadyExists(msg)
@@ -408,14 +408,13 @@ class SphinxPackageImporter:
             anchor = None
             if "#" in href:
                 href, anchor = href.split("#")
-            if href.endswith("/"):
-                href = href[:-1]
+            href = href.removesuffix("/")
             # To deal with relative links, we need to know our current path
             # and then compute the absolute path from that.
             levels = href.count("../")
             if levels:
                 href = re.sub("^(../)*", "", href)
-                href = "/".join(path.split("/")[:-(levels)] + [href])
+                href = "/".join([*path.split("/")[:-levels], href])
             link.attrib["href"] = (
                 "{{% url 'sphinx_hosting:sphinxpage--detail' project_slug='{}' version='{}' path='{}' %}}".format(  # noqa:E501  # pylint: disable=line-too-long
                     self.config["project"], self.config["release"], href
@@ -569,10 +568,10 @@ class SphinxPackageImporter:
             data: the JSON data from our page file
 
         """
-        parent: Optional[str] = None  # noqa: FA100
+        parent: str | None = None
         if data.get("parents"):
             parent = [p["title"] for p in data["parents"]][-1]
-        next_title: Optional[str] = None  # noqa: FA100
+        next_title: str | None = None
         if data.get("next"):
             next_title = data["next"]["title"]
         self.page_tree[page.title] = PageTreeNode(
@@ -603,7 +602,7 @@ class SphinxPackageImporter:
             if path.endswith(".fjson"):
                 # files that contain page data will have a .fjson extension
                 path = path.replace(".fjson", "")
-                fd = cast(io.BufferedReader, package.extractfile(member))
+                fd = cast("io.BufferedReader", package.extractfile(member))
                 data = json.loads(fd.read())
                 self._fix_page_title(path, data)
                 self._fix_page_body(path, data)
@@ -672,8 +671,8 @@ class SphinxPackageImporter:
 
     def run(
         self,
-        filename: Optional[str] = None,  # noqa: FA100
-        file_obj: Optional[IO] = None,  # noqa: FA100
+        filename: str | None = None,
+        file_obj: IO | None = None,
         force: bool = False,
     ) -> Version:
         """

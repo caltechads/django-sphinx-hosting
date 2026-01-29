@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional  # noqa: UP035
+from typing import Any
 
 from crequest.middleware import CrequestMiddleware
 from django.template import Context, Template
@@ -17,7 +17,6 @@ from wildewidgets import (
     TwoColumnLayout,
 )
 
-from ..logging import logger
 from ..models import SphinxPage, Version
 
 # ------------------------------------------------------
@@ -112,7 +111,7 @@ class SphinxPagePermalinkWidget(CardWidget):
             css_class="d-flex flex-column",
         )
 
-    def get_script(self) -> Optional[str]:  # noqa: FA100
+    def get_script(self) -> str | None:
         """
         Return the Javascript that will be executed when the "Permalink" button
         is clicked.  This will copy the permalink to the browser clipboard.
@@ -217,7 +216,7 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
         data = version.globaltoc
         menu_items = cls._load_menuitems(data["items"])
         if version.project.related_links.exists():  # type: ignore[attr-defined]
-            link_items: List[MenuItem] = [MenuItem(text="Related Links")]
+            link_items: list[MenuItem] = [MenuItem(text="Related Links")]
             for link in version.project.related_links.all():  # type: ignore[attr-defined]
                 link_items.append(MenuItem(text=link.title, url=link.uri, icon="link"))  # noqa: PERF401
             if len(menu_items) == 1:
@@ -241,7 +240,7 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
         return cls(*menu_items)
 
     @classmethod
-    def _load_menuitems(cls, items: List[Dict[str, Any]]) -> List[MenuItem]:
+    def _load_menuitems(cls, items: list[dict[str, Any]]) -> list[MenuItem]:
         """
         Given a list like this::
 
@@ -259,7 +258,7 @@ class SphinxPageGlobalTableOfContentsMenu(Menu):
             A list of :py:class:`wildewidgets.MenuItem` objects.
 
         """  # noqa: E501
-        menu_items: List[MenuItem] = []
+        menu_items: list[MenuItem] = []
         for item in items:
             if "items" in item:
                 sub_items = cls._load_menuitems(item["items"])

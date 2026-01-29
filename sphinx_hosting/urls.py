@@ -1,5 +1,3 @@
-from typing import List  # noqa: UP035
-
 from django.urls import URLPattern, path, re_path
 
 from .views import (
@@ -23,7 +21,7 @@ from .wildewidgets import ProjectClassifierSelectorWidget
 
 app_name: str = "sphinx_hosting"
 
-urlpatterns: List[URLPattern] = [
+urlpatterns: list[URLPattern] = [
     path("", ProjectListView.as_view(), name="project--list"),
     path("project/", ProjectCreateView.as_view(), name="project--create"),
     path("project/<str:slug>/", ProjectDetailView.as_view(), name="project--detail"),

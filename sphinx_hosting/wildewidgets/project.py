@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Dict, Final, List, Type  # noqa: UP035
+from typing import TYPE_CHECKING, Final
 
 from wildewidgets import (
     ActionButtonModelTable,
@@ -45,9 +45,18 @@ class ProjectCreateModalWidget(CrispyFormModalWidget):
     """
     A modal dialog that holds the
     :py:class:`sphinx_hosting.forms.ProjectCreateForm`.
+
+    Args:
+        args: the arguments to pass to the modal widget
+
+    Keyword Args:
+        kwargs: the keyword arguments to pass to the modal widget
+
     """
 
+    #: The ID of the modal dialog.
     modal_id: str = "project__create"
+    #: The title of the modal dialog.
     modal_title: str = "Add Project"
 
     def __init__(self, *args, **kwargs):
@@ -60,6 +69,14 @@ class ProjectRelatedLinkCreateModalWidget(CrispyFormModalWidget):
     A modal dialog that holds the
     :py:class:`sphinx_hosting.forms.ProjectRelatedLinkForm` for
     creating links.
+
+    Args:
+        project: the project to create the link for
+        args: the arguments to pass to the modal widget
+
+    Keyword Args:
+        kwargs: the keyword arguments to pass to the modal widget
+
     """
 
     modal_id: str = "projectrelatedlink__create"
@@ -183,7 +200,7 @@ class ProjectClassifierSelectorWidget(ToggleableManyToManyFieldBlock):
     It is used in the project edit view.
     """
 
-    model: Type[Model] = Project
+    model: type[Model] = Project
     field_name: str = "classifiers"
     title: str = "Classifiers"
     icon: str = "collection"
@@ -344,7 +361,7 @@ class ProjectTable(ActionButtonModelTable):
     It's used as a the main widget in by :py:class:`ProjectTableWidget`.
     """
 
-    model: Type[Model] = Project
+    model: type[Model] = Project
 
     #: Show this many rows per page
     page_length: int = 25
@@ -355,7 +372,7 @@ class ProjectTable(ActionButtonModelTable):
     #: A list of fields that we will list as columns.  These are either fields
     #: on our :py:attr:`model`, or defined as ``render_FIELD_NAME_column`` methods
     #: on this class
-    fields: Final[List[str]] = [
+    fields: Final[list[str]] = [
         "title",
         "machine_name",
         "classifiers",
@@ -364,34 +381,34 @@ class ProjectTable(ActionButtonModelTable):
         "latest_version_date",
     ]
     #: A list of names of columns to hide by default.
-    hidden: Final[List[str]] = [
+    hidden: Final[list[str]] = [
         "classifiers",
         "machine_name",
         "latest_version_date",
     ]
     #: A list of names of columns that will will not be sortable
     #: (i.e. clicking on the column header will not sort the table)
-    unsortable: Final[List[str]] = [
+    unsortable: Final[list[str]] = [
         "latest_version",
         "latest_version_date",
     ]
     #: A list of names of columns that will will not be searched when doing a
     #: **global** search
-    unsearchable: Final[List[str]] = [
+    unsearchable: Final[list[str]] = [
         "classifiers",
         "latest_version",
         "latest_version_date",
     ]
     #: A dict of column name to column label.  We use it to override the
     #: default labels for the named columns
-    verbose_names: Final[Dict[str, str]] = {
+    verbose_names: Final[dict[str, str]] = {
         "title": "Project Name",
         "machine_name": "Machine Name",
         "latest_version": "Latest Version",
         "latest_version_date": "Import Date",
     }
     #: A dict of column names to alignment ("left", "right", "center")
-    alignment: Final[Dict[str, str]] = {
+    alignment: Final[dict[str, str]] = {
         "title": "left",
         "description": "left",
         "classifiers": "left",
@@ -400,7 +417,7 @@ class ProjectTable(ActionButtonModelTable):
         "latest_version_date": "left",
     }
 
-    actions: Final[List[RowActionButton]] = [
+    actions: Final[list[RowActionButton]] = [
         LatestVersionButton(),
         RowModelUrlButton(
             attribute="get_absolute_url", text="View", color="outline-secondary"
@@ -496,7 +513,7 @@ class ProjectVersionTable(BasicModelTable):
     It's used as a the main widget in by :py:class:`ProjectVersionTableWidget`.
     """
 
-    model: Type[Model] = Version
+    model: type[Model] = Version
 
     #: Show this many rows per page
     page_length: int = 25
@@ -507,20 +524,20 @@ class ProjectVersionTable(BasicModelTable):
     #: A list of fields that we will list as columns.  These are either fields
     #: on our :py:attr:`model`, or defined as ``render_FIELD_NAME_column`` methods
     #: on this class
-    fields: Final[List[str]] = [
+    fields: Final[list[str]] = [
         "version",
         "num_pages",
         "num_images",
         "created",
         "modified",
     ]
-    unsortable: Final[List[str]] = [
+    unsortable: Final[list[str]] = [
         "num_pages",
         "num_images",
     ]
     #: A list of names of columns that will will not be searched when doing a
     #: **global** search
-    unsearchable: Final[List[str]] = [
+    unsearchable: Final[list[str]] = [
         "num_pages",
         "num_images",
         "created",
@@ -528,13 +545,13 @@ class ProjectVersionTable(BasicModelTable):
     ]
     #: A dict of column name to column label.  We use it to override the
     #: default labels for the named columns
-    verbose_names: Final[Dict[str, str]] = {
+    verbose_names: Final[dict[str, str]] = {
         "title": "Version",
         "num_pages": "# Pages",
         "num_images": "# Images",
     }
     #: A dict of column names to alignment ("left", "right", "center")
-    alignment: Final[Dict[str, str]] = {
+    alignment: Final[dict[str, str]] = {
         "version": "left",
         "num_pages": "right",
         "num_images": "right",

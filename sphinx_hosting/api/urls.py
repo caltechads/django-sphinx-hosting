@@ -1,5 +1,3 @@
-from typing import List, Union  # noqa: UP035
-
 from django.urls import URLPattern, URLResolver, include, path
 from drf_spectacular.views import (
     SpectacularAPIView,
@@ -29,7 +27,7 @@ router.register(r"pages", SphinxPageViewSet)
 router.register(r"images", SphinxImageViewSet)
 router.register(r"related-links", ProjectRelatedLinkViewSet)
 
-urlpatterns: List[Union[URLPattern, URLResolver]] = [  # noqa: FA100
+urlpatterns: list[URLPattern | URLResolver] = [
     path("", include(router.urls)),
     path("version/import/", VersionUploadView.as_view(), name="version-import"),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),

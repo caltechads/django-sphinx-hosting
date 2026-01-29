@@ -44,8 +44,7 @@ class Command(BaseCommand):
             anchor = None
             if "#" in href:
                 href, anchor = href.split("#")
-            if href.endswith("/"):
-                href = href[:-1]
+            href = href.removesuffix("/")
             href = re.sub("^(../)*", "", href)
             link.attrib["href"] = (
                 f"{{% url 'sphinx_hosting:sphinxpage--detail' project_slug='{project_machine_name}' version='{version}' path='{href}' %}}"  # noqa: E501

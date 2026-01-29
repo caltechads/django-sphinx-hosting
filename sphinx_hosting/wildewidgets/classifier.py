@@ -1,5 +1,3 @@
-from typing import Dict  # noqa: UP035
-
 from django.utils.text import slugify
 from wildewidgets import (
     Block,
@@ -97,7 +95,7 @@ $(document).ready(function() {{
         )
         self._attributes["method"] = "get"
         self._attributes["name"] = self.block
-        self.tree: Dict[str, ClassifierNode] = Classifier.objects.tree()
+        self.tree: dict[str, ClassifierNode] = Classifier.objects.tree()
         for node in self.tree.values():
             name = slugify(node.title)
             target = f"#{name}"
@@ -129,7 +127,7 @@ $(document).ready(function() {{
         )
 
     def add_subtree(
-        self, contents: UnorderedList, nodes: Dict[str, ClassifierNode]
+        self, contents: UnorderedList, nodes: dict[str, ClassifierNode]
     ) -> None:
         """
         Add a subtree of classifier checkboxes.

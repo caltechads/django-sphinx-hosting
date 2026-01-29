@@ -1,4 +1,4 @@
-from typing import Dict, Final, List, Optional, Type  # noqa: UP035
+from typing import Final
 
 from django.db.models import Model, QuerySet
 from django.db.models.functions import Length
@@ -155,7 +155,7 @@ class VersionSphinxPageTable(BasicModelTable):
     It's used as a the main widget in by :py:class:`VersionSphinxPageTableWidget`.
     """
 
-    model: Type[Model] = SphinxPage
+    model: type[Model] = SphinxPage
     #: Show this many books per page
     page_length: int = 25
     #: Set to ``True`` to stripe our table rows
@@ -164,13 +164,13 @@ class VersionSphinxPageTable(BasicModelTable):
 
     #: These are the fields on our model (or which are computed) that we will
     #: list as columns
-    fields: Final[List[str]] = [
+    fields: Final[list[str]] = [
         "title",
         "relative_path",
         "size",
     ]
     #: Declare how we horizontally align our columns
-    alignment: Final[Dict[str, str]] = {
+    alignment: Final[dict[str, str]] = {
         "title": "left",
         "relative_path": "left",
         "size": "right",
@@ -187,7 +187,7 @@ class VersionSphinxPageTable(BasicModelTable):
         """
         #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to
         #: list pages
-        self.version_id: Optional[int] = kwargs.get("version_id", None)  # noqa: FA100
+        self.version_id: int | None = kwargs.get("version_id")
         super().__init__(*args, **kwargs)
         if "version_id" in self.extra_data["kwargs"]:
             self.version_id = int(self.extra_data["kwargs"]["version_id"])
@@ -216,7 +216,7 @@ class VersionSphinxImageTable(BasicModelTable):
     :py:class:`VersionSphinxImageTableWidget`.
     """
 
-    model: Type[Model] = SphinxImage
+    model: type[Model] = SphinxImage
     #: Show this many books per page
     page_length: int = 25
     #: Set to ``True`` to stripe our table rows
@@ -224,13 +224,13 @@ class VersionSphinxImageTable(BasicModelTable):
 
     #: These are the fields on our model (or which are computed) that we will
     #: list as columns
-    fields: Final[List[str]] = [
+    fields: Final[list[str]] = [
         "orig_path",
         "file_path",
         "size",
     ]
     #: Declare how we horizontally align our columns
-    alignment: Final[Dict[str, str]] = {
+    alignment: Final[dict[str, str]] = {
         "orig_path": "left",
         "file_path": "left",
         "size": "right",
@@ -247,7 +247,7 @@ class VersionSphinxImageTable(BasicModelTable):
         """
         #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to
         #: list pages
-        self.version_id: Optional[int] = kwargs.get("version_id", None)  # noqa: FA100
+        self.version_id: int | None = kwargs.get("version_id", None)
         super().__init__(*args, **kwargs)
         if "version_id" in self.extra_data["kwargs"]:
             self.version_id = int(self.extra_data["kwargs"]["version_id"])
@@ -301,7 +301,7 @@ class VersionSphinxDocumentTable(BasicModelTable):
     :py:class:`VersionSphinxDocumentTableWidget`.
     """
 
-    model: Type[Model] = SphinxDocument
+    model: type[Model] = SphinxDocument
     #: Show this many books per page
     page_length: int = 25
     #: Set to ``True`` to stripe our table rows
@@ -309,13 +309,13 @@ class VersionSphinxDocumentTable(BasicModelTable):
 
     #: These are the fields on our model (or which are computed) that we will
     #: list as columns
-    fields: Final[List[str]] = [
+    fields: Final[list[str]] = [
         "orig_path",
         "file_path",
         "size",
     ]
     #: Declare how we horizontally align our columns
-    alignment: Final[Dict[str, str]] = {
+    alignment: Final[dict[str, str]] = {
         "orig_path": "left",
         "file_path": "left",
         "size": "right",
@@ -332,7 +332,7 @@ class VersionSphinxDocumentTable(BasicModelTable):
         """
         #: The pk of the :py:class:`sphinx_hosting.models.Version` for which to
         #: list pages
-        self.version_id: Optional[int] = kwargs.get("version_id", None)  # noqa: FA100
+        self.version_id: int | None = kwargs.get("version_id")
         super().__init__(*args, **kwargs)
         if "version_id" in self.extra_data["kwargs"]:
             self.version_id = int(self.extra_data["kwargs"]["version_id"])

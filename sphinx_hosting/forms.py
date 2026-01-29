@@ -1,4 +1,4 @@
-from typing import Dict, Final, Optional, Tuple, Type, cast  # noqa: UP035
+from typing import Final, cast
 
 from crispy_forms.bootstrap import FieldWithButtons
 from crispy_forms.helper import FormHelper
@@ -72,8 +72,8 @@ class ProjectCreateForm(forms.ModelForm):
         )
 
     class Meta:
-        model: Type[Model] = Project
-        exclude: Final[Tuple[str, ...]] = (
+        model: type[Model] = Project
+        exclude: Final[tuple[str, ...]] = (
             # These are relational fields that will be handled separately
             "versions",
             "classifiers",
@@ -82,7 +82,7 @@ class ProjectCreateForm(forms.ModelForm):
             "created",
             "modified",
         )
-        widgets: Final[Dict[str, Widget]] = {
+        widgets: Final[dict[str, Widget]] = {
             "description": forms.Textarea(attrs={"cols": 50, "rows": 3}),
         }
 
@@ -120,12 +120,12 @@ class ProjectUpdateForm(forms.ModelForm):
         )
 
     class Meta:
-        model: Type[Model] = Project
-        fields: Final[Tuple[str, ...]] = (
+        model: type[Model] = Project
+        fields: Final[tuple[str, ...]] = (
             "title",
             "description",
         )
-        widgets: Final[Dict[str, Widget]] = {
+        widgets: Final[dict[str, Widget]] = {
             "description": forms.Textarea(attrs={"cols": 50, "rows": 3}),
         }
 
@@ -157,12 +157,12 @@ class ProjectReadonlyUpdateForm(forms.ModelForm):
         )
 
     class Meta:
-        model: Type[Model] = Project
-        fields: Final[Tuple[str, ...]] = (
+        model: type[Model] = Project
+        fields: Final[tuple[str, ...]] = (
             "title",
             "description",
         )
-        widgets: Final[Dict[str, Widget]] = {
+        widgets: Final[dict[str, Widget]] = {
             "description": forms.Textarea(
                 attrs={
                     "cols": 50,
@@ -186,7 +186,7 @@ class ProjectRelatedLinkBaseForm(forms.ModelForm):
 
     """
 
-    def __init__(self, *args, project_machine_name: Optional[str] = None, **kwargs):  # noqa: ARG002, FA100
+    def __init__(self, *args, project_machine_name: str | None = None, **kwargs):  # noqa: ARG002
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = "form-horizontal"
@@ -206,7 +206,7 @@ class ProjectRelatedLinkBaseForm(forms.ModelForm):
         )
 
     class Meta:
-        model: Type[Model] = ProjectRelatedLink
+        model: type[Model] = ProjectRelatedLink
         fields = (
             "title",
             "uri",
@@ -224,11 +224,11 @@ class ProjectRelatedLinkCreateForm(ProjectRelatedLinkBaseForm):
 
     """
 
-    def __init__(self, *args, project: Optional[Project] = None, **kwargs):  # noqa: FA100
+    def __init__(self, *args, project: Project | None = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper.form_action = reverse(
             "sphinx_hosting:projectrelatedlink--create",
-            args=[cast(Project, project).machine_name],
+            args=[cast("Project", project).machine_name],
         )
 
 
