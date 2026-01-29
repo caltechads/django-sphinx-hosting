@@ -1,6 +1,6 @@
 [project]
 name = "django-sphinx-hosting"
-version = "1.6.4"
+version = "1.7.0"
 authors = [
     {name = "Caltech IMSS ADS", email = "imss-ads-staff@caltech.edu"},
 ]
