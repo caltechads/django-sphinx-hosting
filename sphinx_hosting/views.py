@@ -1,7 +1,8 @@
 import os
 import tempfile
+from functools import lru_cache
 from pathlib import Path
-from typing import TYPE_CHECKING, Dict, List, Type, cast  # noqa: UP035
+from typing import TYPE_CHECKING, Any, Dict, List, Type, cast  # noqa: UP035
 
 from braces.views import (
     FormInvalidMessageMixin,
@@ -10,6 +11,7 @@ from braces.views import (
     MessageMixin,
     PermissionRequiredMixin,
 )
+from django.conf import settings as django_settings
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Model, QuerySet
@@ -17,6 +19,7 @@ from django.forms import Form, ModelForm
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext as _
 from django.views.generic import (
     CreateView,
@@ -53,6 +56,7 @@ from .forms import (
 from .importers import SphinxPackageImporter
 from .logging import logger
 from .models import Classifier, Project, ProjectRelatedLink, SphinxPage, Version
+from .settings import NAVBAR_CLASS_SETTING
 from .wildewidgets import (
     PagedSearchLayout,
     ProjectClassifierListWidget,
@@ -84,11 +88,86 @@ if TYPE_CHECKING:
 # ===========================
 
 
+@lru_cache(maxsize=64)
+def _resolve_navbar_class(path: str | None) -> Type[Navbar]:
+    """
+    Resolve one dotted-path setting into a :py:class:`wildewidgets.Navbar` class.
+
+    Args:
+        path: Dotted import path for a ``Navbar`` subclass, or ``None``.
+
+    Returns:
+        The resolved ``Navbar`` subclass.
+
+    Raises:
+        TypeError: The resolved object is not a ``Navbar`` subclass.
+
+    """
+    if not path:
+        return SphinxHostingSidebar
+    navbar_class = import_string(path)
+    if not isinstance(navbar_class, type) or not issubclass(navbar_class, Navbar):
+        msg = (
+            f"SPHINX_HOSTING_SETTINGS['{NAVBAR_CLASS_SETTING}'] must resolve to a "
+            f"wildewidgets.Navbar subclass, got '{type(navbar_class).__name__}'."
+        )
+        raise TypeError(msg)
+    return cast("Type[Navbar]", navbar_class)
+
+
+def get_configured_navbar_class() -> Type[Navbar]:
+    """
+    Return the configured navbar class for all ``sphinx_hosting`` views.
+
+    Returns:
+        The configured ``Navbar`` subclass, or ``SphinxHostingSidebar``.
+
+    Raises:
+        TypeError: ``NAVBAR_CLASS`` is not a dotted-path string.
+        TypeError: ``NAVBAR_CLASS`` resolves to a non-navbar object.
+
+    """
+    app_settings: dict[str, Any] = getattr(
+        django_settings, "SPHINX_HOSTING_SETTINGS", {}
+    )
+    path = app_settings.get(NAVBAR_CLASS_SETTING)
+    if path in ("", None):
+        return _resolve_navbar_class(None)
+    if not isinstance(path, str):
+        msg = (
+            f"SPHINX_HOSTING_SETTINGS['{NAVBAR_CLASS_SETTING}'] must be a "
+            "dotted-path string."
+        )
+        raise TypeError(msg)
+    return _resolve_navbar_class(path)
+
+
 class ClassifierViewSet(ModelViewSet):
+    """
+    Viewset for classifier lookups used by the docs-hosting UI.
+    """
+
     model = Classifier
     template_name = "sphinx_hosting/base.html"
     breadcrumbs_class = SphinxHostingBreadcrumbs
     navbar_class = SphinxHostingSidebar
+
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize this viewset and apply navbar overrides from settings.
+
+        Args:
+            args: Positional arguments forwarded to ``ModelViewSet``.
+
+        Keyword Args:
+            kwargs: Keyword arguments forwarded to ``ModelViewSet``.
+
+        Side Effects:
+            Updates ``self.navbar_class`` based on runtime settings.
+
+        """
+        super().__init__(*args, **kwargs)
+        self.navbar_class = get_configured_navbar_class()
 
 
 # ===========================
@@ -98,6 +177,16 @@ class ClassifierViewSet(ModelViewSet):
 
 class SphinxHostingMenuMixin(NavbarMixin):
     navbar_class: Type[Navbar] = SphinxHostingSidebar
+
+    def get_navbar_class(self) -> Type[Navbar]:
+        """
+        Return the navbar class configured for ``sphinx_hosting`` views.
+
+        Returns:
+            The configured ``Navbar`` subclass.
+
+        """
+        return get_configured_navbar_class()
 
 
 class WildewidgetsMixin(StandardWidgetMixin):  # pylint: disable=abstract-method
@@ -378,7 +467,7 @@ class ProjectRelatedLinkCreateView(
             "project.relatedlink.create.success project=%s link_id=%s "
             "link_title=%s link_url=%s",
             link.project.machine_name,  # type: ignore[attr-defined]
-            link.id,
+            link.id,  # type: ignore[attr-defined]
             link.title,
             link.uri,
         )

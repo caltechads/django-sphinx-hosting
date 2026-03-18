@@ -61,7 +61,7 @@ Issues = "https://github.com/caltechads/django-sphinx-hosting/issues"
 
 [tool.uv]
 python-preference = "only-system"
-default-groups = ["docs", "demo"]
+default-groups = ["docs", "demo", "test"]
 
 [dependency-groups]
 docs = [
@@ -87,8 +87,22 @@ demo = [
     "libsass>=0.23.0",
     "opensearch-py>=3.1.0",
 ]
+test = [
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "pytest-mock>=3.14.0",
+    "pytest-env>=0.8.1",
+    "pytest-timeout>=2.1.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-randomly>=3.12.0",
+    "pytest-django>=4.11.1",
+    "pytest-playwright>=0.7.2",
+]
 dev = [
     "ipython>=7.23.0",
+    "django-stubs==5.1.1",
+    "mypy>=1.19.1",
+    "ruff>=0.15.5",
 ]
 
 

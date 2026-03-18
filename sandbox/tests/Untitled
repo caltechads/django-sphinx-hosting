@@ -1,0 +1,18 @@
+This will be the first time we are working on this repository together and I want to build some baseline memories for agents to refer to about what this codebase is for, the features it has, limitations, test harness, data flow, etc.
+
+Please do a deep analysis of this codebase and its documentation and save some foundational memories to memory MCP.
+
+Technical considerations:
+- Read AGENTS.md before doing anything
+- Set up aidex
+- do a deep symbol scan with code-index
+- use context7 to learn about django-ldaporm, django-wildewidgets and any other non-private package
+
+Please do a deep analysis of this codebase and its documentation and save some foundational memories to memory MCP.
+
+Technical considerations:
+- Read AGENTS.md before doing anything
+- Set up aidex
+- do a deep symbol scan with code-index
+- use context7 to learn about django-ldaporm, django-wildewidgets and any other non-private package
+- Show me the text of the memories you are storing

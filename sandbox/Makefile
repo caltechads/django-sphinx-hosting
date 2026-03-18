@@ -69,5 +69,19 @@ docker-destroy-db: docker-clean
 
 docker-destroy: docker-clean docker-destroy-db
 
+test:
+	@echo "Starting sphinx_hosting_demo..."
+	docker compose up -d
+	@echo "Waiting for sphinx_hosting_demo to be up on port 443..."
+	@until nc -z localhost 443; do \
+		echo "Still waiting for container..."; \
+		sleep 2; \
+	done
+	@if [ -z "$(ARGS)" ]; then \
+		docker exec sphinx_hosting_demo /bin/bash -c "TESTING=True DJANGO_SETTINGS_MODULE=demo.settings pytest -c pyproject.toml -m 'not integration' /ve/lib/python3.13/site-packages/sphinx_hosting/tests"; \
+	else \
+		docker exec sphinx_hosting_demo /bin/bash -c "TESTING=True DJANGO_SETTINGS_MODULE=demo.settings pytest -c pyproject.toml $(ARGS)"; \
+	fi;
+
 list:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs

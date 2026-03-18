@@ -1,6 +1,5 @@
 import os  # noqa: INP001
 import sys
-from typing import Dict, List, Optional, Tuple  # noqa: UP035
 
 import sphinx_rtd_theme  # pylint: disable=unused-import  # noqa:F401
 
@@ -36,7 +35,7 @@ release: str = "1.7.1"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions: List[str] = [
+extensions: list[str] = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
@@ -49,12 +48,12 @@ extensions: List[str] = [
 source_suffix: str = ".rst"
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path: List[str] = ["_templates"]
+templates_path: list[str] = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns: List[str] = ["_build"]
+exclude_patterns: list[str] = ["_build"]
 
 add_function_parentheses: bool = False
 add_module_names: bool = True
@@ -63,10 +62,10 @@ add_module_names: bool = True
 autodoc_member_order: str = "groupwise"
 
 # Make Sphinx not expand all our Type Aliases
-autodoc_type_aliases: Dict[str, str] = {}
+autodoc_type_aliases: dict[str, str] = {}
 
 # the locations and names of other projects that should be linked to this one
-intersphinx_mapping: Dict[str, Tuple[str, Optional[str]]] = {  # noqa: FA100
+intersphinx_mapping: dict[str, tuple[str, str | None]] = {
     "python": ("https://docs.python.org/3", None),
     "django": (
         "http://docs.djangoproject.com/en/dev/",
@@ -76,7 +75,7 @@ intersphinx_mapping: Dict[str, Tuple[str, Optional[str]]] = {  # noqa: FA100
 }
 
 # Configure the path to the Django settings module
-django_settings: str = "demo.settings"
+django_settings: str = "demo.settings_docker"
 # Include the database table names of Django models
 django_show_db_tables: bool = True
 

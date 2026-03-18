@@ -1,5 +1,6 @@
 import os
 
+os.environ["TESTING"] = "True"
 os.environ["DB_NAME"] = "fake"
 os.environ["DB_USER"] = "fake"
 os.environ["DB_PASSWORD"] = "fake"  # noqa: S105

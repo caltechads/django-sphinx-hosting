@@ -220,13 +220,6 @@ class VersionUploadView(APIView):
                 return Response(
                     {"status": "error", "message": str(e)},
                 )
-            except Exception:
-                # Move the problematic file to a known location so we can
-                # inspect it later.
-                # semgrep-reason:
-                #   This is a temporary file that we can inspect later.
-                # nosemgrep
-                raise
 
         data = {
             "status": "success",

@@ -10,6 +10,7 @@ django-sphinx-hosting
    overview/packaging
    overview/authoring
    overview/importing
+   overview/navigation_customization
    overview/api
 
 .. toctree::
@@ -123,8 +124,17 @@ Full example:
       'LOGO_IMAGE': 'core/images/my-org-logo.png',
       'LOGO_WIDTH': '75%',
       'LOGO_URL': 'https://www.example.com',
-      'SITE_NAME': 'MyOrg Documentation'
-      'EXCLUDE_FROM_LATEST': ['*.dev*', '*.beta*']
+      'SITE_NAME': 'MyOrg Documentation',
+      'EXCLUDE_FROM_LATEST': ['*.dev*', '*.beta*'],
+      'EXTRA_MENU_ITEMS': [
+         {
+            'text': 'REST API',
+            'icon': 'diagram-3',
+            'url': '/api/v1/schema/swagger-ui/'
+         }
+      ],
+      'MENU_ITEM_BUILDERS': ['myproject.core.navigation.build_menu_items'],
+      'NAVBAR_CLASS': 'myproject.core.wildewidgets.MainMenu',
    }
 
 ``LOGO_IMAGE``
@@ -146,6 +156,43 @@ Full example:
    number matches any of these patterns, it will not be marked as latest in the
    database and will not be indexed in the search engine.  The default list of
    patterns is ``['*.dev*', '*.alpha*', '*.beta*', '*.rc*']``.
+
+``EXTRA_MENU_ITEMS``
+   Add static top-level menu items to the primary sidebar menu.
+
+   Each list entry must be either:
+
+   * a ``wildewidgets.MenuItem`` instance
+   * a dict with keys ``text`` (required), ``url``, ``icon``, ``items``, and
+     ``active``
+
+   ``icon`` values must use Bootstrap Icons names such as ``diagram-3`` or
+   ``life-preserver``.
+
+   Unknown keys raise an error at request time.
+
+``MENU_ITEM_BUILDERS``
+   Add conditional top-level menu items at request time via dotted-path
+   callables.
+
+   Builder contract::
+
+      def build_items(*, request, user, menu):
+          return None | MenuItem | dict | Iterable[MenuItem | dict]
+
+   Builders are evaluated in list order after built-in conditional items.
+   Exceptions from builders are not swallowed and will propagate.
+
+``NAVBAR_CLASS``
+   Override the sidebar class used by all ``sphinx_hosting`` views.  This must
+   resolve to a ``wildewidgets.Navbar`` subclass.
+
+Upgrade note
+""""""""""""
+
+Navigation item configuration is now strict.  Invalid menu item schemas, unknown
+keys, or invalid builder return types will raise explicit request-time errors.
+This keeps configuration bugs visible and easy to diagnose.
 
 Configure django-wildewidgets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -288,6 +335,3 @@ Update your top-level urlconf
       path('/docs/wildewidgets_json', WildewidgetDispatch.as_view(), name='wildewidgets_json'),
       path('api/v1/', include(sphinx_hosting_api_urls, namespace='sphinx_hosting_api')),
    ]
-
-
-

@@ -15,6 +15,12 @@ Navigation
 
 These widgets are used on every page.
 
+Navigation customization settings:
+
+* ``SPHINX_HOSTING_SETTINGS['EXTRA_MENU_ITEMS']``
+* ``SPHINX_HOSTING_SETTINGS['MENU_ITEM_BUILDERS']``
+* ``SPHINX_HOSTING_SETTINGS['NAVBAR_CLASS']``
+
 .. autoclass:: SphinxHostingSidebar
     :members:
 

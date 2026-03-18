@@ -60,7 +60,7 @@ if TESTING:
     DATABASES: dict[str, dict[str, Any]] = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR.path("db.sqlite3"),
+            "NAME": str(BASE_DIR.path("db.sqlite3")),
         }
     }
 else:
@@ -423,6 +423,22 @@ ACADEMY_THEME_SETTINGS: dict[str, Any] = {
 # django-wildewidgets
 # ------------------------------------------------------------------------------
 WILDEWIDGETS_DATETIME_FORMAT: str = "%Y-%m-%d %H:%M %Z"
+
+# django-sphinx-hosting
+# ------------------------------------------------------------------------------
+#: Local configuration showing host-project navigation extensibility.
+SPHINX_HOSTING_SETTINGS: dict[str, Any] = {
+    "SITE_NAME": "Sphinx Hosting Demo",
+    "EXTRA_MENU_ITEMS": [
+        {
+            "text": "REST API",
+            "icon": "diagram-3",
+            "url": "/api/v1/schema/swagger-ui/",
+        },
+    ],
+    "MENU_ITEM_BUILDERS": ["demo.core.wildewidgets.build_support_menu_item"],
+    "NAVBAR_CLASS": "demo.core.wildewidgets.MainMenu",
+}
 
 # django-xff
 # ------------------------------------------------------------------------------
