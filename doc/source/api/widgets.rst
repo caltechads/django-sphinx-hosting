@@ -27,9 +27,6 @@ Navigation customization settings:
 .. autoclass:: SphinxHostingMainMenu
     :members:
 
-.. autoclass:: SphinxHostingLookupsMenu
-    :members:
-
 .. autoclass:: SphinxHostingBreadcrumbs
     :members:
 
@@ -50,9 +47,6 @@ These widgets are used on the project listing and details pages.
     :members:
 
 .. autoclass:: ProjectDetailWidget
-    :members:
-
-.. autoclass:: ProjectTableWidget
     :members:
 
 .. autoclass:: ProjectTableWidget

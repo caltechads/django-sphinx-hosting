@@ -1,16 +1,16 @@
 from django.urls import URLPattern, path, re_path
 
+from .project_detail_view import ProjectDetailView
+from .project_update_view import ProjectUpdateView
 from .views import (
     ClassifierViewSet,
     GlobalSphinxPageSearchView,
     ProjectCreateView,
     ProjectDeleteView,
-    ProjectDetailView,
     ProjectListView,
     ProjectRelatedLinkCreateView,
     ProjectRelatedLinkDeleteView,
     ProjectRelatedLinkUpdateView,
-    ProjectUpdateView,
     SphinxPageDetailView,
     VersionDeleteView,
     VersionDetailView,

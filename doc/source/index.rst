@@ -11,6 +11,7 @@ django-sphinx-hosting
    overview/authoring
    overview/importing
    overview/navigation_customization
+   overview/project_detail_customization
    overview/api
 
 .. toctree::
@@ -135,6 +136,9 @@ Full example:
       ],
       'MENU_ITEM_BUILDERS': ['myproject.core.navigation.build_menu_items'],
       'NAVBAR_CLASS': 'myproject.core.wildewidgets.MainMenu',
+      'PROJECT_DETAIL_LAYOUT_BUILDERS': [
+         'myproject.core.wildewidgets.extend_project_detail_layout',
+      ],
    }
 
 ``LOGO_IMAGE``
@@ -186,6 +190,18 @@ Full example:
 ``NAVBAR_CLASS``
    Override the sidebar class used by all ``sphinx_hosting`` views.  This must
    resolve to a ``wildewidgets.Navbar`` subclass.
+
+``PROJECT_DETAIL_LAYOUT_BUILDERS``
+   Add request-time project detail customizations via dotted-path callables.
+
+   Builder contract::
+
+      def extend_project_detail_layout(*, request, user, project, layout, view):
+          return None
+
+   Builders run only on ``ProjectDetailView`` after the built-in widgets and
+   sidebar actions are added. Any widgets appended through ``layout.add_widget``
+   appear after the package's default project-detail sections.
 
 Upgrade note
 """"""""""""

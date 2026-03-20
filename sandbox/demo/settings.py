@@ -438,16 +438,22 @@ SPHINX_HOSTING_SETTINGS: dict[str, Any] = {
     ],
     "MENU_ITEM_BUILDERS": ["demo.core.wildewidgets.build_support_menu_item"],
     "NAVBAR_CLASS": "demo.core.wildewidgets.MainMenu",
+    "PROJECT_DETAIL_LAYOUT_BUILDERS": [
+        "demo.core.wildewidgets.extend_project_detail_layout"
+    ],
 }
 
 # django-xff
 # ------------------------------------------------------------------------------
+#: The number of trusted proxies expected in front of the demo app.
 XFF_TRUSTED_PROXY_DEPTH: int = env.int("XFF_TRUSTED_PROXY_DEPTH", default=1)
+#: Whether the demo app requires an X-Forwarded-For header from proxies.
 XFF_HEADER_REQUIRED: bool = env.bool("XFF_HEADER_REQUIRED", default=False)
 
 # Django REST Framework
 # ------------------------------------------------------------------------------
 # REST Framework
+#: Django REST Framework settings for the demo API surface.
 REST_FRAMEWORK: dict[str, Any] = {
     # https://www.django-rest-framework.org/api-guide/throttling/
     "DEFAULT_THROTTLE_CLASSES": ("rest_framework.throttling.UserRateThrottle",),
@@ -472,6 +478,7 @@ REST_FRAMEWORK: dict[str, Any] = {
 # drf-spectacular
 # ------------------------------------------------------------------------------
 # https://drf-spectacular.readthedocs.io/en/latest/settings.html
+#: OpenAPI schema metadata and presentation settings for the demo API docs.
 SPECTACULAR_SETTINGS: dict[str, Any] = {
     "SCHEMA_PATH_PREFIX": r"/api/v1",
     "SERVERS": [{"url": "https://localhost", "description": "Django Sphinx Hosting"}],
@@ -547,12 +554,14 @@ will retrieve 50 projects instead of 100.
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 # We don't enable the debug toolbar unless DEVELOPMENT is also True.
+#: Whether the Django Debug Toolbar should be enabled for local development.
 ENABLE_DEBUG_TOOLBAR = DEVELOPMENT and env.bool("ENABLE_DEBUG_TOOLBAR", default=False)
 if ENABLE_DEBUG_TOOLBAR:
     # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#prerequisites
     INSTALLED_APPS += ["debug_toolbar"]
     # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
     MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+    #: Enabled Django Debug Toolbar panels for the demo app.
     DEBUG_TOOLBAR_PANELS = [
         "debug_toolbar.panels.versions.VersionsPanel",
         "debug_toolbar.panels.timer.TimerPanel",
@@ -568,6 +577,7 @@ if ENABLE_DEBUG_TOOLBAR:
         "debug_toolbar.panels.redirects.RedirectsPanel",
     ]
     # https://django-debug-toolbar.readthedocs.io/en/latest/configuration.html#debug-toolbar-config
+    #: Runtime configuration for the Django Debug Toolbar.
     DEBUG_TOOLBAR_CONFIG = {
         "SHOW_TEMPLATE_CONTEXT": True,
         "SHOW_TOOLBAR_CALLBACK": lambda: True,
@@ -579,19 +589,26 @@ if DEVELOPMENT and env.bool("ENABLE_QUERYINSPECT", default=False):
     # Configure django-queryinspect
     MIDDLEWARE += ["qinspect.middleware.QueryInspectMiddleware"]
     # Whether the Query Inspector should do anything (default: False)
+    #: Whether django-queryinspect is enabled for the current process.
     QUERY_INSPECT_ENABLED = True
     # Whether to log the stats via Django logging (default: True)
+    #: Whether query-inspection aggregate stats should be logged.
     QUERY_INSPECT_LOG_STATS = True
     # Whether to add stats headers (default: True)
+    #: Whether query-inspection response headers should be emitted.
     QUERY_INSPECT_HEADER_STATS = False
     # Whether to log duplicate queries (default: False)
+    #: Whether repeated SQL queries should be logged.
     QUERY_INSPECT_LOG_QUERIES = True
     # Whether to log queries that are above an absolute limit (default: None - disabled)
+    #: Slow-query threshold in milliseconds for query-inspection logging.
     QUERY_INSPECT_ABSOLUTE_LIMIT = 100  # in milliseconds
     # Whether to log queries that are more than X standard deviations above the
     # mean query time (default: None)
+    #: Standard-deviation threshold for unusually slow queries.
     QUERY_INSPECT_STANDARD_DEVIATION_LIMIT = 2
     # Whether to include tracebacks in the logs (default: False)
+    #: Whether query-inspection logs should include Python tracebacks.
     QUERY_INSPECT_LOG_TRACEBACKS = False
     # Uncomment this to filter traceback output to include only lines of our
     # app's first-party code.  I personally don't find this useful, because the

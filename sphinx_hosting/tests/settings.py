@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 from demo.settings import *  # noqa: F403
 
 HAYSTACK_CONNECTIONS = {
@@ -6,4 +8,8 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 
-DATABASES["default"]["NAME"] = str(DATABASES["default"]["NAME"])  # noqa: F405
+DATABASES = cast("dict[str, dict[str, Any]]", globals()["DATABASES"])
+DATABASES["default"] = {
+    "ENGINE": "django.db.backends.sqlite3",
+    "NAME": ":memory:",
+}

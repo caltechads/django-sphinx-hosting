@@ -73,3 +73,5 @@ views unchanged.
 
 The demo project in ``sandbox/demo/settings.py`` includes a complete working
 example using ``EXTRA_MENU_ITEMS``, ``MENU_ITEM_BUILDERS``, and ``NAVBAR_CLASS``.
+
+For project-detail page extensions, see :doc:`project_detail_customization`.

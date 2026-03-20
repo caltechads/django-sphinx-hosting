@@ -125,7 +125,7 @@ class SphinxPageTree:
     """
 
     def __init__(self, version: "Version") -> None:
-        #: The :py:class:`Version that this tree examines
+        #: The :py:class:`Version` that this tree examines
         self.version: Version = version
         self.nodes: Dict[int, TreeNode] = {}
         self.nodes[self.version.head.id] = TreeNode.from_page(self.version.head)  # type: ignore[attr-defined, arg-type]
@@ -715,7 +715,7 @@ class Project(ViewSetMixin, TimeStampedModel, models.Model):
 
 class Version(TimeStampedModel, models.Model):
     """
-    A ``Version`` is a specific version of a :py:class:`Project`.  Versions own
+    A ``Version`` is a specific version of a :py:class:`Project`. Versions own
     :py:class:`SphinxPage` objects.
     """
 
@@ -856,8 +856,8 @@ class Version(TimeStampedModel, models.Model):
 class SphinxPage(TimeStampedModel, models.Model):
     """
     A ``SphinxPage`` is a single page of a set of Sphinx documentation.
-    ``SphinxPage`` objects are owned :py:class:`Version` objects, which are in
-    turn owned by :py:class:`Project` objects.
+    ``SphinxPage`` objects are owned by :py:class:`Version` objects, which are
+    in turn owned by :py:class:`Project` objects.
     """
 
     #: This is a mapping between filename and title that identifies the

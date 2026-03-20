@@ -63,6 +63,13 @@ autodoc_member_order: str = "groupwise"
 
 # Make Sphinx not expand all our Type Aliases
 autodoc_type_aliases: dict[str, str] = {}
+# Mock optional runtime-only search backends so autodoc can import the package
+# without requiring the full OpenSearch stack locally.
+autodoc_mock_imports: list[str] = [
+    "django_haystack_opensearch",
+    "opensearchpy",
+    "elasticsearch",
+]
 
 # the locations and names of other projects that should be linked to this one
 intersphinx_mapping: dict[str, tuple[str, str | None]] = {
