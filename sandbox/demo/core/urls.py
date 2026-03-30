@@ -1,12 +1,31 @@
 from typing import Final
 
-from django.urls import include, path
+from django.urls import path
 
-from sphinx_hosting import urls as sphinx_hosting_urls
+from .views import (
+    SearchNoteCreateView,
+    SearchNoteDeleteView,
+    SearchNoteDetailView,
+    SearchNoteListView,
+    SearchNoteUpdateView,
+)
 
-# These URLs are loaded by demo/urls.py.
+#: Application namespace for the demo ``core`` URL patterns.
 app_name: Final[str] = "core"
 
+#: CRUD routes for the demo-only ``SearchNote`` model.
 urlpatterns = [
-    path("", include(sphinx_hosting_urls, namespace="sphinx_hosting")),
+    path("notes/", SearchNoteListView.as_view(), name="searchnote--list"),
+    path("notes/create/", SearchNoteCreateView.as_view(), name="searchnote--create"),
+    path("notes/<int:pk>/", SearchNoteDetailView.as_view(), name="searchnote--detail"),
+    path(
+        "notes/<int:pk>/update/",
+        SearchNoteUpdateView.as_view(),
+        name="searchnote--update",
+    ),
+    path(
+        "notes/<int:pk>/delete/",
+        SearchNoteDeleteView.as_view(),
+        name="searchnote--delete",
+    ),
 ]

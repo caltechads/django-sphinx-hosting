@@ -1,10 +1,10 @@
 from django.urls import URLPattern, path, re_path
 
+from .global_search_view import GlobalSphinxPageSearchView
 from .project_detail_view import ProjectDetailView
 from .project_update_view import ProjectUpdateView
 from .views import (
     ClassifierViewSet,
-    GlobalSphinxPageSearchView,
     ProjectCreateView,
     ProjectDeleteView,
     ProjectListView,

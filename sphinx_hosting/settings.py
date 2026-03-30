@@ -13,6 +13,8 @@ MENU_ITEM_BUILDERS_SETTING: str = "MENU_ITEM_BUILDERS"
 NAVBAR_CLASS_SETTING: str = "NAVBAR_CLASS"
 #: The setting key for project-detail layout builder callables.
 PROJECT_DETAIL_LAYOUT_BUILDERS_SETTING: str = "PROJECT_DETAIL_LAYOUT_BUILDERS"
+#: The setting key for host-project unified-search result renderers.
+SEARCH_RESULT_RENDERERS_SETTING: str = "SEARCH_RESULT_RENDERERS"
 
 #: The django path to the logo image.
 LOGO_IMAGE: str = static(
