@@ -2,7 +2,7 @@ import os
 import tempfile
 from functools import lru_cache
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Dict, List, Type, cast  # noqa: UP035
+from typing import TYPE_CHECKING, Any, Dict, Type, cast  # noqa: UP035
 
 from braces.views import (
     FormInvalidMessageMixin,

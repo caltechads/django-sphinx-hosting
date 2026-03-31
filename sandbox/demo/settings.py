@@ -436,11 +436,14 @@ SPHINX_HOSTING_SETTINGS: dict[str, Any] = {
             "url": "/api/v1/schema/swagger-ui/",
         },
     ],
-    "MENU_ITEM_BUILDERS": ["demo.core.wildewidgets.build_support_menu_item"],
+    "MENU_ITEM_BUILDERS": ["demo.core.wildewidgets.build_search_notes_menu_item"],
     "NAVBAR_CLASS": "demo.core.wildewidgets.MainMenu",
     "PROJECT_DETAIL_LAYOUT_BUILDERS": [
         "demo.core.wildewidgets.extend_project_detail_layout"
     ],
+    "SEARCH_RESULT_RENDERERS": {
+        "core.SearchNote": "demo.core.search.render_search_note_result",
+    },
 }
 
 # django-xff

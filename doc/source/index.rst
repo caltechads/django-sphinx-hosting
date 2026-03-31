@@ -12,6 +12,7 @@ django-sphinx-hosting
    overview/importing
    overview/navigation_customization
    overview/project_detail_customization
+   overview/unified_search
    overview/api
 
 .. toctree::
@@ -139,6 +140,9 @@ Full example:
       'PROJECT_DETAIL_LAYOUT_BUILDERS': [
          'myproject.core.wildewidgets.extend_project_detail_layout',
       ],
+      'SEARCH_RESULT_RENDERERS': {
+         'myproject.SearchNote': 'myproject.core.search.render_search_note_result',
+      },
    }
 
 ``LOGO_IMAGE``
@@ -202,6 +206,22 @@ Full example:
    Builders run only on ``ProjectDetailView`` after the built-in widgets and
    sidebar actions are added. Any widgets appended through ``layout.add_widget``
    appear after the package's default project-detail sections.
+
+``SEARCH_RESULT_RENDERERS``
+   Add host-model result renderers to unified global search.
+
+   Each key must be a Django model label such as ``core.SearchNote`` and each
+   value must be a dotted-path callable that renders one Haystack
+   ``SearchResult`` for that model.
+
+   Renderer contract::
+
+      def render_result(*, result, request, user, view):
+          return Widget(...)
+
+   Host models only participate in unified search when they have both a
+   registered Haystack ``SearchIndex`` and a renderer entry here. See
+   :doc:`overview/unified_search` for the complete setup.
 
 Upgrade note
 """"""""""""

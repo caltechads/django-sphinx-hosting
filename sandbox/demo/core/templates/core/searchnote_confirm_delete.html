@@ -1,0 +1,17 @@
+<div class="card shadow-sm border-danger-subtle">
+  <div class="card-body">
+    <h2 class="mb-3">Delete Search Note</h2>
+    <p class="mb-2">
+      You are about to delete <strong>{{ note.title }}</strong>.
+    </p>
+    <p class="text-muted">
+      This removes the note from the demo CRUD pages and from future unified-search indexing runs.
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn btn-danger" type="submit">Delete note</button>
+      <a class="btn btn-outline-secondary" href="{{ note.get_absolute_url }}">Cancel</a>
+    </form>
+  </div>
+</div>

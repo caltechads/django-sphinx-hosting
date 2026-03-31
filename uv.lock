@@ -486,6 +486,22 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/b4/09/623634ca5f8b9fe99d07d284491724eb1b0704022e942a1fe815c1d13a02/django_haystack-3.3.0.tar.gz", hash = "sha256:e3ceed6b8000625da14d409eb4dac69894905e2ac8ac18f9bfdb59323ca02eab", size = 467287, upload-time = "2024-06-04T15:09:58.707Z" }
 
 [[package]]
+name = "django-haystack-opensearch"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "build" },
+    { name = "django", version = "5.2.12", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "django", version = "6.0.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "django-haystack" },
+    { name = "opensearch-py" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/79/4e/4eb17f072c492d2524166629e2af6e8beb18ebfd1c1f20b71c3c4dabf10d/django_haystack_opensearch-1.0.0.tar.gz", hash = "sha256:95815cf057da071d14a0cbac99dde98b5a1a1f39979a245bdab1833cd6253ff5", size = 94623, upload-time = "2026-01-16T23:09:16.332Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/68/87/12f74217b8f04e789a6f7dda2fa69ff77c9b2b78f088fb01ff84bef1cb83/django_haystack_opensearch-1.0.0-py3-none-any.whl", hash = "sha256:942256a8d7a645494d520f6346350f489390fb49e2074e71c9602b1296dd17e3", size = 103730, upload-time = "2026-01-16T23:09:14.584Z" },
+]
+
+[[package]]
 name = "django-rest-framework-helpers"
 version = "8.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -510,7 +526,7 @@ wheels = [
 
 [[package]]
 name = "django-sphinx-hosting"
-version = "1.8.1"
+version = "1.9.0"
 source = { editable = "." }
 dependencies = [
     { name = "crispy-bootstrap5" },
@@ -539,6 +555,7 @@ demo = [
     { name = "django-crequest" },
     { name = "django-debug-toolbar" },
     { name = "django-environ" },
+    { name = "django-haystack-opensearch" },
     { name = "django-sass-processor" },
     { name = "django-sphinx-hosting" },
     { name = "django-xff" },
@@ -605,6 +622,7 @@ demo = [
     { name = "django-crequest", specifier = ">=2018.5.11" },
     { name = "django-debug-toolbar", specifier = ">=4.4.2" },
     { name = "django-environ", specifier = ">=0.11.2" },
+    { name = "django-haystack-opensearch", specifier = ">=1.0.0" },
     { name = "django-sass-processor", specifier = ">=1.4.1" },
     { name = "django-sphinx-hosting" },
     { name = "django-xff", specifier = ">=1.3.0" },
@@ -1634,16 +1652,16 @@ wheels = [
 
 [[package]]
 name = "pytest-cov"
-version = "7.0.0"
+version = "7.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "coverage", extra = ["toml"] },
     { name = "pluggy" },
     { name = "pytest" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5e/f7/c933acc76f5208b3b00089573cf6a2bc26dc80a8aece8f52bb7d6b1855ca/pytest_cov-7.0.0.tar.gz", hash = "sha256:33c97eda2e049a0c5298e91f519302a1334c26ac65c1a483d6206fd458361af1", size = 54328, upload-time = "2025-09-09T10:57:02.113Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b1/51/a849f96e117386044471c8ec2bd6cfebacda285da9525c9106aeb28da671/pytest_cov-7.1.0.tar.gz", hash = "sha256:30674f2b5f6351aa09702a9c8c364f6a01c27aae0c1366ae8016160d1efc56b2", size = 55592, upload-time = "2026-03-21T20:11:16.284Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ee/49/1377b49de7d0c1ce41292161ea0f721913fa8722c19fb9c1e3aa0367eecb/pytest_cov-7.0.0-py3-none-any.whl", hash = "sha256:3b8e9558b16cc1479da72058bdecf8073661c7f57f7d3c5f22a1c23507f2d861", size = 22424, upload-time = "2025-09-09T10:57:00.695Z" },
+    { url = "https://files.pythonhosted.org/packages/9d/7a/d968e294073affff457b041c2be9868a40c1c71f4a35fcc1e45e5493067b/pytest_cov-7.1.0-py3-none-any.whl", hash = "sha256:a0461110b7865f9a271aa1b51e516c9a95de9d696734a2f71e3e78f46e1d4678", size = 22876, upload-time = "2026-03-21T20:11:14.438Z" },
 ]
 
 [[package]]

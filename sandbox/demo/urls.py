@@ -3,11 +3,14 @@ from django.contrib import admin
 from django.urls import include, path
 from wildewidgets import WildewidgetDispatch
 
+from demo.core import urls as core_urls
 from sphinx_hosting import urls as sphinx_hosting_urls
 from sphinx_hosting.api import urls as sphinx_hosting_api_urls
 
+#: Top-level URL patterns for the runnable demo project.
 urlpatterns = [
     path("", include(sphinx_hosting_urls, namespace="sphinx_hosting")),
+    path("", include((core_urls.urlpatterns, "core"), namespace="core")),
     path("api/v1/", include(sphinx_hosting_api_urls, namespace="sphinx_hosting_api")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("admin/", include(admin.site.urls[:2], namespace=admin.site.name)),
