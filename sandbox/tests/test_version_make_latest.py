@@ -12,7 +12,7 @@ from django.contrib.messages import get_messages
 from django.urls import reverse
 
 from sphinx_hosting.forms import VersionMakeLatestForm
-from sphinx_hosting.models import Project, Version
+from sphinx_hosting.models import Project, SphinxPage, Version
 
 
 @pytest.fixture
@@ -75,6 +75,38 @@ def test_clean_version_rejects_version_from_other_project(
 
 def _make_latest_url(slug: str) -> str:
     return reverse("sphinx_hosting:project--set-latest", kwargs={"slug": slug})
+
+
+def _version_detail_url(project_slug: str, version: str) -> str:
+    return reverse(
+        "sphinx_hosting:version--detail",
+        kwargs={"project_slug": project_slug, "version": version},
+    )
+
+
+def _create_version_with_head(
+    project: Project,
+    *,
+    version: str,
+    relative_path: str = "index",
+) -> Version:
+    version_obj = Version.objects.create(
+        project=project,
+        version=version,
+        sphinx_version="7.0.0",
+    )
+    page = SphinxPage.objects.create(
+        version=version_obj,
+        relative_path=relative_path,
+        content="{}",
+        title=f"{version} docs",
+        orig_body="<p>docs</p>",
+        body="<p>docs</p>",
+        searchable=True,
+    )
+    version_obj.head = page
+    version_obj.save()
+    return version_obj
 
 
 def _upload_url(slug: str) -> str:
@@ -214,3 +246,52 @@ def test_foreign_version_pk_does_not_write_and_redirects_with_errors(
     flashed = " ".join(str(message) for message in get_messages(response.wsgi_request))
     assert "version" in flashed.lower()
     assert "does not belong to this project" in flashed
+
+
+@pytest.mark.django_db
+def test_viewer_get_hides_set_latest_button_for_non_latest_with_head(
+    client, django_user_model, alpha_project: Project
+) -> None:
+    old_latest = _create_version_with_head(alpha_project, version="1.0.0")
+    non_latest = _create_version_with_head(alpha_project, version="2.0.0")
+    alpha_project.latest_version = old_latest
+    alpha_project.save()
+    _login_with_permissions(client, django_user_model, "viewer")
+
+    response = client.get(_version_detail_url("alpha", non_latest.version))
+
+    assert response.status_code == HTTPStatus.OK
+    assert "Set This As Latest" not in response.content.decode()
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("permission", ["change_project", "change_version"])
+def test_permitted_user_get_shows_set_latest_for_non_latest_with_head(
+    client, django_user_model, alpha_project: Project, permission: str
+) -> None:
+    old_latest = _create_version_with_head(alpha_project, version="1.0.0")
+    non_latest = _create_version_with_head(alpha_project, version="2.0.0")
+    alpha_project.latest_version = old_latest
+    alpha_project.save()
+    _login_with_permissions(client, django_user_model, permission, permission)
+
+    response = client.get(_version_detail_url("alpha", non_latest.version))
+
+    assert response.status_code == HTTPStatus.OK
+    assert "Set This As Latest" in response.content.decode()
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("permission", ["change_project", "change_version"])
+def test_permitted_user_get_hides_set_latest_when_already_latest(
+    client, django_user_model, alpha_project: Project, permission: str
+) -> None:
+    latest = _create_version_with_head(alpha_project, version="1.0.0")
+    alpha_project.latest_version = latest
+    alpha_project.save()
+    _login_with_permissions(client, django_user_model, permission, permission)
+
+    response = client.get(_version_detail_url("alpha", latest.version))
+
+    assert response.status_code == HTTPStatus.OK
+    assert "Set This As Latest" not in response.content.decode()

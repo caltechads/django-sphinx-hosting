@@ -613,6 +613,7 @@ class VersionDetailView(  # type: ignore[misc]
         layout.add_widget(VersionSphinxPageTableWidget(version_id=self.object.pk))
         layout.add_widget(VersionSphinxImageTableWidget(version_id=self.object.pk))
         layout.add_widget(VersionSphinxDocumentTableWidget(version_id=self.object.pk))
+        user = cast("AbstractUser", self.request.user)
         if self.object.head:
             layout.add_sidebar_link_button(
                 "Read Docs",
@@ -627,7 +628,10 @@ class VersionDetailView(  # type: ignore[misc]
                 color="primary",
                 css_class="mb-3",
             )
-            if self.object.project.latest_version != self.object:
+            if self.object.project.latest_version != self.object and (
+                user.has_perm("sphinxhostingcore.change_project")
+                or user.has_perm("sphinxhostingcore.change_version")
+            ):
                 layout.add_sidebar_form_button(
                     "Set This As Latest",
                     reverse(
@@ -642,7 +646,6 @@ class VersionDetailView(  # type: ignore[misc]
                     ),
                     data={"version": self.object.pk},
                 )
-        user = cast("AbstractUser", self.request.user)
         if user.has_perm("sphinxhostingcore.delete_version"):
             layout.add_sidebar_form_button(
                 "Delete Version",
