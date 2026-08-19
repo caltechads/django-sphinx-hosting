@@ -33,7 +33,8 @@ rights to manage :py:class:`sphinx_hosting.models.Classifier` objects.
 Project Managers
 ----------------
 
-Users in the ``Project Managers`` group can only manage projects.
+Users in the ``Project Managers`` group can only manage projects. Project
+Managers and Version Managers can Make Latest.
 
 
 Version Managers

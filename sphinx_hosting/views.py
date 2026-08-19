@@ -2,13 +2,14 @@ import os
 import tempfile
 from functools import lru_cache
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Dict, Type, cast  # noqa: UP035
+from typing import TYPE_CHECKING, Any, ClassVar, Dict, Type, cast  # noqa: UP035
 
 from braces.views import (
     FormInvalidMessageMixin,
     FormValidMessageMixin,
     LoginRequiredMixin,
     MessageMixin,
+    MultiplePermissionsRequiredMixin,
     PermissionRequiredMixin,
 )
 from django.conf import settings as django_settings
@@ -715,27 +716,90 @@ class VersionUploadView(
 
 
 class VersionMakeLatestView(
-    BaseFormView,
-    PermissionRequiredMixin,
+    LoginRequiredMixin,
+    MultiplePermissionsRequiredMixin,
     FormInvalidMessageMixin,
     FormValidMessageMixin,
-    LoginRequiredMixin,
+    BaseFormView,
 ):
-    permission_required: str = "sphinxhostingcore.update_project"
+    #: Braces OR of ``change_project`` and ``change_version``.
+    permissions: ClassVar[dict[str, tuple[str, ...]]] = {
+        "any": (
+            "sphinxhostingcore.change_project",
+            "sphinxhostingcore.change_version",
+        )
+    }
+    #: POST form that retargets Latest Version.
     form_class: Type[Form] = VersionMakeLatestForm
 
+    def get_form_kwargs(self) -> dict[str, Any]:
+        """
+        Supply the URL project slug to :py:class:`VersionMakeLatestForm`.
+
+        Returns:
+            Form keyword arguments including ``project_machine_name``.
+
+        """
+        kwargs = super().get_form_kwargs()
+        kwargs["project_machine_name"] = self.kwargs["slug"]
+        return kwargs
+
     def get_form_valid_message(self) -> str:
-        version = cast("Version", self.version)
+        """
+        Success message after Latest Version is retargeted.
+
+        Returns:
+            The user-facing success message.
+
+        """
+        version = cast("Version", self.object)
         return (
-            f'Uploaded version "{version.version}" to project "{version.project.title}"'  # type: ignore[attr-defined]
+            f'Set version "{version.version}" as latest for project '
+            f'"{version.project.title}"'  # type: ignore[attr-defined]
         )
 
-    def form_valid(self, form: Form):
+    def form_valid(self, form: Form) -> HttpResponse:
+        """
+        Persist the Make Latest change.
+
+        Side Effects:
+            Writes ``Project.latest_version`` and reindexes via the form.
+
+        Args:
+            form: The validated Make Latest form
+
+        Returns:
+            The success redirect response
+
+        """
         form = cast("VersionMakeLatestForm", form)
-        form.save()
+        self.object = form.save()
         return super().form_valid(form)
 
+    def form_invalid(self, form: Form) -> HttpResponse:
+        """
+        Flash form errors and redirect to the project update page.
+
+        Args:
+            form: The form that was submitted
+
+        Returns:
+            The redirect response
+
+        """
+        for k, errors in form.errors.as_data().items():
+            for error in errors:
+                messages.error(self.request, f"{k}: {error.message}")
+        return redirect("sphinx_hosting:project--update", self.kwargs["slug"])
+
     def get_success_url(self) -> str:
+        """
+        Return the project update URL for this slug.
+
+        Returns:
+            The redirect target after a successful POST.
+
+        """
         return reverse("sphinx_hosting:project--update", args=[self.kwargs["slug"]])
 
 
