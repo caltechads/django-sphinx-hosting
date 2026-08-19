@@ -725,6 +725,11 @@ class VersionMakeLatestView(
     FormValidMessageMixin,
     BaseFormView,
 ):
+    """
+    A POST only view that retargets Latest Version for a
+    :py:class:`sphinx_hosting.models.Project`.
+    """
+
     #: Braces OR of ``change_project`` and ``change_version``.
     permissions: ClassVar[dict[str, tuple[str, ...]]] = {
         "any": (
