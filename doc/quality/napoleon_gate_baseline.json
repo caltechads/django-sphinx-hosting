@@ -1,6 +1,6 @@
 {
   "generated_at_utc": "2026-03-18T22:11:11.889948+00:00",
-  "violation_count": 739,
+  "violation_count": 734,
   "violations": [
     {
       "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/__init__.py:1:DOC302:default_app_config",
@@ -3675,753 +3675,713 @@
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:145:DOC101:ClassifierViewSet",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:146:DOC101:ClassifierViewSet",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 145,
+      "line": 146,
       "code": "DOC101",
       "symbol": "ClassifierViewSet",
       "message": "Class with constructor arguments must document Args: in class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:150:DOC300:ClassifierViewSet.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:151:DOC300:ClassifierViewSet.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 150,
+      "line": 151,
       "code": "DOC300",
       "symbol": "ClassifierViewSet.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:151:DOC300:ClassifierViewSet.template_name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:152:DOC300:ClassifierViewSet.template_name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 151,
+      "line": 152,
       "code": "DOC300",
       "symbol": "ClassifierViewSet.template_name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:152:DOC300:ClassifierViewSet.breadcrumbs_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:153:DOC300:ClassifierViewSet.breadcrumbs_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 152,
+      "line": 153,
       "code": "DOC300",
       "symbol": "ClassifierViewSet.breadcrumbs_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:153:DOC300:ClassifierViewSet.navbar_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:154:DOC300:ClassifierViewSet.navbar_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 153,
+      "line": 154,
       "code": "DOC300",
       "symbol": "ClassifierViewSet.navbar_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:170:DOC301:ClassifierViewSet.navbar_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:171:DOC301:ClassifierViewSet.navbar_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 170,
+      "line": 171,
       "code": "DOC301",
       "symbol": "ClassifierViewSet.navbar_class",
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:178:DOC100:SphinxHostingMenuMixin",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:179:DOC100:SphinxHostingMenuMixin",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 178,
+      "line": 179,
       "code": "DOC100",
       "symbol": "SphinxHostingMenuMixin",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:179:DOC300:SphinxHostingMenuMixin.navbar_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:180:DOC300:SphinxHostingMenuMixin.navbar_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 179,
+      "line": 180,
       "code": "DOC300",
       "symbol": "SphinxHostingMenuMixin.navbar_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:198:DOC300:WildewidgetsMixin.template_name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:199:DOC300:WildewidgetsMixin.template_name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 198,
+      "line": 199,
       "code": "DOC300",
       "symbol": "WildewidgetsMixin.template_name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:215:DOC300:ProjectListView.menu_item",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:216:DOC300:ProjectListView.menu_item",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 215,
+      "line": 216,
       "code": "DOC300",
       "symbol": "ProjectListView.menu_item",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:217:DOC200:ProjectListView.get_content",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:218:DOC200:ProjectListView.get_content",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 217,
+      "line": 218,
       "code": "DOC200",
       "symbol": "ProjectListView.get_content",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:225:DOC200:ProjectListView.get_breadcrumbs",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:226:DOC200:ProjectListView.get_breadcrumbs",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 225,
+      "line": 226,
       "code": "DOC200",
       "symbol": "ProjectListView.get_breadcrumbs",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:238:DOC300:ProjectDetailView.menu_item",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:239:DOC300:ProjectDetailView.menu_item",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 238,
+      "line": 239,
       "code": "DOC300",
       "symbol": "ProjectDetailView.menu_item",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:240:DOC300:ProjectDetailView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:241:DOC300:ProjectDetailView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 240,
+      "line": 241,
       "code": "DOC300",
       "symbol": "ProjectDetailView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:241:DOC300:ProjectDetailView.slug_field",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:242:DOC300:ProjectDetailView.slug_field",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 241,
+      "line": 242,
       "code": "DOC300",
       "symbol": "ProjectDetailView.slug_field",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:243:DOC200:ProjectDetailView.get_content",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:244:DOC200:ProjectDetailView.get_content",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 243,
+      "line": 244,
       "code": "DOC200",
       "symbol": "ProjectDetailView.get_content",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:284:DOC200:ProjectDetailView.get_breadcrumbs",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:285:DOC200:ProjectDetailView.get_breadcrumbs",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 284,
+      "line": 285,
       "code": "DOC200",
       "symbol": "ProjectDetailView.get_breadcrumbs",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:303:DOC300:ProjectCreateView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:304:DOC300:ProjectCreateView.permission_required",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 303,
+      "line": 304,
       "code": "DOC300",
       "symbol": "ProjectCreateView.permission_required",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:304:DOC300:ProjectCreateView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:305:DOC300:ProjectCreateView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 304,
+      "line": 305,
       "code": "DOC300",
       "symbol": "ProjectCreateView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:305:DOC300:ProjectCreateView.form_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:306:DOC300:ProjectCreateView.form_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 305,
+      "line": 306,
       "code": "DOC300",
       "symbol": "ProjectCreateView.form_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:307:DOC200:ProjectCreateView.get_form_valid_message",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:308:DOC200:ProjectCreateView.get_form_valid_message",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 307,
+      "line": 308,
       "code": "DOC200",
       "symbol": "ProjectCreateView.get_form_valid_message",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:328:DOC200:ProjectCreateView.get_success_url",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:329:DOC200:ProjectCreateView.get_success_url",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 328,
+      "line": 329,
       "code": "DOC200",
       "symbol": "ProjectCreateView.get_success_url",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:333:DOC200:ProjectCreateView.get_form_invalid_message",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:334:DOC200:ProjectCreateView.get_form_invalid_message",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 333,
+      "line": 334,
       "code": "DOC200",
       "symbol": "ProjectCreateView.get_form_invalid_message",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:352:DOC300:ProjectUpdateView.menu_item",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:353:DOC300:ProjectUpdateView.menu_item",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 352,
+      "line": 353,
       "code": "DOC300",
       "symbol": "ProjectUpdateView.menu_item",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:354:DOC300:ProjectUpdateView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:355:DOC300:ProjectUpdateView.permission_required",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 354,
+      "line": 355,
       "code": "DOC300",
       "symbol": "ProjectUpdateView.permission_required",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:355:DOC300:ProjectUpdateView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:356:DOC300:ProjectUpdateView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 355,
+      "line": 356,
       "code": "DOC300",
       "symbol": "ProjectUpdateView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:356:DOC300:ProjectUpdateView.form_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:357:DOC300:ProjectUpdateView.form_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 356,
+      "line": 357,
       "code": "DOC300",
       "symbol": "ProjectUpdateView.form_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:357:DOC300:ProjectUpdateView.slug_field",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:358:DOC300:ProjectUpdateView.slug_field",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 357,
+      "line": 358,
       "code": "DOC300",
       "symbol": "ProjectUpdateView.slug_field",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:359:DOC200:ProjectUpdateView.get_content",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:360:DOC200:ProjectUpdateView.get_content",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 359,
+      "line": 360,
       "code": "DOC200",
       "symbol": "ProjectUpdateView.get_content",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:398:DOC200:ProjectUpdateView.get_breadcrumbs",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:399:DOC200:ProjectUpdateView.get_breadcrumbs",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 398,
+      "line": 399,
       "code": "DOC200",
       "symbol": "ProjectUpdateView.get_breadcrumbs",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:403:DOC200:ProjectUpdateView.get_form_valid_message",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:404:DOC200:ProjectUpdateView.get_form_valid_message",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 403,
+      "line": 404,
       "code": "DOC200",
       "symbol": "ProjectUpdateView.get_form_valid_message",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:406:DOC200:ProjectUpdateView.get_success_url",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:407:DOC200:ProjectUpdateView.get_success_url",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 406,
+      "line": 407,
       "code": "DOC200",
       "symbol": "ProjectUpdateView.get_success_url",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:417:DOC100:ProjectDeleteView",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:418:DOC100:ProjectDeleteView",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 417,
+      "line": 418,
       "code": "DOC100",
       "symbol": "ProjectDeleteView",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:418:DOC300:ProjectDeleteView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:419:DOC300:ProjectDeleteView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 418,
+      "line": 419,
       "code": "DOC300",
       "symbol": "ProjectDeleteView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:419:DOC300:ProjectDeleteView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:420:DOC300:ProjectDeleteView.permission_required",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 419,
+      "line": 420,
       "code": "DOC300",
       "symbol": "ProjectDeleteView.permission_required",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:420:DOC300:ProjectDeleteView.success_url",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:421:DOC300:ProjectDeleteView.success_url",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 420,
+      "line": 421,
       "code": "DOC300",
       "symbol": "ProjectDeleteView.success_url",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:421:DOC300:ProjectDeleteView.slug_field",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:422:DOC300:ProjectDeleteView.slug_field",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 421,
+      "line": 422,
       "code": "DOC300",
       "symbol": "ProjectDeleteView.slug_field",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:423:DOC200:ProjectDeleteView.delete",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:424:DOC200:ProjectDeleteView.delete",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 423,
+      "line": 424,
       "code": "DOC200",
       "symbol": "ProjectDeleteView.delete",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:438:DOC100:ProjectRelatedLinkCreateView",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:439:DOC100:ProjectRelatedLinkCreateView",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 438,
+      "line": 439,
       "code": "DOC100",
       "symbol": "ProjectRelatedLinkCreateView",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:441:DOC300:ProjectRelatedLinkCreateView.form_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:442:DOC300:ProjectRelatedLinkCreateView.form_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 441,
+      "line": 442,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkCreateView.form_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:442:DOC300:ProjectRelatedLinkCreateView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:443:DOC300:ProjectRelatedLinkCreateView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 442,
+      "line": 443,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkCreateView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:443:DOC300:ProjectRelatedLinkCreateView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:444:DOC300:ProjectRelatedLinkCreateView.permission_required",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 443,
+      "line": 444,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkCreateView.permission_required",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:445:DOC200:ProjectRelatedLinkCreateView.get_form_kwargs",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:446:DOC200:ProjectRelatedLinkCreateView.get_form_kwargs",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 445,
+      "line": 446,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkCreateView.get_form_kwargs",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:453:DOC200:ProjectRelatedLinkCreateView.form_valid",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:454:DOC200:ProjectRelatedLinkCreateView.form_valid",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 453,
+      "line": 454,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkCreateView.form_valid",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:457:DOC200:ProjectRelatedLinkCreateView.get_form_valid_message",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:458:DOC200:ProjectRelatedLinkCreateView.get_form_valid_message",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 457,
+      "line": 458,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkCreateView.get_form_valid_message",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:464:DOC200:ProjectRelatedLinkCreateView.get_success_url",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:465:DOC200:ProjectRelatedLinkCreateView.get_success_url",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 464,
+      "line": 465,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkCreateView.get_success_url",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:480:DOC100:ProjectRelatedLinkUpdateView",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:481:DOC100:ProjectRelatedLinkUpdateView",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 480,
+      "line": 481,
       "code": "DOC100",
       "symbol": "ProjectRelatedLinkUpdateView",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:483:DOC300:ProjectRelatedLinkUpdateView.form_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:484:DOC300:ProjectRelatedLinkUpdateView.form_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 483,
+      "line": 484,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkUpdateView.form_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:484:DOC300:ProjectRelatedLinkUpdateView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:485:DOC300:ProjectRelatedLinkUpdateView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 484,
+      "line": 485,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkUpdateView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:485:DOC300:ProjectRelatedLinkUpdateView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:486:DOC300:ProjectRelatedLinkUpdateView.permission_required",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 485,
+      "line": 486,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkUpdateView.permission_required",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:487:DOC200:ProjectRelatedLinkUpdateView.get_form_kwargs",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:488:DOC200:ProjectRelatedLinkUpdateView.get_form_kwargs",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 487,
+      "line": 488,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkUpdateView.get_form_kwargs",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:492:DOC200:ProjectRelatedLinkUpdateView.get_form_valid_message",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:493:DOC200:ProjectRelatedLinkUpdateView.get_form_valid_message",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 492,
+      "line": 493,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkUpdateView.get_form_valid_message",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:498:DOC200:ProjectRelatedLinkUpdateView.get_success_url",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:499:DOC200:ProjectRelatedLinkUpdateView.get_success_url",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 498,
+      "line": 499,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkUpdateView.get_success_url",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:512:DOC100:ProjectRelatedLinkDeleteView",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:513:DOC100:ProjectRelatedLinkDeleteView",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 512,
+      "line": 513,
       "code": "DOC100",
       "symbol": "ProjectRelatedLinkDeleteView",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:515:DOC300:ProjectRelatedLinkDeleteView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:516:DOC300:ProjectRelatedLinkDeleteView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 515,
+      "line": 516,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkDeleteView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:516:DOC300:ProjectRelatedLinkDeleteView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:517:DOC300:ProjectRelatedLinkDeleteView.permission_required",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 516,
+      "line": 517,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkDeleteView.permission_required",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:518:DOC200:ProjectRelatedLinkDeleteView.delete",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:519:DOC200:ProjectRelatedLinkDeleteView.delete",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 518,
+      "line": 519,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkDeleteView.delete",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:530:DOC200:ProjectRelatedLinkDeleteView.get_success_url",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:531:DOC200:ProjectRelatedLinkDeleteView.get_success_url",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 530,
+      "line": 531,
       "code": "DOC200",
       "symbol": "ProjectRelatedLinkDeleteView.get_success_url",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:550:DOC300:VersionDetailView.menu_item",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:551:DOC300:VersionDetailView.menu_item",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 550,
+      "line": 551,
       "code": "DOC300",
       "symbol": "VersionDetailView.menu_item",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:552:DOC300:VersionDetailView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:553:DOC300:VersionDetailView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 552,
+      "line": 553,
       "code": "DOC300",
       "symbol": "VersionDetailView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:553:DOC300:VersionDetailView.slug_field",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:554:DOC300:VersionDetailView.slug_field",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 553,
+      "line": 554,
       "code": "DOC300",
       "symbol": "VersionDetailView.slug_field",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:554:DOC300:VersionDetailView.slug_url_kwarg",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:555:DOC300:VersionDetailView.slug_url_kwarg",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 554,
+      "line": 555,
       "code": "DOC300",
       "symbol": "VersionDetailView.slug_url_kwarg",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:556:DOC202:VersionDetailView.get_object",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:557:DOC202:VersionDetailView.get_object",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 556,
+      "line": 557,
       "code": "DOC202",
       "symbol": "VersionDetailView.get_object",
       "message": "Missing required Napoleon section 'Args:'."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:657:DOC200:VersionDetailView.get_breadcrumbs",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:658:DOC200:VersionDetailView.get_breadcrumbs",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 657,
+      "line": 658,
       "code": "DOC200",
       "symbol": "VersionDetailView.get_breadcrumbs",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:666:DOC100:VersionUploadView",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:667:DOC100:VersionUploadView",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 666,
+      "line": 667,
       "code": "DOC100",
       "symbol": "VersionUploadView",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:673:DOC300:VersionUploadView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:674:DOC300:VersionUploadView.permission_required",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 673,
+      "line": 674,
       "code": "DOC300",
       "symbol": "VersionUploadView.permission_required",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:674:DOC300:VersionUploadView.form_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:675:DOC300:VersionUploadView.form_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 674,
+      "line": 675,
       "code": "DOC300",
       "symbol": "VersionUploadView.form_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:676:DOC200:VersionUploadView.get_form_valid_message",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:677:DOC200:VersionUploadView.get_form_valid_message",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 676,
+      "line": 677,
       "code": "DOC200",
       "symbol": "VersionUploadView.get_form_valid_message",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:682:DOC200:VersionUploadView.form_valid",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:683:DOC200:VersionUploadView.form_valid",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 682,
+      "line": 683,
       "code": "DOC200",
       "symbol": "VersionUploadView.form_valid",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:713:DOC200:VersionUploadView.get_success_url",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:714:DOC200:VersionUploadView.get_success_url",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 713,
+      "line": 714,
       "code": "DOC200",
       "symbol": "VersionUploadView.get_success_url",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:717:DOC100:VersionMakeLatestView",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:718:DOC100:VersionMakeLatestView",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 717,
+      "line": 718,
       "code": "DOC100",
       "symbol": "VersionMakeLatestView",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:724:DOC300:VersionMakeLatestView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:806:DOC100:VersionDeleteView",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 724,
-      "code": "DOC300",
-      "symbol": "VersionMakeLatestView.permission_required",
-      "message": "Class attribute missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:725:DOC300:VersionMakeLatestView.form_class",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 725,
-      "code": "DOC300",
-      "symbol": "VersionMakeLatestView.form_class",
-      "message": "Class attribute missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:727:DOC200:VersionMakeLatestView.get_form_valid_message",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 727,
-      "code": "DOC200",
-      "symbol": "VersionMakeLatestView.get_form_valid_message",
-      "message": "Missing docstring on function/method."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:733:DOC200:VersionMakeLatestView.form_valid",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 733,
-      "code": "DOC200",
-      "symbol": "VersionMakeLatestView.form_valid",
-      "message": "Missing docstring on function/method."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:738:DOC200:VersionMakeLatestView.get_success_url",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 738,
-      "code": "DOC200",
-      "symbol": "VersionMakeLatestView.get_success_url",
-      "message": "Missing docstring on function/method."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:742:DOC100:VersionDeleteView",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 742,
+      "line": 806,
       "code": "DOC100",
       "symbol": "VersionDeleteView",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:743:DOC300:VersionDeleteView.permission_required",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:807:DOC300:VersionDeleteView.permission_required",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 743,
+      "line": 807,
       "code": "DOC300",
       "symbol": "VersionDeleteView.permission_required",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:744:DOC300:VersionDeleteView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:808:DOC300:VersionDeleteView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 744,
+      "line": 808,
       "code": "DOC300",
       "symbol": "VersionDeleteView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:745:DOC300:VersionDeleteView.slug_field",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:809:DOC300:VersionDeleteView.slug_field",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 745,
+      "line": 809,
       "code": "DOC300",
       "symbol": "VersionDeleteView.slug_field",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:746:DOC300:VersionDeleteView.slug_url_kwarg",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:810:DOC300:VersionDeleteView.slug_url_kwarg",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 746,
+      "line": 810,
       "code": "DOC300",
       "symbol": "VersionDeleteView.slug_url_kwarg",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:762:DOC200:VersionDeleteView.delete",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:826:DOC200:VersionDeleteView.delete",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 762,
+      "line": 826,
       "code": "DOC200",
       "symbol": "VersionDeleteView.delete",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:771:DOC200:VersionDeleteView.get_success_url",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:835:DOC200:VersionDeleteView.get_success_url",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 771,
+      "line": 835,
       "code": "DOC200",
       "symbol": "VersionDeleteView.get_success_url",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:790:DOC300:SphinxPageDetailView.model",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:854:DOC300:SphinxPageDetailView.model",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 790,
+      "line": 854,
       "code": "DOC300",
       "symbol": "SphinxPageDetailView.model",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:791:DOC300:SphinxPageDetailView.slug_field",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:855:DOC300:SphinxPageDetailView.slug_field",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 791,
+      "line": 855,
       "code": "DOC300",
       "symbol": "SphinxPageDetailView.slug_field",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:792:DOC300:SphinxPageDetailView.slug_url_kwarg",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:856:DOC300:SphinxPageDetailView.slug_url_kwarg",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 792,
+      "line": 856,
       "code": "DOC300",
       "symbol": "SphinxPageDetailView.slug_url_kwarg",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:794:DOC200:SphinxPageDetailView.get_navbar",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:858:DOC200:SphinxPageDetailView.get_navbar",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 794,
+      "line": 858,
       "code": "DOC200",
       "symbol": "SphinxPageDetailView.get_navbar",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:802:DOC200:SphinxPageDetailView.get_menu_item",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:866:DOC200:SphinxPageDetailView.get_menu_item",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 802,
+      "line": 866,
       "code": "DOC200",
       "symbol": "SphinxPageDetailView.get_menu_item",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:848:DOC200:SphinxPageDetailView.get_content",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:912:DOC200:SphinxPageDetailView.get_content",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 848,
+      "line": 912,
       "code": "DOC200",
       "symbol": "SphinxPageDetailView.get_content",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:889:DOC300:GlobalSphinxPageSearchView.query",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:953:DOC300:GlobalSphinxPageSearchView.query",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 889,
+      "line": 953,
       "code": "DOC300",
       "symbol": "GlobalSphinxPageSearchView.query",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:890:DOC300:GlobalSphinxPageSearchView.queryset",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:954:DOC300:GlobalSphinxPageSearchView.queryset",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 890,
+      "line": 954,
       "code": "DOC300",
       "symbol": "GlobalSphinxPageSearchView.queryset",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:892:DOC200:GlobalSphinxPageSearchView.form_invalid",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:956:DOC200:GlobalSphinxPageSearchView.form_invalid",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 892,
+      "line": 956,
       "code": "DOC200",
       "symbol": "GlobalSphinxPageSearchView.form_invalid",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:899:DOC200:GlobalSphinxPageSearchView.form_valid",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:963:DOC200:GlobalSphinxPageSearchView.form_valid",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 899,
+      "line": 963,
       "code": "DOC200",
       "symbol": "GlobalSphinxPageSearchView.form_valid",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:913:DOC200:GlobalSphinxPageSearchView.get_content",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py:977:DOC200:GlobalSphinxPageSearchView.get_content",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/views.py",
-      "line": 913,
+      "line": 977,
       "code": "DOC200",
       "symbol": "GlobalSphinxPageSearchView.get_content",
       "message": "Missing docstring on function/method."
