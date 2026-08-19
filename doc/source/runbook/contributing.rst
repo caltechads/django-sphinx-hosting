@@ -30,40 +30,18 @@ Python environment
 ^^^^^^^^^^^^^^^^^^
 
 The Amazon Linux 2 base image we use here for our sandbox service has Python
-3.10.12, so we'll want that in our virtualenv.
+3.14.x, so we'll want that in our virtualenv.
 
 Here is an example of using ``pyenv`` to make your virtualenv:
 
 .. code-block:: shell
 
    $ cd django-sphinx-hosting
-   $ pyenv virtualenv 3.10.12 django-sphinx-hosting
-   $ pyenv local django-sphinx-hosting
-   $ pip install --upgrade pip wheel
-
-If you don't have a `pyenv` python 3.10.12 built, build it like so:
-
-.. code-block:: shell
-
-    $ pyenv install 3.10.12
-
-After that please install libraries required for working with the code and
-building the documentation.
-
-.. code-block:: shell
-
-   $ pip install -r requirements.txt
+   $ uv venv -p 3.14
+   $ uv sync --dev
 
 Docker
 ^^^^^^
-
-Our current base image requires you to authenticate to AWS Public ECR in order
-to pull it.  Do:
-
-.. code-block:: shell
-
-    $ aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
-    $ docker pull public.ecr.aws/m3v9w5i2/caltech-imss-ads/amazonlinux2-python3.10
 
 Running the local docker stack
 ------------------------------

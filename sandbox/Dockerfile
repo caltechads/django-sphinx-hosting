@@ -1,4 +1,4 @@
-FROM python:3.13-slim AS build
+FROM python:3.14-slim AS build
 
 # This part builds the virtual environment and installs the system dependencies
 # needed to do so.
@@ -28,7 +28,7 @@ RUN --mount=type=cache,target=/uv-cache \
     --mount=type=bind,source=./django-sphinx-hosting.tar.gz,target=django-sphinx-hosting.tar.gz \
     uv --cache-dir=/uv-cache sync --frozen --no-install-project
 
-FROM python:3.13-slim
+FROM python:3.14-slim
 
 ENV HISTCONTROL=ignorespace:ignoredups  \
     IPYTHONDIR=/etc/ipython             \

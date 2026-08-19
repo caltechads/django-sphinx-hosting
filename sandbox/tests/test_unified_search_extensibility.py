@@ -64,14 +64,14 @@ class DummyForm:
 class FakeSearchQuerySet:
     def __init__(self):
         self.model_calls: list[tuple[type[Any], ...]] = []
-        self.narrow_calls: list[str] = []
+        self.filter_calls: list[dict[str, Any]] = []
 
     def models(self, *models):
         self.model_calls.append(models)
         return self
 
-    def narrow(self, query):
-        self.narrow_calls.append(query)
+    def filter(self, **kwargs):
+        self.filter_calls.append(kwargs)
         return self
 
 
@@ -188,8 +188,7 @@ def test_search_result_renderers_reject_unknown_model_labels():
     SPHINX_HOSTING_SETTINGS={
         "SEARCH_RESULT_RENDERERS": {
             "users.User": (
-                "sphinx_hosting.tests.test_unified_search_extensibility."
-                "render_search_note_marker"
+                f"{__name__}.render_search_note_marker"
             )
         }
     }
@@ -203,8 +202,7 @@ def test_search_result_renderers_require_registered_search_indexes():
     SPHINX_HOSTING_SETTINGS={
         "SEARCH_RESULT_RENDERERS": {
             "core.SearchNote": (
-                "sphinx_hosting.tests.test_unified_search_extensibility."
-                "INVALID_RENDERER"
+                f"{__name__}.INVALID_RENDERER"
             )
         }
     }
@@ -218,8 +216,7 @@ def test_search_result_renderers_require_callable_targets():
     SPHINX_HOSTING_SETTINGS={
         "SEARCH_RESULT_RENDERERS": {
             "core.SearchNote": (
-                "sphinx_hosting.tests.test_unified_search_extensibility."
-                "render_search_note_marker"
+                f"{__name__}.render_search_note_marker"
             )
         }
     }
@@ -229,7 +226,7 @@ def test_search_result_models_return_registered_host_models():
 
 
 @pytest.mark.django_db
-def test_apply_global_search_facets_uses_exact_narrow_queries():
+def test_apply_global_search_facets_uses_filter_queries():
     queryset = FakeSearchQuerySet()
     request = RequestFactory().get(
         "/search/",
@@ -239,9 +236,9 @@ def test_apply_global_search_facets_uses_exact_narrow_queries():
     filtered_queryset, facets = _apply_global_search_facets(queryset, request)
 
     assert filtered_queryset is queryset
-    assert queryset.narrow_calls == [
-        'project_id_exact:"17"',
-        'classifiers_exact:"alpha \\"beta\\""',
+    assert queryset.filter_calls == [
+        {"project_id": "17"},
+        {"classifiers": 'alpha "beta"'},
     ]
     assert facets == {"project_id": ["17"], "classifiers": ['alpha "beta"']}
 
@@ -251,8 +248,7 @@ def test_apply_global_search_facets_uses_exact_narrow_queries():
     SPHINX_HOSTING_SETTINGS={
         "SEARCH_RESULT_RENDERERS": {
             "core.SearchNote": (
-                "sphinx_hosting.tests.test_unified_search_extensibility."
-                "render_search_note_marker"
+                f"{__name__}.render_search_note_marker"
             )
         }
     }
@@ -274,9 +270,9 @@ def test_global_search_view_constrains_models_and_facets():
 
     assert response.status_code == HTTPStatus.OK
     assert queryset.model_calls == [(SphinxPage, SearchNote)]
-    assert queryset.narrow_calls == [
-        'project_id_exact:"12"',
-        'classifiers_exact:"docs"',
+    assert queryset.filter_calls == [
+        {"project_id": "12"},
+        {"classifiers": "docs"},
     ]
     assert view.object_list is queryset
     assert view.facets == {"project_id": ["12"], "classifiers": ["docs"]}
@@ -304,8 +300,7 @@ def test_build_search_result_widget_uses_builtin_sphinxpage_renderer():
     SPHINX_HOSTING_SETTINGS={
         "SEARCH_RESULT_RENDERERS": {
             "core.SearchNote": (
-                "sphinx_hosting.tests.test_unified_search_extensibility."
-                "render_search_note_marker"
+                f"{__name__}.render_search_note_marker"
             )
         }
     }
@@ -332,8 +327,7 @@ def test_unified_search_result_widget_dispatches_to_host_renderer():
     SPHINX_HOSTING_SETTINGS={
         "SEARCH_RESULT_RENDERERS": {
             "core.SearchNote": (
-                "sphinx_hosting.tests.test_unified_search_extensibility."
-                "render_search_note_raises"
+                f"{__name__}.render_search_note_raises"
             )
         }
     }

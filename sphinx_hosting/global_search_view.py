@@ -14,20 +14,6 @@ if TYPE_CHECKING:
     from wildewidgets import Widget
 
 
-def _quote_exact_narrow_value(value: str) -> str:
-    """
-    Escape one exact-match facet value for Haystack narrowing.
-
-    Args:
-        value: The raw facet value from the query string.
-
-    Returns:
-        The escaped facet value suitable for a narrow query.
-
-    """
-    return value.replace("\\", "\\\\").replace('"', '\\"')
-
-
 def _apply_global_search_facets(
     queryset: SearchQuerySet, request: HttpRequest
 ) -> tuple[SearchQuerySet, dict[str, list[str]]]:
@@ -44,14 +30,10 @@ def _apply_global_search_facets(
     """
     facets: dict[str, list[str]] = {}
     if project_id := request.GET.get("project_id", None):
-        queryset = queryset.narrow(
-            f'project_id_exact:"{_quote_exact_narrow_value(project_id)}"'
-        )
+        queryset = queryset.filter(project_id=project_id)
         facets["project_id"] = [project_id]
     if classifier_name := request.GET.get("classifiers", None):
-        queryset = queryset.narrow(
-            f'classifiers_exact:"{_quote_exact_narrow_value(classifier_name)}"'
-        )
+        queryset = queryset.filter(classifiers=classifier_name)
         facets["classifiers"] = [classifier_name]
     return queryset, facets
 

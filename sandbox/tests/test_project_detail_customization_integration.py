@@ -8,6 +8,7 @@ from sphinx_hosting.models import Project
 pytestmark = [pytest.mark.integration, pytest.mark.django_db]
 
 
+@pytest.mark.needs_demo
 def test_host_project_can_extend_project_detail_layout_without_losing_defaults(
     client, django_user_model
 ):
@@ -31,6 +32,7 @@ def test_host_project_can_extend_project_detail_layout_without_losing_defaults(
     assert "Project Support" in html
 
 
+@pytest.mark.needs_demo
 def test_host_project_can_extend_project_update_layout_without_losing_defaults(
     client, django_user_model
 ):

@@ -72,11 +72,6 @@ else:
             "PASSWORD": env("DB_PASSWORD", default="password"),
             "HOST": env("DB_HOST", default="db"),
             "ATOMIC_REQUESTS": True,
-            # This is needed in case the database doesn't have the newer default
-            # settings that enable "strict mode".
-            "OPTIONS": {
-                "sql_mode": "traditional",
-            },
         }
     }
 DEFAULT_AUTO_FIELD: str = "django.db.models.AutoField"

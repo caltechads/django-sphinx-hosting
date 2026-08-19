@@ -78,7 +78,7 @@ test:
 		sleep 2; \
 	done
 	@if [ -z "$(ARGS)" ]; then \
-		docker exec sphinx_hosting_demo /bin/bash -c "TESTING=True DJANGO_SETTINGS_MODULE=demo.settings pytest -c pyproject.toml -m 'not integration' /ve/lib/python3.13/site-packages/sphinx_hosting/tests"; \
+		docker exec sphinx_hosting_demo /bin/bash -c "TESTING=True DJANGO_SETTINGS_MODULE=demo.settings pytest -c pyproject.toml -m 'not integration' tests"; \
 	else \
 		docker exec sphinx_hosting_demo /bin/bash -c "TESTING=True DJANGO_SETTINGS_MODULE=demo.settings pytest -c pyproject.toml $(ARGS)"; \
 	fi;

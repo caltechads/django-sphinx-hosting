@@ -12,6 +12,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.django_db]
         "MENU_ITEM_BUILDERS": ["demo.core.wildewidgets.build_search_notes_menu_item"],
     }
 )
+@pytest.mark.needs_demo
 def test_host_project_can_extend_navigation_without_losing_defaults(
     client, django_user_model
 ):

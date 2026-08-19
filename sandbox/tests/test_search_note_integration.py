@@ -36,6 +36,7 @@ def _make_note_fixture() -> tuple[SearchNote, Project, Classifier]:
     return note, project, classifier
 
 
+@pytest.mark.needs_demo
 def test_search_note_list_and_detail_pages_render(client, django_user_model):
     user = _make_user(django_user_model, username="search-note-reader")
     note, _, classifier = _make_note_fixture()
@@ -51,6 +52,7 @@ def test_search_note_list_and_detail_pages_render(client, django_user_model):
     assert classifier.name in detail_response.content.decode()
 
 
+@pytest.mark.needs_demo
 def test_search_note_crud_flow(client, django_user_model):
     user = _make_user(django_user_model, username="search-note-editor")
     project = Project.objects.create(
@@ -101,6 +103,7 @@ def test_search_note_crud_flow(client, django_user_model):
     assert SearchNote.objects.filter(pk=note.pk).count() == 0
 
 
+@pytest.mark.needs_demo
 def test_seed_search_notes_command_creates_ten_notes():
     call_command("seed_search_notes")
 
@@ -114,10 +117,13 @@ def test_seed_search_notes_command_creates_ten_notes():
     assert SearchNote.objects.count() == SEARCH_NOTE_SEED_COUNT
 
 
+@pytest.mark.needs_demo
 def test_search_notes_fixture_is_loaded_by_migration():
     assert SearchNote.objects.count() == SEARCH_NOTE_SEED_COUNT
     assert Project.objects.filter(machine_name="demo-search-recipes").exists()
-    assert Classifier.objects.filter(name="packaging").exists()
+    assert Classifier.objects.filter(
+        name="Topic :: System :: Archiving :: Packaging"
+    ).exists()
     assert (
         SearchNote.objects.filter(
             title__icontains="Unified search works when host models"

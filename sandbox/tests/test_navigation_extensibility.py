@@ -97,8 +97,8 @@ def _build_menu(
     SPHINX_HOSTING_SETTINGS={
         "EXTRA_MENU_ITEMS": [{"text": "Static Docs", "icon": "book", "url": "/docs/"}],
         "MENU_ITEM_BUILDERS": [
-            "sphinx_hosting.tests.test_navigation_extensibility.builder_support",
-            "sphinx_hosting.tests.test_navigation_extensibility.builder_admin",
+            f"{__name__}.builder_support",
+            f"{__name__}.builder_admin",
         ],
     }
 )
@@ -132,7 +132,7 @@ def test_extra_menu_items_reject_unknown_keys(monkeypatch):
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "MENU_ITEM_BUILDERS": [
-            "sphinx_hosting.tests.test_navigation_extensibility.builder_invalid"
+            f"{__name__}.builder_invalid"
         ]
     }
 )
@@ -144,7 +144,7 @@ def test_menu_builder_rejects_invalid_return_type(monkeypatch):
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "MENU_ITEM_BUILDERS": [
-            "sphinx_hosting.tests.test_navigation_extensibility.builder_raises"
+            f"{__name__}.builder_raises"
         ]
     }
 )
@@ -169,7 +169,7 @@ def test_navbar_class_defaults_to_sphinx_hosting_sidebar():
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "NAVBAR_CLASS": (
-            "sphinx_hosting.tests.test_navigation_extensibility.CustomNavbar"
+            f"{__name__}.CustomNavbar"
         )
     }
 )
@@ -185,7 +185,7 @@ def test_navbar_class_setting_requires_dotted_path_string():
 
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
-        "NAVBAR_CLASS": "sphinx_hosting.tests.test_navigation_extensibility.NotANavbar"
+        "NAVBAR_CLASS": f"{__name__}.NotANavbar"
     }
 )
 def test_navbar_class_setting_requires_navbar_subclass():
@@ -196,7 +196,7 @@ def test_navbar_class_setting_requires_navbar_subclass():
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "NAVBAR_CLASS": (
-            "sphinx_hosting.tests.test_navigation_extensibility.CustomNavbar"
+            f"{__name__}.CustomNavbar"
         )
     }
 )

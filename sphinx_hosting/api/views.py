@@ -1,4 +1,3 @@
-import os
 import tempfile
 from pathlib import Path
 from typing import Final
@@ -223,7 +222,7 @@ class VersionUploadView(APIView):
 
         data = {
             "status": "success",
-            "version_id": version.id,
+            "version_id": version.id,  # type: ignore[attr-defined]
             "project_id": version.project.id,  # type: ignore[attr-defined]
         }
         return Response(data, status=200)

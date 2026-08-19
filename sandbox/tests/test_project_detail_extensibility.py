@@ -117,8 +117,7 @@ def build_project_update_layout(*, user: DummyUser | None = None) -> WidgetListL
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "PROJECT_DETAIL_LAYOUT_BUILDERS": [
-            "sphinx_hosting.tests.test_project_detail_extensibility."
-            "builder_append_layout_content"
+            f"{__name__}.builder_append_layout_content"
         ]
     }
 )
@@ -149,8 +148,7 @@ def test_project_detail_layout_builder_can_append_widgets_and_sidebar_actions():
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "PROJECT_DETAIL_LAYOUT_BUILDERS": [
-            "sphinx_hosting.tests.test_project_detail_extensibility."
-            "builder_append_layout_content"
+            f"{__name__}.builder_append_layout_content"
         ]
     }
 )
@@ -187,8 +185,8 @@ def test_project_update_layout_builder_preserves_defaults_and_uses_modals():
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "PROJECT_DETAIL_LAYOUT_BUILDERS": [
-            "sphinx_hosting.tests.test_project_detail_extensibility.builder_first",
-            "sphinx_hosting.tests.test_project_detail_extensibility.builder_second",
+            f"{__name__}.builder_first",
+            f"{__name__}.builder_second",
         ]
     }
 )
@@ -224,8 +222,7 @@ def test_project_detail_layout_builders_requires_string_entries():
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "PROJECT_DETAIL_LAYOUT_BUILDERS": [
-            "sphinx_hosting.tests.test_project_detail_extensibility."
-            "INVALID_LAYOUT_BUILDER"
+            f"{__name__}.INVALID_LAYOUT_BUILDER"
         ]
     }
 )
@@ -238,7 +235,7 @@ def test_project_detail_layout_builders_requires_callable_targets():
 @override_settings(
     SPHINX_HOSTING_SETTINGS={
         "PROJECT_DETAIL_LAYOUT_BUILDERS": [
-            "sphinx_hosting.tests.test_project_detail_extensibility.builder_raises"
+            f"{__name__}.builder_raises"
         ]
     }
 )

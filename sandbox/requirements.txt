@@ -251,7 +251,6 @@ traitlets==5.14.3
 typing-extensions==4.15.0
     # via
     #   grpcio
-    #   ipython
     #   pyee
 uritemplate==4.1.1
     # via drf-spectacular

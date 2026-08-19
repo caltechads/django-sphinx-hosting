@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import pytest
+from demo.core.models import SearchNote
 from haystack import connections
 
-from demo.core.models import SearchNote
 from sphinx_hosting.models import Classifier, Project, SphinxPage, Version
 
 pytestmark = [pytest.mark.integration, pytest.mark.django_db]
@@ -54,7 +54,7 @@ def _create_search_fixture(
     classifier_name: str = "docs",
 ) -> tuple[SphinxPage, SearchNote, Classifier]:
     suffix = Project.objects.count() + 1
-    classifier = Classifier.objects.create(name=classifier_name)
+    classifier, _ = Classifier.objects.get_or_create(name=classifier_name)
     project = Project.objects.create(
         title="Unified Search Project",
         machine_name=f"unified-search-project-{suffix}",
