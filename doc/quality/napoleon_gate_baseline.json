@@ -2163,25 +2163,25 @@
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py:285:DOC300:VersionMakeLatestForm.version",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py:289:DOC300:VersionMakeLatestForm.version",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py",
-      "line": 285,
+      "line": 289,
       "code": "DOC300",
       "symbol": "VersionMakeLatestForm.version",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py:287:DOC205:VersionMakeLatestForm.clean_version",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py:291:DOC200:VersionMakeLatestForm.__init__",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py",
-      "line": 287,
-      "code": "DOC205",
-      "symbol": "VersionMakeLatestForm.clean_version",
-      "message": "Missing required Napoleon section 'Returns:' or 'Yields:' for function with yielded/returned value."
+      "line": 291,
+      "code": "DOC200",
+      "symbol": "VersionMakeLatestForm.__init__",
+      "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py:299:DOC205:VersionMakeLatestForm.save",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py:315:DOC205:VersionMakeLatestForm.save",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/forms.py",
-      "line": 299,
+      "line": 315,
       "code": "DOC205",
       "symbol": "VersionMakeLatestForm.save",
       "message": "Missing required Napoleon section 'Returns:' or 'Yields:' for function with yielded/returned value."

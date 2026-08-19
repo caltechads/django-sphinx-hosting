@@ -280,20 +280,36 @@ class VersionUploadForm(forms.Form):
 class VersionMakeLatestForm(forms.Form):
     """
     The form we use to force a version to be the latest version of a project.
+
+    Keyword Args:
+        project_machine_name: machine name of the project from the URL slug.
+
     """
 
     version: Field = forms.IntegerField(widget=forms.HiddenInput())
 
+    def __init__(self, *args, project_machine_name: str | None = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        #: Machine name of the project from the URL slug.
+        self.project_machine_name = project_machine_name
+
     def clean_version(self):
         """
-        Ensure that the version exists.
+        Ensure that the version exists and belongs to the URL project.
+
+        Returns:
+            The validated version primary key.
+
         """
         version_id = self.cleaned_data["version"]
         try:
-            _ = Version.objects.get(pk=version_id)
+            version = Version.objects.get(pk=version_id)
         except Version.DoesNotExist as e:
             msg = "The specified version does not exist."
             raise forms.ValidationError(msg) from e
+        if version.project.machine_name != self.project_machine_name:
+            msg = "The specified version does not belong to this project."
+            raise forms.ValidationError(msg)
         return version_id
 
     def save(self):
