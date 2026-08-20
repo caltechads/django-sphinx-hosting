@@ -786,7 +786,7 @@ class VersionMakeLatestView(
 
     def form_invalid(self, form: Form) -> HttpResponse:
         """
-        Flash form errors and redirect to the project update page.
+        Flash form errors and redirect to the project detail page.
 
         Args:
             form: The form that was submitted
@@ -798,17 +798,17 @@ class VersionMakeLatestView(
         for k, errors in form.errors.as_data().items():
             for error in errors:
                 messages.error(self.request, f"{k}: {error.message}")
-        return redirect("sphinx_hosting:project--update", self.kwargs["slug"])
+        return redirect("sphinx_hosting:project--detail", self.kwargs["slug"])
 
     def get_success_url(self) -> str:
         """
-        Return the project update URL for this slug.
+        Return the project detail URL for this slug.
 
         Returns:
             The redirect target after a successful POST.
 
         """
-        return reverse("sphinx_hosting:project--update", args=[self.kwargs["slug"]])
+        return reverse("sphinx_hosting:project--detail", args=[self.kwargs["slug"]])
 
 
 class VersionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):

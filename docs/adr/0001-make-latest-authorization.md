@@ -19,6 +19,6 @@ accepted
 
 - Reorder mixins to `LoginRequiredMixin`, `MultiplePermissionsRequiredMixin`, …, `BaseFormView`. `BaseFormView.dispatch` does not call `super()`, so access mixins never ran. This is a bugfix, not a second decision.
 - Replace the non-existent `sphinxhostingcore.update_project` string. Do not fix mixin order without this, or every editor 403s.
-- `VersionMakeLatestForm.clean_version` requires `version.project.machine_name` to equal the URL slug; mismatch is a validation error. Invalid POST redirects to `project--update` with flashed form errors (same pattern as `ProjectCreateView`), not HTTP 400: `BaseFormView` has no `template_name`.
+- `VersionMakeLatestForm.clean_version` requires `version.project.machine_name` to equal the URL slug; mismatch is a validation error. Invalid POST redirects to `project--detail` with flashed form errors (not HTTP 400: `BaseFormView` has no `template_name`). Success also redirects to `project--detail`, which Version Managers can GET; `project--update` requires `change_project`.
 - Hide "Set This As Latest" unless the user has one of the two permissions (same pattern as Delete Version).
 - API `latest_version` stays read-only. No new package; reuse django-braces `MultiplePermissionsRequiredMixin`.

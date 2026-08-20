@@ -137,15 +137,16 @@ def _login_with_permissions(client, django_user_model, username: str, *codenames
 def test_anonymous_post_does_not_write_and_redirects_to_login(
     client, alpha_project: Project
 ) -> None:
-    version = Version.objects.create(project=alpha_project, version="1.0.0")
-    alpha_project.latest_version = version
+    old_latest = Version.objects.create(project=alpha_project, version="1.0.0")
+    candidate = Version.objects.create(project=alpha_project, version="2.0.0")
+    alpha_project.latest_version = old_latest
     alpha_project.save()
 
     sibling = client.post(_upload_url("alpha"), data={"file": ""})
-    response = client.post(_make_latest_url("alpha"), data={"version": version.pk})
+    response = client.post(_make_latest_url("alpha"), data={"version": candidate.pk})
 
     alpha_project.refresh_from_db()
-    assert alpha_project.latest_version_id == version.pk
+    assert alpha_project.latest_version_id == old_latest.pk
     assert response.status_code == sibling.status_code
     assert sibling.url.startswith("/accounts/login/")
     assert response.url.startswith("/accounts/login/")
@@ -155,16 +156,17 @@ def test_anonymous_post_does_not_write_and_redirects_to_login(
 def test_viewer_post_does_not_write_and_matches_sibling_denied(
     client, django_user_model, alpha_project: Project
 ) -> None:
-    version = Version.objects.create(project=alpha_project, version="1.0.0")
-    alpha_project.latest_version = version
+    old_latest = Version.objects.create(project=alpha_project, version="1.0.0")
+    candidate = Version.objects.create(project=alpha_project, version="2.0.0")
+    alpha_project.latest_version = old_latest
     alpha_project.save()
     _login_with_permissions(client, django_user_model, "viewer")
 
     sibling = client.post(_upload_url("alpha"), data={"file": ""})
-    response = client.post(_make_latest_url("alpha"), data={"version": version.pk})
+    response = client.post(_make_latest_url("alpha"), data={"version": candidate.pk})
 
     alpha_project.refresh_from_db()
-    assert alpha_project.latest_version_id == version.pk
+    assert alpha_project.latest_version_id == old_latest.pk
     assert response.status_code == sibling.status_code
 
 
@@ -186,7 +188,7 @@ def test_change_project_only_can_make_latest_for_own_version(
     alpha_project.refresh_from_db()
     assert response.status_code == HTTPStatus.FOUND
     assert response.url == reverse(
-        "sphinx_hosting:project--update", kwargs={"slug": "alpha"}
+        "sphinx_hosting:project--detail", kwargs={"slug": "alpha"}
     )
     assert alpha_project.latest_version_id == new_latest.pk
     index_mock.return_value.remove_version.assert_called()
@@ -210,8 +212,13 @@ def test_change_version_only_can_make_latest_for_own_version(
 
     alpha_project.refresh_from_db()
     assert response.status_code == HTTPStatus.FOUND
+    assert response.url == reverse(
+        "sphinx_hosting:project--detail", kwargs={"slug": "alpha"}
+    )
     assert alpha_project.latest_version_id == new_latest.pk
     index_mock.return_value.reindex_project.assert_called()
+    landing = client.get(response.url)
+    assert landing.status_code == HTTPStatus.OK
 
 
 @pytest.mark.django_db
@@ -241,7 +248,7 @@ def test_foreign_version_pk_does_not_write_and_redirects_with_errors(
     assert beta_project.latest_version_id == beta_version.pk
     assert response.status_code == HTTPStatus.FOUND
     assert response.url == reverse(
-        "sphinx_hosting:project--update", kwargs={"slug": "alpha"}
+        "sphinx_hosting:project--detail", kwargs={"slug": "alpha"}
     )
     flashed = " ".join(str(message) for message in get_messages(response.wsgi_request))
     assert "version" in flashed.lower()
