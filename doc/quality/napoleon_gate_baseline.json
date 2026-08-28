@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-03-18T22:11:11.889948+00:00",
-  "violation_count": 733,
+  "generated_at_utc": "2026-08-28T23:40:03.772853+00:00",
+  "violation_count": 716,
   "violations": [
     {
       "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/__init__.py:1:DOC302:default_app_config",
@@ -35,44 +35,20 @@
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/management/commands/bootstrap.py:16:DOC202:Command.db_is_fresh",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/management/commands/bootstrap.py",
-      "line": 16,
-      "code": "DOC202",
-      "symbol": "Command.db_is_fresh",
-      "message": "Missing required Napoleon section 'Args:'."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/management/commands/bootstrap.py:16:DOC205:Command.db_is_fresh",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/management/commands/bootstrap.py",
-      "line": 16,
-      "code": "DOC205",
-      "symbol": "Command.db_is_fresh",
-      "message": "Missing required Napoleon section 'Returns:' or 'Yields:' for function with yielded/returned value."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/management/commands/bootstrap.py:27:DOC200:Command.handle",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/management/commands/bootstrap.py",
-      "line": 27,
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/wildewidgets.py:116:DOC200:SearchNoteListWidget.__init__",
+      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/wildewidgets.py",
+      "line": 116,
       "code": "DOC200",
-      "symbol": "Command.handle",
+      "symbol": "SearchNoteListWidget.__init__",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/urls.py:8:DOC302:app_name",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/urls.py",
-      "line": 8,
-      "code": "DOC302",
-      "symbol": "app_name",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/urls.py:10:DOC302:urlpatterns",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/urls.py",
-      "line": 10,
-      "code": "DOC302",
-      "symbol": "urlpatterns",
-      "message": "Module-level global variable missing '#:' documentation."
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/wildewidgets.py:118:DOC301:SearchNoteListWidget.notes",
+      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/core/wildewidgets.py",
+      "line": 118,
+      "code": "DOC301",
+      "symbol": "SearchNoteListWidget.notes",
+      "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
       "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/gunicorn_config.py:3:DOC302:env",
@@ -323,451 +299,403 @@
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:82:DOC302:DEFAULT_AUTO_FIELD",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:77:DOC302:DEFAULT_AUTO_FIELD",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 82,
+      "line": 77,
       "code": "DOC302",
       "symbol": "DEFAULT_AUTO_FIELD",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:104:DOC302:ROOT_URLCONF",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:99:DOC302:ROOT_URLCONF",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 104,
+      "line": 99,
       "code": "DOC302",
       "symbol": "ROOT_URLCONF",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:106:DOC302:WSGI_APPLICATION",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:101:DOC302:WSGI_APPLICATION",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 106,
+      "line": 101,
       "code": "DOC302",
       "symbol": "WSGI_APPLICATION",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:110:DOC302:DJANGO_APPS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:105:DOC302:DJANGO_APPS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 110,
+      "line": 105,
       "code": "DOC302",
       "symbol": "DJANGO_APPS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:119:DOC302:THIRD_PARTY_APPS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:114:DOC302:THIRD_PARTY_APPS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 119,
+      "line": 114,
       "code": "DOC302",
       "symbol": "THIRD_PARTY_APPS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:134:DOC302:LOCAL_APPS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:129:DOC302:LOCAL_APPS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 134,
+      "line": 129,
       "code": "DOC302",
       "symbol": "LOCAL_APPS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:139:DOC302:INSTALLED_APPS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:134:DOC302:INSTALLED_APPS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 139,
+      "line": 134,
       "code": "DOC302",
       "symbol": "INSTALLED_APPS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:144:DOC302:AUTHENTICATION_BACKENDS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:139:DOC302:AUTHENTICATION_BACKENDS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 144,
+      "line": 139,
       "code": "DOC302",
       "symbol": "AUTHENTICATION_BACKENDS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:150:DOC302:AUTH_USER_MODEL",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:145:DOC302:AUTH_USER_MODEL",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 150,
+      "line": 145,
       "code": "DOC302",
       "symbol": "AUTH_USER_MODEL",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:153:DOC302:AUTH_PASSWORD_VALIDATORS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:148:DOC302:AUTH_PASSWORD_VALIDATORS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 153,
+      "line": 148,
       "code": "DOC302",
       "symbol": "AUTH_PASSWORD_VALIDATORS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:164:DOC302:MIDDLEWARE",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:159:DOC302:MIDDLEWARE",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 164,
+      "line": 159,
       "code": "DOC302",
       "symbol": "MIDDLEWARE",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:180:DOC302:STATIC_ROOT",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:175:DOC302:STATIC_ROOT",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 180,
+      "line": 175,
       "code": "DOC302",
       "symbol": "STATIC_ROOT",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:182:DOC302:STATIC_URL",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:177:DOC302:STATIC_URL",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 182,
+      "line": 177,
       "code": "DOC302",
       "symbol": "STATIC_URL",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:184:DOC302:STATICFILES_DIRS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:179:DOC302:STATICFILES_DIRS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 184,
+      "line": 179,
       "code": "DOC302",
       "symbol": "STATICFILES_DIRS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:186:DOC302:STATICFILES_FINDERS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:181:DOC302:STATICFILES_FINDERS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 186,
+      "line": 181,
       "code": "DOC302",
       "symbol": "STATICFILES_FINDERS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:195:DOC302:DEFAULT_FILE_STORAGE",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:190:DOC302:DEFAULT_FILE_STORAGE",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 195,
+      "line": 190,
       "code": "DOC302",
       "symbol": "DEFAULT_FILE_STORAGE",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:198:DOC302:MEDIA_ROOT",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:193:DOC302:MEDIA_ROOT",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 198,
+      "line": 193,
       "code": "DOC302",
       "symbol": "MEDIA_ROOT",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:200:DOC302:MEDIA_URL",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:195:DOC302:MEDIA_URL",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 200,
+      "line": 195,
       "code": "DOC302",
       "symbol": "MEDIA_URL",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:205:DOC302:TEMPLATES",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:200:DOC302:TEMPLATES",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 205,
+      "line": 200,
       "code": "DOC302",
       "symbol": "TEMPLATES",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:241:DOC302:FIXTURE_DIRS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:236:DOC302:FIXTURE_DIRS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 241,
+      "line": 236,
       "code": "DOC302",
       "symbol": "FIXTURE_DIRS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:250:DOC302:SESSION_COOKIE_HTTPONLY",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:245:DOC302:SESSION_COOKIE_HTTPONLY",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 250,
+      "line": 245,
       "code": "DOC302",
       "symbol": "SESSION_COOKIE_HTTPONLY",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:252:DOC302:SESSION_COOKIE_SECURE",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:247:DOC302:SESSION_COOKIE_SECURE",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 252,
+      "line": 247,
       "code": "DOC302",
       "symbol": "SESSION_COOKIE_SECURE",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:254:DOC302:SESSION_COOKIE_NAME",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:249:DOC302:SESSION_COOKIE_NAME",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 254,
+      "line": 249,
       "code": "DOC302",
       "symbol": "SESSION_COOKIE_NAME",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:256:DOC302:CSRF_COOKIE_HTTPONLY",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:251:DOC302:CSRF_COOKIE_HTTPONLY",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 256,
+      "line": 251,
       "code": "DOC302",
       "symbol": "CSRF_COOKIE_HTTPONLY",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:258:DOC302:CSRF_COOKIE_NAME",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:253:DOC302:CSRF_COOKIE_NAME",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 258,
+      "line": 253,
       "code": "DOC302",
       "symbol": "CSRF_COOKIE_NAME",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:260:DOC302:CSRF_COOKIE_SECURE",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:255:DOC302:CSRF_COOKIE_SECURE",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 260,
+      "line": 255,
       "code": "DOC302",
       "symbol": "CSRF_COOKIE_SECURE",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:262:DOC302:CSRF_TRUSTED_ORIGINS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:257:DOC302:CSRF_TRUSTED_ORIGINS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 262,
+      "line": 257,
       "code": "DOC302",
       "symbol": "CSRF_TRUSTED_ORIGINS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:264:DOC302:SECURE_BROWSER_XSS_FILTER",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:259:DOC302:SECURE_BROWSER_XSS_FILTER",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 264,
+      "line": 259,
       "code": "DOC302",
       "symbol": "SECURE_BROWSER_XSS_FILTER",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:266:DOC302:X_FRAME_OPTIONS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:261:DOC302:X_FRAME_OPTIONS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 266,
+      "line": 261,
       "code": "DOC302",
       "symbol": "X_FRAME_OPTIONS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:269:DOC302:SESSION_EXPIRE_AT_BROWSER_CLOSE",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:264:DOC302:SESSION_EXPIRE_AT_BROWSER_CLOSE",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 269,
+      "line": 264,
       "code": "DOC302",
       "symbol": "SESSION_EXPIRE_AT_BROWSER_CLOSE",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:278:DOC302:DEFAULT_FROM_EMAIL",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:273:DOC302:DEFAULT_FROM_EMAIL",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 278,
+      "line": 273,
       "code": "DOC302",
       "symbol": "DEFAULT_FROM_EMAIL",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:282:DOC302:SERVER_EMAIL",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:277:DOC302:SERVER_EMAIL",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 282,
+      "line": 277,
       "code": "DOC302",
       "symbol": "SERVER_EMAIL",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:284:DOC302:EMAIL_SUBJECT_PREFIX",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:279:DOC302:EMAIL_SUBJECT_PREFIX",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 284,
+      "line": 279,
       "code": "DOC302",
       "symbol": "EMAIL_SUBJECT_PREFIX",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:287:DOC302:EMAIL_BACKEND",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:282:DOC302:EMAIL_BACKEND",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 287,
+      "line": 282,
       "code": "DOC302",
       "symbol": "EMAIL_BACKEND",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:288:DOC302:EMAIL_HOST",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:283:DOC302:EMAIL_HOST",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 288,
+      "line": 283,
       "code": "DOC302",
       "symbol": "EMAIL_HOST",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:289:DOC302:EMAIL_HOST_USER",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:284:DOC302:EMAIL_HOST_USER",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 289,
+      "line": 284,
       "code": "DOC302",
       "symbol": "EMAIL_HOST_USER",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:290:DOC302:EMAIL_HOST_PASSWORD",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:285:DOC302:EMAIL_HOST_PASSWORD",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 290,
+      "line": 285,
       "code": "DOC302",
       "symbol": "EMAIL_HOST_PASSWORD",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:291:DOC302:EMAIL_USE_TLS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:286:DOC302:EMAIL_USE_TLS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 291,
+      "line": 286,
       "code": "DOC302",
       "symbol": "EMAIL_USE_TLS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:292:DOC302:EMAIL_PORT",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:287:DOC302:EMAIL_PORT",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 292,
+      "line": 287,
       "code": "DOC302",
       "symbol": "EMAIL_PORT",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:297:DOC302:ADMIN_URL",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:292:DOC302:ADMIN_URL",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 297,
+      "line": 292,
       "code": "DOC302",
       "symbol": "ADMIN_URL",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:299:DOC302:ADMINS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:294:DOC302:ADMINS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 299,
+      "line": 294,
       "code": "DOC302",
       "symbol": "ADMINS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:303:DOC302:MANAGERS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:298:DOC302:MANAGERS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 303,
+      "line": 298,
       "code": "DOC302",
       "symbol": "MANAGERS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:329:DOC302:pre_chain",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:324:DOC302:pre_chain",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 329,
+      "line": 324,
       "code": "DOC302",
       "symbol": "pre_chain",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:337:DOC302:LOGGING_CONFIG",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:332:DOC302:LOGGING_CONFIG",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 337,
+      "line": 332,
       "code": "DOC302",
       "symbol": "LOGGING_CONFIG",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:338:DOC302:LOGGING",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:333:DOC302:LOGGING",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 338,
+      "line": 333,
       "code": "DOC302",
       "symbol": "LOGGING",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:392:DOC302:HAYSTACK_CONNECTIONS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:387:DOC302:HAYSTACK_CONNECTIONS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 392,
+      "line": 387,
       "code": "DOC302",
       "symbol": "HAYSTACK_CONNECTIONS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:402:DOC302:CRISPY_ALLOWED_TEMPLATE_PACKS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:397:DOC302:CRISPY_ALLOWED_TEMPLATE_PACKS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 402,
+      "line": 397,
       "code": "DOC302",
       "symbol": "CRISPY_ALLOWED_TEMPLATE_PACKS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:403:DOC302:CRISPY_TEMPLATE_PACK",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:398:DOC302:CRISPY_TEMPLATE_PACK",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 403,
+      "line": 398,
       "code": "DOC302",
       "symbol": "CRISPY_TEMPLATE_PACK",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:408:DOC302:ACADEMY_THEME_SETTINGS",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:403:DOC302:ACADEMY_THEME_SETTINGS",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 408,
+      "line": 403,
       "code": "DOC302",
       "symbol": "ACADEMY_THEME_SETTINGS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:425:DOC302:WILDEWIDGETS_DATETIME_FORMAT",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:420:DOC302:WILDEWIDGETS_DATETIME_FORMAT",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 425,
+      "line": 420,
       "code": "DOC302",
       "symbol": "WILDEWIDGETS_DATETIME_FORMAT",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:445:DOC302:XFF_TRUSTED_PROXY_DEPTH",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 445,
-      "code": "DOC302",
-      "symbol": "XFF_TRUSTED_PROXY_DEPTH",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:446:DOC302:XFF_HEADER_REQUIRED",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 446,
-      "code": "DOC302",
-      "symbol": "XFF_HEADER_REQUIRED",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:451:DOC302:REST_FRAMEWORK",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 451,
-      "code": "DOC302",
-      "symbol": "REST_FRAMEWORK",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:475:DOC302:SPECTACULAR_SETTINGS",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 475,
-      "code": "DOC302",
-      "symbol": "SPECTACULAR_SETTINGS",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py:550:DOC302:ENABLE_DEBUG_TOOLBAR",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/settings.py",
-      "line": 550,
-      "code": "DOC302",
-      "symbol": "ENABLE_DEBUG_TOOLBAR",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/urls.py:9:DOC302:urlpatterns",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sandbox/demo/urls.py",
-      "line": 9,
-      "code": "DOC302",
-      "symbol": "urlpatterns",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
@@ -1331,593 +1259,593 @@
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:42:DOC100:ClassifierFilter",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:41:DOC100:ClassifierFilter",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 42,
+      "line": 41,
       "code": "DOC100",
       "symbol": "ClassifierFilter",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:43:DOC300:ClassifierFilter.name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:42:DOC300:ClassifierFilter.name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 43,
+      "line": 42,
       "code": "DOC300",
       "symbol": "ClassifierFilter.name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:54:DOC100:ClassifierViewSet",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:53:DOC100:ClassifierViewSet",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 54,
+      "line": 53,
       "code": "DOC100",
       "symbol": "ClassifierViewSet",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:55:DOC300:ClassifierViewSet.permission_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:54:DOC300:ClassifierViewSet.permission_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 55,
+      "line": 54,
       "code": "DOC300",
       "symbol": "ClassifierViewSet.permission_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:59:DOC300:ClassifierViewSet.serializer_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:58:DOC300:ClassifierViewSet.serializer_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 59,
+      "line": 58,
       "code": "DOC300",
       "symbol": "ClassifierViewSet.serializer_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:60:DOC300:ClassifierViewSet.queryset",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:59:DOC300:ClassifierViewSet.queryset",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 60,
+      "line": 59,
       "code": "DOC300",
       "symbol": "ClassifierViewSet.queryset",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:61:DOC300:ClassifierViewSet.filterset_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:60:DOC300:ClassifierViewSet.filterset_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 61,
+      "line": 60,
       "code": "DOC300",
       "symbol": "ClassifierViewSet.filterset_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:64:DOC100:ProjectFilter",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:63:DOC100:ProjectFilter",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 64,
+      "line": 63,
       "code": "DOC100",
       "symbol": "ProjectFilter",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:65:DOC300:ProjectFilter.title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:64:DOC300:ProjectFilter.title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 65,
+      "line": 64,
       "code": "DOC300",
       "symbol": "ProjectFilter.title",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:69:DOC300:ProjectFilter.machine_name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:68:DOC300:ProjectFilter.machine_name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 69,
+      "line": 68,
       "code": "DOC300",
       "symbol": "ProjectFilter.machine_name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:73:DOC300:ProjectFilter.description",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:72:DOC300:ProjectFilter.description",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 73,
+      "line": 72,
       "code": "DOC300",
       "symbol": "ProjectFilter.description",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:77:DOC300:ProjectFilter.classifier",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:76:DOC300:ProjectFilter.classifier",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 77,
+      "line": 76,
       "code": "DOC300",
       "symbol": "ProjectFilter.classifier",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:95:DOC100:ProjectViewSet",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:94:DOC100:ProjectViewSet",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 95,
+      "line": 94,
       "code": "DOC100",
       "symbol": "ProjectViewSet",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:96:DOC300:ProjectViewSet.permission_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:95:DOC300:ProjectViewSet.permission_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 96,
+      "line": 95,
       "code": "DOC300",
       "symbol": "ProjectViewSet.permission_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:100:DOC300:ProjectViewSet.serializer_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:99:DOC300:ProjectViewSet.serializer_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 100,
+      "line": 99,
       "code": "DOC300",
       "symbol": "ProjectViewSet.serializer_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:101:DOC300:ProjectViewSet.queryset",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:100:DOC300:ProjectViewSet.queryset",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 101,
+      "line": 100,
       "code": "DOC300",
       "symbol": "ProjectViewSet.queryset",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:102:DOC300:ProjectViewSet.filterset_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:101:DOC300:ProjectViewSet.filterset_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 102,
+      "line": 101,
       "code": "DOC300",
       "symbol": "ProjectViewSet.filterset_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:105:DOC200:ProjectViewSet.latest_version",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:104:DOC200:ProjectViewSet.latest_version",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 105,
+      "line": 104,
       "code": "DOC200",
       "symbol": "ProjectViewSet.latest_version",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:113:DOC100:VersionFilter",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:112:DOC100:VersionFilter",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 113,
+      "line": 112,
       "code": "DOC100",
       "symbol": "VersionFilter",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:114:DOC300:VersionFilter.project",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:113:DOC300:VersionFilter.project",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 114,
+      "line": 113,
       "code": "DOC300",
       "symbol": "VersionFilter.project",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:115:DOC300:VersionFilter.project_title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:114:DOC300:VersionFilter.project_title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 115,
+      "line": 114,
       "code": "DOC300",
       "symbol": "VersionFilter.project_title",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:120:DOC300:VersionFilter.project_machine_name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:119:DOC300:VersionFilter.project_machine_name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 120,
+      "line": 119,
       "code": "DOC300",
       "symbol": "VersionFilter.project_machine_name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:125:DOC300:VersionFilter.project_classifier",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:124:DOC300:VersionFilter.project_classifier",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 125,
+      "line": 124,
       "code": "DOC300",
       "symbol": "VersionFilter.project_classifier",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:130:DOC300:VersionFilter.version_number",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:129:DOC300:VersionFilter.version_number",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 130,
+      "line": 129,
       "code": "DOC300",
       "symbol": "VersionFilter.version_number",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:134:DOC300:VersionFilter.sphinx_version",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:133:DOC300:VersionFilter.sphinx_version",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 134,
+      "line": 133,
       "code": "DOC300",
       "symbol": "VersionFilter.sphinx_version",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:141:DOC300:VersionFilter.archived",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:140:DOC300:VersionFilter.archived",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 141,
+      "line": 140,
       "code": "DOC300",
       "symbol": "VersionFilter.archived",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:168:DOC300:VersionViewSet.permission_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:167:DOC300:VersionViewSet.permission_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 168,
+      "line": 167,
       "code": "DOC300",
       "symbol": "VersionViewSet.permission_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:172:DOC300:VersionViewSet.serializer_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:171:DOC300:VersionViewSet.serializer_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 172,
+      "line": 171,
       "code": "DOC300",
       "symbol": "VersionViewSet.serializer_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:173:DOC300:VersionViewSet.queryset",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:172:DOC300:VersionViewSet.queryset",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 173,
+      "line": 172,
       "code": "DOC300",
       "symbol": "VersionViewSet.queryset",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:174:DOC300:VersionViewSet.filterset_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:173:DOC300:VersionViewSet.filterset_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 174,
+      "line": 173,
       "code": "DOC300",
       "symbol": "VersionViewSet.filterset_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:203:DOC300:VersionUploadView.serializer_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:202:DOC300:VersionUploadView.serializer_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 203,
+      "line": 202,
       "code": "DOC300",
       "symbol": "VersionUploadView.serializer_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:204:DOC300:VersionUploadView.permission_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:203:DOC300:VersionUploadView.permission_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 204,
+      "line": 203,
       "code": "DOC300",
       "symbol": "VersionUploadView.permission_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:208:DOC300:VersionUploadView.parser_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:207:DOC300:VersionUploadView.parser_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 208,
+      "line": 207,
       "code": "DOC300",
       "symbol": "VersionUploadView.parser_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:210:DOC200:VersionUploadView.post",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:209:DOC200:VersionUploadView.post",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 210,
+      "line": 209,
       "code": "DOC200",
       "symbol": "VersionUploadView.post",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:232:DOC100:SphinxPageFilter",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:231:DOC100:SphinxPageFilter",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 232,
+      "line": 231,
       "code": "DOC100",
       "symbol": "SphinxPageFilter",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:233:DOC300:SphinxPageFilter.project",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:232:DOC300:SphinxPageFilter.project",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 233,
+      "line": 232,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.project",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:236:DOC300:SphinxPageFilter.project_title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:235:DOC300:SphinxPageFilter.project_title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 236,
+      "line": 235,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.project_title",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:241:DOC300:SphinxPageFilter.project_machine_name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:240:DOC300:SphinxPageFilter.project_machine_name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 241,
+      "line": 240,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.project_machine_name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:246:DOC300:SphinxPageFilter.project_classifier",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:245:DOC300:SphinxPageFilter.project_classifier",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 246,
+      "line": 245,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.project_classifier",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:251:DOC300:SphinxPageFilter.version",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:250:DOC300:SphinxPageFilter.version",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 251,
+      "line": 250,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.version",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:252:DOC300:SphinxPageFilter.version_number",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:251:DOC300:SphinxPageFilter.version_number",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 252,
+      "line": 251,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.version_number",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:257:DOC300:SphinxPageFilter.archived",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:256:DOC300:SphinxPageFilter.archived",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 257,
+      "line": 256,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.archived",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:260:DOC300:SphinxPageFilter.title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:259:DOC300:SphinxPageFilter.title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 260,
+      "line": 259,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.title",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:264:DOC300:SphinxPageFilter.relative_path",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:263:DOC300:SphinxPageFilter.relative_path",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 264,
+      "line": 263,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.relative_path",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:268:DOC300:SphinxPageFilter.sphinx_version",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:267:DOC300:SphinxPageFilter.sphinx_version",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 268,
+      "line": 267,
       "code": "DOC300",
       "symbol": "SphinxPageFilter.sphinx_version",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:303:DOC300:SphinxPageViewSet.permission_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:302:DOC300:SphinxPageViewSet.permission_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 303,
+      "line": 302,
       "code": "DOC300",
       "symbol": "SphinxPageViewSet.permission_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:306:DOC300:SphinxPageViewSet.serializer_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:305:DOC300:SphinxPageViewSet.serializer_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 306,
+      "line": 305,
       "code": "DOC300",
       "symbol": "SphinxPageViewSet.serializer_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:307:DOC300:SphinxPageViewSet.queryset",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:306:DOC300:SphinxPageViewSet.queryset",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 307,
+      "line": 306,
       "code": "DOC300",
       "symbol": "SphinxPageViewSet.queryset",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:308:DOC300:SphinxPageViewSet.filterset_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:307:DOC300:SphinxPageViewSet.filterset_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 308,
+      "line": 307,
       "code": "DOC300",
       "symbol": "SphinxPageViewSet.filterset_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:311:DOC100:SphinxImageFilter",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:310:DOC100:SphinxImageFilter",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 311,
+      "line": 310,
       "code": "DOC100",
       "symbol": "SphinxImageFilter",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:312:DOC300:SphinxImageFilter.project",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:311:DOC300:SphinxImageFilter.project",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 312,
+      "line": 311,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.project",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:315:DOC300:SphinxImageFilter.project_title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:314:DOC300:SphinxImageFilter.project_title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 315,
+      "line": 314,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.project_title",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:320:DOC300:SphinxImageFilter.project_machine_name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:319:DOC300:SphinxImageFilter.project_machine_name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 320,
+      "line": 319,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.project_machine_name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:325:DOC300:SphinxImageFilter.project_classifier",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:324:DOC300:SphinxImageFilter.project_classifier",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 325,
+      "line": 324,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.project_classifier",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:330:DOC300:SphinxImageFilter.version",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:329:DOC300:SphinxImageFilter.version",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 330,
+      "line": 329,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.version",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:331:DOC300:SphinxImageFilter.version_number",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:330:DOC300:SphinxImageFilter.version_number",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 331,
+      "line": 330,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.version_number",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:336:DOC300:SphinxImageFilter.archived",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:335:DOC300:SphinxImageFilter.archived",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 336,
+      "line": 335,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.archived",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:339:DOC300:SphinxImageFilter.sphinx_version",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:338:DOC300:SphinxImageFilter.sphinx_version",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 339,
+      "line": 338,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.sphinx_version",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:347:DOC300:SphinxImageFilter.orig_path",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:346:DOC300:SphinxImageFilter.orig_path",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 347,
+      "line": 346,
       "code": "DOC300",
       "symbol": "SphinxImageFilter.orig_path",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:375:DOC300:SphinxImageViewSet.permission_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:374:DOC300:SphinxImageViewSet.permission_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 375,
+      "line": 374,
       "code": "DOC300",
       "symbol": "SphinxImageViewSet.permission_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:378:DOC300:SphinxImageViewSet.serializer_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:377:DOC300:SphinxImageViewSet.serializer_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 378,
+      "line": 377,
       "code": "DOC300",
       "symbol": "SphinxImageViewSet.serializer_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:379:DOC300:SphinxImageViewSet.queryset",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:378:DOC300:SphinxImageViewSet.queryset",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 379,
+      "line": 378,
       "code": "DOC300",
       "symbol": "SphinxImageViewSet.queryset",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:380:DOC300:SphinxImageViewSet.filterset_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:379:DOC300:SphinxImageViewSet.filterset_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 380,
+      "line": 379,
       "code": "DOC300",
       "symbol": "SphinxImageViewSet.filterset_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:383:DOC100:ProjectRelatedLinkFilter",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:382:DOC100:ProjectRelatedLinkFilter",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 383,
+      "line": 382,
       "code": "DOC100",
       "symbol": "ProjectRelatedLinkFilter",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:384:DOC300:ProjectRelatedLinkFilter.title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:383:DOC300:ProjectRelatedLinkFilter.title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 384,
+      "line": 383,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkFilter.title",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:388:DOC300:ProjectRelatedLinkFilter.project_title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:387:DOC300:ProjectRelatedLinkFilter.project_title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 388,
+      "line": 387,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkFilter.project_title",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:393:DOC300:ProjectRelatedLinkFilter.project_machine_name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:392:DOC300:ProjectRelatedLinkFilter.project_machine_name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 393,
+      "line": 392,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkFilter.project_machine_name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:398:DOC300:ProjectRelatedLinkFilter.project_description",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:397:DOC300:ProjectRelatedLinkFilter.project_description",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 398,
+      "line": 397,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkFilter.project_description",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:403:DOC300:ProjectRelatedLinkFilter.project_classifier",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:402:DOC300:ProjectRelatedLinkFilter.project_classifier",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 403,
+      "line": 402,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkFilter.project_classifier",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:422:DOC100:ProjectRelatedLinkViewSet",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:421:DOC100:ProjectRelatedLinkViewSet",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 422,
+      "line": 421,
       "code": "DOC100",
       "symbol": "ProjectRelatedLinkViewSet",
       "message": "Missing class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:423:DOC300:ProjectRelatedLinkViewSet.permission_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:422:DOC300:ProjectRelatedLinkViewSet.permission_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 423,
+      "line": 422,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkViewSet.permission_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:427:DOC300:ProjectRelatedLinkViewSet.serializer_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:426:DOC300:ProjectRelatedLinkViewSet.serializer_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 427,
+      "line": 426,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkViewSet.serializer_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:428:DOC300:ProjectRelatedLinkViewSet.queryset",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:427:DOC300:ProjectRelatedLinkViewSet.queryset",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 428,
+      "line": 427,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkViewSet.queryset",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:429:DOC300:ProjectRelatedLinkViewSet.filterset_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py:428:DOC300:ProjectRelatedLinkViewSet.filterset_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/api/views.py",
-      "line": 429,
+      "line": 428,
       "code": "DOC300",
       "symbol": "ProjectRelatedLinkViewSet.filterset_class",
       "message": "Class attribute missing '#:' documentation."
@@ -2731,46 +2659,6 @@
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py:8:DOC200:apply_migration",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py",
-      "line": 8,
-      "code": "DOC200",
-      "symbol": "apply_migration",
-      "message": "Missing docstring on function/method."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py:63:DOC200:revert_migration",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py",
-      "line": 63,
-      "code": "DOC200",
-      "symbol": "revert_migration",
-      "message": "Missing docstring on function/method."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py:77:DOC100:Migration",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py",
-      "line": 77,
-      "code": "DOC100",
-      "symbol": "Migration",
-      "message": "Missing class docstring."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py:79:DOC300:Migration.dependencies",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py",
-      "line": 79,
-      "code": "DOC300",
-      "symbol": "Migration.dependencies",
-      "message": "Class attribute missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py:83:DOC300:Migration.operations",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0010_add_groups.py",
-      "line": 83,
-      "code": "DOC300",
-      "symbol": "Migration.operations",
-      "message": "Class attribute missing '#:' documentation."
-    },
-    {
       "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0011_machinenamefield.py:7:DOC100:Migration",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/migrations/0011_machinenamefield.py",
       "line": 7,
@@ -3568,30 +3456,6 @@
       "line": 6,
       "code": "DOC302",
       "symbol": "app_settings",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/settings.py:23:DOC302:LOGO_URL",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/settings.py",
-      "line": 23,
-      "code": "DOC302",
-      "symbol": "LOGO_URL",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/settings.py:28:DOC302:MAX_GLOBAL_TOC_TREE_DEPTH",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/settings.py",
-      "line": 28,
-      "code": "DOC302",
-      "symbol": "MAX_GLOBAL_TOC_TREE_DEPTH",
-      "message": "Module-level global variable missing '#:' documentation."
-    },
-    {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/settings.py:34:DOC302:EXTRA_MENU_ITEMS",
-      "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/settings.py",
-      "line": 34,
-      "code": "DOC302",
-      "symbol": "EXTRA_MENU_ITEMS",
       "message": "Module-level global variable missing '#:' documentation."
     },
     {
@@ -5339,185 +5203,185 @@
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:27:DOC101:SphinxPagePagination",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:28:DOC101:SphinxPagePagination",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 27,
+      "line": 28,
       "code": "DOC101",
       "symbol": "SphinxPagePagination",
       "message": "Class with constructor arguments must document Args: in class docstring."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:37:DOC300:SphinxPagePagination.name",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:38:DOC300:SphinxPagePagination.name",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 37,
+      "line": 38,
       "code": "DOC300",
       "symbol": "SphinxPagePagination.name",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:39:DOC200:SphinxPagePagination.__init__",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:40:DOC200:SphinxPagePagination.__init__",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 39,
+      "line": 40,
       "code": "DOC200",
       "symbol": "SphinxPagePagination.__init__",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:91:DOC200:SphinxPagePermalinkWidget.__init__",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:92:DOC200:SphinxPagePermalinkWidget.__init__",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 91,
+      "line": 92,
       "code": "DOC200",
       "symbol": "SphinxPagePermalinkWidget.__init__",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:93:DOC301:SphinxPagePermalinkWidget.page",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:94:DOC301:SphinxPagePermalinkWidget.page",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 93,
+      "line": 94,
       "code": "DOC301",
       "symbol": "SphinxPagePermalinkWidget.page",
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:94:DOC301:SphinxPagePermalinkWidget.widget",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:95:DOC301:SphinxPagePermalinkWidget.widget",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 94,
+      "line": 95,
       "code": "DOC301",
       "symbol": "SphinxPagePermalinkWidget.widget",
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:152:DOC300:SphinxPageBodyWidget.css_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:153:DOC300:SphinxPageBodyWidget.css_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 152,
+      "line": 153,
       "code": "DOC300",
       "symbol": "SphinxPageBodyWidget.css_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:154:DOC200:SphinxPageBodyWidget.__init__",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:155:DOC200:SphinxPageBodyWidget.__init__",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 154,
+      "line": 155,
       "code": "DOC200",
       "symbol": "SphinxPageBodyWidget.__init__",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:157:DOC301:SphinxPageBodyWidget.widget",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:158:DOC301:SphinxPageBodyWidget.widget",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 157,
+      "line": 158,
       "code": "DOC301",
       "symbol": "SphinxPageBodyWidget.widget",
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:169:DOC300:SphinxPageTableOfContentsWidget.css_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:170:DOC300:SphinxPageTableOfContentsWidget.css_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 169,
+      "line": 170,
       "code": "DOC300",
       "symbol": "SphinxPageTableOfContentsWidget.css_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:171:DOC200:SphinxPageTableOfContentsWidget.__init__",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:172:DOC200:SphinxPageTableOfContentsWidget.__init__",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 171,
+      "line": 172,
       "code": "DOC200",
       "symbol": "SphinxPageTableOfContentsWidget.__init__",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:173:DOC301:SphinxPageTableOfContentsWidget.widget",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:174:DOC301:SphinxPageTableOfContentsWidget.widget",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 173,
+      "line": 174,
       "code": "DOC301",
       "symbol": "SphinxPageTableOfContentsWidget.widget",
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:187:DOC300:SphinxPageGlobalTableOfContentsMenu.css_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:188:DOC300:SphinxPageGlobalTableOfContentsMenu.css_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 187,
+      "line": 188,
       "code": "DOC300",
       "symbol": "SphinxPageGlobalTableOfContentsMenu.css_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:188:DOC300:SphinxPageGlobalTableOfContentsMenu.title_css_classes",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:189:DOC300:SphinxPageGlobalTableOfContentsMenu.title_css_classes",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 188,
+      "line": 189,
       "code": "DOC300",
       "symbol": "SphinxPageGlobalTableOfContentsMenu.title_css_classes",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:243:DOC202:SphinxPageGlobalTableOfContentsMenu._load_menuitems",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:244:DOC202:SphinxPageGlobalTableOfContentsMenu._load_menuitems",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 243,
+      "line": 244,
       "code": "DOC202",
       "symbol": "SphinxPageGlobalTableOfContentsMenu._load_menuitems",
       "message": "Missing required Napoleon section 'Args:'."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:287:DOC300:SphinxPageTitle.block",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:288:DOC300:SphinxPageTitle.block",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 287,
+      "line": 288,
       "code": "DOC300",
       "symbol": "SphinxPageTitle.block",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:288:DOC300:SphinxPageTitle.css_class",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:289:DOC300:SphinxPageTitle.css_class",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 288,
+      "line": 289,
       "code": "DOC300",
       "symbol": "SphinxPageTitle.css_class",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:290:DOC200:SphinxPageTitle.__init__",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:291:DOC200:SphinxPageTitle.__init__",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 290,
+      "line": 291,
       "code": "DOC200",
       "symbol": "SphinxPageTitle.__init__",
       "message": "Missing docstring on function/method."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:292:DOC301:SphinxPageTitle.project_title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:293:DOC301:SphinxPageTitle.project_title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 292,
+      "line": 293,
       "code": "DOC301",
       "symbol": "SphinxPageTitle.project_title",
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:293:DOC301:SphinxPageTitle.version_number",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:294:DOC301:SphinxPageTitle.version_number",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 293,
+      "line": 294,
       "code": "DOC301",
       "symbol": "SphinxPageTitle.version_number",
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:294:DOC301:SphinxPageTitle.title",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:295:DOC301:SphinxPageTitle.title",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 294,
+      "line": 295,
       "code": "DOC301",
       "symbol": "SphinxPageTitle.title",
       "message": "Instance attribute assigned in __init__ is missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:321:DOC300:SphinxPageLayout.left_column_width",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:322:DOC300:SphinxPageLayout.left_column_width",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 321,
+      "line": 322,
       "code": "DOC300",
       "symbol": "SphinxPageLayout.left_column_width",
       "message": "Class attribute missing '#:' documentation."
     },
     {
-      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:323:DOC200:SphinxPageLayout.__init__",
+      "key": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py:324:DOC200:SphinxPageLayout.__init__",
       "path": "/Users/cmalek/src/workspace/django-sphinx-hosting/sphinx_hosting/wildewidgets/sphinx_page.py",
-      "line": 323,
+      "line": 324,
       "code": "DOC200",
       "symbol": "SphinxPageLayout.__init__",
       "message": "Missing docstring on function/method."
