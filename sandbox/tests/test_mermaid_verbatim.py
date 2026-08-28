@@ -47,3 +47,18 @@ def test_leaves_image_tags_outside_mermaid() -> None:
 def test_empty_and_plain_html_unchanged() -> None:
     assert wrap_mermaid_verbatim("") == ""
     assert wrap_mermaid_verbatim("<p>no diagram</p>") == "<p>no diagram</p>"
+
+
+from types import SimpleNamespace
+
+from sphinx_hosting.wildewidgets.sphinx_page import SphinxPageBodyWidget
+
+
+def test_body_widget_preserves_mustaches_in_mermaid() -> None:
+    page = SimpleNamespace(
+        body='<pre class="mermaid">graph TD; A-->{{node}}</pre>'
+    )
+    widget = SphinxPageBodyWidget(page)
+    html = widget.widget.html  # wildewidgets HTMLWidget stores html= on self.html
+    assert "{{node}}" in html
+    assert "graph TD" in html

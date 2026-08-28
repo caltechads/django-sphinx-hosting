@@ -17,6 +17,7 @@ from wildewidgets import (
     TwoColumnLayout,
 )
 
+from ..mermaid import wrap_mermaid_verbatim
 from ..models import SphinxPage, Version
 
 # ------------------------------------------------------
@@ -153,7 +154,7 @@ class SphinxPageBodyWidget(CardWidget):
 
     def __init__(self, page: SphinxPage, **kwargs):
         super().__init__(**kwargs)
-        body = "{% load sphinx_hosting %}\n" + page.body
+        body = "{% load sphinx_hosting %}\n" + wrap_mermaid_verbatim(page.body)
         self.widget = HTMLWidget(html=Template(body).render(Context()))
 
 
