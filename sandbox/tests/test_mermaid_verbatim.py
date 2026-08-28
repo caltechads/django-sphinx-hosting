@@ -1,4 +1,4 @@
-# ruff: noqa: S101
+# ruff: noqa: S101, PLR2004
 
 from __future__ import annotations
 
@@ -62,3 +62,37 @@ def test_body_widget_preserves_mustaches_in_mermaid() -> None:
     html = widget.widget.html  # wildewidgets HTMLWidget stores html= on self.html
     assert "{{node}}" in html
     assert "graph TD" in html
+
+
+from pathlib import Path
+
+import sphinx_hosting
+
+# Tests run in the demo container. The app is mounted as the installed
+# package, not as a git-root relative to this test file.
+_APP = Path(sphinx_hosting.__file__).resolve().parent
+
+
+def test_vendored_mermaid_is_1121_umd() -> None:
+    path = _APP / "static/sphinx_hosting/js/mermaid.min.js"
+    text = path.read_text(encoding="utf-8")
+    assert path.stat().st_size > 100_000
+    assert "11.12.1" in text
+
+
+def test_base_template_loads_vendored_mermaid_and_runs() -> None:
+    html = (_APP / "templates/sphinx_hosting/base.html").read_text(encoding="utf-8")
+    assert "sphinx_hosting/js/mermaid.min.js" in html
+    assert "cdn.jsdelivr" not in html
+    assert "cdnjs.cloudflare.com/ajax/libs/mermaid" not in html
+    assert "startOnLoad: false" in html
+    assert 'theme: "neutral"' in html
+    assert "mermaid.run()" in html
+
+
+def test_css_scrolls_wide_mermaid() -> None:
+    css = (_APP / "static/sphinx_hosting/css/sphinx_hosting.css").read_text(
+        encoding="utf-8"
+    )
+    assert ".sphinxpage-body .mermaid" in css
+    assert "overflow-x: auto" in css

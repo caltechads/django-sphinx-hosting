@@ -407,6 +407,9 @@ span.linenos.special {
  *
  */
 /* -- main layout ----------------------------------------------------------- */
+.sphinxpage-body .mermaid {
+  overflow-x: auto;
+}
 .sphinxpage-body .wildewidgets_html_container {
   line-height: 1.5rem;
   font-size: 0.9rem;
