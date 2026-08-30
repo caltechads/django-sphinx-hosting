@@ -960,8 +960,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sandbox_demo_core_init",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 30,
+      "community_name": "sphinx_hosting.py",
       "norm_label": "demo/core/__init__.py"
     },
     {
@@ -1015,8 +1015,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sandbox_demo_core_forms",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "core/forms.py"
     },
     {
@@ -1026,8 +1026,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "sandbox_demo_core_forms_searchnoteform",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "searchnoteform"
     },
     {
@@ -1037,8 +1037,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "sandbox_demo_core_forms_searchnoteform_init",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": ".__init__()"
     },
     {
@@ -1048,8 +1048,8 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "sandbox_demo_core_forms_meta",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "meta"
     },
     {
@@ -1059,8 +1059,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "sandbox_demo_core_forms_rationale_19",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "form used to create and update demo ``searchnote`` records. keyword args:..."
     },
     {
@@ -1070,8 +1070,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "sandbox_demo_core_forms_rationale_28",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "configure crispy layout and sorted relation choices for the form. args: *args:..."
     },
     {
@@ -1433,8 +1433,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sandbox_demo_core_models",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "core/models.py"
     },
     {
@@ -1598,8 +1598,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sandbox_demo_core_search",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 37,
+      "community_name": "render_search_note_result",
       "norm_label": "core/search.py"
     },
     {
@@ -1741,8 +1741,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": "core/search_indexes.py"
     },
     {
@@ -1752,8 +1752,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_searchnoteindex",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": "searchnoteindex"
     },
     {
@@ -1763,8 +1763,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_searchnoteindex_get_model",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": ".get_model()"
     },
     {
@@ -1774,8 +1774,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_searchnoteindex_prepare_text",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": ".prepare_text()"
     },
     {
@@ -1785,8 +1785,8 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_searchnoteindex_prepare_classifiers",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": ".prepare_classifiers()"
     },
     {
@@ -1796,8 +1796,8 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_searchnoteindex_index_queryset",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": ".index_queryset()"
     },
     {
@@ -1807,8 +1807,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_rationale_9",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": "haystack index for demo ``searchnote`` objects."
     },
     {
@@ -1818,8 +1818,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_rationale_27",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": "return the indexed django model. returns: the ``searchnote`` model class."
     },
     {
@@ -1829,8 +1829,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_rationale_37",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": "build the unified-search document for one note. args: obj: the note being..."
     },
     {
@@ -1840,8 +1840,8 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_rationale_50",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": "prepare classifier facet values for one note. args: obj: the note being..."
     },
     {
@@ -1851,8 +1851,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "sandbox_demo_core_search_indexes_rationale_63",
-      "community": 91,
-      "community_name": "SearchNoteIndex",
+      "community": 9,
+      "community_name": "SearchNote",
       "norm_label": "return the queryset used for bulk indexing. keyword args: using: the haystack..."
     },
     {
@@ -1907,7 +1907,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_urls",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "core/urls.py"
     },
     {
@@ -1917,8 +1917,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sandbox_demo_core_views",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "core/views.py"
     },
     {
@@ -1928,8 +1928,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotelistview",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "searchnotelistview"
     },
     {
@@ -1940,7 +1940,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_py_loginrequiredmixin",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "loginrequiredmixin"
     },
     {
@@ -1950,8 +1950,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "listview",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "listview"
     },
     {
@@ -1961,8 +1961,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotelistview_get_queryset",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": ".get_queryset()"
     },
     {
@@ -1972,8 +1972,8 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotelistview_get_content",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": ".get_content()"
     },
     {
@@ -1983,8 +1983,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_py_widget",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": "widget"
     },
     {
@@ -2005,8 +2005,8 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotedetailview",
-      "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "searchnotedetailview"
     },
     {
@@ -2016,8 +2016,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_py_detailview",
-      "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "detailview"
     },
     {
@@ -2028,7 +2028,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotedetailview_get_queryset",
       "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community_name": "SearchNoteFormWidget",
       "norm_label": ".get_queryset()"
     },
     {
@@ -2039,7 +2039,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotedetailview_get_content",
       "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community_name": "SearchNoteFormWidget",
       "norm_label": ".get_content()"
     },
     {
@@ -2061,7 +2061,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotecreateview",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "searchnotecreateview"
     },
     {
@@ -2072,7 +2072,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_py_createview",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "createview"
     },
     {
@@ -2104,8 +2104,8 @@
       "source_location": "L188",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotecreateview_get_content",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": ".get_content()"
     },
     {
@@ -2127,7 +2127,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnoteupdateview",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "searchnoteupdateview"
     },
     {
@@ -2138,7 +2138,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_py_updateview",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "updateview"
     },
     {
@@ -2159,8 +2159,8 @@
       "source_location": "L243",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnoteupdateview_get_content",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": ".get_content()"
     },
     {
@@ -2182,7 +2182,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotedeleteview",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "searchnotedeleteview"
     },
     {
@@ -2193,7 +2193,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_py_deleteview",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "deleteview"
     },
     {
@@ -2204,7 +2204,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_searchnotedeleteview_post",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": ".post()"
     },
     {
@@ -2215,7 +2215,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_py_httprequest",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "httprequest"
     },
     {
@@ -2226,7 +2226,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_py_httpresponse",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "httpresponse"
     },
     {
@@ -2236,8 +2236,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_38",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "render the demo landing page for browsing ``searchnote`` records."
     },
     {
@@ -2247,8 +2247,8 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_48",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "return notes with related objects eager loaded for the list page. returns:..."
     },
     {
@@ -2258,8 +2258,8 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_62",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": "build the widget layout for the searchnote list page. returns: populated widget..."
     },
     {
@@ -2280,8 +2280,8 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_94",
-      "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "render one demo ``searchnote`` record with its related metadata."
     },
     {
@@ -2292,7 +2292,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_104",
       "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community_name": "SearchNoteFormWidget",
       "norm_label": "return notes with related project and classifier data loaded. returns: queryset..."
     },
     {
@@ -2303,7 +2303,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_116",
       "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community_name": "SearchNoteFormWidget",
       "norm_label": "build the widget layout for one searchnote detail page. returns: populated..."
     },
     {
@@ -2325,7 +2325,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_165",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "create a new demo ``searchnote`` record."
     },
     {
@@ -2346,8 +2346,8 @@
       "source_location": "L189",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_189",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": "build the widget layout for the searchnote create page. returns: populated..."
     },
     {
@@ -2369,7 +2369,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_220",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "update an existing demo ``searchnote`` record."
     },
     {
@@ -2390,8 +2390,8 @@
       "source_location": "L244",
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_244",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": "build the widget layout for the searchnote update page. returns: populated..."
     },
     {
@@ -2413,7 +2413,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_284",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "confirm and delete an existing demo ``searchnote`` record."
     },
     {
@@ -2424,7 +2424,7 @@
       "_origin": "ast",
       "id": "sandbox_demo_core_views_rationale_298",
       "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community_name": "core/views.py",
       "norm_label": "delete a search note and redirect to the list page. args: request: the http..."
     },
     {
@@ -2434,8 +2434,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 28,
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "wildewidgets.py"
     },
     {
@@ -2522,8 +2522,8 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets_mainmenu",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 58,
+      "community_name": "GlobalSearchFormWidget",
       "norm_label": "mainmenu"
     },
     {
@@ -2533,8 +2533,8 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets_searchnotelistwidget",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "searchnotelistwidget"
     },
     {
@@ -2544,8 +2544,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "statictablewidget",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "statictablewidget"
     },
     {
@@ -2577,8 +2577,8 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets_searchnotedetailwidget",
-      "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "searchnotedetailwidget"
     },
     {
@@ -2610,8 +2610,8 @@
       "source_location": "L196",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets_searchnoteformwidget",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": "searchnoteformwidget"
     },
     {
@@ -2665,8 +2665,8 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets_rationale_97",
-      "community": 9,
-      "community_name": "SearchNote",
+      "community": 58,
+      "community_name": "GlobalSearchFormWidget",
       "norm_label": "demo override class for ``sphinx_hosting_settings['navbar_class']`` tests."
     },
     {
@@ -2676,8 +2676,8 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets_rationale_103",
-      "community": 25,
-      "community_name": "SearchNoteListView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "render the main content block for the searchnote list page. args: notes:..."
     },
     {
@@ -2687,8 +2687,8 @@
       "source_location": "L145",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets_rationale_145",
-      "community": 164,
-      "community_name": "SearchNoteDetailView",
+      "community": 46,
+      "community_name": "core/views.py",
       "norm_label": "render the main content block for one searchnote detail page. args: note: note..."
     },
     {
@@ -2709,8 +2709,8 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "sandbox_demo_core_wildewidgets_rationale_197",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 164,
+      "community_name": "SearchNoteFormWidget",
       "norm_label": "render the main content block for searchnote create and update pages. args:..."
     },
     {
@@ -2819,8 +2819,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sandbox_demo_urls",
-      "community": 46,
-      "community_name": "SearchNoteCreateView",
+      "community": 30,
+      "community_name": "sphinx_hosting.py",
       "norm_label": "demo/urls.py"
     },
     {
@@ -4197,8 +4197,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_fakesearchqueryset",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 68,
+      "community_name": "FakeSearchQuerySet",
       "norm_label": "fakesearchqueryset"
     },
     {
@@ -4208,8 +4208,8 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_fakesearchqueryset_init",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 68,
+      "community_name": "FakeSearchQuerySet",
       "norm_label": ".__init__()"
     },
     {
@@ -4219,8 +4219,8 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_fakesearchqueryset_models",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 68,
+      "community_name": "FakeSearchQuerySet",
       "norm_label": ".models()"
     },
     {
@@ -4230,8 +4230,8 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_fakesearchqueryset_filter",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 68,
+      "community_name": "FakeSearchQuerySet",
       "norm_label": ".filter()"
     },
     {
@@ -4340,8 +4340,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_py_override_settings",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "override_settings"
     },
     {
@@ -4351,8 +4351,8 @@
       "source_location": "L154",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_test_search_result_renderers_default_to_empty",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "test_search_result_renderers_default_to_empty()"
     },
     {
@@ -4362,8 +4362,8 @@
       "source_location": "L160",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_test_search_result_renderers_requires_dict",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "test_search_result_renderers_requires_dict()"
     },
     {
@@ -4373,8 +4373,8 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_test_search_result_renderers_requires_string_model_labels",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "test_search_result_renderers_requires_string_model_labels()"
     },
     {
@@ -4384,8 +4384,8 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_test_search_result_renderers_requires_string_dotted_paths",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "test_search_result_renderers_requires_string_dotted_paths()"
     },
     {
@@ -4395,8 +4395,8 @@
       "source_location": "L182",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_test_search_result_renderers_reject_unknown_model_labels",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "test_search_result_renderers_reject_unknown_model_labels()"
     },
     {
@@ -4406,8 +4406,8 @@
       "source_location": "L196",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_test_search_result_renderers_require_registered_search_indexes",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "test_search_result_renderers_require_registered_search_indexes()"
     },
     {
@@ -4417,8 +4417,8 @@
       "source_location": "L210",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_test_search_result_renderers_require_callable_targets",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "test_search_result_renderers_require_callable_targets()"
     },
     {
@@ -4428,8 +4428,8 @@
       "source_location": "L224",
       "_origin": "ast",
       "id": "sandbox_tests_test_unified_search_extensibility_test_search_result_models_return_registered_host_models",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "test_search_result_models_return_registered_host_models()"
     },
     {
@@ -4799,7 +4799,7 @@
       "label": "test_viewer_post_does_not_write_and_matches_sibling_denied()",
       "file_type": "code",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L155",
+      "source_location": "L156",
       "_origin": "ast",
       "id": "sandbox_tests_test_version_make_latest_test_viewer_post_does_not_write_and_matches_sibling_denied",
       "community": 21,
@@ -4810,7 +4810,7 @@
       "label": "test_change_project_only_can_make_latest_for_own_version()",
       "file_type": "code",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L172",
+      "source_location": "L174",
       "_origin": "ast",
       "id": "sandbox_tests_test_version_make_latest_test_change_project_only_can_make_latest_for_own_version",
       "community": 21,
@@ -4821,7 +4821,7 @@
       "label": "test_change_version_only_can_make_latest_for_own_version()",
       "file_type": "code",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L197",
+      "source_location": "L199",
       "_origin": "ast",
       "id": "sandbox_tests_test_version_make_latest_test_change_version_only_can_make_latest_for_own_version",
       "community": 21,
@@ -4832,7 +4832,7 @@
       "label": "test_foreign_version_pk_does_not_write_and_redirects_with_errors()",
       "file_type": "code",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L218",
+      "source_location": "L220",
       "_origin": "ast",
       "id": "sandbox_tests_test_version_make_latest_test_foreign_version_pk_does_not_write_and_redirects_with_errors",
       "community": 21,
@@ -4843,7 +4843,7 @@
       "label": "test_viewer_get_hides_set_latest_button_for_non_latest_with_head()",
       "file_type": "code",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L252",
+      "source_location": "L254",
       "_origin": "ast",
       "id": "sandbox_tests_test_version_make_latest_test_viewer_get_hides_set_latest_button_for_non_latest_with_head",
       "community": 21,
@@ -4865,7 +4865,7 @@
       "label": "test_permitted_user_get_shows_set_latest_for_non_latest_with_head()",
       "file_type": "code",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L269",
+      "source_location": "L271",
       "_origin": "ast",
       "id": "sandbox_tests_test_version_make_latest_test_permitted_user_get_shows_set_latest_for_non_latest_with_head",
       "community": 21,
@@ -4876,7 +4876,7 @@
       "label": "test_permitted_user_get_hides_set_latest_when_already_latest()",
       "file_type": "code",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L286",
+      "source_location": "L288",
       "_origin": "ast",
       "id": "sandbox_tests_test_version_make_latest_test_permitted_user_get_hides_set_latest_when_already_latest",
       "community": 21,
@@ -5539,8 +5539,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_exc",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "exc.py"
     },
     {
@@ -5550,8 +5550,8 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "sphinx_hosting_exc_versionalreadyexists",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "versionalreadyexists"
     },
     {
@@ -5561,8 +5561,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "exception",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "exception"
     },
     {
@@ -5573,7 +5573,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_fields",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "fields.py"
     },
     {
@@ -5583,8 +5583,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "sphinx_hosting_fields_machinenamefield",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "machinenamefield"
     },
     {
@@ -5594,8 +5594,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "sphinx_hosting_fields_machinenamefield_formfield",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": ".formfield()"
     },
     {
@@ -5605,8 +5605,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "sphinx_hosting_fields_rationale_12",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "a :py:class:`django.forms.slugfield` that also allows \".\" characters. \".\" is..."
     },
     {
@@ -5617,7 +5617,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_form_fields",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "form_fields.py"
     },
     {
@@ -5628,7 +5628,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_form_fields_machinenamefield",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "machinenamefield"
     },
     {
@@ -5639,7 +5639,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_form_fields_rationale_7",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "a form field for our :py:class:`sphinx_hosting.fields.machinenamefield` that..."
     },
     {
@@ -5660,8 +5660,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_globalsearchform",
-      "community": 61,
-      "community_name": "Project",
+      "community": 10,
+      "community_name": "Version",
       "norm_label": "globalsearchform"
     },
     {
@@ -5671,8 +5671,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "searchform",
-      "community": 61,
-      "community_name": "Project",
+      "community": 10,
+      "community_name": "Version",
       "norm_label": "searchform"
     },
     {
@@ -5693,8 +5693,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_projectcreateform",
-      "community": 10,
-      "community_name": "Version",
+      "community": 5,
+      "community_name": "sphinx_hosting/views.py",
       "norm_label": "projectcreateform"
     },
     {
@@ -5715,8 +5715,8 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_meta",
-      "community": 10,
-      "community_name": "Version",
+      "community": 61,
+      "community_name": "Project",
       "norm_label": "meta"
     },
     {
@@ -5726,8 +5726,8 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_projectupdateform",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 11,
+      "community_name": "ProjectUpdateForm",
       "norm_label": "projectupdateform"
     },
     {
@@ -5737,8 +5737,8 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_projectupdateform_init",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 11,
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".__init__()"
     },
     {
@@ -5770,8 +5770,8 @@
       "source_location": "L176",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_projectrelatedlinkbaseform",
-      "community": 10,
-      "community_name": "Version",
+      "community": 61,
+      "community_name": "Project",
       "norm_label": "projectrelatedlinkbaseform"
     },
     {
@@ -5792,8 +5792,8 @@
       "source_location": "L216",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_projectrelatedlinkcreateform",
-      "community": 10,
-      "community_name": "Version",
+      "community": 61,
+      "community_name": "Project",
       "norm_label": "projectrelatedlinkcreateform"
     },
     {
@@ -5902,8 +5902,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_rationale_18",
-      "community": 61,
-      "community_name": "Project",
+      "community": 10,
+      "community_name": "Version",
       "norm_label": "the search form at the top of the sidebar, underneath the logo. it is a..."
     },
     {
@@ -5913,8 +5913,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_rationale_44",
-      "community": 10,
-      "community_name": "Version",
+      "community": 5,
+      "community_name": "sphinx_hosting/views.py",
       "norm_label": "the form we use to create a new :py:class:`sphinx_hosting.models.project`. the..."
     },
     {
@@ -5924,8 +5924,8 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_rationale_91",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 11,
+      "community_name": "ProjectUpdateForm",
       "norm_label": "the form we use to update an existing..."
     },
     {
@@ -5946,8 +5946,8 @@
       "source_location": "L177",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_rationale_177",
-      "community": 10,
-      "community_name": "Version",
+      "community": 61,
+      "community_name": "Project",
       "norm_label": "the base form for creating and updating a..."
     },
     {
@@ -5957,8 +5957,8 @@
       "source_location": "L217",
       "_origin": "ast",
       "id": "sphinx_hosting_forms_rationale_217",
-      "community": 10,
-      "community_name": "Version",
+      "community": 61,
+      "community_name": "Project",
       "norm_label": "the form we use to create a new..."
     },
     {
@@ -6023,8 +6023,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_global_search_view",
-      "community": 68,
-      "community_name": "search_result_renderers.py",
+      "community": 28,
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "global_search_view.py"
     },
     {
@@ -6034,8 +6034,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "sphinx_hosting_global_search_view_apply_global_search_facets",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 56,
+      "community_name": "GlobalSphinxPageSearchView",
       "norm_label": "_apply_global_search_facets()"
     },
     {
@@ -6045,8 +6045,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_global_search_view_py_searchqueryset",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 56,
+      "community_name": "GlobalSphinxPageSearchView",
       "norm_label": "searchqueryset"
     },
     {
@@ -6056,8 +6056,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_global_search_view_py_httprequest",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 56,
+      "community_name": "GlobalSphinxPageSearchView",
       "norm_label": "httprequest"
     },
     {
@@ -6155,8 +6155,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "sphinx_hosting_global_search_view_rationale_20",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 56,
+      "community_name": "GlobalSphinxPageSearchView",
       "norm_label": "apply active project/classifier filters to a unified-search queryset. args:..."
     },
     {
@@ -6210,8 +6210,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_importers",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "importers.py"
     },
     {
@@ -6221,8 +6221,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_pagetreenode",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "pagetreenode"
     },
     {
@@ -6254,8 +6254,8 @@
       "source_location": "L114",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_get_file",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "._get_file()"
     },
     {
@@ -6265,8 +6265,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "tarfile",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "tarfile"
     },
     {
@@ -6276,8 +6276,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "bufferedreader",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "bufferedreader"
     },
     {
@@ -6309,8 +6309,8 @@
       "source_location": "L229",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_load_config",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": ".load_config()"
     },
     {
@@ -6320,8 +6320,8 @@
       "source_location": "L239",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_get_version",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": ".get_version()"
     },
     {
@@ -6331,8 +6331,8 @@
       "source_location": "L289",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_import_documents",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": ".import_documents()"
     },
     {
@@ -6342,8 +6342,8 @@
       "source_location": "L323",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_import_images",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": ".import_images()"
     },
     {
@@ -6353,8 +6353,8 @@
       "source_location": "L355",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_fix_page_title",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "._fix_page_title()"
     },
     {
@@ -6364,8 +6364,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_py_any",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "any"
     },
     {
@@ -6397,8 +6397,8 @@
       "source_location": "L504",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_fix_toc",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "._fix_toc()"
     },
     {
@@ -6408,8 +6408,8 @@
       "source_location": "L565",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_update_page_tree",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "._update_page_tree()"
     },
     {
@@ -6419,8 +6419,8 @@
       "source_location": "L587",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_import_pages",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": ".import_pages()"
     },
     {
@@ -6441,8 +6441,8 @@
       "source_location": "L678",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_sphinxpackageimporter_run",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": ".run()"
     },
     {
@@ -6452,8 +6452,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "io",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "io"
     },
     {
@@ -6463,8 +6463,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_28",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "a data structure to temporarily hold relationships between..."
     },
     {
@@ -6485,8 +6485,8 @@
       "source_location": "L115",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_115",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "look through the member names in our tarfile ``package`` for ``filename``, and..."
     },
     {
@@ -6518,8 +6518,8 @@
       "source_location": "L230",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_230",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "load the ``globalcontext.json`` file for later reference. args: package: the..."
     },
     {
@@ -6529,8 +6529,8 @@
       "source_location": "L240",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_240",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "look in ``package`` for a member named ``globalcontext.json``, and load that..."
     },
     {
@@ -6540,8 +6540,8 @@
       "source_location": "L290",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_290",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "import all downloadable documents in our sphinx documentation into the database..."
     },
     {
@@ -6551,8 +6551,8 @@
       "source_location": "L324",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_324",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "import all images in our sphinx documentation into the database before..."
     },
     {
@@ -6562,8 +6562,8 @@
       "source_location": "L356",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_356",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "ensure that there is a ``title`` key in ``data``, the json data from our .fjson..."
     },
     {
@@ -6595,8 +6595,8 @@
       "source_location": "L505",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_505",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "update our page's local table of contents (``data['toc']`) to have the css..."
     },
     {
@@ -6606,8 +6606,8 @@
       "source_location": "L566",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_566",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "update :py:attr:`page_tree`, our page linkage tree, with ``page``, which we..."
     },
     {
@@ -6617,8 +6617,8 @@
       "source_location": "L588",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_588",
-      "community": 169,
-      "community_name": ".import_pages",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "import a all pages from ``package`` into the database as..."
     },
     {
@@ -6639,8 +6639,8 @@
       "source_location": "L684",
       "_origin": "ast",
       "id": "sphinx_hosting_importers_rationale_684",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "load the pages in the tarfile identified by ``filename`` into the database as..."
     },
     {
@@ -6683,8 +6683,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_fix_broken_hrefs",
-      "community": 39,
-      "community_name": "SphinxPage",
+      "community": 62,
+      "community_name": "Command",
       "norm_label": "fix_broken_hrefs.py"
     },
     {
@@ -6760,8 +6760,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_import_docs",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "import_docs.py"
     },
     {
@@ -6914,8 +6914,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "print_classifier_tree.py"
     },
     {
@@ -6926,7 +6926,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_treeprinter",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": "treeprinter"
     },
     {
@@ -6937,7 +6937,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_treeprinter_init",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": ".__init__()"
     },
     {
@@ -6948,7 +6948,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_treeprinter_title",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": ".title()"
     },
     {
@@ -6959,7 +6959,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_treeprinter_build",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": ".build()"
     },
     {
@@ -6970,7 +6970,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_py_tree",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": "tree"
     },
     {
@@ -6981,7 +6981,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_treeprinter_print",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": ".print()"
     },
     {
@@ -6992,7 +6992,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_command",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": "command"
     },
     {
@@ -7003,7 +7003,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_py_basecommand",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": "basecommand"
     },
     {
@@ -7014,7 +7014,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_command_handle",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": ".handle()"
     },
     {
@@ -7025,7 +7025,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_rationale_9",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": "parse the tree of :py:class:`sphinx_hosting.models.classifiernode` objects we..."
     },
     {
@@ -7036,7 +7036,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_classifier_tree_rationale_38",
       "community": 13,
-      "community_name": "TreePrinter",
+      "community_name": "ClassifierNode",
       "norm_label": "**usage**: ``./manage.py print_classifier_tree`` print the..."
     },
     {
@@ -7123,8 +7123,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_doctree_command",
-      "community": 48,
-      "community_name": "TreeNode",
+      "community": 40,
+      "community_name": "Command",
       "norm_label": "command"
     },
     {
@@ -7134,8 +7134,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_doctree_py_basecommand",
-      "community": 48,
-      "community_name": "TreeNode",
+      "community": 40,
+      "community_name": "Command",
       "norm_label": "basecommand"
     },
     {
@@ -7145,8 +7145,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_doctree_command_add_arguments",
-      "community": 48,
-      "community_name": "TreeNode",
+      "community": 40,
+      "community_name": "Command",
       "norm_label": ".add_arguments()"
     },
     {
@@ -7156,8 +7156,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_doctree_py_argumentparser",
-      "community": 48,
-      "community_name": "TreeNode",
+      "community": 40,
+      "community_name": "Command",
       "norm_label": "argumentparser"
     },
     {
@@ -7167,8 +7167,8 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_doctree_command_handle",
-      "community": 48,
-      "community_name": "TreeNode",
+      "community": 40,
+      "community_name": "Command",
       "norm_label": ".handle()"
     },
     {
@@ -7189,8 +7189,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "sphinx_hosting_management_commands_print_doctree_rationale_38",
-      "community": 48,
-      "community_name": "TreeNode",
+      "community": 40,
+      "community_name": "Command",
       "norm_label": "**usage**: ``./manage.py print_doctree <project_machine_name> <version..."
     },
     {
@@ -7201,7 +7201,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_migrations_0001_initial",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "sphinx_hosting/migrations/0001_initial.py"
     },
     {
@@ -7212,7 +7212,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_migrations_0001_initial_migration",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "migration"
     },
     {
@@ -7311,7 +7311,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_migrations_0006_classifiers_and_permissiongroups",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "0006_classifiers_and_permissiongroups.py"
     },
     {
@@ -7322,7 +7322,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_migrations_0006_classifiers_and_permissiongroups_migration",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "migration"
     },
     {
@@ -7498,7 +7498,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_migrations_0011_machinenamefield",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "0011_machinenamefield.py"
     },
     {
@@ -7509,7 +7509,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_migrations_0011_machinenamefield_migration",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "migration"
     },
     {
@@ -7695,7 +7695,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_migrations_0018_sphinxdocument",
-      "community": 30,
+      "community": 28,
       "community_name": "sphinx_hosting/models.py",
       "norm_label": "0018_sphinxdocument.py"
     },
@@ -7706,7 +7706,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "sphinx_hosting_migrations_0018_sphinxdocument_migration",
-      "community": 30,
+      "community": 28,
       "community_name": "sphinx_hosting/models.py",
       "norm_label": "migration"
     },
@@ -7728,7 +7728,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_models",
-      "community": 30,
+      "community": 28,
       "community_name": "sphinx_hosting/models.py",
       "norm_label": "sphinx_hosting/models.py"
     },
@@ -7761,8 +7761,8 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "sphinx_hosting_models_classifiernode",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "classifiernode"
     },
     {
@@ -7992,8 +7992,8 @@
       "source_location": "L474",
       "_origin": "ast",
       "id": "sphinx_hosting_models_classifiermanager",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "classifiermanager"
     },
     {
@@ -8003,8 +8003,8 @@
       "source_location": "L479",
       "_origin": "ast",
       "id": "sphinx_hosting_models_classifiermanager_tree",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": ".tree()"
     },
     {
@@ -8014,8 +8014,8 @@
       "source_location": "L533",
       "_origin": "ast",
       "id": "sphinx_hosting_models_classifier",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "classifier"
     },
     {
@@ -8025,8 +8025,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "viewsetmixin",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "viewsetmixin"
     },
     {
@@ -8047,8 +8047,8 @@
       "source_location": "L593",
       "_origin": "ast",
       "id": "sphinx_hosting_models_classifier_str",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": ".__str__()"
     },
     {
@@ -8058,8 +8058,8 @@
       "source_location": "L596",
       "_origin": "ast",
       "id": "sphinx_hosting_models_meta",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "meta"
     },
     {
@@ -8069,8 +8069,8 @@
       "source_location": "L601",
       "_origin": "ast",
       "id": "sphinx_hosting_models_projectpermissiongroup",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "projectpermissiongroup"
     },
     {
@@ -8080,8 +8080,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_models_py_timestampedmodel",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "timestampedmodel"
     },
     {
@@ -8289,8 +8289,8 @@
       "source_location": "L1003",
       "_origin": "ast",
       "id": "sphinx_hosting_models_sphinximage",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "sphinximage"
     },
     {
@@ -8300,8 +8300,8 @@
       "source_location": "L1040",
       "_origin": "ast",
       "id": "sphinx_hosting_models_sphinxdocument",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "sphinxdocument"
     },
     {
@@ -8487,8 +8487,8 @@
       "source_location": "L475",
       "_origin": "ast",
       "id": "sphinx_hosting_models_rationale_475",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "manager for :py:class:`classifier` models."
     },
     {
@@ -8498,8 +8498,8 @@
       "source_location": "L480",
       "_origin": "ast",
       "id": "sphinx_hosting_models_rationale_480",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "given our classifiers, which are ``::`` separated lists of terms like:: section..."
     },
     {
@@ -8509,8 +8509,8 @@
       "source_location": "L534",
       "_origin": "ast",
       "id": "sphinx_hosting_models_rationale_534",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "a :py:class:`project` can be tagged with one or more :py:class:`classifier`..."
     },
     {
@@ -8531,8 +8531,8 @@
       "source_location": "L602",
       "_origin": "ast",
       "id": "sphinx_hosting_models_rationale_602",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 39,
+      "community_name": "SphinxPage",
       "norm_label": "a :py:class:`project` can be assigned to one or more..."
     },
     {
@@ -8641,8 +8641,8 @@
       "source_location": "L1004",
       "_origin": "ast",
       "id": "sphinx_hosting_models_rationale_1004",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "a ``sphinximage`` is an image file referenced in a sphinx document. when..."
     },
     {
@@ -8652,8 +8652,8 @@
       "source_location": "L1041",
       "_origin": "ast",
       "id": "sphinx_hosting_models_rationale_1041",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 0,
+      "community_name": "SphinxPackageImporter",
       "norm_label": "a ``sphinxdocument`` is an downloadable document file referenced in a sphinx..."
     },
     {
@@ -8674,8 +8674,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_project_detail_layout",
-      "community": 4,
-      "community_name": "test_project_detail_extensibility.py",
+      "community": 28,
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "project_detail_layout.py"
     },
     {
@@ -9180,8 +9180,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers",
-      "community": 68,
-      "community_name": "search_result_renderers.py",
+      "community": 28,
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "search_result_renderers.py"
     },
     {
@@ -9192,7 +9192,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_searchresultrenderer",
       "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "searchresultrenderer"
     },
     {
@@ -9203,7 +9203,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_py_protocol",
       "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "protocol"
     },
     {
@@ -9280,7 +9280,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_resolve_search_result_renderers",
       "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "_resolve_search_result_renderers()"
     },
     {
@@ -9291,7 +9291,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_py_model",
       "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "model"
     },
     {
@@ -9301,8 +9301,8 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_get_search_result_renderers",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "get_search_result_renderers()"
     },
     {
@@ -9313,7 +9313,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_get_search_result_models",
       "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "get_search_result_models()"
     },
     {
@@ -9335,7 +9335,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_rationale_32",
       "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "protocol for a unified-search result renderer callable. each renderer converts..."
     },
     {
@@ -9357,7 +9357,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_rationale_66",
       "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "resolve configured model labels and renderer paths. args: entries: tuples of..."
     },
     {
@@ -9367,8 +9367,8 @@
       "source_location": "L112",
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_rationale_112",
-      "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community": 57,
+      "community_name": "test_unified_search_extensibility.py",
       "norm_label": "return configured host-model search result renderers. returns: a mapping of..."
     },
     {
@@ -9379,7 +9379,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_search_result_renderers_rationale_151",
       "community": 28,
-      "community_name": "get_search_result_renderers",
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "return host-model classes included in unified global search. returns: a tuple..."
     },
     {
@@ -9400,8 +9400,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_settings",
-      "community": 26,
-      "community_name": "importers.py",
+      "community": 28,
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "sphinx_hosting/settings.py"
     },
     {
@@ -9478,7 +9478,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_templatetags_sphinx_hosting",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "sphinx_hosting.py"
     },
     {
@@ -9488,8 +9488,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "simple_tag",
-      "community": 171,
-      "community_name": "sphinxdocument_url",
+      "community": 30,
+      "community_name": "sphinx_hosting.py",
       "norm_label": "simple_tag"
     },
     {
@@ -9499,8 +9499,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "sphinx_hosting_templatetags_sphinx_hosting_sphinximage_url",
-      "community": 171,
-      "community_name": "sphinxdocument_url",
+      "community": 30,
+      "community_name": "sphinx_hosting.py",
       "norm_label": "sphinximage_url()"
     },
     {
@@ -9510,8 +9510,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "sphinx_hosting_templatetags_sphinx_hosting_sphinxdocument_url",
-      "community": 171,
-      "community_name": "sphinxdocument_url",
+      "community": 30,
+      "community_name": "sphinx_hosting.py",
       "norm_label": "sphinxdocument_url()"
     },
     {
@@ -9521,8 +9521,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "sphinx_hosting_templatetags_sphinx_hosting_rationale_11",
-      "community": 171,
-      "community_name": "sphinxdocument_url",
+      "community": 30,
+      "community_name": "sphinx_hosting.py",
       "norm_label": "return the url to the :py:class:`sphinx_hosting.models.sphinximage` identified..."
     },
     {
@@ -9532,8 +9532,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "sphinx_hosting_templatetags_sphinx_hosting_rationale_27",
-      "community": 171,
-      "community_name": "sphinxdocument_url",
+      "community": 30,
+      "community_name": "sphinx_hosting.py",
       "norm_label": "return the url to the :py:class:`sphinx_hosting.models.sphinxdocument`..."
     },
     {
@@ -9555,7 +9555,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_urls",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "sphinx_hosting/urls.py"
     },
     {
@@ -9566,7 +9566,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_validators",
       "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community_name": "sphinx_hosting.py",
       "norm_label": "validators.py"
     },
     {
@@ -9576,8 +9576,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "deconstructible",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 26,
+      "community_name": "NoHTMLValidator",
       "norm_label": "deconstructible"
     },
     {
@@ -9587,8 +9587,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "sphinx_hosting_validators_nohtmlvalidator",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 26,
+      "community_name": "NoHTMLValidator",
       "norm_label": "nohtmlvalidator"
     },
     {
@@ -9598,8 +9598,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "sphinx_hosting_validators_nohtmlvalidator_call",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 26,
+      "community_name": "NoHTMLValidator",
       "norm_label": ".__call__()"
     },
     {
@@ -9609,8 +9609,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "sphinx_hosting_validators_nohtmlvalidator_hash",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 26,
+      "community_name": "NoHTMLValidator",
       "norm_label": ".__hash__()"
     },
     {
@@ -9620,8 +9620,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "sphinx_hosting_validators_nohtmlvalidator_eq",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 26,
+      "community_name": "NoHTMLValidator",
       "norm_label": ".__eq__()"
     },
     {
@@ -9631,8 +9631,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "sphinx_hosting_validators_rationale_11",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 26,
+      "community_name": "NoHTMLValidator",
       "norm_label": "raises a validationerror if the given value contains any html."
     },
     {
@@ -9642,8 +9642,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "sphinx_hosting_validators_rationale_23",
-      "community": 30,
-      "community_name": "sphinx_hosting/models.py",
+      "community": 26,
+      "community_name": "NoHTMLValidator",
       "norm_label": "add a unique hash for the validator."
     },
     {
@@ -9797,7 +9797,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_py_loginrequiredmixin",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "loginrequiredmixin"
     },
     {
@@ -9818,7 +9818,7 @@
       "source_location": "L218",
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectlistview_get_content",
-      "community": 172,
+      "community": 91,
       "community_name": "Widget",
       "norm_label": ".get_content()"
     },
@@ -9829,7 +9829,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_views_py_widget",
-      "community": 172,
+      "community": 91,
       "community_name": "Widget",
       "norm_label": "widget"
     },
@@ -9896,7 +9896,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectcreateview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "projectcreateview"
     },
     {
@@ -9907,7 +9907,7 @@
       "_origin": "ast",
       "id": "permissionrequiredmixin",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "permissionrequiredmixin"
     },
     {
@@ -9917,8 +9917,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "forminvalidmessagemixin",
-      "community": 75,
-      "community_name": "VersionMakeLatestView",
+      "community": 11,
+      "community_name": "ProjectUpdateForm",
       "norm_label": "forminvalidmessagemixin"
     },
     {
@@ -9929,7 +9929,7 @@
       "_origin": "ast",
       "id": "formvalidmessagemixin",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "formvalidmessagemixin"
     },
     {
@@ -9940,7 +9940,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_py_createview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "createview"
     },
     {
@@ -9951,7 +9951,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectcreateview_get_form_valid_message",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_form_valid_message()"
     },
     {
@@ -9995,7 +9995,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectcreateview_get_success_url",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_success_url()"
     },
     {
@@ -10006,7 +10006,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectcreateview_get_form_invalid_message",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_form_invalid_message()"
     },
     {
@@ -10083,7 +10083,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectdeleteview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "projectdeleteview"
     },
     {
@@ -10094,7 +10094,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_py_deleteview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "deleteview"
     },
     {
@@ -10127,7 +10127,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkcreateview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "projectrelatedlinkcreateview"
     },
     {
@@ -10138,7 +10138,7 @@
       "_origin": "ast",
       "id": "basecreateview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "basecreateview"
     },
     {
@@ -10148,8 +10148,8 @@
       "source_location": "L446",
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkcreateview_get_form_kwargs",
-      "community": 11,
-      "community_name": "ProjectCreateView",
+      "community": 75,
+      "community_name": "VersionMakeLatestView",
       "norm_label": ".get_form_kwargs()"
     },
     {
@@ -10182,7 +10182,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkcreateview_get_form_valid_message",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_form_valid_message()"
     },
     {
@@ -10193,7 +10193,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkcreateview_get_success_url",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_success_url()"
     },
     {
@@ -10204,7 +10204,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkupdateview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "projectrelatedlinkupdateview"
     },
     {
@@ -10215,7 +10215,7 @@
       "_origin": "ast",
       "id": "baseupdateview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "baseupdateview"
     },
     {
@@ -10225,8 +10225,8 @@
       "source_location": "L488",
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkupdateview_get_form_kwargs",
-      "community": 11,
-      "community_name": "ProjectCreateView",
+      "community": 75,
+      "community_name": "VersionMakeLatestView",
       "norm_label": ".get_form_kwargs()"
     },
     {
@@ -10237,7 +10237,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkupdateview_get_form_valid_message",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_form_valid_message()"
     },
     {
@@ -10248,7 +10248,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkupdateview_get_success_url",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_success_url()"
     },
     {
@@ -10259,7 +10259,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkdeleteview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "projectrelatedlinkdeleteview"
     },
     {
@@ -10281,7 +10281,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_projectrelatedlinkdeleteview_get_success_url",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_success_url()"
     },
     {
@@ -10291,8 +10291,8 @@
       "source_location": "L542",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versiondetailview",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": "versiondetailview"
     },
     {
@@ -10302,8 +10302,8 @@
       "source_location": "L557",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versiondetailview_get_object",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": ".get_object()"
     },
     {
@@ -10313,8 +10313,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_views_py_queryset",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": "queryset"
     },
     {
@@ -10324,8 +10324,8 @@
       "source_location": "L584",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versiondetailview_get_queryset",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": ".get_queryset()"
     },
     {
@@ -10357,8 +10357,8 @@
       "source_location": "L670",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versionuploadview",
-      "community": 75,
-      "community_name": "VersionMakeLatestView",
+      "community": 11,
+      "community_name": "ProjectUpdateForm",
       "norm_label": "versionuploadview"
     },
     {
@@ -10379,8 +10379,8 @@
       "source_location": "L680",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versionuploadview_get_form_valid_message",
-      "community": 75,
-      "community_name": "VersionMakeLatestView",
+      "community": 11,
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_form_valid_message()"
     },
     {
@@ -10401,8 +10401,8 @@
       "source_location": "L717",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versionuploadview_get_success_url",
-      "community": 75,
-      "community_name": "VersionMakeLatestView",
+      "community": 11,
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_success_url()"
     },
     {
@@ -10431,11 +10431,11 @@
       "label": ".get_form_kwargs()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L738",
+      "source_location": "L743",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versionmakelatestview_get_form_kwargs",
-      "community": 11,
-      "community_name": "ProjectCreateView",
+      "community": 75,
+      "community_name": "VersionMakeLatestView",
       "norm_label": ".get_form_kwargs()"
     },
     {
@@ -10445,15 +10445,15 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_views_py_any",
-      "community": 11,
-      "community_name": "ProjectCreateView",
+      "community": 75,
+      "community_name": "VersionMakeLatestView",
       "norm_label": "any"
     },
     {
       "label": ".get_form_valid_message()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L750",
+      "source_location": "L755",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versionmakelatestview_get_form_valid_message",
       "community": 75,
@@ -10464,7 +10464,7 @@
       "label": ".form_valid()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L764",
+      "source_location": "L769",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versionmakelatestview_form_valid",
       "community": 35,
@@ -10475,7 +10475,7 @@
       "label": ".form_invalid()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L782",
+      "source_location": "L787",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versionmakelatestview_form_invalid",
       "community": 35,
@@ -10486,7 +10486,7 @@
       "label": ".get_success_url()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L798",
+      "source_location": "L803",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versionmakelatestview_get_success_url",
       "community": 75,
@@ -10497,29 +10497,29 @@
       "label": "VersionDeleteView",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L809",
+      "source_location": "L814",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versiondeleteview",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "versiondeleteview"
     },
     {
       "label": ".get_queryset()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L815",
+      "source_location": "L820",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versiondeleteview_get_queryset",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": ".get_queryset()"
     },
     {
       "label": ".delete()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L829",
+      "source_location": "L834",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versiondeleteview_delete",
       "community": 35,
@@ -10530,18 +10530,18 @@
       "label": ".get_success_url()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L838",
+      "source_location": "L843",
       "_origin": "ast",
       "id": "sphinx_hosting_views_versiondeleteview_get_success_url",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": ".get_success_url()"
     },
     {
       "label": "SphinxPageDetailView",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L849",
+      "source_location": "L854",
       "_origin": "ast",
       "id": "sphinx_hosting_views_sphinxpagedetailview",
       "community": 5,
@@ -10552,7 +10552,7 @@
       "label": ".get_navbar()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L861",
+      "source_location": "L866",
       "_origin": "ast",
       "id": "sphinx_hosting_views_sphinxpagedetailview_get_navbar",
       "community": 6,
@@ -10563,7 +10563,7 @@
       "label": ".get_menu_item()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L869",
+      "source_location": "L874",
       "_origin": "ast",
       "id": "sphinx_hosting_views_sphinxpagedetailview_get_menu_item",
       "community": 5,
@@ -10574,29 +10574,29 @@
       "label": ".get_queryset()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L872",
+      "source_location": "L877",
       "_origin": "ast",
       "id": "sphinx_hosting_views_sphinxpagedetailview_get_queryset",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": ".get_queryset()"
     },
     {
       "label": ".get_content()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L915",
+      "source_location": "L920",
       "_origin": "ast",
       "id": "sphinx_hosting_views_sphinxpagedetailview_get_content",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": ".get_content()"
     },
     {
       "label": ".get_breadcrumbs()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L918",
+      "source_location": "L923",
       "_origin": "ast",
       "id": "sphinx_hosting_views_sphinxpagedetailview_get_breadcrumbs",
       "community": 20,
@@ -10607,7 +10607,7 @@
       "label": "GlobalSphinxPageSearchView",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L945",
+      "source_location": "L950",
       "_origin": "ast",
       "id": "sphinx_hosting_views_globalsphinxpagesearchview",
       "community": 5,
@@ -10640,7 +10640,7 @@
       "label": ".form_invalid()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L959",
+      "source_location": "L964",
       "_origin": "ast",
       "id": "sphinx_hosting_views_globalsphinxpagesearchview_form_invalid",
       "community": 35,
@@ -10662,7 +10662,7 @@
       "label": ".form_valid()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L966",
+      "source_location": "L971",
       "_origin": "ast",
       "id": "sphinx_hosting_views_globalsphinxpagesearchview_form_valid",
       "community": 35,
@@ -10673,10 +10673,10 @@
       "label": ".get_content()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L980",
+      "source_location": "L985",
       "_origin": "ast",
       "id": "sphinx_hosting_views_globalsphinxpagesearchview_get_content",
-      "community": 172,
+      "community": 91,
       "community_name": "Widget",
       "norm_label": ".get_content()"
     },
@@ -10684,7 +10684,7 @@
       "label": ".get_breadcrumbs()",
       "file_type": "code",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L983",
+      "source_location": "L988",
       "_origin": "ast",
       "id": "sphinx_hosting_views_globalsphinxpagesearchview_get_breadcrumbs",
       "community": 20,
@@ -10787,7 +10787,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_views_rationale_298",
       "community": 11,
-      "community_name": "ProjectCreateView",
+      "community_name": "ProjectUpdateForm",
       "norm_label": "a post only view for creating a :py:class:`sphinx_hosting.models.project`. the..."
     },
     {
@@ -10819,8 +10819,8 @@
       "source_location": "L545",
       "_origin": "ast",
       "id": "sphinx_hosting_views_rationale_545",
-      "community": 5,
-      "community_name": "sphinx_hosting/views.py",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": "handles displaying the details page for a..."
     },
     {
@@ -10830,8 +10830,8 @@
       "source_location": "L558",
       "_origin": "ast",
       "id": "sphinx_hosting_views_rationale_558",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": "if ``version`` is ``latest``, return the latest version of the..."
     },
     {
@@ -10841,8 +10841,8 @@
       "source_location": "L585",
       "_origin": "ast",
       "id": "sphinx_hosting_views_rationale_585",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": "pre-filter our default queryset so that we only are able to get..."
     },
     {
@@ -10857,23 +10857,34 @@
       "norm_label": "generate the set of widgets for this page. returns: a populated page layout"
     },
     {
+      "label": "A POST only view that retargets Latest Version for a\u2026",
+      "file_type": "rationale",
+      "source_file": "sphinx_hosting/views.py",
+      "source_location": "L728",
+      "_origin": "ast",
+      "id": "sphinx_hosting_views_rationale_728",
+      "community": 75,
+      "community_name": "VersionMakeLatestView",
+      "norm_label": "a post only view that retargets latest version for a..."
+    },
+    {
       "label": "Supply the URL project slug to :py:class:`VersionMakeLatestForm`. Returns: Form\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L739",
+      "source_location": "L744",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_739",
-      "community": 11,
-      "community_name": "ProjectCreateView",
+      "id": "sphinx_hosting_views_rationale_744",
+      "community": 75,
+      "community_name": "VersionMakeLatestView",
       "norm_label": "supply the url project slug to :py:class:`versionmakelatestform`. returns: form..."
     },
     {
       "label": "Success message after Latest Version is retargeted. Returns: The user-facing\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L751",
+      "source_location": "L756",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_751",
+      "id": "sphinx_hosting_views_rationale_756",
       "community": 75,
       "community_name": "VersionMakeLatestView",
       "norm_label": "success message after latest version is retargeted. returns: the user-facing..."
@@ -10882,9 +10893,9 @@
       "label": "Persist the Make Latest change. Side Effects: Writes ``Project.latest_version``\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L765",
+      "source_location": "L770",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_765",
+      "id": "sphinx_hosting_views_rationale_770",
       "community": 35,
       "community_name": "HttpResponse",
       "norm_label": "persist the make latest change. side effects: writes ``project.latest_version``..."
@@ -10893,9 +10904,9 @@
       "label": "Flash form errors and redirect to the project update page. Args: form: The form\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L783",
+      "source_location": "L788",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_783",
+      "id": "sphinx_hosting_views_rationale_788",
       "community": 35,
       "community_name": "HttpResponse",
       "norm_label": "flash form errors and redirect to the project update page. args: form: the form..."
@@ -10904,9 +10915,9 @@
       "label": "Return the project update URL for this slug. Returns: The redirect target after\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L799",
+      "source_location": "L804",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_799",
+      "id": "sphinx_hosting_views_rationale_804",
       "community": 75,
       "community_name": "VersionMakeLatestView",
       "norm_label": "return the project update url for this slug. returns: the redirect target after..."
@@ -10915,20 +10926,20 @@
       "label": "Pre-filter our default queryset so that we only are able to get\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L816",
+      "source_location": "L821",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_816",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "id": "sphinx_hosting_views_rationale_821",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": "pre-filter our default queryset so that we only are able to get..."
     },
     {
       "label": "Handles displaying the actual contents of the :py:class:`SphinxPage`, with\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L852",
+      "source_location": "L857",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_852",
+      "id": "sphinx_hosting_views_rationale_857",
       "community": 5,
       "community_name": "sphinx_hosting/views.py",
       "norm_label": "handles displaying the actual contents of the :py:class:`sphinxpage`, with..."
@@ -10937,20 +10948,20 @@
       "label": "Pre-filter our default queryset so that we only are able to get\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L873",
+      "source_location": "L878",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_873",
-      "community": 35,
-      "community_name": "HttpResponse",
+      "id": "sphinx_hosting_views_rationale_878",
+      "community": 25,
+      "community_name": "VersionDetailView",
       "norm_label": "pre-filter our default queryset so that we only are able to get..."
     },
     {
       "label": "Return our breadcrumbs for this page:: Home -> Project -> Version ->\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L919",
+      "source_location": "L924",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_919",
+      "id": "sphinx_hosting_views_rationale_924",
       "community": 20,
       "community_name": "SphinxHostingBreadcrumbs",
       "norm_label": "return our breadcrumbs for this page:: home -> project -> version ->..."
@@ -10959,9 +10970,9 @@
       "label": "Renders our search results.",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L952",
+      "source_location": "L957",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_952",
+      "id": "sphinx_hosting_views_rationale_957",
       "community": 5,
       "community_name": "sphinx_hosting/views.py",
       "norm_label": "renders our search results."
@@ -10970,9 +10981,9 @@
       "label": "Return our breadcrumbs for this page:: Home -> Project -> Version ->\u2026",
       "file_type": "rationale",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L984",
+      "source_location": "L989",
       "_origin": "ast",
-      "id": "sphinx_hosting_views_rationale_984",
+      "id": "sphinx_hosting_views_rationale_989",
       "community": 20,
       "community_name": "SphinxHostingBreadcrumbs",
       "norm_label": "return our breadcrumbs for this page:: home -> project -> version ->..."
@@ -10984,8 +10995,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_init",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 28,
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "wildewidgets/__init__.py"
     },
     {
@@ -10995,7 +11006,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier",
-      "community": 30,
+      "community": 28,
       "community_name": "sphinx_hosting/models.py",
       "norm_label": "classifier.py"
     },
@@ -11006,8 +11017,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_classifierfilterform",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "classifierfilterform"
     },
     {
@@ -11017,8 +11028,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_py_block",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "block"
     },
     {
@@ -11028,8 +11039,8 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_classifierfilterform_init",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": ".__init__()"
     },
     {
@@ -11039,8 +11050,8 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_classifierfilterform_add_subtree",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": ".add_subtree()"
     },
     {
@@ -11050,8 +11061,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "unorderedlist",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "unorderedlist"
     },
     {
@@ -11061,8 +11072,8 @@
       "source_location": "L155",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_classifierfilterform_get_checkbox",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": ".get_checkbox()"
     },
     {
@@ -11072,8 +11083,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_py_horizontallayoutblock",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "horizontallayoutblock"
     },
     {
@@ -11105,8 +11116,8 @@
       "source_location": "L195",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_classifierfilterblock_init",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": ".__init__()"
     },
     {
@@ -11116,8 +11127,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_rationale_17",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "the tree-like classifier filter form that appears to the right of the..."
     },
     {
@@ -11127,8 +11138,8 @@
       "source_location": "L132",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_rationale_132",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "add a subtree of classifier checkboxes. args: contents: the ``<ul>`` block to..."
     },
     {
@@ -11138,8 +11149,8 @@
       "source_location": "L156",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_classifier_rationale_156",
-      "community": 40,
-      "community_name": "ClassifierFilterForm",
+      "community": 13,
+      "community_name": "ClassifierNode",
       "norm_label": "build and return the :py:class:`wildewidgets.checkboxinputblock` for the..."
     },
     {
@@ -11721,7 +11732,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_project_projectcreatemodalwidget",
-      "community": 172,
+      "community": 91,
       "community_name": "Widget",
       "norm_label": "projectcreatemodalwidget"
     },
@@ -11732,7 +11743,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "crispyformmodalwidget",
-      "community": 172,
+      "community": 91,
       "community_name": "Widget",
       "norm_label": "crispyformmodalwidget"
     },
@@ -11743,7 +11754,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_project_projectcreatemodalwidget_init",
-      "community": 172,
+      "community": 91,
       "community_name": "Widget",
       "norm_label": ".__init__()"
     },
@@ -12293,7 +12304,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_project_rationale_45",
-      "community": 172,
+      "community": 91,
       "community_name": "Widget",
       "norm_label": "a modal dialog that holds the..."
     },
@@ -12535,7 +12546,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search",
-      "community": 8,
+      "community": 52,
       "community_name": "wildewidgets/search.py",
       "norm_label": "wildewidgets/search.py"
     },
@@ -12580,7 +12591,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_searchresultblock",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "searchresultblock"
     },
     {
@@ -12591,7 +12602,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_py_block",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "block"
     },
     {
@@ -12602,7 +12613,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_header",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "header"
     },
     {
@@ -12613,7 +12624,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_header_init",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12624,7 +12635,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_py_searchresult",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "searchresult"
     },
     {
@@ -12635,7 +12646,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_searchresultblock_init",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12646,7 +12657,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_searchresultsheader",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "searchresultsheader"
     },
     {
@@ -12657,7 +12668,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_py_horizontallayoutblock",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "horizontallayoutblock"
     },
     {
@@ -12668,7 +12679,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_searchresultsheader_init",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12679,7 +12690,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_py_searchqueryset",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "searchqueryset"
     },
     {
@@ -12690,7 +12701,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_pagedsearchresultsblock",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "pagedsearchresultsblock"
     },
     {
@@ -12701,7 +12712,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_py_pagedmodelwidget",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "pagedmodelwidget"
     },
     {
@@ -12712,7 +12723,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_pagedsearchresultsblock_init",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12722,7 +12733,7 @@
       "source_location": "L164",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_facetblock",
-      "community": 8,
+      "community": 52,
       "community_name": "wildewidgets/search.py",
       "norm_label": "facetblock"
     },
@@ -12734,7 +12745,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_facetblock_init",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12744,7 +12755,7 @@
       "source_location": "L228",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_searchresultsclassifiersfacet",
-      "community": 8,
+      "community": 52,
       "community_name": "wildewidgets/search.py",
       "norm_label": "searchresultsclassifiersfacet"
     },
@@ -12755,8 +12766,8 @@
       "source_location": "L240",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_searchresultsprojectfacet",
-      "community": 68,
-      "community_name": "search_result_renderers.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "searchresultsprojectfacet"
     },
     {
@@ -12766,7 +12777,7 @@
       "source_location": "L251",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_searchresultspageheader",
-      "community": 8,
+      "community": 52,
       "community_name": "wildewidgets/search.py",
       "norm_label": "searchresultspageheader"
     },
@@ -12778,7 +12789,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_searchresultspageheader_init",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12789,7 +12800,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_pagedsearchlayout",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "pagedsearchlayout"
     },
     {
@@ -12800,7 +12811,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_pagedsearchlayout_init",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12822,7 +12833,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_rationale_42",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "block we use for rendering a particular search result on the search results..."
     },
     {
@@ -12833,7 +12844,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_rationale_107",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "the header for the search results listing (not the page header -- that is..."
     },
     {
@@ -12844,7 +12855,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_rationale_130",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "paged listing of :py:class:`searchresultblock` entries describing our search..."
     },
     {
@@ -12854,7 +12865,7 @@
       "source_location": "L165",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_rationale_165",
-      "community": 8,
+      "community": 52,
       "community_name": "wildewidgets/search.py",
       "norm_label": "base class for blocks that appear to the right of the search results listing on..."
     },
@@ -12865,7 +12876,7 @@
       "source_location": "L229",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_rationale_229",
-      "community": 8,
+      "community": 52,
       "community_name": "wildewidgets/search.py",
       "norm_label": "a :py:class:`facetblock` that allows the user to filter search results by..."
     },
@@ -12876,8 +12887,8 @@
       "source_location": "L241",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_rationale_241",
-      "community": 68,
-      "community_name": "search_result_renderers.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "a :py:class:`facetblock` that allows the user to filter search results by..."
     },
     {
@@ -12887,7 +12898,7 @@
       "source_location": "L252",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_rationale_252",
-      "community": 8,
+      "community": 52,
       "community_name": "wildewidgets/search.py",
       "norm_label": "the header for the entire search results page. this shows the search string..."
     },
@@ -12899,7 +12910,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_search_rationale_327",
       "community": 8,
-      "community_name": "wildewidgets/search.py",
+      "community_name": ".__init__",
       "norm_label": "the page layout for the entire search results page. args: query: the text..."
     },
     {
@@ -12909,8 +12920,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page",
-      "community": 7,
-      "community_name": "sphinx_page.py",
+      "community": 28,
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "sphinx_page.py"
     },
     {
@@ -12921,7 +12932,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagepagination",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "sphinxpagepagination"
     },
     {
@@ -12931,8 +12942,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "row",
-      "community": 7,
-      "community_name": "sphinx_page.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "row"
     },
     {
@@ -12943,7 +12954,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagepagination_init",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12954,7 +12965,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagepermalinkwidget",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "sphinxpagepermalinkwidget"
     },
     {
@@ -12965,7 +12976,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_py_cardwidget",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "cardwidget"
     },
     {
@@ -12976,7 +12987,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagepermalinkwidget_init",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -12987,7 +12998,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagepermalinkwidget_get_script",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": ".get_script()"
     },
     {
@@ -12998,7 +13009,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagebodywidget",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "sphinxpagebodywidget"
     },
     {
@@ -13009,7 +13020,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagebodywidget_init",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -13020,7 +13031,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagetableofcontentswidget",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "sphinxpagetableofcontentswidget"
     },
     {
@@ -13031,7 +13042,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagetableofcontentswidget_init",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -13108,7 +13119,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagetitle",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "sphinxpagetitle"
     },
     {
@@ -13119,7 +13130,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_py_block",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "block"
     },
     {
@@ -13130,7 +13141,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagetitle_init",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -13141,7 +13152,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagelayout",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "sphinxpagelayout"
     },
     {
@@ -13152,7 +13163,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_sphinxpagelayout_init",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": ".__init__()"
     },
     {
@@ -13163,7 +13174,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_rationale_28",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "draws the \"previous page\", parent page and next page buttons that are found at..."
     },
     {
@@ -13174,7 +13185,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_rationale_82",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "draws the \"permalink\" button that is found at the top of the right-hand column..."
     },
     {
@@ -13185,7 +13196,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_rationale_115",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "return the javascript that will be executed when the \"permalink\" button is..."
     },
     {
@@ -13196,7 +13207,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_rationale_142",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "the body of the page. the body as stored in the model is actually a django..."
     },
     {
@@ -13207,7 +13218,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_rationale_161",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "draws the in-page navigation -- the header hierarchy. args: page: the..."
     },
     {
@@ -13251,7 +13262,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_rationale_279",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "the title block for a :py:class:`sphinx_hosting.models.sphinxpage` page. args:..."
     },
     {
@@ -13262,7 +13273,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_sphinx_page_rationale_311",
       "community": 7,
-      "community_name": "sphinx_page.py",
+      "community_name": ".__init__",
       "norm_label": "the page layout for a single :py:class:`sphinx_hosting.models.sphinxpage`. it..."
     },
     {
@@ -13272,8 +13283,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search",
-      "community": 68,
-      "community_name": "search_result_renderers.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "unified_search.py"
     },
     {
@@ -13283,8 +13294,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_unifiedsearchresultwidget",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "unifiedsearchresultwidget"
     },
     {
@@ -13294,8 +13305,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_py_block",
-      "community": 68,
-      "community_name": "search_result_renderers.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "block"
     },
     {
@@ -13306,7 +13317,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_unifiedsearchresultwidget_init",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": ".__init__()"
     },
     {
@@ -13317,7 +13328,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_py_searchresult",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "searchresult"
     },
     {
@@ -13328,7 +13339,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_py_httprequest",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "httprequest"
     },
     {
@@ -13339,7 +13350,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_py_globalsphinxpagesearchview",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "globalsphinxpagesearchview"
     },
     {
@@ -13350,7 +13361,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_unifiedpagedsearchresultsblock",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "unifiedpagedsearchresultsblock"
     },
     {
@@ -13361,7 +13372,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_py_pagedmodelwidget",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "pagedmodelwidget"
     },
     {
@@ -13372,7 +13383,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_unifiedpagedsearchresultsblock_init",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": ".__init__()"
     },
     {
@@ -13383,7 +13394,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_py_searchqueryset",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "searchqueryset"
     },
     {
@@ -13394,7 +13405,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_unifiedpagedsearchresultsblock_get_model_widgets",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": ".get_model_widgets()"
     },
     {
@@ -13405,7 +13416,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_py_widget",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "widget"
     },
     {
@@ -13415,8 +13426,8 @@
       "source_location": "L152",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_unifiedpagedsearchlayout",
-      "community": 68,
-      "community_name": "search_result_renderers.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "unifiedpagedsearchlayout"
     },
     {
@@ -13427,7 +13438,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_unifiedpagedsearchlayout_init",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": ".__init__()"
     },
     {
@@ -13437,8 +13448,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_rationale_26",
-      "community": 57,
-      "community_name": "test_unified_search_extensibility.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "dispatch one unified-search hit to the correct per-model renderer. keyword..."
     },
     {
@@ -13449,7 +13460,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_rationale_47",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "initialize this per-result dispatcher widget. keyword args: object: the..."
     },
     {
@@ -13460,7 +13471,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_rationale_79",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "paged listing of mixed-model unified-search result entries. args: results: the..."
     },
     {
@@ -13471,7 +13482,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_rationale_109",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "initialize the paged unified-search results block. args: results: the haystack..."
     },
     {
@@ -13482,7 +13493,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_rationale_132",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "create widgets for the current page of search results. args: instances: the..."
     },
     {
@@ -13492,8 +13503,8 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_rationale_153",
-      "community": 68,
-      "community_name": "search_result_renderers.py",
+      "community": 52,
+      "community_name": "wildewidgets/search.py",
       "norm_label": "the page layout for unified global search results. args: results: the haystack..."
     },
     {
@@ -13504,7 +13515,7 @@
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_unified_search_rationale_181",
       "community": 52,
-      "community_name": ".__init__",
+      "community_name": "wildewidgets/search.py",
       "norm_label": "initialize the unified-search results page layout. args: results: the haystack..."
     },
     {
@@ -13514,8 +13525,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 28,
+      "community_name": "sphinx_hosting/models.py",
       "norm_label": "version.py"
     },
     {
@@ -13690,8 +13701,8 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_versionsphinxpagetable",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "versionsphinxpagetable"
     },
     {
@@ -13701,8 +13712,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_py_basicmodeltable",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "basicmodeltable"
     },
     {
@@ -13723,8 +13734,8 @@
       "source_location": "L195",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_versionsphinxpagetable_get_initial_queryset",
-      "community": 39,
-      "community_name": "SphinxPage",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": ".get_initial_queryset()"
     },
     {
@@ -13734,8 +13745,8 @@
       "source_location": "",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_py_queryset",
-      "community": 39,
-      "community_name": "SphinxPage",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "queryset"
     },
     {
@@ -13767,8 +13778,8 @@
       "source_location": "L255",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_versionsphinximagetable_get_initial_queryset",
-      "community": 39,
-      "community_name": "SphinxPage",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": ".get_initial_queryset()"
     },
     {
@@ -13800,8 +13811,8 @@
       "source_location": "L294",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_versionsphinxdocumenttable",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "versionsphinxdocumenttable"
     },
     {
@@ -13822,8 +13833,8 @@
       "source_location": "L340",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_versionsphinxdocumenttable_get_initial_queryset",
-      "community": 39,
-      "community_name": "SphinxPage",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": ".get_initial_queryset()"
     },
     {
@@ -13833,8 +13844,8 @@
       "source_location": "L348",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_versionsphinxdocumenttable_render_size_column",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": ".render_size_column()"
     },
     {
@@ -13844,8 +13855,8 @@
       "source_location": "L363",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_versionsphinxdocumenttable_render_file_path_column",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": ".render_file_path_column()"
     },
     {
@@ -13910,8 +13921,8 @@
       "source_location": "L150",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_rationale_150",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "displays a `datatable <https://datatables.net>`_ of our..."
     },
     {
@@ -13932,8 +13943,8 @@
       "source_location": "L196",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_rationale_196",
-      "community": 39,
-      "community_name": "SphinxPage",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "filter our :py:class:`sphinx_hosting.models.sphinxpage` objects by..."
     },
     {
@@ -13965,8 +13976,8 @@
       "source_location": "L256",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_rationale_256",
-      "community": 39,
-      "community_name": "SphinxPage",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "filter our :py:class:`sphinx_hosting.models.sphinxpage` objects by..."
     },
     {
@@ -13998,8 +14009,8 @@
       "source_location": "L295",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_rationale_295",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "displays a `datatable <https://datatables.net>`_ of our..."
     },
     {
@@ -14020,8 +14031,8 @@
       "source_location": "L341",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_rationale_341",
-      "community": 39,
-      "community_name": "SphinxPage",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "filter our :py:class:`sphinx_hosting.models.sphinxpage` objects by..."
     },
     {
@@ -14031,8 +14042,8 @@
       "source_location": "L349",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_rationale_349",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "render our ``size`` column. this is the size in bytes of the..."
     },
     {
@@ -14042,8 +14053,8 @@
       "source_location": "L364",
       "_origin": "ast",
       "id": "sphinx_hosting_wildewidgets_version_rationale_364",
-      "community": 146,
-      "community_name": "version.py",
+      "community": 1,
+      "community_name": ".__init__",
       "norm_label": "render our ``file_path`` column. this is the path to the file in..."
     },
     {
@@ -25683,7 +25694,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L172",
+      "source_location": "L174",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest",
@@ -25694,7 +25705,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L197",
+      "source_location": "L199",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest",
@@ -25738,7 +25749,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L218",
+      "source_location": "L220",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest",
@@ -25749,7 +25760,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L286",
+      "source_location": "L288",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest",
@@ -25760,7 +25771,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L269",
+      "source_location": "L271",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest",
@@ -25771,7 +25782,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L252",
+      "source_location": "L254",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest",
@@ -25782,7 +25793,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L155",
+      "source_location": "L156",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest",
@@ -25947,7 +25958,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L171",
+      "source_location": "L173",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -25959,7 +25970,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L196",
+      "source_location": "L198",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -26007,7 +26018,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L217",
+      "source_location": "L219",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -26019,7 +26030,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L284",
+      "source_location": "L286",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -26031,7 +26042,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L267",
+      "source_location": "L269",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -26043,7 +26054,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L251",
+      "source_location": "L253",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -26055,7 +26066,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L154",
+      "source_location": "L155",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -26128,7 +26139,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L145",
+      "source_location": "L146",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_anonymous_post_does_not_write_and_redirects_to_login",
@@ -26140,7 +26151,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L183",
+      "source_location": "L185",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_change_project_only_can_make_latest_for_own_version",
@@ -26152,7 +26163,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L208",
+      "source_location": "L210",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_change_version_only_can_make_latest_for_own_version",
@@ -26164,7 +26175,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L235",
+      "source_location": "L237",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_foreign_version_pk_does_not_write_and_redirects_with_errors",
@@ -26176,7 +26187,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L164",
+      "source_location": "L166",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_viewer_post_does_not_write_and_matches_sibling_denied",
@@ -26188,7 +26199,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L294",
+      "source_location": "L296",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_permitted_user_get_hides_set_latest_when_already_latest",
@@ -26200,7 +26211,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L278",
+      "source_location": "L280",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_permitted_user_get_shows_set_latest_for_non_latest_with_head",
@@ -26212,7 +26223,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L261",
+      "source_location": "L263",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_viewer_get_hides_set_latest_button_for_non_latest_with_head",
@@ -26248,7 +26259,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L289",
+      "source_location": "L291",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_permitted_user_get_hides_set_latest_when_already_latest",
@@ -26260,7 +26271,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L272",
+      "source_location": "L274",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_permitted_user_get_shows_set_latest_for_non_latest_with_head",
@@ -26272,7 +26283,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L255",
+      "source_location": "L257",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_viewer_get_hides_set_latest_button_for_non_latest_with_head",
@@ -26284,7 +26295,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L144",
+      "source_location": "L145",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_anonymous_post_does_not_write_and_redirects_to_login",
@@ -26296,7 +26307,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L163",
+      "source_location": "L165",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_viewer_post_does_not_write_and_matches_sibling_denied",
@@ -26320,7 +26331,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L179",
+      "source_location": "L181",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_change_project_only_can_make_latest_for_own_version",
@@ -26332,7 +26343,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L204",
+      "source_location": "L206",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_change_version_only_can_make_latest_for_own_version",
@@ -26344,7 +26355,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L230",
+      "source_location": "L232",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_foreign_version_pk_does_not_write_and_redirects_with_errors",
@@ -26356,7 +26367,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L292",
+      "source_location": "L294",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_permitted_user_get_hides_set_latest_when_already_latest",
@@ -26368,7 +26379,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L276",
+      "source_location": "L278",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_permitted_user_get_shows_set_latest_for_non_latest_with_head",
@@ -26380,7 +26391,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L259",
+      "source_location": "L261",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_viewer_get_hides_set_latest_button_for_non_latest_with_head",
@@ -26392,7 +26403,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L161",
+      "source_location": "L163",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_viewer_post_does_not_write_and_matches_sibling_denied",
@@ -26416,7 +26427,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L155",
+      "source_location": "L156",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_viewer_post_does_not_write_and_matches_sibling_denied",
@@ -26428,7 +26439,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L172",
+      "source_location": "L174",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_change_project_only_can_make_latest_for_own_version",
@@ -26440,7 +26451,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L197",
+      "source_location": "L199",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_change_version_only_can_make_latest_for_own_version",
@@ -26452,7 +26463,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L218",
+      "source_location": "L220",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_foreign_version_pk_does_not_write_and_redirects_with_errors",
@@ -26464,7 +26475,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L252",
+      "source_location": "L254",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_viewer_get_hides_set_latest_button_for_non_latest_with_head",
@@ -26475,7 +26486,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L285",
+      "source_location": "L287",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -26487,7 +26498,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L268",
+      "source_location": "L270",
       "weight": 1.0,
       "context": "decorator",
       "_origin": "ast",
@@ -26500,7 +26511,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L269",
+      "source_location": "L271",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_permitted_user_get_shows_set_latest_for_non_latest_with_head",
@@ -26512,7 +26523,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sandbox/tests/test_version_make_latest.py",
-      "source_location": "L286",
+      "source_location": "L288",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sandbox_tests_test_version_make_latest_test_permitted_user_get_hides_set_latest_when_already_latest",
@@ -37947,7 +37958,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L815",
+      "source_location": "L820",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview_get_queryset",
@@ -38507,7 +38518,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L872",
+      "source_location": "L877",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview_get_queryset",
@@ -40965,7 +40976,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L945",
+      "source_location": "L950",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views",
@@ -41086,7 +41097,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L849",
+      "source_location": "L854",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views",
@@ -41097,7 +41108,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L809",
+      "source_location": "L814",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views",
@@ -41212,7 +41223,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L861",
+      "source_location": "L866",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview_get_navbar",
@@ -41302,7 +41313,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L945",
+      "source_location": "L950",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -41368,7 +41379,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L849",
+      "source_location": "L854",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -41401,7 +41412,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L945",
+      "source_location": "L950",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -41456,7 +41467,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L849",
+      "source_location": "L854",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -41544,7 +41555,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L945",
+      "source_location": "L950",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -41632,7 +41643,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L849",
+      "source_location": "L854",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -41643,7 +41654,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L809",
+      "source_location": "L814",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview",
@@ -41724,7 +41735,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L980",
+      "source_location": "L985",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview_get_content",
@@ -41760,7 +41771,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L915",
+      "source_location": "L920",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview_get_content",
@@ -41839,7 +41850,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L849",
+      "source_location": "L854",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -42087,7 +42098,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L809",
+      "source_location": "L814",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview",
@@ -42222,7 +42233,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L959",
+      "source_location": "L964",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview_form_invalid",
@@ -42234,7 +42245,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L966",
+      "source_location": "L971",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview_form_valid",
@@ -42282,7 +42293,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L829",
+      "source_location": "L834",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview_delete",
@@ -42294,7 +42305,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L782",
+      "source_location": "L787",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview_form_invalid",
@@ -42306,7 +42317,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L764",
+      "source_location": "L769",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview_form_valid",
@@ -42512,7 +42523,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L809",
+      "source_location": "L814",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview",
@@ -42560,7 +42571,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L829",
+      "source_location": "L834",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview_delete",
@@ -42663,7 +42674,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L782",
+      "source_location": "L787",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview_form_invalid",
@@ -42675,7 +42686,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L764",
+      "source_location": "L769",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview_form_valid",
@@ -42879,7 +42890,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L872",
+      "source_location": "L877",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview_get_queryset",
@@ -42891,7 +42902,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L815",
+      "source_location": "L820",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview_get_queryset",
@@ -43072,6 +43083,17 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "sphinx_hosting/views.py",
+      "source_location": "L728",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "sphinx_hosting_views_rationale_728",
+      "target": "sphinx_hosting_views_versionmakelatestview",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
@@ -43086,7 +43108,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L782",
+      "source_location": "L787",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview",
@@ -43097,7 +43119,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L764",
+      "source_location": "L769",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview",
@@ -43108,7 +43130,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L738",
+      "source_location": "L743",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview",
@@ -43119,7 +43141,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L750",
+      "source_location": "L755",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview",
@@ -43130,7 +43152,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L798",
+      "source_location": "L803",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview",
@@ -43141,10 +43163,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L739",
+      "source_location": "L744",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_739",
+      "source": "sphinx_hosting_views_rationale_744",
       "target": "sphinx_hosting_views_versionmakelatestview_get_form_kwargs",
       "confidence_score": 1.0
     },
@@ -43153,7 +43175,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L738",
+      "source_location": "L743",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview_get_form_kwargs",
@@ -43164,10 +43186,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L751",
+      "source_location": "L756",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_751",
+      "source": "sphinx_hosting_views_rationale_756",
       "target": "sphinx_hosting_views_versionmakelatestview_get_form_valid_message",
       "confidence_score": 1.0
     },
@@ -43175,10 +43197,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L765",
+      "source_location": "L770",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_765",
+      "source": "sphinx_hosting_views_rationale_770",
       "target": "sphinx_hosting_views_versionmakelatestview_form_valid",
       "confidence_score": 1.0
     },
@@ -43187,7 +43209,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L780",
+      "source_location": "L785",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versionmakelatestview_form_valid",
@@ -43198,10 +43220,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L783",
+      "source_location": "L788",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_783",
+      "source": "sphinx_hosting_views_rationale_788",
       "target": "sphinx_hosting_views_versionmakelatestview_form_invalid",
       "confidence_score": 1.0
     },
@@ -43209,10 +43231,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L799",
+      "source_location": "L804",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_799",
+      "source": "sphinx_hosting_views_rationale_804",
       "target": "sphinx_hosting_views_versionmakelatestview_get_success_url",
       "confidence_score": 1.0
     },
@@ -43220,7 +43242,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L829",
+      "source_location": "L834",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview",
@@ -43231,7 +43253,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L815",
+      "source_location": "L820",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview",
@@ -43242,7 +43264,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L838",
+      "source_location": "L843",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview",
@@ -43253,10 +43275,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L816",
+      "source_location": "L821",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_816",
+      "source": "sphinx_hosting_views_rationale_821",
       "target": "sphinx_hosting_views_versiondeleteview_get_queryset",
       "confidence_score": 1.0
     },
@@ -43265,7 +43287,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L827",
+      "source_location": "L832",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_versiondeleteview_get_queryset",
@@ -43276,10 +43298,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L852",
+      "source_location": "L857",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_852",
+      "source": "sphinx_hosting_views_rationale_857",
       "target": "sphinx_hosting_views_sphinxpagedetailview",
       "confidence_score": 1.0
     },
@@ -43287,7 +43309,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L918",
+      "source_location": "L923",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -43298,7 +43320,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L915",
+      "source_location": "L920",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -43309,7 +43331,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L869",
+      "source_location": "L874",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -43320,7 +43342,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L861",
+      "source_location": "L866",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -43331,7 +43353,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L872",
+      "source_location": "L877",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview",
@@ -43344,7 +43366,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L863",
+      "source_location": "L868",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview_get_navbar",
@@ -43355,7 +43377,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L960",
+      "source_location": "L965",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview_form_invalid",
@@ -43366,10 +43388,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L873",
+      "source_location": "L878",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_873",
+      "source": "sphinx_hosting_views_rationale_878",
       "target": "sphinx_hosting_views_sphinxpagedetailview_get_queryset",
       "confidence_score": 1.0
     },
@@ -43379,7 +43401,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L916",
+      "source_location": "L921",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview_get_content",
@@ -43389,10 +43411,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L919",
+      "source_location": "L924",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_919",
+      "source": "sphinx_hosting_views_rationale_924",
       "target": "sphinx_hosting_views_sphinxpagedetailview_get_breadcrumbs",
       "confidence_score": 1.0
     },
@@ -43401,7 +43423,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L918",
+      "source_location": "L923",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_sphinxpagedetailview_get_breadcrumbs",
@@ -43412,7 +43434,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L945",
+      "source_location": "L950",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -43423,7 +43445,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L945",
+      "source_location": "L950",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -43434,7 +43456,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L959",
+      "source_location": "L964",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -43445,7 +43467,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L966",
+      "source_location": "L971",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -43456,7 +43478,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L983",
+      "source_location": "L988",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -43467,7 +43489,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L980",
+      "source_location": "L985",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview",
@@ -43478,10 +43500,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L952",
+      "source_location": "L957",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_952",
+      "source": "sphinx_hosting_views_rationale_957",
       "target": "sphinx_hosting_views_globalsphinxpagesearchview",
       "confidence_score": 1.0
     },
@@ -43490,7 +43512,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L959",
+      "source_location": "L964",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview_form_invalid",
@@ -43502,7 +43524,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L966",
+      "source_location": "L971",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview_form_valid",
@@ -43515,7 +43537,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L981",
+      "source_location": "L986",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview_get_content",
@@ -43526,7 +43548,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L983",
+      "source_location": "L988",
       "weight": 1.0,
       "_origin": "ast",
       "source": "sphinx_hosting_views_globalsphinxpagesearchview_get_breadcrumbs",
@@ -43537,10 +43559,10 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "sphinx_hosting/views.py",
-      "source_location": "L984",
+      "source_location": "L989",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "sphinx_hosting_views_rationale_984",
+      "source": "sphinx_hosting_views_rationale_989",
       "target": "sphinx_hosting_views_globalsphinxpagesearchview_get_breadcrumbs",
       "confidence_score": 1.0
     },
@@ -51322,5 +51344,5 @@
       "source_file": "sphinx_hosting/static/sphinx_hosting/images/logo.jpg"
     }
   ],
-  "built_at_commit": "ce4db1af8bb10fea0cd11ad7f4886437c2419a30"
+  "built_at_commit": "30ca14bf58960e9e7b64f27da00ecfb48cafe8c9"
 }

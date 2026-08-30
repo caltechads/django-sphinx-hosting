@@ -10,8 +10,8 @@
     "semantic_hash": "64a2157a15628f40be9cd774ac4667ac"
   },
   "doc/quality/napoleon_gate_baseline.json": {
-    "mtime": 1787177935.3573785,
-    "ast_hash": "e1ceb9d767a493d03454685119093541",
+    "mtime": 1787178813.4631696,
+    "ast_hash": "259530caff3ad57ff5516648ea3b1ecb",
     "semantic_hash": ""
   },
   "doc/source/conf.py": {
@@ -355,7 +355,7 @@
     "semantic_hash": "943f73cb6273a91a6faae848d32f00a7"
   },
   "sphinx_hosting/forms.py": {
-    "mtime": 1787176940.762603,
+    "mtime": 1787193182.7546108,
     "ast_hash": "ea930748e78a478175cb9f82561d584b",
     "semantic_hash": ""
   },
@@ -570,8 +570,8 @@
     "semantic_hash": "bd41cb35fb57fae5d6b047777adadbc4"
   },
   "sphinx_hosting/views.py": {
-    "mtime": 1787178366.9524589,
-    "ast_hash": "3907c6e6acb6673e53daa9d68e545097",
+    "mtime": 1787193190.6606967,
+    "ast_hash": "171899aad011fed9ee7482c224ca6d0f",
     "semantic_hash": ""
   },
   "sphinx_hosting/wildewidgets/__init__.py": {
@@ -865,8 +865,8 @@
     "semantic_hash": ""
   },
   "sandbox/tests/test_version_make_latest.py": {
-    "mtime": 1787178356.5764217,
-    "ast_hash": "c5107c85b54dc1269dd3f380042f0a6e",
+    "mtime": 1787244666.5664234,
+    "ast_hash": "c947da40d45acf3847178f1fdf26a99f",
     "semantic_hash": ""
   },
   "CONTEXT.md": {

@@ -10,8 +10,8 @@
     "semantic_hash": "64a2157a15628f40be9cd774ac4667ac"
   },
   "doc/quality/napoleon_gate_baseline.json": {
-    "mtime": 1787177935.3573785,
-    "ast_hash": "e1ceb9d767a493d03454685119093541",
+    "mtime": 1787246331.6093872,
+    "ast_hash": "259530caff3ad57ff5516648ea3b1ecb",
     "semantic_hash": ""
   },
   "doc/source/conf.py": {
@@ -355,7 +355,7 @@
     "semantic_hash": "943f73cb6273a91a6faae848d32f00a7"
   },
   "sphinx_hosting/forms.py": {
-    "mtime": 1787176940.762603,
+    "mtime": 1787246331.6111708,
     "ast_hash": "ea930748e78a478175cb9f82561d584b",
     "semantic_hash": ""
   },
@@ -570,8 +570,8 @@
     "semantic_hash": "bd41cb35fb57fae5d6b047777adadbc4"
   },
   "sphinx_hosting/views.py": {
-    "mtime": 1787178366.9524589,
-    "ast_hash": "3907c6e6acb6673e53daa9d68e545097",
+    "mtime": 1787246331.6119657,
+    "ast_hash": "3c69188938495eab9e267fcd001191f9",
     "semantic_hash": ""
   },
   "sphinx_hosting/wildewidgets/__init__.py": {
@@ -610,9 +610,9 @@
     "semantic_hash": "68f29c56fd87f56d46f37b4d8a5882fe"
   },
   "sphinx_hosting/wildewidgets/sphinx_page.py": {
-    "mtime": 1769707227.2253697,
-    "ast_hash": "f2c3207f6091e9db7a4bf3e0afc8d4d6",
-    "semantic_hash": "f2c3207f6091e9db7a4bf3e0afc8d4d6"
+    "mtime": 1787958837.1123188,
+    "ast_hash": "462955bb6300e6dff2aead43f7ee7cd4",
+    "semantic_hash": ""
   },
   "sphinx_hosting/wildewidgets/unified_search.py": {
     "mtime": 1774916472.702939,
@@ -690,7 +690,7 @@
     "semantic_hash": "7f838340c980bd39bbd97d3e0f62352c"
   },
   "doc/source/overview/authorization.rst": {
-    "mtime": 1787177339.2017863,
+    "mtime": 1787246331.6098416,
     "ast_hash": "69c571bf9a930e07fe7af5cb6b978b1a",
     "semantic_hash": ""
   },
@@ -865,23 +865,43 @@
     "semantic_hash": ""
   },
   "sandbox/tests/test_version_make_latest.py": {
-    "mtime": 1787178356.5764217,
-    "ast_hash": "c5107c85b54dc1269dd3f380042f0a6e",
+    "mtime": 1787246331.6108935,
+    "ast_hash": "9085bcbfab466e92a4261d576393ab0f",
     "semantic_hash": ""
   },
   "CONTEXT.md": {
-    "mtime": 1787175881.2314882,
-    "ast_hash": "f69aac9019c6071b997323671a913a3f",
+    "mtime": 1787954763.0565095,
+    "ast_hash": "ff0d23ae49c7d2f6e89b8ff90f0a5a5d",
     "semantic_hash": ""
   },
   "docs/adr/0001-make-latest-authorization.md": {
-    "mtime": 1787177334.2177393,
-    "ast_hash": "2dd5bd6ceef0f95f13b08bbaf981a784",
+    "mtime": 1787246331.6104937,
+    "ast_hash": "ef2820770fc27611017b55d88a7bc0c9",
     "semantic_hash": ""
   },
   "docs/plans/2026-08-19-001-fix-make-latest-authorization-plan.md": {
     "mtime": 1787176483.914214,
     "ast_hash": "ac3d28e9f23b6b3e8310680073218b0d",
+    "semantic_hash": ""
+  },
+  "sandbox/tests/test_mermaid_verbatim.py": {
+    "mtime": 1787958827.7829041,
+    "ast_hash": "02537b4d32a7cceab53579ad88d85c7d",
+    "semantic_hash": ""
+  },
+  "sphinx_hosting/mermaid.py": {
+    "mtime": 1787957084.6720426,
+    "ast_hash": "bfe792879c21d9815bb36a244a28bcf7",
+    "semantic_hash": ""
+  },
+  "docs/adr/0002-host-side-mermaid.md": {
+    "mtime": 1787955910.1417844,
+    "ast_hash": "9d5cffc9d3755aa3b357a051c15b9050",
+    "semantic_hash": ""
+  },
+  "docs/plans/2026-08-28-001-host-side-mermaid-plan.md": {
+    "mtime": 1787956202.076757,
+    "ast_hash": "028298b2809b9be361e8cb6cdcb10ea7",
     "semantic_hash": ""
   }
 }

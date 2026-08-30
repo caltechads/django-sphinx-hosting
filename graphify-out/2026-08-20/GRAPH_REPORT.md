@@ -1,16 +1,16 @@
-# Graph Report - django-sphinx-hosting  (2026-08-19)
+# Graph Report - django-sphinx-hosting  (2026-08-20)
 
 ## Corpus Check
-- 141 files · ~74,883 words
+- 141 files · ~74,888 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1495 nodes · 2991 edges · 174 communities (119 shown, 55 thin omitted)
+- 1496 nodes · 2992 edges · 170 communities (114 shown, 56 thin omitted)
 - Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 650 edges (avg confidence: 0.56)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ce4db1af`
+- Built from commit: `30ca14bf`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -22,13 +22,13 @@
 - test_project_detail_extensibility.py
 - sphinx_hosting/views.py
 - test_navigation_extensibility.py
-- sphinx_page.py
-- wildewidgets/search.py
+- .__init__
+- .__init__
 - SearchNote
 - Version
-- ProjectCreateView
+- ProjectUpdateForm
 - AGENTS.md
-- TreePrinter
+- ClassifierNode
 - APIUser
 - Product Contract
 - .get_content
@@ -40,12 +40,12 @@
 - demo/settings.py
 - SphinxHostingMainMenu
 - ClassifierFilterBlock
-- SearchNoteListView
-- importers.py
+- VersionDetailView
+- NoHTMLValidator
 - test_search_note_integration.py
-- get_search_result_renderers
-- Project
 - sphinx_hosting/models.py
+- Project
+- sphinx_hosting.py
 - ProjectTable
 - test_host_project_can_extend_navigation_without_losing_defaults
 - .get_content
@@ -55,19 +55,19 @@
 - render_search_note_result
 - VersionUploadForm
 - SphinxPage
-- ClassifierFilterForm
+- Command
 - SPHINX_HOSTING_SETTINGS
 - navigation.py
 - django-sphinx-hosting
 - Global Table of Contents
 - seed_search_notes.py
-- SearchNoteCreateView
+- core/views.py
 - .__init__
 - TreeNode
 - django-sphinx-hosting REST API
 - Make Latest is authorized by change_project or change_version, scoped to the URL Project
 - extend_project_detail_layout
-- .__init__
+- wildewidgets/search.py
 - SphinxHostingSidebar
 - 0003_load_search_notes_fixture.py
 - Sphinx Hosting
@@ -83,7 +83,7 @@
 - .__call__
 - wait-for-it.sh
 - 16x16 Favicon
-- search_result_renderers.py
+- FakeSearchQuerySet
 - 0015_migrate_to_latest_version_field.py
 - sphinx_rtd_theme Required Theme
 - Android Chrome 512x512 App Icon
@@ -106,7 +106,7 @@
 - CoreConfig
 - Migration
 - Migration
-- SearchNoteIndex
+- Widget
 - UsersConfig
 - Read the Docs Sphinx Build
 - Napoleon Documentation Contract
@@ -153,16 +153,12 @@
 - import_docs Management Command
 - caltechads/django-sphinx-hosting
 - Django
-- version.py
 - playwright
-- SearchNoteDetailView
+- SearchNoteFormWidget
 - build_search_result_widget
 - .__init__
 - .save
-- .import_pages
 - VersionMakeLatestForm
-- sphinxdocument_url
-- Widget
 - .get_form_kwargs
 
 ## God Nodes (most connected - your core abstractions)
@@ -206,15 +202,15 @@
 - **Demo Site Brand Mark** — sandbox_demo_core_static_core_images_favicon_32x32_favicon, sandbox_demo_core_static_core_images_favicon_32x32_circular_badge, sandbox_demo_core_static_core_images_favicon_32x32_s_monogram [EXTRACTED 1.00]
 - **Sphinx Hosting Brand Lockup** — sphinx_hosting_static_sphinx_hosting_images_logo_sphinx_icon, sphinx_hosting_static_sphinx_hosting_images_logo_wordmark, sphinx_hosting_static_sphinx_hosting_images_logo_sphinx_hosting_logo [EXTRACTED 1.00]
 
-## Communities (174 total, 55 thin omitted)
+## Communities (170 total, 56 thin omitted)
 
 ### Community 0 - "SphinxPackageImporter"
-Cohesion: 0.11
-Nodes (49): action, Response, AddVersionPermission, ChangeProjectPermission, APIView, Request, Check to see if the user can add versions. Note: This is really only useful on…, Check to see if the user can change projects. Note: This is only for use in on… (+41 more)
+Cohesion: 0.06
+Nodes (71): action, BufferedReader, Exception, IO, Response, AddVersionPermission, ChangeProjectPermission, APIView (+63 more)
 
 ### Community 1 - ".__init__"
-Cohesion: 0.08
-Nodes (20): Generate the set of widgets for this page. Returns: A populated page layout, CardWidget, WidgetListLayoutHeader, A :py:class:`wildewidgets.CardWidget` that gives our…, Gives a :py:class:`wildewidget.Datagrid` type overview of information about…, One of our ``kwargs`` must be ``version_id``, the ``pk`` of the…, Displays a `dataTable <https://datatables.net>`_ of our…, One of our ``kwargs`` must be ``version_id``, the ``pk`` of the… (+12 more)
+Cohesion: 0.05
+Nodes (31): Generate the set of widgets for this page. Returns: A populated page layout, BasicModelTable, CardWidget, QuerySet, WidgetListLayoutHeader, A :py:class:`wildewidgets.CardWidget` that gives our…, Displays a `dataTable <https://datatables.net>`_ of our…, Gives a :py:class:`wildewidget.Datagrid` type overview of information about… (+23 more)
 
 ### Community 2 - "check_napoleon_gate.py"
 Cohesion: 0.07
@@ -225,44 +221,44 @@ Cohesion: 0.06
 Nodes (42): django-haystack, django-theme-academy, django-wildewidgets, Django REST Framework, drf-spectacular, elasticsearch, mysqlclient, sphinxcontrib-openapi (+34 more)
 
 ### Community 4 - "test_project_detail_extensibility.py"
-Cohesion: 0.10
+Cohesion: 0.09
 Nodes (31): build_project_detail_layout(), build_project_update_layout(), clear_builder_state(), DummyUser, django_db, fixture, override_settings, WidgetListLayout (+23 more)
 
 ### Community 5 - "sphinx_hosting/views.py"
-Cohesion: 0.12
-Nodes (29): BaseProjectDetailView, MessageMixin, NavbarMixin, SearchView, ProjectReadonlyUpdateForm, ProjectUpdateForm, The form we use to on the :py:class:`sphinx_hosting.views.ProjectDetailView` to…, The form we use to update an existing… (+21 more)
+Cohesion: 0.15
+Nodes (24): BaseProjectDetailView, MessageMixin, NavbarMixin, SearchView, ProjectCreateForm, ProjectReadonlyUpdateForm, The form we use to on the :py:class:`sphinx_hosting.views.ProjectDetailView` to…, The form we use to create a new :py:class:`sphinx_hosting.models.Project`. The… (+16 more)
 
 ### Community 6 - "test_navigation_extensibility.py"
 Cohesion: 0.08
 Nodes (32): Navbar, _build_menu(), builder_admin(), _capture_built_items(), DummyRequest, DummyUser, NotANavbar, MenuItem (+24 more)
 
-### Community 7 - "sphinx_page.py"
+### Community 7 - ".__init__"
 Cohesion: 0.13
-Nodes (16): Row, Block, CardWidget, Return the Javascript that will be executed when the "Permalink" button is…, The body of the page. The body as stored in the model is actually a Django…, Draws the in-page navigation -- the header hierarchy. Args: page: the…, The title block for a :py:class:`sphinx_hosting.models.SphinxPage` page. Args:…, Draws the "Previous Page", Parent Page and Next Page buttons that are found at… (+8 more)
+Nodes (15): Block, CardWidget, Return the Javascript that will be executed when the "Permalink" button is…, The body of the page. The body as stored in the model is actually a Django…, Draws the in-page navigation -- the header hierarchy. Args: page: the…, The title block for a :py:class:`sphinx_hosting.models.SphinxPage` page. Args:…, Draws the "Previous Page", Parent Page and Next Page buttons that are found at…, The page layout for a single :py:class:`sphinx_hosting.models.SphinxPage`. It… (+7 more)
 
-### Community 8 - "wildewidgets/search.py"
-Cohesion: 0.15
-Nodes (20): FacetBlock, Header, PagedSearchLayout, PagedSearchResultsBlock, Block, HorizontalLayoutBlock, PagedModelWidget, SearchQuerySet (+12 more)
+### Community 8 - ".__init__"
+Cohesion: 0.18
+Nodes (14): Header, PagedSearchLayout, PagedSearchResultsBlock, Block, HorizontalLayoutBlock, PagedModelWidget, SearchQuerySet, SearchResult (+6 more)
 
 ### Community 9 - "SearchNote"
-Cohesion: 0.11
-Nodes (15): Meta, Form used to create and update demo ``SearchNote`` records. Keyword Args:…, Configure crispy layout and sorted relation choices for the form. Args: *args:…, SearchNoteForm, Meta, TimeStampedModel, Demo-only searchable content used to exercise unified global search.…, Return the visible label for this note. Returns: The note title. (+7 more)
+Cohesion: 0.10
+Nodes (15): Meta, TimeStampedModel, Demo-only searchable content used to exercise unified global search.…, Return the visible label for this note. Returns: The note title., Return the detail page for this note. Returns: The URL for the note detail view., Return the update page for this note. Returns: The URL for the note update view., Return the delete-confirmation page for this note. Returns: The URL for the…, Return the associated project detail page. Returns: The URL for the linked… (+7 more)
 
 ### Community 10 - "Version"
 Cohesion: 0.11
-Nodes (21): Meta, ProjectCreateForm, ProjectRelatedLinkBaseForm, ProjectRelatedLinkCreateForm, The base form for creating and updating a…, The form we use to create a new…, The form we use to create a new :py:class:`sphinx_hosting.models.Project`. The…, A ``Version`` is a specific version of a :py:class:`Project`. Versions own… (+13 more)
+Nodes (17): SearchForm, GlobalSearchForm, The search form at the top of the sidebar, underneath the logo. It is a…, A ``Version`` is a specific version of a :py:class:`Project`. Versions own…, Version, Model, QuerySet, Search index for SphinxPage model. (+9 more)
 
-### Community 11 - "ProjectCreateView"
-Cohesion: 0.11
-Nodes (16): BaseCreateView, BaseUpdateView, FormValidMessageMixin, PermissionRequiredMixin, ProjectCreateView, ProjectDeleteView, ProjectRelatedLinkCreateView, ProjectRelatedLinkDeleteView (+8 more)
+### Community 11 - "ProjectUpdateForm"
+Cohesion: 0.12
+Nodes (18): BaseCreateView, BaseUpdateView, FormInvalidMessageMixin, FormValidMessageMixin, PermissionRequiredMixin, ProjectUpdateForm, The form we use to update an existing…, ProjectCreateView (+10 more)
 
 ### Community 12 - "AGENTS.md"
 Cohesion: 0.17
 Nodes (11): AGENTS.md, Architecture (Required), AWS Interaction, Documentation Contract (Required), graphify, Implementation Priority (Required), Post-Implementation Quality Gate (Required), Project Structure (Mandatory) (+3 more)
 
-### Community 13 - "TreePrinter"
-Cohesion: 0.25
-Nodes (6): Command, BaseCommand, Tree, **Usage**: ``./manage.py print_classifier_tree`` Print the…, Parse the tree of :py:class:`sphinx_hosting.models.ClassifierNode` objects we…, TreePrinter
+### Community 13 - "ClassifierNode"
+Cohesion: 0.11
+Nodes (17): Command, BaseCommand, Tree, **Usage**: ``./manage.py print_classifier_tree`` Print the…, Parse the tree of :py:class:`sphinx_hosting.models.ClassifierNode` objects we…, TreePrinter, ClassifierManager, ClassifierNode (+9 more)
 
 ### Community 14 - "APIUser"
 Cohesion: 0.10
@@ -308,29 +304,29 @@ Nodes (11): AbstractUser, Menu, MenuItem, The primary menu that appears in :py:c
 Cohesion: 0.25
 Nodes (8): ClassifierFilterBlock, CardWidget, A :py:class:`wildewidgets.CardWidget` that contains the…, ProjectRelatedLinkListItemWidget, ProjectRelatedLinkUpdateModalWidget, HorizontalLayoutBlock, Used by :py:class:`ProjectRelatedLinksWidget` to render a single…, A modal dialog that holds the…
 
-### Community 25 - "SearchNoteListView"
-Cohesion: 0.22
-Nodes (8): ListView, Render the demo landing page for browsing ``SearchNote`` records., Return notes with related objects eager loaded for the list page. Returns:…, Build the widget layout for the SearchNote list page. Returns: Populated widget…, SearchNoteListView, Render the main content block for the SearchNote list page. Args: notes:…, SearchNoteListWidget, StaticTableWidget
+### Community 25 - "VersionDetailView"
+Cohesion: 0.25
+Nodes (7): QuerySet, Handles displaying the details page for a…, If ``version`` is ``latest``, return the latest version of the…, Pre-filter our default queryset so that we only are able to get…, Pre-filter our default queryset so that we only are able to get…, Pre-filter our default queryset so that we only are able to get…, VersionDetailView
 
-### Community 26 - "importers.py"
-Cohesion: 0.12
-Nodes (13): BufferedReader, Exception, IO, VersionAlreadyExists, PageTreeNode, Look through the member names in our tarfile ``package`` for ``filename``, and…, Load the ``globalcontext.json`` file for later reference. Args: package: the…, Look in ``package`` for a member named ``globalcontext.json``, and load that… (+5 more)
+### Community 26 - "NoHTMLValidator"
+Cohesion: 0.29
+Nodes (4): deconstructible, NoHTMLValidator, Raises a ValidationError if the given value contains any HTML., Add a unique hash for the validator.
 
 ### Community 27 - "test_search_note_integration.py"
 Cohesion: 0.46
 Nodes (7): _make_note_fixture(), _make_user(), needs_demo, test_search_note_crud_flow(), test_search_note_list_and_detail_pages_render(), test_search_notes_fixture_is_loaded_by_migration(), test_seed_search_notes_command_creates_ten_notes()
 
-### Community 28 - "get_search_result_renderers"
+### Community 28 - "sphinx_hosting/models.py"
 Cohesion: 0.17
-Nodes (19): override_settings, test_search_result_models_return_registered_host_models(), test_search_result_renderers_default_to_empty(), test_search_result_renderers_reject_unknown_model_labels(), test_search_result_renderers_require_callable_targets(), test_search_result_renderers_require_registered_search_indexes(), test_search_result_renderers_requires_dict(), test_search_result_renderers_requires_string_dotted_paths() (+11 more)
+Nodes (9): Migration, get_search_result_models(), Model, Protocol, Return host-model classes included in unified global search. Returns: A tuple…, Protocol for a unified-search result renderer callable. Each renderer converts…, Resolve configured model labels and renderer paths. Args: entries: Tuples of…, _resolve_search_result_renderers() (+1 more)
 
 ### Community 29 - "Project"
 Cohesion: 0.16
 Nodes (15): VersionUploadForm, Project, ProjectRelatedLink, Version, ProjectRelatedLinksWidget, VersionUploadBlock, API Read vs Write Access, Administrators (+7 more)
 
-### Community 30 - "sphinx_hosting/models.py"
-Cohesion: 0.08
-Nodes (24): deconstructible, MachineNameField, A :py:class:`django.forms.SlugField` that also allows "." characters. "." is…, MachineNameField, A form field for our :py:class:`sphinx_hosting.fields.MachineNameField` that…, Migration, Migration, Migration (+16 more)
+### Community 30 - "sphinx_hosting.py"
+Cohesion: 0.12
+Nodes (10): simple_tag, MachineNameField, A form field for our :py:class:`sphinx_hosting.fields.MachineNameField` that…, Migration, Migration, Migration, Return the URL to the :py:class:`sphinx_hosting.models.SphinxImage` identified…, Return the URL to the :py:class:`sphinx_hosting.models.SphinxDocument`… (+2 more)
 
 ### Community 31 - "ProjectTable"
 Cohesion: 0.14
@@ -349,8 +345,8 @@ Cohesion: 0.67
 Nodes (3): needs_demo, test_host_project_can_extend_project_detail_layout_without_losing_defaults(), test_host_project_can_extend_project_update_layout_without_losing_defaults()
 
 ### Community 35 - "HttpResponse"
-Cohesion: 0.11
-Nodes (13): ModelForm, Form, HttpRequest, HttpResponse, ModelSearchForm, QuerySet, If the form is invalid, we want to display the errors to the user and redirect…, If ``version`` is ``latest``, return the latest version of the… (+5 more)
+Cohesion: 0.18
+Nodes (8): ModelForm, Form, HttpRequest, HttpResponse, ModelSearchForm, If the form is invalid, we want to display the errors to the user and redirect…, Persist the Make Latest change. Side Effects: Writes ``Project.latest_version``…, Flash form errors and redirect to the project update page. Args: form: The form…
 
 ### Community 36 - "ProjectVersionsTableWidget"
 Cohesion: 0.16
@@ -365,12 +361,12 @@ Cohesion: 0.24
 Nodes (8): BaseProjectUpdateView, The form on :py:class:`sphinx_hosting.views.ProjectDetailView` that allows the…, VersionUploadForm, ProjectUpdateView, Project update view with host-project layout customization hooks. This subclass…, ProjectUpdateView, UpdateView, Handles displaying the details page for a…
 
 ### Community 39 - "SphinxPage"
-Cohesion: 0.17
-Nodes (8): A ``SphinxPage`` is a single page of a set of Sphinx documentation.…, Return the permalink for this page. This is the URL for the page with the…, SphinxPage, Prepare the classifiers for the SphinxPage. Args: obj: The SphinxPage object…, QuerySet, Filter our :py:class:`sphinx_hosting.models.SphinxPage` objects by…, Filter our :py:class:`sphinx_hosting.models.SphinxPage` objects by…, Filter our :py:class:`sphinx_hosting.models.SphinxPage` objects by…
+Cohesion: 0.14
+Nodes (13): MachineNameField, A :py:class:`django.forms.SlugField` that also allows "." characters. "." is…, Classifier, Meta, ProjectPermissionGroup, TimeStampedModel, A :py:class:`Project` can be tagged with one or more :py:class:`Classifier`…, A :py:class:`Project` can be assigned to one or more… (+5 more)
 
-### Community 40 - "ClassifierFilterForm"
-Cohesion: 0.29
-Nodes (7): ClassifierFilterForm, Block, HorizontalLayoutBlock, Add a subtree of classifier checkboxes. Args: contents: the ``<ul>`` block to…, Build and return the :py:class:`wildewidgets.CheckboxInputBlock` for the…, The tree-like classifier filter form that appears to the right of the…, UnorderedList
+### Community 40 - "Command"
+Cohesion: 0.33
+Nodes (4): Command, ArgumentParser, BaseCommand, **Usage**: ``./manage.py print_doctree <project_machine_name> <version…
 
 ### Community 41 - "SPHINX_HOSTING_SETTINGS"
 Cohesion: 0.24
@@ -392,17 +388,17 @@ Nodes (10): SphinxGlobalTOCHTMLProcessor, SphinxPage, SphinxPageGlobalTableOfCon
 Cohesion: 0.20
 Nodes (7): Command, Any, BaseCommand, Create or update the demo ``SearchNote`` records used by the sandbox app., Upsert the curated demo ``SearchNote`` records and related metadata. Args:…, Immutable seed definition for one demo ``SearchNote`` record. Args: title:…, SearchNoteSeed
 
-### Community 46 - "SearchNoteCreateView"
-Cohesion: 0.11
-Nodes (18): CreateView, DeleteView, HttpRequest, HttpResponse, LoginRequiredMixin, UpdateView, Widget, Create a new demo ``SearchNote`` record. (+10 more)
+### Community 46 - "core/views.py"
+Cohesion: 0.10
+Nodes (29): ListView, Meta, Form used to create and update demo ``SearchNote`` records. Keyword Args:…, Configure crispy layout and sorted relation choices for the form. Args: *args:…, SearchNoteForm, CreateView, DeleteView, DetailView (+21 more)
 
 ### Community 47 - ".__init__"
 Cohesion: 0.22
 Nodes (6): ProjectVersionTable, BasicModelTable, Displays a `dataTable <https://datatables.net>`_ of our…, One of our ``kwargs`` must be ``project_id``, the ``pk`` of the…, Render our ``num_pages`` column. This is the number of…, Render our ``num_images`` column. This is the number of…
 
 ### Community 48 - "TreeNode"
-Cohesion: 0.18
-Nodes (9): Command, ArgumentParser, BaseCommand, Tree, Parse the tree of :py:class:`sphinx_hosting.models.TreeNode` objects we get…, **Usage**: ``./manage.py print_doctree <project_machine_name> <version…, TreePrinter, A :py:class:`dataclass` that we use with :py:class:`SphinxPageTree` to build… (+1 more)
+Cohesion: 0.33
+Nodes (5): Tree, Parse the tree of :py:class:`sphinx_hosting.models.TreeNode` objects we get…, TreePrinter, A :py:class:`dataclass` that we use with :py:class:`SphinxPageTree` to build…, TreeNode
 
 ### Community 49 - "django-sphinx-hosting REST API"
 Cohesion: 0.22
@@ -416,9 +412,9 @@ Nodes (4): Consequences, Considered Options, Make Latest is authorized by change
 Cohesion: 0.25
 Nodes (9): ProjectDetailView, build_search_notes_menu_item(), extend_project_detail_layout(), AbstractUser, CardWidget, HttpRequest, WidgetListLayout, Return a demo note-browser link for conditional menu-builder integration.… (+1 more)
 
-### Community 52 - ".__init__"
-Cohesion: 0.17
-Nodes (12): GlobalSphinxPageSearchView, HttpRequest, PagedModelWidget, SearchQuerySet, SearchResult, Widget, Initialize the paged unified-search results block. Args: results: The Haystack…, Create widgets for the current page of search results. Args: instances: The… (+4 more)
+### Community 52 - "wildewidgets/search.py"
+Cohesion: 0.11
+Nodes (26): Row, FacetBlock, Base class for blocks that appear to the right of the search results listing on…, A :py:class:`FacetBlock` that allows the user to filter search results by…, A :py:class:`FacetBlock` that allows the user to filter search results by…, The header for the entire search results page. This shows the search string…, SearchResultsClassifiersFacet, SearchResultsPageHeader (+18 more)
 
 ### Community 53 - "SphinxHostingSidebar"
 Cohesion: 0.25
@@ -429,16 +425,16 @@ Cohesion: 0.29
 Nodes (7): load_fixture(), Migration, noop_reverse(), Any, Load the demo ``SearchNote`` fixture after the schema is in place. Args: apps:…, Leave demo fixture rows untouched when reversing this migration. Args: apps:…, Load the demo ``SearchNote`` fixture after the schema alignment migration.
 
 ### Community 56 - "GlobalSphinxPageSearchView"
-Cohesion: 0.20
-Nodes (9): BaseGlobalSphinxPageSearchView, GlobalSphinxPageSearchView, HttpResponse, ModelSearchForm, Widget, Build the unified-search page layout. Returns: The populated unified-search…, Unified global search view that blends built-in and host-model hits. This…, Render the search page when the submitted form is invalid. Args: _: The invalid… (+1 more)
+Cohesion: 0.14
+Nodes (13): BaseGlobalSphinxPageSearchView, _apply_global_search_facets(), GlobalSphinxPageSearchView, HttpRequest, HttpResponse, ModelSearchForm, SearchQuerySet, Widget (+5 more)
 
 ### Community 57 - "test_unified_search_extensibility.py"
-Cohesion: 0.11
-Nodes (24): _build_view(), clear_search_renderer_state(), _create_search_note(), _create_search_page(), DummyForm, DummyUser, FakeSearchQuerySet, _make_result() (+16 more)
+Cohesion: 0.13
+Nodes (28): _build_view(), clear_search_renderer_state(), _create_search_note(), _create_search_page(), DummyForm, DummyUser, _make_result(), Any (+20 more)
 
 ### Community 58 - "GlobalSearchFormWidget"
-Cohesion: 0.25
-Nodes (7): CustomNavbar, The vertical menu area on the left of the page. It houses our search form,…, SphinxHostingSidebar, GlobalSearchFormWidget, CrispyFormWidget, Encapsulates the :py:class:`sphinx_hosting.forms.GlobalSearchForm`., TablerVerticalNavbar
+Cohesion: 0.20
+Nodes (9): MainMenu, Demo override class for ``SPHINX_HOSTING_SETTINGS['NAVBAR_CLASS']`` tests., CustomNavbar, The vertical menu area on the left of the page. It houses our search form,…, SphinxHostingSidebar, GlobalSearchFormWidget, CrispyFormWidget, Encapsulates the :py:class:`sphinx_hosting.forms.GlobalSearchForm`. (+1 more)
 
 ### Community 59 - "SEARCH_RESULT_RENDERERS"
 Cohesion: 0.29
@@ -449,11 +445,11 @@ Cohesion: 0.38
 Nodes (7): MenuItemSpec, _normalize_builder_result(), _normalize_menu_item(), _normalize_menu_items(), Normalize one menu item spec into a :py:class:`wildewidgets.MenuItem`. Args:…, Normalize a collection of menu item specs. Args: items: The menu item specs to…, Normalize a builder return value into menu items. Args: result: The raw builder…
 
 ### Community 61 - "Project"
-Cohesion: 0.12
-Nodes (5): SearchForm, GlobalSearchForm, The search form at the top of the sidebar, underneath the logo. It is a…, Project, A Project is what a set of Sphinx docs describes: an application, a library,…
+Cohesion: 0.13
+Nodes (7): Meta, ProjectRelatedLinkBaseForm, ProjectRelatedLinkCreateForm, The base form for creating and updating a…, The form we use to create a new…, Project, A Project is what a set of Sphinx docs describes: an application, a library,…
 
 ### Community 62 - "Command"
-Cohesion: 0.40
+Cohesion: 0.33
 Nodes (4): Command, BaseCommand, **Usage**: ``./manage.py fix_broken_hrefs`` This is a one-shot command to fix…, Given an HTML body of a Sphinx page, update the ``<a href="path">`` references…
 
 ### Community 63 - "SphinxPageTreeProcessor"
@@ -475,10 +471,6 @@ Nodes (5): echoerr(), wait-for-it.sh script, usage(), wait_for(), wait_for_wrapp
 ### Community 67 - "16x16 Favicon"
 Cohesion: 0.40
 Nodes (6): Blue Circular Badge, Browser Tab Icon, 16x16 Favicon, High-Contrast Lettermark, Sphinx Documentation Brand, Sphinx S Lettermark
-
-### Community 68 - "search_result_renderers.py"
-Cohesion: 0.36
-Nodes (5): A :py:class:`FacetBlock` that allows the user to filter search results by…, SearchResultsProjectFacet, Block, The page layout for unified global search results. Args: results: The Haystack…, UnifiedPagedSearchLayout
 
 ### Community 69 - "0015_migrate_to_latest_version_field.py"
 Cohesion: 0.33
@@ -505,8 +497,8 @@ Cohesion: 0.21
 Nodes (5): Return a list of the pages represented in this tree., Build a :py:class:`TreeNode` from ``page``. Note: This does not populate…, Return the page hierarchy for the set of :py:class:`SphinxPage` pages in this…, A class that holds the page hierarchy for the set of :py:class:`SphinxPage`…, SphinxPageTree
 
 ### Community 75 - "VersionMakeLatestView"
-Cohesion: 0.20
-Nodes (7): BaseFormView, FormInvalidMessageMixin, MultiplePermissionsRequiredMixin, Success message after Latest Version is retargeted. Returns: The user-facing…, Return the project update URL for this slug. Returns: The redirect target after…, VersionMakeLatestView, VersionUploadView
+Cohesion: 0.15
+Nodes (8): BaseFormView, MultiplePermissionsRequiredMixin, Any, A POST only view that retargets Latest Version for a…, Supply the URL project slug to :py:class:`VersionMakeLatestForm`. Returns: Form…, Success message after Latest Version is retargeted. Returns: The user-facing…, Return the project update URL for this slug. Returns: The redirect target after…, VersionMakeLatestView
 
 ### Community 76 - "SphinxHostingAppConfig"
 Cohesion: 0.40
@@ -540,17 +532,13 @@ Nodes (3): sandbox/demo Django Project, Testing Contract, sandbox Demo Applicati
 Cohesion: 0.67
 Nodes (3): California Institute of Technology, Caltech IMSS Academic Development Services, MIT License
 
-### Community 91 - "SearchNoteIndex"
-Cohesion: 0.20
-Nodes (6): Return the indexed Django model. Returns: The ``SearchNote`` model class., Build the unified-search document for one note. Args: obj: The note being…, Prepare classifier facet values for one note. Args: obj: The note being…, Return the queryset used for bulk indexing. Keyword Args: using: The Haystack…, Haystack index for demo ``SearchNote`` objects., SearchNoteIndex
+### Community 91 - "Widget"
+Cohesion: 0.29
+Nodes (4): CrispyFormModalWidget, Widget, ProjectCreateModalWidget, A modal dialog that holds the…
 
-### Community 146 - "version.py"
-Cohesion: 0.20
-Nodes (7): BasicModelTable, Displays a `dataTable <https://datatables.net>`_ of our…, Displays a `dataTable <https://datatables.net>`_ of our…, Render our ``size`` column. This is the size in bytes of the…, Render our ``file_path`` column. This is the path to the file in…, VersionSphinxDocumentTable, VersionSphinxPageTable
-
-### Community 164 - "SearchNoteDetailView"
-Cohesion: 0.25
-Nodes (7): DetailView, Return notes with related project and classifier data loaded. Returns: Queryset…, Build the widget layout for one SearchNote detail page. Returns: Populated…, Render one demo ``SearchNote`` record with its related metadata., SearchNoteDetailView, Render the main content block for one SearchNote detail page. Args: note: Note…, SearchNoteDetailWidget
+### Community 164 - "SearchNoteFormWidget"
+Cohesion: 0.17
+Nodes (8): Widget, Return notes with related project and classifier data loaded. Returns: Queryset…, Build the widget layout for one SearchNote detail page. Returns: Populated…, Build the widget layout for the SearchNote create page. Returns: Populated…, Build the widget layout for the SearchNote update page. Returns: Populated…, Build the widget layout for the SearchNote list page. Returns: Populated widget…, Render the main content block for SearchNote create and update pages. Args:…, SearchNoteFormWidget
 
 ### Community 165 - "build_search_result_widget"
 Cohesion: 0.33
@@ -564,21 +552,9 @@ Nodes (5): Any, Form, QuerySet, Store the note displayed by the widget. Args: no
 Cohesion: 0.25
 Nodes (4): Overrides :py:meth:`django.db.models.Model.save`. Override save to create any…, Set the :py:attr:`SphinxPage.searchable` flag on the searchable pages in this…, Purge the cached output from our :py:meth:`globaltoc` property., Overriding :py:meth:`django.db.models.Model.save` here so that we can purge our…
 
-### Community 169 - ".import_pages"
-Cohesion: 0.28
-Nodes (5): Any, Ensure that there is a ``title`` key in ``data``, the JSON data from our .fjson…, Update our page's local table of contents (``data['toc']`) to have the CSS…, Update :py:attr:`page_tree`, our page linkage tree, with ``page``, which we…, Import a all pages from ``package`` into the database as…
-
 ### Community 170 - "VersionMakeLatestForm"
 Cohesion: 0.33
 Nodes (4): The form we use to force a version to be the latest version of a project.…, Ensure that the version exists and belongs to the URL project. Returns: The…, Make the version the latest version., VersionMakeLatestForm
-
-### Community 171 - "sphinxdocument_url"
-Cohesion: 0.40
-Nodes (5): simple_tag, Return the URL to the :py:class:`sphinx_hosting.models.SphinxImage` identified…, Return the URL to the :py:class:`sphinx_hosting.models.SphinxDocument`…, sphinxdocument_url(), sphinximage_url()
-
-### Community 172 - "Widget"
-Cohesion: 0.29
-Nodes (4): CrispyFormModalWidget, Widget, ProjectCreateModalWidget, A modal dialog that holds the…
 
 ### Community 173 - ".get_form_kwargs"
 Cohesion: 0.50
@@ -591,18 +567,18 @@ Nodes (3): Any, Inject the current form action URL into the model form. Returns:
 ## Knowledge Gaps
 - **153 isolated node(s):** `release.sh script`, `django-sphinx-hosting`, `collectstatic.sh script`, `entrypoint.sh script`, `restart_gunicorn.sh script` (+148 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **55 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **56 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **What is the exact relationship between `White Serif Capital S` and `Sphinx Brand Mark`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `Project` connect `Project` to `SphinxPackageImporter`, `test_project_detail_extensibility.py`, `sphinx_hosting/views.py`, `wildewidgets/search.py`, `SearchNote`, `Version`, `ProjectCreateView`, `.get_content`, `test_unified_search_integration.py`, `ProjectRelatedLink`, `test_version_make_latest.py`, `importers.py`, `test_search_note_integration.py`, `sphinx_hosting/models.py`, `ProjectTable`, `.get_content`, `test_project_detail_customization_integration.py`, `ProjectVersionsTableWidget`, `VersionUploadForm`, `VersionMakeLatestForm`, `seed_search_notes.py`, `extend_project_detail_layout`, `test_unified_search_extensibility.py`, `VersionMakeLatestView`?**
-  _High betweenness centrality (0.089) - this node is a cross-community bridge._
-- **Why does `Version` connect `Version` to `SphinxPackageImporter`, `.__init__`, `sphinx_hosting/views.py`, `test_navigation_extensibility.py`, `sphinx_page.py`, `ProjectCreateView`, `test_unified_search_integration.py`, `SphinxGlobalTOCHTMLProcessor`, `ProjectRelatedLink`, `version.py`, `test_version_make_latest.py`, `importers.py`, `sphinx_hosting/models.py`, `ProjectTable`, `HttpResponse`, `VersionUploadForm`, `.save`, `.import_pages`, `VersionMakeLatestForm`, `.__init__`, `TreeNode`, `test_unified_search_extensibility.py`, `Project`, `SphinxPageTree`, `VersionMakeLatestView`?**
+- **Why does `Version` connect `Version` to `SphinxPackageImporter`, `.__init__`, `sphinx_hosting/views.py`, `test_navigation_extensibility.py`, `ProjectUpdateForm`, `test_unified_search_integration.py`, `SphinxGlobalTOCHTMLProcessor`, `ProjectRelatedLink`, `test_version_make_latest.py`, `VersionDetailView`, `NoHTMLValidator`, `sphinx_hosting/models.py`, `ProjectTable`, `VersionUploadForm`, `SphinxPage`, `.save`, `VersionMakeLatestForm`, `.__init__`, `TreeNode`, `test_unified_search_extensibility.py`, `Project`, `SphinxPageTree`, `VersionMakeLatestView`?**
+  _High betweenness centrality (0.095) - this node is a cross-community bridge._
+- **Why does `Project` connect `Project` to `SphinxPackageImporter`, `test_project_detail_extensibility.py`, `sphinx_hosting/views.py`, `Version`, `ProjectUpdateForm`, `.get_content`, `test_unified_search_integration.py`, `ProjectRelatedLink`, `test_version_make_latest.py`, `VersionDetailView`, `NoHTMLValidator`, `test_search_note_integration.py`, `sphinx_hosting/models.py`, `ProjectTable`, `.get_content`, `test_project_detail_customization_integration.py`, `ProjectVersionsTableWidget`, `VersionUploadForm`, `SphinxPage`, `VersionMakeLatestForm`, `seed_search_notes.py`, `core/views.py`, `extend_project_detail_layout`, `wildewidgets/search.py`, `test_unified_search_extensibility.py`, `VersionMakeLatestView`?**
   _High betweenness centrality (0.088) - this node is a cross-community bridge._
-- **Why does `SphinxPackageImporter` connect `SphinxPackageImporter` to `HttpResponse`, `sphinx_hosting/views.py`, `VersionUploadForm`, `SphinxPage`, `.import_pages`, `Version`, `ProjectCreateView`, `VersionMakeLatestView`, `ProjectRelatedLink`, `importers.py`, `Project`, `sphinx_hosting/models.py`?**
+- **Why does `SphinxPackageImporter` connect `SphinxPackageImporter` to `HttpResponse`, `sphinx_hosting/views.py`, `VersionUploadForm`, `SphinxPage`, `Version`, `ProjectUpdateForm`, `VersionMakeLatestView`, `ProjectRelatedLink`, `VersionDetailView`, `Project`?**
   _High betweenness centrality (0.055) - this node is a cross-community bridge._
 - **Are the 36 inferred relationships involving `Project` (e.g. with `GlobalSearchForm` and `Meta`) actually correct?**
   _`Project` has 36 INFERRED edges - model-reasoned connections that need verification._
